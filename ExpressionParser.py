@@ -1,8 +1,8 @@
 
 class ExpressionParser(object):
     m_expression = ''
-    m_options #Options Class
-    m_en_culture #CultureInfo Class
+    m_options = None #Options Class
+    m_en_culture = None #CultureInfo Class
 
     """
     Initializes a new instance of the <see cref="ExpressionParser"/> class
@@ -13,7 +13,6 @@ class ExpressionParser(object):
         self.m_expression = expression
         self.m_options = options
         self.m_en_culture = CultureInfo("en-US") #Default to English
-    }
 
     """
     Parses the cron expression string
@@ -23,11 +22,11 @@ class ExpressionParser(object):
         # Initialize all elements of parsed array to empty strings
         parsed = ['', '', '', '', '', '']
 
-        if m_expression not in parsed:
+        if self.m_expression not in parsed:
             #raise MissingFieldException("ExpressionDescriptor", "expression") #FIXME
             raise Exception("ExpressionDescriptor")
         else:
-            expressionPartsTemp = m_expression.split(' ')
+            expressionPartsTemp = self.m_expression.split(' ')
             expressionPartsTempLength = len(expressionPartsTemp)
             if expressionPartsTempLength < 5:
                 #throw new FormatException(string.Format("Error: Expression only has {0} parts.  At least 5 part are required.", expressionPartsTemp.Length));
@@ -51,14 +50,13 @@ class ExpressionParser(object):
         self.NormalizeExpression(parsed);
 
         return parsed;
-    }
 
     """
     Converts cron expression components into consistent, predictable formats.
     @param: expressionParts A 7 part string array, one part for each component of the cron expression
     """
 
-    def NormalizeExpression(expressionParts):
+    def NormalizeExpression(self, expressionParts):
         #convert ? to * only for DOM and DOW
         expressionParts[3] = expressionParts[3].replace("?", "*")
         expressionParts[5] = expressionParts[5].replace("?", "*")
@@ -85,11 +83,11 @@ class ExpressionParser(object):
         #convert */1 to *
         length = len(expressionParts)
         for i in range(0, length):
-            if expressionParts[i] == "*/1"):
+            if expressionParts[i] == "*/1":
                 expressionParts[i] = "*"
 
         #handle DayOfWeekStartIndexZero option where SUN=1 rather than SUN=0
-        if m_options.DayOfWeekStartIndexZero is False:
+        if self.m_options.DayOfWeekStartIndexZero is False:
             length = len(expressionParts[5])
             for i in range(0, length):
                 if i == 0 or dowChars[i - 1] != '#':
