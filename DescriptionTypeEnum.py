@@ -1,6 +1,8 @@
 """
 DescriptionTypeEnum
 """
+
+
 class DescriptionTypeEnum(object):
     FULL = 1
     TIMEOFDAY = 2
