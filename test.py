@@ -1,5 +1,5 @@
-from ExpressionDescriptor import ExpressionDescriptor
+from ExpressionDescriptor import ExpressionDescriptor, GetDescription
 
-cl = ExpressionDescriptor()
+#cl = ExpressionDescriptor()
 
-print (cl.GetDescription())
+print (GetDescription('* * * * *'))

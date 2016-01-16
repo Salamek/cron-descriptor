@@ -388,12 +388,12 @@ class ExpressionDescriptor(object):
             description = description.lower()
         return description
 
-    """
-    Generates a human readable string for the Cron Expression
-    @param: expression The cron expression string
-    @param: options Options to control the output description
-    @returns: The cron expression description
-    """
-    def GetDescription(self, expression, options = None):
-        descripter = ExpressionDescriptor(expression, options)
-        return descripter.GetDescription(DescriptionTypeEnum.FULL)
+"""
+Generates a human readable string for the Cron Expression
+@param: expression The cron expression string
+@param: options Options to control the output description
+@returns: The cron expression description
+"""
+def GetDescription(expression, options = None):
+    descripter = ExpressionDescriptor(expression, options)
+    return descripter.GetDescription(DescriptionTypeEnum.FULL)
