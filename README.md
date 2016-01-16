@@ -1,0 +1,2 @@
+# cron-descriptor
+A Python library that converts cron expressions into human readable strings.
