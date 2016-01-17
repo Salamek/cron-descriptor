@@ -6,12 +6,10 @@ from CasingTypeEnum import CasingTypeEnum
 from CultureInfo import CultureInfo
 from DescriptionTypeEnum import DescriptionTypeEnum
 from ExpressionParser import ExpressionParser
+from Options import Options
+from Resources import Resources
+from Tools import NumberToDay, NumberToMonth
 
-def NumberToDay(dayNumber):
-    return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][dayNumber]
-
-def NumberToMonth(monthNumber):
-    return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][monthNumber]
 
 
 """
@@ -31,7 +29,7 @@ class ExpressionDescriptor(object):
     @param: options: Options to control the output description
     """
 
-    def __init__(sefl, expression, options):
+    def __init__(self, expression, options):
         self.m_expression = expression
         self.m_options = options
         self.m_expressionParts = [] #????
@@ -43,7 +41,7 @@ class ExpressionDescriptor(object):
     @param type: Which part(s) of the expression to describe
     @returns: The cron expression description
     """
-    def GetDescription(type):
+    def GetDescription(self, type):
         description = ''
 
         try:
@@ -53,25 +51,25 @@ class ExpressionDescriptor(object):
                 self.m_parsed = True
 
             if type == DescriptionTypeEnum.FULL:
-                description = GetFullDescription()
+                description = self.GetFullDescription()
             if type == DescriptionTypeEnum.TIMEOFDAY:
-                description = GetTimeOfDayDescription()
+                description = self.GetTimeOfDayDescription()
             if type == DescriptionTypeEnum.HOURS:
-                description = GetHoursDescription()
+                description = self.GetHoursDescription()
             if type == DescriptionTypeEnum.MINUTES:
-                description = GetMinutesDescription()
+                description = self.GetMinutesDescription()
             if type == DescriptionTypeEnum.SECONDS:
-                description = GetSecondsDescription()
+                description = self.GetSecondsDescription()
             if type == DescriptionTypeEnum.DAYOFMONTH:
-                description = GetDayOfMonthDescription()
+                description = self.GetDayOfMonthDescription()
             if type == DescriptionTypeEnum.MONTH:
-                description = GetMonthDescription()
+                description = self.GetMonthDescription()
             if type == DescriptionTypeEnum.DAYOFWEEK:
-                description = GetDayOfWeekDescription()
+                description = self.GetDayOfWeekDescription()
             if type == DescriptionTypeEnum.YEAR:
-                description = GetYearDescription()
+                description = self.GetYearDescription()
             else:
-                description = GetSecondsDescription()
+                description = self.GetSecondsDescription()
         except Exception as ex:
             if self.m_options.ThrowExceptionOnParseError:
                 raise
@@ -103,7 +101,7 @@ class ExpressionDescriptor(object):
             description = TransformVerbosity(description, self.m_options.Verbose)
             description = TransformCase(description, self.m_options.CasingType)
         except Exception as ex:
-            description = CronExpressionDescriptor.Resources.AnErrorOccuredWhenGeneratingTheExpressionD
+            description = Resources.AnErrorOccuredWhenGeneratingTheExpressionD
             if self.m_options.ThrowExceptionOnParseError:
                 #throw new FormatException(description, ex)
                 raise Exception(description)
@@ -394,6 +392,6 @@ Generates a human readable string for the Cron Expression
 @param: options Options to control the output description
 @returns: The cron expression description
 """
-def GetDescription(expression, options = None):
+def GetDescription(expression, options = Options()):
     descripter = ExpressionDescriptor(expression, options)
     return descripter.GetDescription(DescriptionTypeEnum.FULL)

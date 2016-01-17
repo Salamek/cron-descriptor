@@ -1,3 +1,5 @@
+from CultureInfo import CultureInfo
+from Tools import NumberToDay, NumberToMonth
 
 class ExpressionParser(object):
     m_expression = ''
@@ -22,7 +24,7 @@ class ExpressionParser(object):
         # Initialize all elements of parsed array to empty strings
         parsed = ['', '', '', '', '', '']
 
-        if self.m_expression not in parsed:
+        if self.m_expression is None or len(self.m_expression) == 0:
             #raise MissingFieldException("ExpressionDescriptor", "expression") #FIXME
             raise Exception("ExpressionDescriptor")
         else:
@@ -33,14 +35,18 @@ class ExpressionParser(object):
                 raise Exception("Error: Expression only has {0} parts.  At least 5 part are required.".format(expressionPartsTempLength))
             elif expressionPartsTempLength == 5:
                 #5 part cron so shift array past seconds element
-                parsed.insert(0, expressionPartsTemp)
+                for i in range(0, expressionPartsTempLength):
+                    parsed[i] = expressionPartsTemp[i]
+
             elif expressionPartsTempLength == 6:
                 #If last element ends with 4 digits, a year element has been supplied and no seconds element
                 yearRegex = re.compile("\\d{4}$")
-                if prog.match(expressionPartsTemp[5]):
-                    parsed.insert(1, expressionPartsTemp)
+                if yearRegex.match(expressionPartsTemp[5]):
+                    for i in range(0, expressionPartsTempLength):
+                        parsed[i + 1] = expressionPartsTemp[i]
                 else:
-                    parsed.insert(0, expressionPartsTemp)
+                    for i in range(0, expressionPartsTempLength):
+                        parsed[i] = expressionPartsTemp[i]
             elif expressionPartsTemp == 7:
                 parsed = expressionPartsTemp
             else:
