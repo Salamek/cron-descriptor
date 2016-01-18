@@ -43,5 +43,5 @@ class ResourcesExt(type):
         return resourceManager.GetString(key, self.resourceCulture)
 
 
-class Resources(object):
+class Resources(object, metaclass = ResourcesExt):
     __metaclass__ = ResourcesExt
