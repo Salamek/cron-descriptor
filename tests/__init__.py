@@ -13,5 +13,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-__author__="Adam Schubert <adam.schubert@sg1-game.net>"
-__date__ ="$2016-01-17 14:51:02$"
+__author__ = "Adam Schubert <adam.schubert@sg1-game.net>"
+__date__ = "$2016-01-17 14:51:02$"

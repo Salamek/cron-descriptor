@@ -22,6 +22,7 @@ from cron_descriptor.Exception import MissingFieldException, FormatException
 
 
 class TestFormats(TestCase.TestCase):
+
     def testEveryMinute(self):
 
         self.assertEqual("Every minute", GetDescription("* * * * *"))
@@ -38,7 +39,9 @@ class TestFormats(TestCase.TestCase):
 
     def testTimeOfDayCertainDaysOfWeek(self):
 
-        self.assertEqual("At 11:00 PM, Monday through Friday", GetDescription("0 23 ? * MON-FRI"))
+        self.assertEqual(
+            "At 11:00 PM, Monday through Friday",
+            GetDescription("0 23 ? * MON-FRI"))
 
     def testEverySecond(self):
 
@@ -59,7 +62,9 @@ class TestFormats(TestCase.TestCase):
 
     def testWeekdaysAtTime(self):
 
-        self.assertEqual("At 11:30 AM, Monday through Friday", GetDescription("30 11 * * 1-5"))
+        self.assertEqual(
+            "At 11:30 AM, Monday through Friday",
+            GetDescription("30 11 * * 1-5"))
 
     def testDailyAtTime(self):
 
@@ -72,35 +77,51 @@ class TestFormats(TestCase.TestCase):
 
     def testOneMonthOnly(self):
 
-        self.assertEqual("Every minute, only in March", GetDescription("* * * 3 *"))
+        self.assertEqual(
+            "Every minute, only in March",
+            GetDescription("* * * 3 *"))
 
     def testTwoMonthsOnly(self):
 
-        self.assertEqual("Every minute, only in March and June", GetDescription("* * * 3,6 *"))
+        self.assertEqual(
+            "Every minute, only in March and June",
+            GetDescription("* * * 3,6 *"))
 
     def testTwoTimesEachAfternoon(self):
 
-        self.assertEqual("At 02:30 PM and 04:30 PM", GetDescription("30 14,16 * * *"))
+        self.assertEqual(
+            "At 02:30 PM and 04:30 PM",
+            GetDescription("30 14,16 * * *"))
 
     def testThreeTimesDaily(self):
 
-        self.assertEqual("At 06:30 AM, 02:30 PM and 04:30 PM", GetDescription("30 6,14,16 * * *"))
+        self.assertEqual(
+            "At 06:30 AM, 02:30 PM and 04:30 PM",
+            GetDescription("30 6,14,16 * * *"))
 
     def testOnceAWeek(self):
 
-        self.assertEqual("At 09:46 AM, only on Monday", GetDescription("46 9 * * 1"))
+        self.assertEqual(
+            "At 09:46 AM, only on Monday",
+            GetDescription("46 9 * * 1"))
 
     def testDayOfMonth(self):
 
-        self.assertEqual("At 12:23 PM, on day 15 of the month", GetDescription("23 12 15 * *"))
+        self.assertEqual(
+            "At 12:23 PM, on day 15 of the month",
+            GetDescription("23 12 15 * *"))
 
     def testMonthName(self):
 
-        self.assertEqual("At 12:23 PM, only in January", GetDescription("23 12 * JAN *"))
+        self.assertEqual(
+            "At 12:23 PM, only in January",
+            GetDescription("23 12 * JAN *"))
 
     def testDayOfMonthWithQuestionMark(self):
 
-        self.assertEqual("At 12:23 PM, only in January", GetDescription("23 12 ? JAN *"))
+        self.assertEqual(
+            "At 12:23 PM, only in January",
+            GetDescription("23 12 ? JAN *"))
 
     def testMonthNameRange2(self):
 
@@ -109,11 +130,15 @@ class TestFormats(TestCase.TestCase):
 
     def testMonthNameRange3(self):
 
-        self.assertEqual("At 12:23 PM, January through March", GetDescription("23 12 * JAN-MAR *"))
+        self.assertEqual(
+            "At 12:23 PM, January through March",
+            GetDescription("23 12 * JAN-MAR *"))
 
     def testDayOfWeekName(self):
 
-        self.assertEqual("At 12:23 PM, only on Sunday", GetDescription("23 12 * * SUN"))
+        self.assertEqual(
+            "At 12:23 PM, only on Sunday",
+            GetDescription("23 12 * * SUN"))
 
     def testDayOfWeekRange(self):
 
@@ -176,7 +201,9 @@ class TestFormats(TestCase.TestCase):
 
     def testSecondInternvals(self):
 
-        self.assertEqual("Seconds 05 through 10 past the minute", GetDescription("5-10 * * * * *"))
+        self.assertEqual(
+            "Seconds 05 through 10 past the minute",
+            GetDescription("5-10 * * * * *"))
 
     def testSecondMinutesHoursIntervals(self):
 
@@ -210,15 +237,21 @@ class TestFormats(TestCase.TestCase):
 
     def testMinutesPastTheHour(self):
 
-        self.assertEqual("At 05 minutes past the hour", GetDescription("0 5 0/1 * * ?"))
+        self.assertEqual(
+            "At 05 minutes past the hour",
+            GetDescription("0 5 0/1 * * ?"))
 
     def testOneYearOnlyWithSeconds(self):
 
-        self.assertEqual("Every second, only in 2013", GetDescription("* * * * * * 2013"))
+        self.assertEqual(
+            "Every second, only in 2013",
+            GetDescription("* * * * * * 2013"))
 
     def testOneYearOnlyWithoutSeconds(self):
 
-        self.assertEqual("Every minute, only in 2013", GetDescription("* * * * * 2013"))
+        self.assertEqual(
+            "Every minute, only in 2013",
+            GetDescription("* * * * * 2013"))
 
     def testTwoYearsOnly(self):
 
@@ -227,12 +260,14 @@ class TestFormats(TestCase.TestCase):
 
     def testYearRange2(self):
 
-        self.assertEqual("At 12:23 PM, January through February, 2013 through 2014",
+        self.assertEqual(
+            "At 12:23 PM, January through February, 2013 through 2014",
                          GetDescription("23 12 * JAN-FEB * 2013-2014"))
 
     def testYearRange3(self):
 
-        self.assertEqual("At 12:23 PM, January through March, 2013 through 2015",
+        self.assertEqual(
+            "At 12:23 PM, January through March, 2013 through 2015",
                          GetDescription("23 12 * JAN-MAR * 2013-2015"))
 
     def testHourRange(self):
@@ -265,11 +300,15 @@ class TestFormats(TestCase.TestCase):
 
     def testEvery3Day(self):
 
-        self.assertEqual("At 08:00 AM, every 3 days", GetDescription("0 0 8 1/3 * ? *"))
+        self.assertEqual(
+            "At 08:00 AM, every 3 days",
+            GetDescription("0 0 8 1/3 * ? *"))
 
     def testsEvery3DayOfTheWeek(self):
 
-        self.assertEqual("At 10:15 AM, every 3 days of the week", GetDescription("0 15 10 ? * */3"))
+        self.assertEqual(
+            "At 10:15 AM, every 3 days of the week",
+            GetDescription("0 15 10 ? * */3"))
 
     def testEvery3Month(self):
 

@@ -24,20 +24,24 @@ translationTable = {}
 for first in root.findall('./data'):
         translationTable[first.attrib['name']] = first.find('./value').text
 
+
 class resourceManager(object):
+
     @staticmethod
     def GetString(name, resourceCulture):
         return translationTable[name]
+
 
 class ResourcesExt(type):
     resourceMan = None
     resourceCulture = None
 
-    def __init__(self, name, object , something):
+    def __init__(self, name, object, something):
         pass
 
     def __getattr__(self, key):
-        return resourceManager.GetString(key, self.resourceCulture);
+        return resourceManager.GetString(key, self.resourceCulture)
+
 
 class Resources(object):
     __metaclass__ = ResourcesExt

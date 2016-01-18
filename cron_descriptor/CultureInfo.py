@@ -15,9 +15,11 @@
 
 import locale
 
+
 class CultureInfo(object):
     locale = None
-    def __init__(self, localeSet = None):
+
+    def __init__(self, localeSet=None):
         if localeSet:
             self.locale = localeSet
         else:

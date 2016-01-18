@@ -20,22 +20,28 @@ from cron_descriptor.DescriptionTypeEnum import DescriptionTypeEnum
 from cron_descriptor.ExpressionDescriptor import ExpressionDescriptor
 
 
-
 class TestCasing(TestCase.TestCase):
+
     def testSentenceCasing(self):
         options = Options()
         options.CasingType = CasingTypeEnum.Sentence
         ceh = ExpressionDescriptor("* * * * *", options)
-        self.assertEqual("Every minute", ceh.GetDescription(DescriptionTypeEnum.FULL))
+        self.assertEqual(
+            "Every minute",
+            ceh.GetDescription(DescriptionTypeEnum.FULL))
 
     def testTitleCasing(self):
         options = Options()
         options.CasingType = CasingTypeEnum.Title
         ceh = ExpressionDescriptor("* * * * *", options)
-        self.assertEqual("Every Minute", ceh.GetDescription(DescriptionTypeEnum.FULL))
+        self.assertEqual(
+            "Every Minute",
+            ceh.GetDescription(DescriptionTypeEnum.FULL))
 
     def testLowerCasing(self):
         options = Options()
         options.CasingType = CasingTypeEnum.LowerCase
         ceh = ExpressionDescriptor("* * * * *", options)
-        self.assertEqual("every minute", ceh.GetDescription(DescriptionTypeEnum.FULL))
+        self.assertEqual(
+            "every minute",
+            ceh.GetDescription(DescriptionTypeEnum.FULL))

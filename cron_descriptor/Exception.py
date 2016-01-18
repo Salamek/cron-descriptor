@@ -15,8 +15,11 @@
 
 
 class MissingFieldException(Exception):
+
     def __init__(self, message):
-        super(MissingFieldException, self).__init__("Field '{}' not found.".format(message))
+        super(MissingFieldException, self).__init__(
+            "Field '{}' not found.".format(message))
+
 
 class FormatException(Exception):
     pass

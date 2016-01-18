@@ -13,12 +13,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from CasingTypeEnum import CasingTypeEnum
-from CultureInfo import CultureInfo
+from .CasingTypeEnum import CasingTypeEnum
+from .CultureInfo import CultureInfo
 """
 Options for parsing and describing a Cron Expression
 """
+
+
 class Options(object):
+
     def __init__(self):
         self.ThrowExceptionOnParseError = True
         self.CasingType = CasingTypeEnum.Sentence
@@ -26,6 +29,7 @@ class Options(object):
         self.DayOfWeekStartIndexZero = True
         self.Use24HourTimeFormat = False
 
-        #culture specific default options
+        # culture specific default options
 
-        self.Use24HourTimeFormat = CultureInfo().getCode() in ["ru-RU", "uk-UA", "de-DE", "it-IT", "tr-TR", "cs-CZ"]
+        self.Use24HourTimeFormat = CultureInfo().getCode() in [
+            "ru-RU", "uk-UA", "de-DE", "it-IT", "tr-TR", "cs-CZ"]

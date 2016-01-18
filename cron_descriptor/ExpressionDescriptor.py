@@ -16,15 +16,15 @@
 import re
 import datetime
 
-from CasingTypeEnum import CasingTypeEnum
-from CultureInfo import CultureInfo
-from DescriptionTypeEnum import DescriptionTypeEnum
-from ExpressionParser import ExpressionParser
-from Options import Options
-from Resources import Resources
-from Tools import NumberToDay, NumberToMonth
-from StringBuilder import StringBuilder
-from Exception import FormatException
+from .CasingTypeEnum import CasingTypeEnum
+from .CultureInfo import CultureInfo
+from .DescriptionTypeEnum import DescriptionTypeEnum
+from .ExpressionParser import ExpressionParser
+from .Options import Options
+from .Resources import Resources
+from .Tools import NumberToDay, NumberToMonth
+from .StringBuilder import StringBuilder
+from .Exception import FormatException
 
 """
  Converts a Cron Expression into a human readable string
@@ -110,12 +110,16 @@ class ExpressionDescriptor(object):
 
             description = "{0}{1}{2}{3}".format(
                 timeSegment,
-                dayOfWeekDesc if self.m_expressionParts[3] == "*" else dayOfMonthDesc,
+                dayOfWeekDesc if self.m_expressionParts[
+                    3] == "*" else dayOfMonthDesc,
                 monthDesc,
                 yearDesc)
 
-            description = self.TransformVerbosity(description, self.m_options.Verbose)
-            description = self.TransformCase(description, self.m_options.CasingType)
+            description = self.TransformVerbosity(
+                description, self.m_options.Verbose)
+            description = self.TransformCase(
+                description,
+                self.m_options.CasingType)
         except Exception as ex:
             raise
             description = Resources.AnErrorOccuredWhenGeneratingTheExpressionD
@@ -138,10 +142,13 @@ class ExpressionDescriptor(object):
 
         # handle special cases first
         if any(exp in minuteExpression for exp in self.m_specialCharacters) is False and any(exp in hourExpression for exp in self.m_specialCharacters) is False and any(exp in secondsExpression for exp in self.m_specialCharacters) is False:
-        #if minuteExpression.find(self.m_specialCharacters) == -1 and hourExpression.find(self.m_specialCharacters) == -1 and secondsExpression.find(self.m_specialCharacters) == -1:
             # specific time of day (i.e. 10 14)
             description.append(Resources.AtSpace)
-            description.append(self.FormatTime(hourExpression, minuteExpression, secondsExpression))
+            description.append(
+                self.FormatTime(
+                    hourExpression,
+                    minuteExpression,
+                    secondsExpression))
         elif "-" in minuteExpression and "," not in minuteExpression and any(exp in hourExpression for exp in self.m_specialCharacters) is False:
             # minute range in single hour (i.e. 0-10 11)
             minuteParts = minuteExpression.split('-')
@@ -153,7 +160,8 @@ class ExpressionDescriptor(object):
             description.append(Resources.At)
             for i in range(0, len(hourParts)):
                 description.append(" ")
-                description.append(self.FormatTime(hourParts[i], minuteExpression))
+                description.append(
+                    self.FormatTime(hourParts[i], minuteExpression))
 
                 if i < (len(hourParts) - 2):
                     description.append(",")
@@ -253,10 +261,11 @@ class ExpressionDescriptor(object):
 
     def GetMonthDescription(self):
         return self.GetSegmentDescription(self.m_expressionParts[4], '',
-                                     lambda s: datetime.date(
-                                         datetime.date.today().year, int(s), 1).strftime("%B"),
-                                     lambda s: Resources.ComaEveryX0Months.format(
-                                         s),
+                                          lambda s: datetime.date(
+            datetime.date.today(
+            ).year, int(s), 1).strftime("%B"),
+            lambda s: Resources.ComaEveryX0Months.format(
+            s),
                                      lambda s: Resources.ComaX0ThroughX1,
                                      lambda s: Resources.ComaOnlyInX0)
 
@@ -298,10 +307,10 @@ class ExpressionDescriptor(object):
 
     def GetYearDescription(self):
         return self.GetSegmentDescription(self.m_expressionParts[6], '',
-                                     lambda s: s.zfill(4),
-                                     lambda s: Resources.ComaEveryX0Years.format(
-                                         s),
-                                     lambda s: Resources.ComaX0ThroughX1,
+                                          lambda s: s.zfill(4),
+                                          lambda s: Resources.ComaEveryX0Years.format(
+            s),
+            lambda s: Resources.ComaX0ThroughX1,
                                      lambda s: Resources.ComaOnlyInX0)
 
     """
@@ -315,7 +324,14 @@ class ExpressionDescriptor(object):
     @returns segment description
     """
 
-    def GetSegmentDescription(self, expression, allDescription, getSingleItemDescription, getIntervalDescriptionFormat, getBetweenDescriptionFormat, getDescriptionFormat):
+    def GetSegmentDescription(
+        self,
+        expression,
+     allDescription,
+     getSingleItemDescription,
+     getIntervalDescriptionFormat,
+     getBetweenDescriptionFormat,
+     getDescriptionFormat):
         description = None
         if expression is None or expression == '':
             description = ''
@@ -333,16 +349,20 @@ class ExpressionDescriptor(object):
             if "-" in segments[0]:
                 betweenSegmentOfInterval = segments[0]
                 betweenSegements = betweenSegmentOfInterval.split('-')
-                betweenSegment1Description = getSingleItemDescription(betweenSegements[0])
-                betweenSegment2Description = getSingleItemDescription(betweenSegements[1])
-                betweenSegment2Description = betweenSegment2Description.replace(":00", ":59")
+                betweenSegment1Description = getSingleItemDescription(
+                    betweenSegements[0])
+                betweenSegment2Description = getSingleItemDescription(
+                    betweenSegements[1])
+                betweenSegment2Description = betweenSegment2Description.replace(
+                    ":00", ":59")
                 description += ", " + getBetweenDescriptionFormat(betweenSegmentOfInterval).format(
                     betweenSegment1Description, betweenSegment2Description)
         elif "-" in expression:
             segments = expression.split('-')
             betweenSegment1Description = getSingleItemDescription(segments[0])
             betweenSegment2Description = getSingleItemDescription(segments[1])
-            betweenSegment2Description = betweenSegment2Description.replace(":00", ":59")
+            betweenSegment2Description = betweenSegment2Description.replace(
+                ":00", ":59")
             description = getBetweenDescriptionFormat(expression).format(
                 betweenSegment1Description, betweenSegment2Description)
         elif "," in expression:
@@ -361,7 +381,9 @@ class ExpressionDescriptor(object):
 
                 descriptionContent += getSingleItemDescription(segments[i])
 
-            description = getDescriptionFormat(expression).format(descriptionContent)
+            description = getDescriptionFormat(
+                expression).format(
+                    descriptionContent)
 
         return description
 
@@ -373,7 +395,11 @@ class ExpressionDescriptor(object):
     @returns: Formatted time description
     """
 
-    def FormatTime(self, hourExpression, minuteExpression, secondExpression=''):
+    def FormatTime(
+        self,
+        hourExpression,
+     minuteExpression,
+     secondExpression=''):
         hour = int(hourExpression)
 
         period = ''
@@ -413,7 +439,9 @@ class ExpressionDescriptor(object):
 
     def TransformCase(self, description, caseType):
         if caseType == CasingTypeEnum.Sentence:
-            description = "{}{}".format(description[0].upper(), description[1:])
+            description = "{}{}".format(
+                description[0].upper(),
+                description[1:])
         elif caseType == CasingTypeEnum.Title:
             description = description.title()
         else:
