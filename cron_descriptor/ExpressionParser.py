@@ -1,10 +1,27 @@
+# Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import re
+
 from CultureInfo import CultureInfo
 from Tools import NumberToDay, NumberToMonth
+from Exception import MissingFieldException, FormatException
 
 class ExpressionParser(object):
     m_expression = ''
-    m_options = None #Options Class
-    m_en_culture = None #CultureInfo Class
+    m_options = None
 
     """
     Initializes a new instance of the <see cref="ExpressionParser"/> class
@@ -14,7 +31,6 @@ class ExpressionParser(object):
     def __init__(self, expression, options):
         self.m_expression = expression
         self.m_options = options
-        self.m_en_culture = CultureInfo("en-US") #Default to English
 
     """
     Parses the cron expression string
@@ -22,37 +38,40 @@ class ExpressionParser(object):
     """
     def Parse(self):
         # Initialize all elements of parsed array to empty strings
-        parsed = ['', '', '', '', '', '']
+        parsed = ['', '', '', '', '', '', '']
 
         if self.m_expression is None or len(self.m_expression) == 0:
-            #raise MissingFieldException("ExpressionDescriptor", "expression") #FIXME
-            raise Exception("ExpressionDescriptor")
+            raise MissingFieldException("ExpressionDescriptor.expression")
         else:
             expressionPartsTemp = self.m_expression.split(' ')
             expressionPartsTempLength = len(expressionPartsTemp)
             if expressionPartsTempLength < 5:
-                #throw new FormatException(string.Format("Error: Expression only has {0} parts.  At least 5 part are required.", expressionPartsTemp.Length));
-                raise Exception("Error: Expression only has {0} parts.  At least 5 part are required.".format(expressionPartsTempLength))
+                raise FormatException("Error: Expression only has {0} parts.  At least 5 part are required.".format(expressionPartsTempLength))
             elif expressionPartsTempLength == 5:
                 #5 part cron so shift array past seconds element
-                for i in range(0, expressionPartsTempLength):
-                    parsed[i] = expressionPartsTemp[i]
+                parsed[1] = expressionPartsTemp[0]
+                parsed[2] = expressionPartsTemp[1]
+                parsed[3] = expressionPartsTemp[2]
+                parsed[4] = expressionPartsTemp[3]
+                parsed[5] = expressionPartsTemp[4]
 
             elif expressionPartsTempLength == 6:
                 #If last element ends with 4 digits, a year element has been supplied and no seconds element
-                yearRegex = re.compile("\\d{4}$")
-                if yearRegex.match(expressionPartsTemp[5]):
-                    for i in range(0, expressionPartsTempLength):
-                        parsed[i + 1] = expressionPartsTemp[i]
+                yearRegex = re.compile("\d{4}$")
+                if yearRegex.search(expressionPartsTemp[5]) is not None:
+                    parsed[1] = expressionPartsTemp[0]
+                    parsed[2] = expressionPartsTemp[1]
+                    parsed[3] = expressionPartsTemp[2]
+                    parsed[4] = expressionPartsTemp[3]
+                    parsed[5] = expressionPartsTemp[4]
+                    parsed[6] = expressionPartsTemp[5]
                 else:
                     for i in range(0, expressionPartsTempLength):
                         parsed[i] = expressionPartsTemp[i]
-            elif expressionPartsTemp == 7:
+            elif expressionPartsTempLength == 7:
                 parsed = expressionPartsTemp
             else:
-                #throw new FormatException(string.Format("Error: Expression has too many parts ({0}).  Expression must not have more than 7 parts.", expressionPartsTemp.Length));
-                raise Exception("Error: Expression has too many parts ({0}).  Expression must not have more than 7 parts.".format(expressionPartsTemp.Length))
-
+                raise FormatException("Error: Expression has too many parts ({0}).  Expression must not have more than 7 parts.".format(expressionPartsTempLength))
         self.NormalizeExpression(parsed);
 
         return parsed;
@@ -94,22 +113,23 @@ class ExpressionParser(object):
 
         #handle DayOfWeekStartIndexZero option where SUN=1 rather than SUN=0
         if self.m_options.DayOfWeekStartIndexZero is False:
-            length = len(expressionParts[5])
-            for i in range(0, length):
+            dowChars = list(expressionParts[5])
+            for i in range(0, len(dowChars)):
                 if i == 0 or dowChars[i - 1] != '#':
                     try:
-                        charNumeric = int(string)
-                        expressionParts[5][i] = str(charNumeric - 1)[0]
+                        charNumeric = int(dowChars[i])
+                        dowChars[i] = str(charNumeric - 1)[0]
                     except ValueError:
                         pass
+            expressionParts[5] = ''.join(dowChars);
 
         #convert SUN-SAT format to 0-6 format
         for i in range(0, 6):
-            expressionParts[5] = expressionParts[5].replace(NumberToDay(i), str(i))
+            expressionParts[5] = expressionParts[5].replace(NumberToDay(i)[:3].upper(), str(i))
 
         #convert JAN-DEC format to 1-12 format
-        for i in range(0, 12):
-            expressionParts[4] = expressionParts[4].replace(NumberToMonth(i), str(i))
+        for i in range(1, 13):
+            expressionParts[4] = expressionParts[4].replace(NumberToMonth(i)[:3].upper(), str(i))
 
         #convert 0 second to (empty)
         if expressionParts[0] == "0":
