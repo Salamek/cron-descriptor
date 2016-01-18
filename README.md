@@ -5,7 +5,7 @@
 A Python library that converts cron expressions into human readable strings.Translated to Python from https://github.com/bradyholt/cron-expression-descriptor.
 
 **Author**: Adam Schubert (https://www.salamek.cz)  
-**Original Author & Credit**: Brady Holt (http://www.geekytidbits.com).
+**Original Author & Credit**: Brady Holt (http://www.geekytidbits.com)  
 **License**: [MIT](http://opensource.org/licenses/MIT)
 
 ## Features         
