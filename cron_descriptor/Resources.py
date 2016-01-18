@@ -12,8 +12,13 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import xml.etree.ElementTree as ET
+
+# import future.utils.with_metaclass or six.with_metaclass for class Resources
+try:
+    from future.utils import with_metaclass
+except ImportError:
+    from six import with_metaclass
 """
 A strongly-typed resource class, for looking up localized strings, etc.
 """
@@ -43,5 +48,11 @@ class ResourcesExt(type):
         return resourceManager.GetString(key, self.resourceCulture)
 
 
+class Resources(with_metaclass(ResourcesExt)):
+    pass
+
+"""
+Cant use both __metaclass__ is not working in python3 and metaclass = ResourcesExt is not working in python2
 class Resources(object, metaclass = ResourcesExt):
     __metaclass__ = ResourcesExt
+"""
