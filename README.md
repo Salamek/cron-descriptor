@@ -29,7 +29,6 @@ A Python library that converts cron expressions into human readable strings. Por
   * Italian ([rinaldihno](https://github.com/rinaldihno))
   * Czech ([Adam Schubert](https://github.com/salamek))
 
-
 <!-- SOON
 ## Demo
 
@@ -48,6 +47,21 @@ A Python library that converts cron expressions into human readable strings. Por
 
 ## Running Unit Tests
 
-```
+```bash
 python setup.py test
 ```
+
+## Translating
+cron-descriptor is using [Gettext](https://www.gnu.org/software/gettext/) for translations
+For creating new translations or editing existing ones, please install [Poedit](https://poedit.net/)
+
+You can copy/rename and translate any file from `locale` directory:
+```bash
+mv ./locale/de_DE.po ./locale/YOUR_LOCALE_CODE.po
+poedit ./locale/YOUR_LOCALE_CODE.po
+```
+or you can generate new empty *.po file from sources by running:
+```bash
+xgettext *.py
+```
+in `cron_descriptor` directory
