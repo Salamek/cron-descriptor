@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Salamek/cron-descriptor.svg)](https://travis-ci.org/Salamek/cron-descriptor)
 
-A Python library that converts cron expressions into human readable strings.Translated to Python from https://github.com/bradyholt/cron-expression-descriptor.
+A Python library that converts cron expressions into human readable strings. Ported to Python from https://github.com/bradyholt/cron-expression-descriptor.
 
 **Author**: Adam Schubert (https://www.salamek.cz)  
 **Original Author & Credit**: Brady Holt (http://www.geekytidbits.com)  
