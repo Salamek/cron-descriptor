@@ -14,10 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tests.TestCase as TestCase
-from cron_descriptor.Options import Options
-from cron_descriptor.CasingTypeEnum import CasingTypeEnum
-from cron_descriptor.DescriptionTypeEnum import DescriptionTypeEnum
-from cron_descriptor.ExpressionDescriptor import ExpressionDescriptor
+from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor
 
 
 class TestCasing(TestCase.TestCase):

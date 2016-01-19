@@ -19,3 +19,5 @@ __date__ = "$2016-01-17 14:51:02$"
 from tests.TestCasing import *
 from tests.TestExceptions import *
 from tests.TestFormats import *
+from tests.TestApi import *
+from tests.TestImport import *

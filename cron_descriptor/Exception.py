@@ -23,3 +23,6 @@ class MissingFieldException(Exception):
 
 class FormatException(Exception):
     pass
+
+class WrongArgumentException(Exception):
+    pass

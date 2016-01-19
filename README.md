@@ -24,18 +24,26 @@ pip install cron_descriptor
 
 ```python
 # Simple
-from cron_descriptor.ExpressionDescriptor import GetDescription
+from cron_descriptor import GetDescription, ExpressionDescriptor
 
 print(GetDescription("* 2 3 * *"))
+
+#OR
+
+print(str(ExpressionDescriptor("* 2 3 * *")))
 ```
 
 ```python
 # Advanced
 # Consult Options.py/CasingTypeEnum.py/DescriptionTypeEnum.py for more info
-from cron_descriptor.Options import Options
-from cron_descriptor.CasingTypeEnum import CasingTypeEnum
-from cron_descriptor.DescriptionTypeEnum import DescriptionTypeEnum
-from cron_descriptor.ExpressionDescriptor import ExpressionDescriptor
+from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor
+
+descripter = ExpressionDescriptor("*/10 * * * *", ThrowExceptionOnParseError = True, CasingType = CasingTypeEnum.Sentence, Use24HourTimeFormat = True)
+# GetDescription uses DescriptionTypeEnum.FULL by default:
+print(descripter.GetDescription())
+print("{}".format(descripter))
+
+#or passing Options class as second argument:
 
 options = Options()
 options.ThrowExceptionOnParseError = True
@@ -43,6 +51,7 @@ options.CasingType = CasingTypeEnum.Sentence
 options.Use24HourTimeFormat = True
 descripter = ExpressionDescriptor("*/10 * * * *", options)
 print(descripter.GetDescription(DescriptionTypeEnum.FULL))
+
 ```
 
 ## Languages Available

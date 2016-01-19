@@ -23,7 +23,7 @@ from .ExpressionParser import ExpressionParser
 from .Options import Options
 from .Tools import NumberToDay, NumberToMonth
 from .StringBuilder import StringBuilder
-from .Exception import FormatException
+from .Exception import FormatException, WrongArgumentException
 
 
 """
@@ -44,11 +44,18 @@ class ExpressionDescriptor(object):
     @param: options: Options to control the output description
     """
 
-    def __init__(self, expression, options):
+    def __init__(self, expression, options = Options(), **kwargs):
         self.m_expression = expression
         self.m_options = options
         self.m_expressionParts = []
         self.m_parsed = False
+
+        #if kwargs in m_options, overwrite it, if not raise exeption
+        for kwarg in kwargs:
+            if hasattr(self.m_options, kwarg):
+                setattr(self.m_options, kwarg, kwargs[kwarg])
+            else:
+                raise WrongArgumentException("Unknow {} configuration argument".format(kwarg))
 
         #Initializes localizacion
         l10n()
@@ -61,7 +68,7 @@ class ExpressionDescriptor(object):
     @returns: The cron expression description
     """
 
-    def GetDescription(self, type):
+    def GetDescription(self, type = DescriptionTypeEnum.FULL):
         description = ''
 
         try:
@@ -459,14 +466,18 @@ class ExpressionDescriptor(object):
             description = description.lower()
         return description
 
+    def __str__(self):
+        return self.GetDescription()
+
+    def __repr__(self):
+        return self.GetDescription()
+
 """
 Generates a human readable string for the Cron Expression
 @param: expression The cron expression string
 @param: options Options to control the output description
 @returns: The cron expression description
 """
-
-
 def GetDescription(expression, options=Options()):
     descripter = ExpressionDescriptor(expression, options)
     return descripter.GetDescription(DescriptionTypeEnum.FULL)

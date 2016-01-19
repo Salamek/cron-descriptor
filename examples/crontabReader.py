@@ -16,8 +16,7 @@ class crontabReader(object):
             for line in f.readlines():
                 parsedLine = self.parseCronLine(line)
                 if parsedLine:
-                    ex = ExpressionDescriptor(parsedLine, options)
-                    print("{} -> {}".format(parsedLine, ex.GetDescription(DescriptionTypeEnum.FULL)))
+                    print("{} -> {}".format(parsedLine, ExpressionDescriptor(parsedLine, options)))
 
     def parseCronLine(self, line):
         stripped = line.strip()
@@ -28,6 +27,5 @@ class crontabReader(object):
                 return ' '.join(rexres.group(1).split())
 
         return None
-
 
 crontabReader('/etc/crontab')
