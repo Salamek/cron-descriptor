@@ -14,6 +14,37 @@ A Python library that converts cron expressions into human readable strings. Por
  * Provides casing options (Sentence, Title, Lower, etc.)
  * Localization with support for 12 languages
 
+## Installation
+Using PIP
+```bash
+pip install cron_descriptor
+```
+
+## Usage example
+
+```python
+# Simple
+from cron_descriptor import ExpressionDescriptor
+
+print(ExpressionDescriptor.GetDescription("* 2 3 * *"))
+```
+
+```python
+# Advanced
+# Consult Options.py/CasingTypeEnum.py/DescriptionTypeEnum.py for more info
+from cron_descriptor.Options import Options
+from cron_descriptor.CasingTypeEnum import CasingTypeEnum
+from cron_descriptor.DescriptionTypeEnum import DescriptionTypeEnum
+from cron_descriptor.ExpressionDescriptor import ExpressionDescriptor
+
+options = Options()
+options.ThrowExceptionOnParseError = True
+options.CasingType = CasingTypeEnum.Sentence
+options.Use24HourTimeFormat = True
+descripter = ExpressionDescriptor("*/10 * * * *", options)
+print(descripter.GetDescription(DescriptionTypeEnum.FULL))
+```
+
 ## Languages Available
   * English ([Brady Holt](https://github.com/bradyholt))
   * Brazilian ([Renato Lima](https://github.com/natenho))
