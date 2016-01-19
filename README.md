@@ -105,3 +105,13 @@ or you can generate new empty *.po file from sources by running:
 xgettext *.py
 ```
 in `cron_descriptor` directory
+
+## Developing
+
+All suggescions and PR's are welcomed
+
+Just clone this repository and register pre-commit hook by running:
+
+```bash
+ln -s ../../pre-commit.sh .git/hooks/pre-commit
+```
