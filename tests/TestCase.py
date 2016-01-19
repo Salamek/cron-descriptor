@@ -20,7 +20,10 @@ __date__ = "$2016-01-17 14:51:02$"
 import unittest
 import os
 import time
+import locale
 
 
 class TestCase(unittest.TestCase):
-    pass
+    def setUp(self):
+        #all tests are written in en_US
+        locale.setlocale(locale.LC_ALL, 'en_US.utf8')
