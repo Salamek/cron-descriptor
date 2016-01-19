@@ -4,8 +4,11 @@ python:
   - "3.2"
   - "3.3"
   - "3.4"
+before_script:
+  - pep8 cron_descriptor
 script:
   - python setup.py test
 sudo: false
 install:
   pip install six
+  pip install pep8
