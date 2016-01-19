@@ -25,9 +25,9 @@ pip install cron_descriptor
 
 ```python
 # Simple
-from cron_descriptor import GetDescription, ExpressionDescriptor
+from cron_descriptor import get_description, ExpressionDescriptor
 
-print(GetDescription("* 2 3 * *"))
+print(get_description("* 2 3 * *"))
 
 #OR
 
@@ -39,19 +39,19 @@ print(str(ExpressionDescriptor("* 2 3 * *")))
 # Consult Options.py/CasingTypeEnum.py/DescriptionTypeEnum.py for more info
 from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor
 
-descripter = ExpressionDescriptor("*/10 * * * *", ThrowExceptionOnParseError = True, CasingType = CasingTypeEnum.Sentence, Use24HourTimeFormat = True)
+descripter = ExpressionDescriptor("*/10 * * * *", throw_exception_on_parse_error = True, casing_type = CasingTypeEnum.Sentence, use_24hour_time_format = True)
 # GetDescription uses DescriptionTypeEnum.FULL by default:
-print(descripter.GetDescription())
+print(descripter.get_description())
 print("{}".format(descripter))
 
 #or passing Options class as second argument:
 
 options = Options()
-options.ThrowExceptionOnParseError = True
-options.CasingType = CasingTypeEnum.Sentence
-options.Use24HourTimeFormat = True
+options.throw_exception_on_parse_error = True
+options.casing_type = CasingTypeEnum.Sentence
+options.use_24hour_time_format = True
 descripter = ExpressionDescriptor("*/10 * * * *", options)
-print(descripter.GetDescription(DescriptionTypeEnum.FULL))
+print(descripter.get_description(DescriptionTypeEnum.FULL))
 
 ```
 
@@ -115,4 +115,12 @@ Just clone this repository and register pre-commit hook by running:
 
 ```bash
 ln -s ../../pre-commit.sh .git/hooks/pre-commit
+```
+
+Then install dev requirements:
+
+```bash
+pip install pep8
+pip install flake8
+pip install pep8-naming
 ```

@@ -47,5 +47,5 @@ if __name__ == "__main__":
             "Programming Language :: Python :: 3.3",
             "Topic :: Software Development",
         ],
-        test_suite="tests.AllTests"
+        test_suite="tests"
     )

@@ -15,7 +15,7 @@
 
 import re
 
-from .Tools import NumberToDay, NumberToMonth
+from .Tools import number_to_day, number_to_month
 from .Exception import MissingFieldException, FormatException
 
 
@@ -24,7 +24,7 @@ class ExpressionParser(object):
     m_options = None
 
     """
-    Initializes a new instance of the <see cref="ExpressionParser"/> class
+    Initializes a new instance of the ExpressionParser class
     @param: expression The cron expression string
     @param: options Parsing options
     """
@@ -38,112 +38,112 @@ class ExpressionParser(object):
     @returns: A 7 part string array, one part for each component of the cron expression (seconds, minutes, etc.)
     """
 
-    def Parse(self):
+    def parse(self):
         # Initialize all elements of parsed array to empty strings
         parsed = ['', '', '', '', '', '', '']
 
         if self.m_expression is None or len(self.m_expression) == 0:
             raise MissingFieldException("ExpressionDescriptor.expression")
         else:
-            expressionPartsTemp = self.m_expression.split()
-            expressionPartsTempLength = len(expressionPartsTemp)
-            if expressionPartsTempLength < 5:
+            expression_parts_temp = self.m_expression.split()
+            expression_parts_temp_length = len(expression_parts_temp)
+            if expression_parts_temp_length < 5:
                 raise FormatException(
                     "Error: Expression only has {0} parts.  At least 5 part are required.".format(
-                        expressionPartsTempLength))
-            elif expressionPartsTempLength == 5:
+                        expression_parts_temp_length))
+            elif expression_parts_temp_length == 5:
                 # 5 part cron so shift array past seconds element
-                parsed[1] = expressionPartsTemp[0]
-                parsed[2] = expressionPartsTemp[1]
-                parsed[3] = expressionPartsTemp[2]
-                parsed[4] = expressionPartsTemp[3]
-                parsed[5] = expressionPartsTemp[4]
+                parsed[1] = expression_parts_temp[0]
+                parsed[2] = expression_parts_temp[1]
+                parsed[3] = expression_parts_temp[2]
+                parsed[4] = expression_parts_temp[3]
+                parsed[5] = expression_parts_temp[4]
 
-            elif expressionPartsTempLength == 6:
+            elif expression_parts_temp_length == 6:
                 # If last element ends with 4 digits, a year element has been
                 # supplied and no seconds element
-                yearRegex = re.compile("\d{4}$")
-                if yearRegex.search(expressionPartsTemp[5]) is not None:
-                    parsed[1] = expressionPartsTemp[0]
-                    parsed[2] = expressionPartsTemp[1]
-                    parsed[3] = expressionPartsTemp[2]
-                    parsed[4] = expressionPartsTemp[3]
-                    parsed[5] = expressionPartsTemp[4]
-                    parsed[6] = expressionPartsTemp[5]
+                year_regex = re.compile("\d{4}$")
+                if year_regex.search(expression_parts_temp[5]) is not None:
+                    parsed[1] = expression_parts_temp[0]
+                    parsed[2] = expression_parts_temp[1]
+                    parsed[3] = expression_parts_temp[2]
+                    parsed[4] = expression_parts_temp[3]
+                    parsed[5] = expression_parts_temp[4]
+                    parsed[6] = expression_parts_temp[5]
                 else:
-                    for i in range(0, expressionPartsTempLength):
-                        parsed[i] = expressionPartsTemp[i]
-            elif expressionPartsTempLength == 7:
-                parsed = expressionPartsTemp
+                    for i in range(0, expression_parts_temp_length):
+                        parsed[i] = expression_parts_temp[i]
+            elif expression_parts_temp_length == 7:
+                parsed = expression_parts_temp
             else:
                 raise FormatException(
                     "Error: Expression has too many parts ({0}).  Expression must not have more than 7 parts.".format(
-                        expressionPartsTempLength))
-        self.NormalizeExpression(parsed)
+                        expression_parts_temp_length))
+        self.normalize_expression(parsed)
 
         return parsed
 
     """
     Converts cron expression components into consistent, predictable formats.
-    @param: expressionParts A 7 part string array, one part for each component of the cron expression
+    @param: expression_parts A 7 part string array, one part for each component of the cron expression
     """
 
-    def NormalizeExpression(self, expressionParts):
+    def normalize_expression(self, expression_parts):
         # convert ? to * only for DOM and DOW
-        expressionParts[3] = expressionParts[3].replace("?", "*")
-        expressionParts[5] = expressionParts[5].replace("?", "*")
+        expression_parts[3] = expression_parts[3].replace("?", "*")
+        expression_parts[5] = expression_parts[5].replace("?", "*")
 
         # convert 0/, 1/ to */
-        if expressionParts[0].startswith("0/"):
-            expressionParts[0] = expressionParts[
+        if expression_parts[0].startswith("0/"):
+            expression_parts[0] = expression_parts[
                 0].replace("0/", "*/")  # seconds
 
-        if expressionParts[1].startswith("0/"):
-            expressionParts[1] = expressionParts[
+        if expression_parts[1].startswith("0/"):
+            expression_parts[1] = expression_parts[
                 1].replace("0/", "*/")  # minutes
 
-        if expressionParts[2].startswith("0/"):
-            expressionParts[2] = expressionParts[
+        if expression_parts[2].startswith("0/"):
+            expression_parts[2] = expression_parts[
                 2].replace("0/", "*/")  # hours
 
-        if expressionParts[3].startswith("1/"):
-            expressionParts[3] = expressionParts[3].replace("1/", "*/")  # DOM
+        if expression_parts[3].startswith("1/"):
+            expression_parts[3] = expression_parts[3].replace("1/", "*/")  # DOM
 
-        if expressionParts[4].startswith("1/"):
-            expressionParts[4] = expressionParts[
+        if expression_parts[4].startswith("1/"):
+            expression_parts[4] = expression_parts[
                 4].replace("1/", "*/")  # Month
 
-        if expressionParts[5].startswith("1/"):
-            expressionParts[5] = expressionParts[5].replace("1/", "*/")  # DOW
+        if expression_parts[5].startswith("1/"):
+            expression_parts[5] = expression_parts[5].replace("1/", "*/")  # DOW
 
         # convert */1 to *
-        length = len(expressionParts)
+        length = len(expression_parts)
         for i in range(0, length):
-            if expressionParts[i] == "*/1":
-                expressionParts[i] = "*"
+            if expression_parts[i] == "*/1":
+                expression_parts[i] = "*"
 
         # handle DayOfWeekStartIndexZero option where SUN=1 rather than SUN=0
-        if self.m_options.DayOfWeekStartIndexZero is False:
-            dowChars = list(expressionParts[5])
-            for i in range(0, len(dowChars)):
-                if i == 0 or dowChars[i - 1] != '#':
+        if self.m_options.day_of_week_start_index_zero is False:
+            dow_chars = list(expression_parts[5])
+            for i in range(0, len(dow_chars)):
+                if i == 0 or dow_chars[i - 1] != '#':
                     try:
-                        charNumeric = int(dowChars[i])
-                        dowChars[i] = str(charNumeric - 1)[0]
+                        char_numeric = int(dow_chars[i])
+                        dow_chars[i] = str(char_numeric - 1)[0]
                     except ValueError:
                         pass
-            expressionParts[5] = ''.join(dowChars)
+            expression_parts[5] = ''.join(dow_chars)
 
         # convert SUN-SAT format to 0-6 format
         for i in range(0, 6):
-            expressionParts[5] = expressionParts[
-                5].replace(NumberToDay(i)[:3].upper(), str(i))
+            expression_parts[5] = expression_parts[
+                5].replace(number_to_day(i)[:3].upper(), str(i))
 
         # convert JAN-DEC format to 1-12 format
         for i in range(1, 13):
-            expressionParts[4] = expressionParts[4].replace(
-                NumberToMonth(i)[:3].upper(), str(i))
+            expression_parts[4] = expression_parts[4].replace(
+                number_to_month(i)[:3].upper(), str(i))
 
         # convert 0 second to (empty)
-        if expressionParts[0] == "0":
-            expressionParts[0] = ''
+        if expression_parts[0] == "0":
+            expression_parts[0] = ''

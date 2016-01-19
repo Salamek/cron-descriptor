@@ -13,5 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from tests.TestCasing import TestCasing
+from tests.TestExceptions import TestExceptions
+from tests.TestFormats import TestFormats
+from tests.TestApi import TestApi
+from tests.TestImport import TestImport
+
+__all__ = ['TestCasing', 'TestExceptions', 'TestFormats', 'TestApi', 'TestImport']
 __author__ = "Adam Schubert <adam.schubert@sg1-game.net>"
 __date__ = "$2016-01-17 14:51:02$"

@@ -19,26 +19,26 @@ from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, Expres
 
 class TestCasing(TestCase.TestCase):
 
-    def testSentenceCasing(self):
+    def test_sentence_casing(self):
         options = Options()
-        options.CasingType = CasingTypeEnum.Sentence
+        options.casing_type = CasingTypeEnum.Sentence
         ceh = ExpressionDescriptor("* * * * *", options)
         self.assertEqual(
             "Every minute",
-            ceh.GetDescription(DescriptionTypeEnum.FULL))
+            ceh.get_description(DescriptionTypeEnum.FULL))
 
-    def testTitleCasing(self):
+    def test_title_casing(self):
         options = Options()
-        options.CasingType = CasingTypeEnum.Title
+        options.casing_type = CasingTypeEnum.Title
         ceh = ExpressionDescriptor("* * * * *", options)
         self.assertEqual(
             "Every Minute",
-            ceh.GetDescription(DescriptionTypeEnum.FULL))
+            ceh.get_description(DescriptionTypeEnum.FULL))
 
-    def testLowerCasing(self):
+    def test_lower_casing(self):
         options = Options()
-        options.CasingType = CasingTypeEnum.LowerCase
+        options.casing_type = CasingTypeEnum.LowerCase
         ceh = ExpressionDescriptor("* * * * *", options)
         self.assertEqual(
             "every minute",
-            ceh.GetDescription(DescriptionTypeEnum.FULL))
+            ceh.get_description(DescriptionTypeEnum.FULL))

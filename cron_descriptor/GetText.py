@@ -19,7 +19,7 @@ import os
 import logging
 
 
-class l10n(object):
+class GetText(object):
 
     def __init__(self):
         code, encoding = locale.getlocale()

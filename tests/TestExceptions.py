@@ -15,59 +15,59 @@
 
 
 import tests.TestCase as TestCase
-from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor, MissingFieldException, FormatException
+from cron_descriptor import Options, DescriptionTypeEnum, ExpressionDescriptor, MissingFieldException, FormatException
 
 
 class TestExceptions(TestCase.TestCase):
 
-    def testNullCronExpressionException(self):
+    def test_none_cron_expression_exception(self):
         options = Options()
-        options.ThrowExceptionOnParseError = True
+        options.throw_exception_on_parse_error = True
         ceh = ExpressionDescriptor(None, options)
         self.assertRaises(
             MissingFieldException,
-            ceh.GetDescription,
+            ceh.get_description,
             DescriptionTypeEnum.FULL)
 
-    def testEmptyCronExpressionException(self):
+    def test_empty_cron_expression_exception(self):
         options = Options()
-        options.ThrowExceptionOnParseError = True
+        options.throw_exception_on_parse_error = True
         ceh = ExpressionDescriptor('', options)
         self.assertRaises(
             MissingFieldException,
-            ceh.GetDescription,
+            ceh.get_description,
             DescriptionTypeEnum.FULL)
 
-    def testNullCronExpressionError(self):
+    def test_none_cron_expression_error(self):
         options = Options()
-        options.ThrowExceptionOnParseError = False
+        options.throw_exception_on_parse_error = False
         ceh = ExpressionDescriptor(None, options)
         self.assertEqual(
             "Field 'ExpressionDescriptor.expression' not found.",
-            ceh.GetDescription(DescriptionTypeEnum.FULL))
+            ceh.get_description(DescriptionTypeEnum.FULL))
 
-    def testInvalidCronExpressionException(self):
+    def test_invalid_cron_expression_exception(self):
         options = Options()
-        options.ThrowExceptionOnParseError = True
+        options.throw_exception_on_parse_error = True
         ceh = ExpressionDescriptor("INVALID", options)
         self.assertRaises(
             FormatException,
-            ceh.GetDescription,
+            ceh.get_description,
             DescriptionTypeEnum.FULL)
 
-    def testInvalidCronExpressionError(self):
+    def test_invalid_cron_expression_error(self):
         options = Options()
-        options.ThrowExceptionOnParseError = False
+        options.throw_exception_on_parse_error = False
         ceh = ExpressionDescriptor("INVALID CRON", options)
         self.assertEqual(
             "Error: Expression only has 2 parts.  At least 5 part are required.",
-            ceh.GetDescription(DescriptionTypeEnum.FULL))
+            ceh.get_description(DescriptionTypeEnum.FULL))
 
-    def TestInvalidSyntaxException(self):
+    def test_invalid_syntax_exception(self):
         options = Options()
-        options.ThrowExceptionOnParseError = True
+        options.throw_exception_on_parse_error = True
         ceh = ExpressionDescriptor("* $ * * *", options)
         self.assertRaises(
             FormatException,
-            ceh.GetDescription,
+            ceh.get_description,
             DescriptionTypeEnum.FULL)

@@ -18,24 +18,23 @@ import tests.TestCase as TestCase
 
 class TestImport(TestCase.TestCase):
 
-    def testInlineImport(self):
-        from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor
+    def test_inline_import(self):
+        from cron_descriptor import Options, DescriptionTypeEnum, ExpressionDescriptor
         options = Options()
-        options.Use24HourTimeFormat = True
+        options.use_24hour_time_format = True
         ceh = ExpressionDescriptor("* * * * *", options)
         self.assertEqual(
             "Every minute",
-            ceh.GetDescription(DescriptionTypeEnum.FULL))
+            ceh.get_description(DescriptionTypeEnum.FULL))
 
-    def testFullImport(self):
+    def test_full_import(self):
         from cron_descriptor.Options import Options
-        from cron_descriptor.CasingTypeEnum import CasingTypeEnum
         from cron_descriptor.DescriptionTypeEnum import DescriptionTypeEnum
         from cron_descriptor.ExpressionDescriptor import ExpressionDescriptor
 
         options = Options()
-        options.Use24HourTimeFormat = True
+        options.use_24hour_time_format = True
         ceh = ExpressionDescriptor("* * * * *", options)
         self.assertEqual(
             'Every minute',
-            ceh.GetDescription(DescriptionTypeEnum.FULL))
+            ceh.get_description(DescriptionTypeEnum.FULL))

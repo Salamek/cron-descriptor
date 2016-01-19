@@ -23,7 +23,7 @@ class StringBuilder(object):
         if string:
             self.string.append(string)
 
-    def toString(self):
+    def __str__(self):
         return ''.join(self.string)
 
     def __len__(self):

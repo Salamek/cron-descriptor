@@ -12,8 +12,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from .Options import *
-from .ExpressionDescriptor import *
-from .DescriptionTypeEnum import *
-from .CasingTypeEnum import *
-from .Exception import *
+from .Options import Options
+from .ExpressionDescriptor import ExpressionDescriptor, get_description
+from .DescriptionTypeEnum import DescriptionTypeEnum
+from .CasingTypeEnum import CasingTypeEnum
+from .Exception import MissingFieldException, FormatException, WrongArgumentException
+
+__all__ = ['Options', 'ExpressionDescriptor', 'get_description', 'DescriptionTypeEnum',
+           'CasingTypeEnum', 'MissingFieldException', 'FormatException', 'WrongArgumentException']

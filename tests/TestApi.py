@@ -14,33 +14,33 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tests.TestCase as TestCase
-from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor
+from cron_descriptor import Options, DescriptionTypeEnum, ExpressionDescriptor
 
 
 class TestApi(TestCase.TestCase):
 
-    def testFull(self):
+    def test_full(self):
         options = Options()
-        options.Use24HourTimeFormat = True
+        options.use_24hour_time_format = True
         ceh = ExpressionDescriptor("* * * * *", options)
         self.assertEqual(
             "Every minute",
-            ceh.GetDescription(DescriptionTypeEnum.FULL))
+            ceh.get_description(DescriptionTypeEnum.FULL))
 
-    def testDefault(self):
+    def test_default(self):
         self.assertEqual(
             "Every minute",
-            ExpressionDescriptor("* * * * *").GetDescription())
+            ExpressionDescriptor("* * * * *").get_description())
 
-    def testToStr(self):
+    def test_to_str(self):
         self.assertEqual(
             "Every minute",
             str(ExpressionDescriptor("* * * * *")))
 
-    def testToRepr(self):
+    def test_to_repr(self):
         self.assertIsInstance(ExpressionDescriptor("* * * * *"), ExpressionDescriptor)
 
-    def testKargs(self):
+    def test_to_kargs(self):
         self.assertEqual(
             "At 17:17",
-            str(ExpressionDescriptor("17 17 * * *", Use24HourTimeFormat=True)))
+            str(ExpressionDescriptor("17 17 * * *", use_24hour_time_format=True)))
