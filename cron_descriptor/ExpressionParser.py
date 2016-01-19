@@ -30,7 +30,7 @@ class ExpressionParser(object):
     """
 
     def __init__(self, expression, options):
-        self.m_expression = ' '.join(expression.split())
+        self.m_expression = expression
         self.m_options = options
 
     """
@@ -45,7 +45,7 @@ class ExpressionParser(object):
         if self.m_expression is None or len(self.m_expression) == 0:
             raise MissingFieldException("ExpressionDescriptor.expression")
         else:
-            expressionPartsTemp = self.m_expression.split(' ')
+            expressionPartsTemp = self.m_expression.split()
             expressionPartsTempLength = len(expressionPartsTemp)
             if expressionPartsTempLength < 5:
                 raise FormatException(
