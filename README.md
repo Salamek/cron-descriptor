@@ -1,6 +1,6 @@
 # Cron Descriptor
 
-[![Build Status](https://travis-ci.org/Salamek/cron-descriptor.svg)](https://travis-ci.org/Salamek/cron-descriptor)
+Master: [![Master Build Status](https://api.travis-ci.org/Salamek/cron-descriptor.svg?branch=master)](https://travis-ci.org/Salamek/cron-descriptor) All: [![Build Status](https://api.travis-ci.org/Salamek/cron-descriptor.svg)](https://travis-ci.org/Salamek/cron-descriptor)
 
 A Python library that converts cron expressions into human readable strings. Ported to Python from https://github.com/bradyholt/cron-expression-descriptor.
 
@@ -79,7 +79,7 @@ print(descripter.GetDescription(DescriptionTypeEnum.FULL))
 -->
 
 ## Original Source
- - .NET - [https://github.com/bradyholt/cron-expression-descriptor](https://github.com/bradyholt/cron-expression-descripto)
+ - .NET - [https://github.com/bradyholt/cron-expression-descriptor](https://github.com/bradyholt/cron-expression-descriptor)
 
 ## Ports
  - Java - [https://github.com/RedHogs/cron-parser](https://github.com/RedHogs/cron-parser)
