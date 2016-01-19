@@ -113,10 +113,17 @@ class ExpressionDescriptor(object):
             dayOfWeekDesc = self.GetDayOfWeekDescription()
             yearDesc = self.GetYearDescription()
 
+            def dayOfWM(exp):
+                if exp == "*":
+                    return dayOfWeekDesc
+                elif "," in exp:
+                    return "{}{}".format(dayOfMonthDesc, dayOfWeekDesc)
+                else:
+                    return dayOfMonthDesc
+
             description = "{0}{1}{2}{3}".format(
                 timeSegment,
-                dayOfWeekDesc if self.m_expressionParts[
-                    3] == "*" else dayOfMonthDesc,
+                dayOfWM(self.m_expressionParts[3]),
                 monthDesc,
                 yearDesc)
 
