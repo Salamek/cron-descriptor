@@ -79,7 +79,7 @@ print(descripter.GetDescription(DescriptionTypeEnum.FULL))
 -->
 
 ## Original Source
- - .NET - [https://github.com/bradyholt/cron-expression-descriptor](https://github.com/bradyholt/cron-expression-descripto)
+ - .NET - [https://github.com/bradyholt/cron-expression-descriptor](https://github.com/bradyholt/cron-expression-descriptor)
 
 ## Ports
  - Java - [https://github.com/RedHogs/cron-parser](https://github.com/RedHogs/cron-parser)
