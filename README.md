@@ -24,9 +24,9 @@ pip install cron_descriptor
 
 ```python
 # Simple
-from cron_descriptor import ExpressionDescriptor
+from cron_descriptor.ExpressionDescriptor import GetDescription
 
-print(ExpressionDescriptor.GetDescription("* 2 3 * *"))
+print(GetDescription("* 2 3 * *"))
 ```
 
 ```python
