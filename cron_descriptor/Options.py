@@ -12,9 +12,9 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+import locale
 
 from .CasingTypeEnum import CasingTypeEnum
-from .CultureInfo import CultureInfo
 """
 Options for parsing and describing a Cron Expression
 """
@@ -29,7 +29,6 @@ class Options(object):
         self.DayOfWeekStartIndexZero = True
         self.Use24HourTimeFormat = False
 
-        # culture specific default options
-
-        self.Use24HourTimeFormat = CultureInfo().getCode() in [
-            "ru-RU", "uk-UA", "de-DE", "it-IT", "tr-TR", "cs-CZ"]
+        code, encoding = locale.getlocale()
+        self.Use24HourTimeFormat = code in [
+            "ru_RU", "uk_UA", "de_DE", "it_IT", "tr_TR", "cs_CZ"]

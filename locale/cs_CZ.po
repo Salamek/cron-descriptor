@@ -1,0 +1,217 @@
+# Translation of cron_descriptor
+# Copyright (C) 2016
+# This file is distributed under the same license as the cron_descriptor package.
+# Adam Schubert <adam.schubert@sg1-game.net>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-19 02:00+0100\n"
+"PO-Revision-Date: 2016-01-19 03:04+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs_CZ\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.4\n"
+
+#: ExpressionDescriptor.py:130
+msgid ""
+"An error occured when generating the expression description.  Check the cron "
+"expression syntax."
+msgstr "Nastala chyba při generování popisu výrazu. Zkontrolujte syntaxi výrazu."
+
+#: ExpressionDescriptor.py:151
+msgid "At "
+msgstr "Ve "
+
+#: ExpressionDescriptor.py:160
+#, python-brace-format
+msgid "Every minute between {0} and {1}"
+msgstr "Každou minutu mezi {0} a {1}"
+
+#: ExpressionDescriptor.py:165
+msgid "At"
+msgstr "Ve"
+
+#: ExpressionDescriptor.py:175
+msgid " and"
+msgstr " a"
+
+#: ExpressionDescriptor.py:201
+msgid "every second"
+msgstr "Každou sekundu"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "every {0} seconds"
+msgstr "každých {0} sekund"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "seconds {0} through {1} past the minute"
+msgstr "{0} až {1}  sekund"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "at {0} seconds past the minute"
+msgstr "v {0} sekund uplynulou minutu"
+
+#: ExpressionDescriptor.py:209
+msgid "every minute"
+msgstr "každou minutu"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "every {0} minutes"
+msgstr "každých {0} minut"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "minutes {0} through {1} past the hour"
+msgstr "{0} až {1} minut "
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "at {0} minutes past the hour"
+msgstr "v minutě {0}"
+
+#: ExpressionDescriptor.py:218
+msgid "every hour"
+msgstr "Každou hodinu"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "every {0} hours"
+msgstr "každých {0} hodin"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "between {0} and {1}"
+msgstr "mezi {0} a {1}"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "at {0}"
+msgstr "v {0}"
+
+#: ExpressionDescriptor.py:241
+msgid "first"
+msgstr "první"
+
+#: ExpressionDescriptor.py:243
+msgid "second"
+msgstr "druhý"
+
+#: ExpressionDescriptor.py:245
+msgid "third"
+msgstr "třetí"
+
+#: ExpressionDescriptor.py:247
+msgid "forth"
+msgstr "čtvrtý"
+
+#: ExpressionDescriptor.py:249
+msgid "fifth"
+msgstr "pátý"
+
+#: ExpressionDescriptor.py:251
+msgid ", on the "
+msgstr ", na"
+
+#: ExpressionDescriptor.py:252
+#, python-brace-format
+msgid " {0} of the month"
+msgstr " {0} měsíce"
+
+#: ExpressionDescriptor.py:254
+#, python-brace-format
+msgid ", on the last {0} of the month"
+msgstr ", v poslední {0} měsíce"
+
+#: ExpressionDescriptor.py:256
+#, python-brace-format
+msgid ", only on {0}"
+msgstr ", pouze v {0}"
+
+#: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303
+#: ExpressionDescriptor.py:435
+msgid ", every day"
+msgstr ", každý den"
+
+#: ExpressionDescriptor.py:260
+#, python-brace-format
+msgid ", every {0} days of the week"
+msgstr ", každých {0} dnů v týdnu"
+
+#: ExpressionDescriptor.py:260 ExpressionDescriptor.py:274
+#: ExpressionDescriptor.py:318
+#, python-brace-format
+msgid ", {0} through {1}"
+msgstr ", {0} do {1}"
+
+#: ExpressionDescriptor.py:272
+#, python-brace-format
+msgid ", every {0} months"
+msgstr ", každý {0} měsíc"
+
+#: ExpressionDescriptor.py:275 ExpressionDescriptor.py:319
+#, python-brace-format
+msgid ", only in {0}"
+msgstr ", pouze v {0}"
+
+#: ExpressionDescriptor.py:288
+msgid ", on the last day of the month"
+msgstr ", v poslední den měsíce"
+
+#: ExpressionDescriptor.py:290
+msgid ", on the last weekday of the month"
+msgstr ", v poslední všední den v měsíci"
+
+#: ExpressionDescriptor.py:297
+msgid "first weekday"
+msgstr "první víkendový den"
+
+#: ExpressionDescriptor.py:297
+#, python-brace-format
+msgid "weekday nearest day {0}"
+msgstr "nejbližší všední den k {0}"
+
+#: ExpressionDescriptor.py:299
+#, python-brace-format
+msgid ", on the {0} of the month"
+msgstr ", v {0} měsíce"
+
+#: ExpressionDescriptor.py:303
+#, python-brace-format
+msgid ", every {0} days"
+msgstr ", každých {0} dnů"
+
+#: ExpressionDescriptor.py:304
+#, python-brace-format
+msgid ", between day {0} and {1} of the month"
+msgstr ", mezi {0} a {1} dnem měsíce"
+
+#: ExpressionDescriptor.py:304
+#, python-brace-format
+msgid ", on day {0} of the month"
+msgstr ", v {0} den v měsíci"
+
+#: ExpressionDescriptor.py:316
+#, python-brace-format
+msgid ", every {0} years"
+msgstr ", každý {0} rok"
+
+#: ExpressionDescriptor.py:385
+msgid " and "
+msgstr " a "
+
+#: ExpressionDescriptor.py:433
+msgid ", every minute"
+msgstr ", každou minutu"
+
+#: ExpressionDescriptor.py:434
+msgid ", every hour"
+msgstr ", každou hodinu"

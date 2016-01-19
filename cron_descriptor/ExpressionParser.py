@@ -15,7 +15,6 @@
 
 import re
 
-from .CultureInfo import CultureInfo
 from .Tools import NumberToDay, NumberToMonth
 from .Exception import MissingFieldException, FormatException
 

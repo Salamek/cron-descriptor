@@ -13,7 +13,23 @@ A Python library that converts cron expressions into human readable strings.Tran
  * Supports 5, 6 (w/ seconds or year), or 7 (w/ seconds and year) part cron expressions
  * Provides casing options (Sentence, Title, Lower, etc.)
  * Localization with support for 12 languages
- 
+
+## Languages Available
+  * English ([Brady Holt](https://github.com/bradyholt))
+  * Brazilian ([Renato Lima](https://github.com/natenho))
+  * Spanish ([Ivan Santos](https://github.com/ivansg))
+  * Norwegian ([Siarhei Khalipski](https://github.com/KhalipskiSiarhei))
+  * Turkish ([Mustafa SADEDİL](https://github.com/sadedil))
+  * Dutch ([TotalMace](https://github.com/TotalMace))
+  * Chinese Simplified ([Star Peng](https://github.com/starpeng))
+  * Russian ([LbISS](https://github.com/LbISS))
+  * French ([Arnaud TAMAILLON](https://github.com/Greybird))
+  * German ([Michael Schuler](https://github.com/mschuler))
+  * Ukrainian ([Taras](https://github.com/tbudurovych))
+  * Italian ([rinaldihno](https://github.com/rinaldihno))
+  * Czech ([Adam Schubert](https://github.com/salamek))
+
+
 <!-- SOON
 ## Demo
 

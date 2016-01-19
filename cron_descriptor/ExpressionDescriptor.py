@@ -16,15 +16,15 @@
 import re
 import datetime
 
+from .l10n import l10n
 from .CasingTypeEnum import CasingTypeEnum
-from .CultureInfo import CultureInfo
 from .DescriptionTypeEnum import DescriptionTypeEnum
 from .ExpressionParser import ExpressionParser
 from .Options import Options
-from .Resources import Resources
 from .Tools import NumberToDay, NumberToMonth
 from .StringBuilder import StringBuilder
 from .Exception import FormatException
+
 
 """
  Converts a Cron Expression into a human readable string
@@ -39,7 +39,7 @@ class ExpressionDescriptor(object):
     m_parsed = False
 
     """
-    Initializes a new instance of the <see cref="ExpressionDescriptor"/> class
+    Initializes a new instance of the ExpressionDescriptorclass
     @param: expression: The cron expression string
     @param: options: Options to control the output description
     """
@@ -49,6 +49,11 @@ class ExpressionDescriptor(object):
         self.m_options = options
         self.m_expressionParts = []
         self.m_parsed = False
+
+        #Initializes localizacion
+        l10n()
+
+
 
     """
     Generates a human readable string for the Cron Expression
@@ -121,8 +126,7 @@ class ExpressionDescriptor(object):
                 description,
                 self.m_options.CasingType)
         except Exception as ex:
-            raise
-            description = Resources.AnErrorOccuredWhenGeneratingTheExpressionD
+            description = _("An error occured when generating the expression description.  Check the cron expression syntax.")
             if self.m_options.ThrowExceptionOnParseError:
                 raise FormatException(description)
 
@@ -143,7 +147,7 @@ class ExpressionDescriptor(object):
         # handle special cases first
         if any(exp in minuteExpression for exp in self.m_specialCharacters) is False and any(exp in hourExpression for exp in self.m_specialCharacters) is False and any(exp in secondsExpression for exp in self.m_specialCharacters) is False:
             # specific time of day (i.e. 10 14)
-            description.append(Resources.AtSpace)
+            description.append(_("At "))
             description.append(
                 self.FormatTime(
                     hourExpression,
@@ -152,12 +156,12 @@ class ExpressionDescriptor(object):
         elif "-" in minuteExpression and "," not in minuteExpression and any(exp in hourExpression for exp in self.m_specialCharacters) is False:
             # minute range in single hour (i.e. 0-10 11)
             minuteParts = minuteExpression.split('-')
-            description.append(Resources.EveryMinuteBetweenX0AndX1.format(
+            description.append(_("Every minute between {0} and {1}").format(
                 self.FormatTime(hourExpression, minuteParts[0]), self.FormatTime(hourExpression, minuteParts[1])))
         elif "," in hourExpression and any(exp in minuteExpression for exp in self.m_specialCharacters) is False:
             # hours list with single minute (o.e. 30 6,14,16)
             hourParts = hourExpression.split(',')
-            description.append(Resources.At)
+            description.append(_("At"))
             for i in range(0, len(hourParts)):
                 description.append(" ")
                 description.append(
@@ -167,7 +171,7 @@ class ExpressionDescriptor(object):
                     description.append(",")
 
                 if i == len(hourParts) - 2:
-                    description.append(Resources.SpaceAnd)
+                    description.append(_(" and"))
         else:
             # default time description
             secondsDescription = self.GetSecondsDescription()
@@ -193,7 +197,7 @@ class ExpressionDescriptor(object):
     """
 
     def GetSecondsDescription(self):
-        return self.GetSegmentDescription(self.m_expressionParts[0], Resources.EverySecond, lambda s: s.zfill(2), lambda s: Resources.EveryX0Seconds.format(s), lambda s: Resources.SecondsX0ThroughX1PastTheMinute, lambda s: Resources.AtX0SecondsPastTheMinute)
+        return self.GetSegmentDescription(self.m_expressionParts[0], _("every second"), lambda s: s.zfill(2), lambda s: _("every {0} seconds").format(s), lambda s: _("seconds {0} through {1} past the minute"), lambda s: _("at {0} seconds past the minute"))
 
     """
     Generates a description for only the MINUTE portion of the expression
@@ -201,7 +205,7 @@ class ExpressionDescriptor(object):
     """
 
     def GetMinutesDescription(self):
-        return self.GetSegmentDescription(self.m_expressionParts[1], Resources.EveryMinute, lambda s: s.zfill(2), lambda s: Resources.EveryX0Minutes.format(s.zfill(2)), lambda s: Resources.MinutesX0ThroughX1PastTheHour, lambda s: '' if s == "0" else Resources.AtX0MinutesPastTheHour)
+        return self.GetSegmentDescription(self.m_expressionParts[1], _("every minute"), lambda s: s.zfill(2), lambda s: _("every {0} minutes").format(s.zfill(2)), lambda s: _("minutes {0} through {1} past the hour"), lambda s: '' if s == "0" else _("at {0} minutes past the hour"))
 
     """
     Generates a description for only the HOUR portion of the expression
@@ -210,7 +214,7 @@ class ExpressionDescriptor(object):
 
     def GetHoursDescription(self):
         expression = self.m_expressionParts[2]
-        return self.GetSegmentDescription(expression, Resources.EveryHour, lambda s: self.FormatTime(s, "0"), lambda s: Resources.EveryX0Hours.format(s.zfill(2)), lambda s: Resources.BetweenX0AndX1, lambda s: Resources.AtX0)
+        return self.GetSegmentDescription(expression, _("every hour"), lambda s: self.FormatTime(s, "0"), lambda s: _("every {0} hours").format(s.zfill(2)), lambda s: _("between {0} and {1}"), lambda s: _("at {0}"))
 
     """
     Generates a description for only the DAYOFWEEK portion of the expression
@@ -233,26 +237,26 @@ class ExpressionDescriptor(object):
                 dayOfWeekOfMonthNumber = s[s.find("#") + 1:]
                 dayOfWeekOfMonthDescription = None
                 if dayOfWeekOfMonthNumber == "1":
-                    dayOfWeekOfMonthDescription = Resources.First
+                    dayOfWeekOfMonthDescription = _("first")
                 elif dayOfWeekOfMonthNumber == "2":
-                    dayOfWeekOfMonthDescription = Resources.Second
+                    dayOfWeekOfMonthDescription = _("second")
                 elif dayOfWeekOfMonthNumber == "3":
-                    dayOfWeekOfMonthDescription = Resources.Third
+                    dayOfWeekOfMonthDescription = _("third")
                 elif dayOfWeekOfMonthNumber == "4":
-                    dayOfWeekOfMonthDescription = Resources.Forth
+                    dayOfWeekOfMonthDescription = _("forth")
                 elif dayOfWeekOfMonthNumber == "5":
-                    dayOfWeekOfMonthDescription = Resources.Fifth
+                    dayOfWeekOfMonthDescription = _("fifth")
 
-                format = "{}{}{}".format(Resources.ComaOnThe,
-                                         dayOfWeekOfMonthDescription, Resources.SpaceX0OfTheMonth)
+                format = "{}{}{}".format(_(", on the "),
+                                         dayOfWeekOfMonthDescription, _(" {0} of the month"))
             elif "L" in s:
-                format = Resources.ComaOnTheLastX0OfTheMonth
+                format = _(", on the last {0} of the month")
             else:
-                format = Resources.ComaOnlyOnX0
+                format = _(", only on {0}")
 
             return format
 
-        return self.GetSegmentDescription(self.m_expressionParts[5], Resources.ComaEveryDay, lambda s: GetDayName(s), lambda s: Resources.ComaEveryX0DaysOfTheWeek.format(s), lambda s: Resources.ComaX0ThroughX1, lambda s: GetFormat(s))
+        return self.GetSegmentDescription(self.m_expressionParts[5], _(", every day"), lambda s: GetDayName(s), lambda s: _(", every {0} days of the week").format(s), lambda s: _(", {0} through {1}"), lambda s: GetFormat(s))
 
     """
     Generates a description for only the MONTH portion of the expression
@@ -264,10 +268,10 @@ class ExpressionDescriptor(object):
                                           lambda s: datetime.date(
             datetime.date.today(
             ).year, int(s), 1).strftime("%B"),
-            lambda s: Resources.ComaEveryX0Months.format(
+            lambda s: _(", every {0} months").format(
             s),
-                                     lambda s: Resources.ComaX0ThroughX1,
-                                     lambda s: Resources.ComaOnlyInX0)
+                                     lambda s: _(", {0} through {1}"),
+                                     lambda s: _(", only in {0}"))
 
     """
     Generates a description for only the DAYOFMONTH portion of the expression
@@ -280,23 +284,23 @@ class ExpressionDescriptor(object):
         expression = expression.replace("?", "*")
 
         if expression == "L":
-            description = Resources.ComaOnTheLastDayOfTheMonth
+            description = _(", on the last day of the month")
         elif expression == "LW" or expression == "WL":
-            description = Resources.ComaOnTheLastWeekdayOfTheMonth
+            description = _(", on the last weekday of the month")
         else:
             regex = re.compile("(\\d{1,2}W)|(W\\d{1,2})")
             if regex.match(expression):
                 m = regex.match(expression)
                 dayNumber = int(m.group().replace("W", ""))
 
-                dayString = Resources.FirstWeekday if dayNumber == 1 else Resources.WeekdayNearestDayX0.format(
+                dayString = _("first weekday") if dayNumber == 1 else _("weekday nearest day {0}").format(
                     dayNumber)
-                description = Resources.ComaOnTheX0OfTheMonth.format(
+                description = _(", on the {0} of the month").format(
                     dayString)
             else:
                 description = self.GetSegmentDescription(
-                    expression, Resources.ComaEveryDay, lambda s: s, lambda s: Resources.ComaEveryDay if s == "1" else Resources.ComaEveryX0Days,
-                                                    lambda s: Resources.ComaBetweenDayX0AndX1OfTheMonth, lambda s: Resources.ComaOnDayX0OfTheMonth)
+                    expression, _(", every day"), lambda s: s, lambda s: _(", every day") if s == "1" else _(", every {0} days"),
+                                                    lambda s: _(", between day {0} and {1} of the month"), lambda s: _(", on day {0} of the month"))
 
         return description
 
@@ -308,10 +312,10 @@ class ExpressionDescriptor(object):
     def GetYearDescription(self):
         return self.GetSegmentDescription(self.m_expressionParts[6], '',
                                           lambda s: s.zfill(4),
-                                          lambda s: Resources.ComaEveryX0Years.format(
+                                          lambda s: _(", every {0} years").format(
             s),
-            lambda s: Resources.ComaX0ThroughX1,
-                                     lambda s: Resources.ComaOnlyInX0)
+            lambda s: _(", {0} through {1}"),
+                                     lambda s: _(", only in {0}"))
 
     """
     Returns segment description
@@ -377,7 +381,7 @@ class ExpressionDescriptor(object):
                         descriptionContent += " "
 
                 if i > 0 and len(segments) > 1 and (i == len(segments) - 1 or len(segments) == 2):
-                    descriptionContent += Resources.SpaceAndSpace
+                    descriptionContent += _(" and ")
 
                 descriptionContent += getSingleItemDescription(segments[i])
 
@@ -425,9 +429,9 @@ class ExpressionDescriptor(object):
     def TransformVerbosity(self, description, useVerboseFormat):
         if useVerboseFormat is False:
             description = description.replace(
-                Resources.ComaEveryMinute, '')
-            description = description.replace(Resources.ComaEveryHour, '')
-            description = description.replace(Resources.ComaEveryDay, '')
+                _(", every minute"), '')
+            description = description.replace(_(", every hour"), '')
+            description = description.replace(_(", every day"), '')
         return description
 
     """

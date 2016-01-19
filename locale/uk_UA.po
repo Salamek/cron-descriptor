@@ -1,0 +1,213 @@
+# Translation of cron_descriptor
+# Copyright (C) 2016
+# This file is distributed under the same license as the cron_descriptor package.
+# Adam Schubert <adam.schubert@sg1-game.net>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-19 02:00+0100\n"
+"PO-Revision-Date: 2016-01-19 03:10+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk_UA\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.4\n"
+
+#: ExpressionDescriptor.py:130
+msgid "An error occured when generating the expression description.  Check the cron expression syntax."
+msgstr "ÐÐÐ´Ð±ÑÐ»Ð°ÑÑ Ð¿Ð¾Ð¼Ð¸Ð»ÐºÐ° Ð¿ÑÐ´ÑÐ°Ñ Ð³ÐµÐ½ÐµÑÐ°ÑÑÑ Ð¾Ð¿Ð¸ÑÑ. ÐÐµÑÐµÐ²ÑÑÑÐ° Ð¿ÑÐ°Ð²Ð¸Ð»ÑÐ½ÑÑÑÑ Ð½Ð°Ð¿Ð¸ÑÐ°Ð½Ð½Ñ cron Ð²Ð¸ÑÐ°Ð·Ñ."
+
+#: ExpressionDescriptor.py:151
+msgid "At "
+msgstr "Ð "
+
+#: ExpressionDescriptor.py:160
+#, python-brace-format
+msgid "Every minute between {0} and {1}"
+msgstr "Ð©Ð¾ÑÐ²Ð¸Ð»Ð¸Ð½Ð¸ Ð¼ÑÐ¶ {0} ÑÐ° {1}"
+
+#: ExpressionDescriptor.py:165
+msgid "At"
+msgstr "Ð"
+
+#: ExpressionDescriptor.py:175
+msgid " and"
+msgstr " ÑÐ°"
+
+#: ExpressionDescriptor.py:201
+msgid "every second"
+msgstr "Ð©Ð¾ÑÐµÐºÑÐ½Ð´Ð¸"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "every {0} seconds"
+msgstr "ÐºÐ¾Ð¶Ð½Ñ {0} ÑÐµÐºÑÐ½Ð´"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "seconds {0} through {1} past the minute"
+msgstr "Ð· {0} Ð¿Ð¾ {1} ÑÐµÐºÑÐ½Ð´Ñ"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "at {0} seconds past the minute"
+msgstr "Ð¾ {0} ÑÐµÐºÑÐ½Ð´Ñ"
+
+#: ExpressionDescriptor.py:209
+msgid "every minute"
+msgstr "ÑÐ¾ÑÐ²Ð¸Ð»Ð¸Ð½Ð¸"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "every {0} minutes"
+msgstr "ÐºÐ¾Ð¶Ð½Ñ {0} ÑÐ²Ð¸Ð»Ð¸Ð½"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "minutes {0} through {1} past the hour"
+msgstr "Ð· {0} Ð¿Ð¾ {1} ÑÐ²Ð¸Ð»Ð¸Ð½Ñ"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "at {0} minutes past the hour"
+msgstr "Ð¾ {0} ÑÐ²Ð¸Ð»Ð¸Ð½Ñ"
+
+#: ExpressionDescriptor.py:218
+msgid "every hour"
+msgstr "ÑÐ¾Ð³Ð¾Ð´Ð¸Ð½Ð¸"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "every {0} hours"
+msgstr "ÐºÐ¾Ð¶Ð½Ñ {0} Ð³Ð¾Ð´Ð¸Ð½"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "between {0} and {1}"
+msgstr "Ð¼ÑÐ¶ {0} ÑÐ° {1}"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "at {0}"
+msgstr "Ð¾ {0}"
+
+#: ExpressionDescriptor.py:241
+msgid "first"
+msgstr "Ð¿ÐµÑÑÐ¸Ð¹"
+
+#: ExpressionDescriptor.py:243
+msgid "second"
+msgstr "Ð´ÑÑÐ³Ð¸Ð¹"
+
+#: ExpressionDescriptor.py:245
+msgid "third"
+msgstr "ÑÑÐµÑÑÐ¹"
+
+#: ExpressionDescriptor.py:247
+msgid "forth"
+msgstr "ÑÐµÑÐ²ÐµÑÑÐ¸Ð¹"
+
+#: ExpressionDescriptor.py:249
+msgid "fifth"
+msgstr "Ð¿'ÑÑÐ¸Ð¹"
+
+#: ExpressionDescriptor.py:251
+msgid ", on the "
+msgstr ", Ð² "
+
+#: ExpressionDescriptor.py:252
+#, python-brace-format
+msgid " {0} of the month"
+msgstr " {0} Ð¼ÑÑÑÑÑ"
+
+#: ExpressionDescriptor.py:254
+#, python-brace-format
+msgid ", on the last {0} of the month"
+msgstr ", Ð² Ð¾ÑÑÐ°Ð½Ð½ÑÐ¹ {0} Ð¼ÑÑÑÑÑ"
+
+#: ExpressionDescriptor.py:256
+#, python-brace-format
+msgid ", only on {0}"
+msgstr ", ÑÑÐ»ÑÐºÐ¸ Ð² {0}"
+
+#: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303 ExpressionDescriptor.py:435
+msgid ", every day"
+msgstr ", ÑÐ¾Ð´ÐµÐ½Ð½Ð¾"
+
+#: ExpressionDescriptor.py:260
+#, python-brace-format
+msgid ", every {0} days of the week"
+msgstr ", ÐºÐ¾Ð¶ÐµÐ½ {0} Ð´ÐµÐ½Ñ ÑÐ¸Ð¶Ð½Ñ"
+
+#: ExpressionDescriptor.py:260 ExpressionDescriptor.py:274 ExpressionDescriptor.py:318
+#, python-brace-format
+msgid ", {0} through {1}"
+msgstr ", {0} Ð¿Ð¾ {1}"
+
+#: ExpressionDescriptor.py:272
+#, python-brace-format
+msgid ", every {0} months"
+msgstr ", ÐºÐ¾Ð¶ÐµÐ½ {0} Ð¼ÑÑÑÑÑ"
+
+#: ExpressionDescriptor.py:275 ExpressionDescriptor.py:319
+#, python-brace-format
+msgid ", only in {0}"
+msgstr ", ÑÑÐ»ÑÐºÐ¸ Ð² {0}"
+
+#: ExpressionDescriptor.py:288
+msgid ", on the last day of the month"
+msgstr ", Ð² Ð¾ÑÑÐ°Ð½Ð½ÑÐ¹ Ð´ÐµÐ½Ñ Ð¼ÑÑÑÑÑ"
+
+#: ExpressionDescriptor.py:290
+msgid ", on the last weekday of the month"
+msgstr ", Ð² Ð¾ÑÑÐ°Ð½Ð½ÑÐ¹ Ð±ÑÐ´ÐµÐ½Ñ Ð¼ÑÑÑÑÑ"
+
+#: ExpressionDescriptor.py:297
+msgid "first weekday"
+msgstr "Ð¿ÐµÑÑÐ¸Ð¹ Ð±ÑÐ´ÐµÐ½Ñ"
+
+#: ExpressionDescriptor.py:297
+#, python-brace-format
+msgid "weekday nearest day {0}"
+msgstr "Ð±ÑÐ´ÐµÐ½Ñ Ð½Ð°Ð¹Ð±Ð»Ð¸Ð¶ÑÐ¸Ð¹ Ð´Ð¾ {0} Ð´Ð½Ñ"
+
+#: ExpressionDescriptor.py:299
+#, python-brace-format
+msgid ", on the {0} of the month"
+msgstr ", Ð² {0} Ð¼ÑÑÑÑÑ"
+
+#: ExpressionDescriptor.py:303
+#, python-brace-format
+msgid ", every {0} days"
+msgstr ", ÐºÐ¾Ð¶ÐµÐ½ {0} Ð´ÐµÐ½Ñ"
+
+#: ExpressionDescriptor.py:304
+#, python-brace-format
+msgid ", between day {0} and {1} of the month"
+msgstr ", Ð¼ÑÐ¶ {0} ÑÐ° {1} Ð´Ð½ÑÐ¼Ð¸ Ð¼ÑÑÑÑÑ"
+
+#: ExpressionDescriptor.py:304
+#, python-brace-format
+msgid ", on day {0} of the month"
+msgstr ", Ð½Ð° {0} Ð´ÐµÐ½Ñ Ð¼ÑÑÑÑÑ"
+
+#: ExpressionDescriptor.py:316
+#, python-brace-format
+msgid ", every {0} years"
+msgstr ", ÐºÐ¾Ð¶Ð½Ñ {0} ÑÐ¾ÐºÐ¸"
+
+#: ExpressionDescriptor.py:385
+msgid " and "
+msgstr " ÑÐ° "
+
+#: ExpressionDescriptor.py:433
+msgid ", every minute"
+msgstr ", ÑÐ¾ÑÐ²Ð¸Ð»Ð¸Ð½Ð¸"
+
+#: ExpressionDescriptor.py:434
+msgid ", every hour"
+msgstr ", ÑÐ¾Ð³Ð¾Ð´Ð¸Ð½Ð¸"

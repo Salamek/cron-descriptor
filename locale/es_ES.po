@@ -1,0 +1,219 @@
+# Translation of cron_descriptor
+# Copyright (C) 2016
+# This file is distributed under the same license as the cron_descriptor package.
+# Adam Schubert <adam.schubert@sg1-game.net>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-01-19 02:00+0100\n"
+"PO-Revision-Date: 2016-01-19 03:08+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.4\n"
+
+#: ExpressionDescriptor.py:130
+msgid ""
+"An error occured when generating the expression description.  Check the cron "
+"expression syntax."
+msgstr ""
+"OcurriÃ³ un error mientras se generaba la descripciÃ³n de la expresiÃ³n. "
+"Revise la sintaxis de la expresiÃ³n de cron."
+
+#: ExpressionDescriptor.py:151
+msgid "At "
+msgstr "A las "
+
+#: ExpressionDescriptor.py:160
+#, python-brace-format
+msgid "Every minute between {0} and {1}"
+msgstr "cada minuto entre las {0} y las {1}"
+
+#: ExpressionDescriptor.py:165
+msgid "At"
+msgstr "A las"
+
+#: ExpressionDescriptor.py:175
+msgid " and"
+msgstr " y"
+
+#: ExpressionDescriptor.py:201
+msgid "every second"
+msgstr "cada segundo"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "every {0} seconds"
+msgstr "cada {0} segundos"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "seconds {0} through {1} past the minute"
+msgstr "En los segundos {0} al {1} de cada minuto"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "at {0} seconds past the minute"
+msgstr "a los {0} segundos del minuto"
+
+#: ExpressionDescriptor.py:209
+msgid "every minute"
+msgstr "cada minuto"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "every {0} minutes"
+msgstr "cada {0} minutos"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "minutes {0} through {1} past the hour"
+msgstr "del minuto {0} al {1} pasada la hora"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "at {0} minutes past the hour"
+msgstr "a los {0} minutos de la hora"
+
+#: ExpressionDescriptor.py:218
+msgid "every hour"
+msgstr "cada hora"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "every {0} hours"
+msgstr "cada {0} horas"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "between {0} and {1}"
+msgstr "entre las {0} y las {1}"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "at {0}"
+msgstr "a las {0}"
+
+#: ExpressionDescriptor.py:241
+msgid "first"
+msgstr "primero"
+
+#: ExpressionDescriptor.py:243
+msgid "second"
+msgstr "segundo"
+
+#: ExpressionDescriptor.py:245
+msgid "third"
+msgstr "tercer"
+
+#: ExpressionDescriptor.py:247
+msgid "forth"
+msgstr "cuarto"
+
+#: ExpressionDescriptor.py:249
+msgid "fifth"
+msgstr "quinto"
+
+#: ExpressionDescriptor.py:251
+msgid ", on the "
+msgstr ", en el "
+
+#: ExpressionDescriptor.py:252
+#, python-brace-format
+msgid " {0} of the month"
+msgstr " {0} del mes"
+
+#: ExpressionDescriptor.py:254
+#, python-brace-format
+msgid ", on the last {0} of the month"
+msgstr ", en el Ãºltimo {0} del mes"
+
+#: ExpressionDescriptor.py:256
+#, python-brace-format
+msgid ", only on {0}"
+msgstr ", sÃ³lo el {0}"
+
+#: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303
+#: ExpressionDescriptor.py:435
+msgid ", every day"
+msgstr ", cada dÃ­a"
+
+#: ExpressionDescriptor.py:260
+#, python-brace-format
+msgid ", every {0} days of the week"
+msgstr ", cada {0} dÃ­as de la semana"
+
+#: ExpressionDescriptor.py:260 ExpressionDescriptor.py:274
+#: ExpressionDescriptor.py:318
+#, python-brace-format
+msgid ", {0} through {1}"
+msgstr ", de {0} a {1}"
+
+#: ExpressionDescriptor.py:272
+#, python-brace-format
+msgid ", every {0} months"
+msgstr ", cada {0} meses"
+
+#: ExpressionDescriptor.py:275 ExpressionDescriptor.py:319
+#, python-brace-format
+msgid ", only in {0}"
+msgstr ", sÃ³lo en {0}"
+
+#: ExpressionDescriptor.py:288
+msgid ", on the last day of the month"
+msgstr ", en el Ãºltimo dÃ­a del mes"
+
+#: ExpressionDescriptor.py:290
+msgid ", on the last weekday of the month"
+msgstr ", en el Ãºltimo dÃ­a de la semana del mes"
+
+#: ExpressionDescriptor.py:297
+msgid "first weekday"
+msgstr "primer dÃ­a de la semana"
+
+#: ExpressionDescriptor.py:297
+#, python-brace-format
+msgid "weekday nearest day {0}"
+msgstr "dÃ­a de la semana mÃ¡s prÃ³ximo al {0}"
+
+#: ExpressionDescriptor.py:299
+#, python-brace-format
+msgid ", on the {0} of the month"
+msgstr ", en el {0} del mes"
+
+#: ExpressionDescriptor.py:303
+#, python-brace-format
+msgid ", every {0} days"
+msgstr ", cada {0} dÃ­as"
+
+#: ExpressionDescriptor.py:304
+#, python-brace-format
+msgid ", between day {0} and {1} of the month"
+msgstr ", entre los dÃ­as {0} y {1} del mes"
+
+#: ExpressionDescriptor.py:304
+#, python-brace-format
+msgid ", on day {0} of the month"
+msgstr ", el dÃ­a {0} del mes"
+
+#: ExpressionDescriptor.py:316
+#, python-brace-format
+msgid ", every {0} years"
+msgstr ", cada {0} aÃ±os"
+
+#: ExpressionDescriptor.py:385
+msgid " and "
+msgstr " y "
+
+#: ExpressionDescriptor.py:433
+msgid ", every minute"
+msgstr ", cada minuto"
+
+#: ExpressionDescriptor.py:434
+msgid ", every hour"
+msgstr ", cada hora"
