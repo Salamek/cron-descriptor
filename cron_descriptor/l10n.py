@@ -18,12 +18,14 @@ import gettext
 import os
 import logging
 
+
 class l10n(object):
+
     def __init__(self):
         code, encoding = locale.getlocale()
         try:
             filename = os.path.join('locale', '{}.mo'.format(code))
-            trans = gettext.GNUTranslations(open( filename, "rb" ) )
+            trans = gettext.GNUTranslations(open(filename, "rb"))
             logging.debug('{} Loaded'.format(filename))
         except IOError:
             trans = gettext.NullTranslations()

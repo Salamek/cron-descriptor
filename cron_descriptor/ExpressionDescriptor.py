@@ -44,23 +44,22 @@ class ExpressionDescriptor(object):
     @param: options: Options to control the output description
     """
 
-    def __init__(self, expression, options = Options(), **kwargs):
+    def __init__(self, expression, options=Options(), **kwargs):
         self.m_expression = expression
         self.m_options = options
         self.m_expressionParts = []
         self.m_parsed = False
 
-        #if kwargs in m_options, overwrite it, if not raise exeption
+        # if kwargs in m_options, overwrite it, if not raise exeption
         for kwarg in kwargs:
             if hasattr(self.m_options, kwarg):
                 setattr(self.m_options, kwarg, kwargs[kwarg])
             else:
-                raise WrongArgumentException("Unknow {} configuration argument".format(kwarg))
+                raise WrongArgumentException(
+                    "Unknow {} configuration argument".format(kwarg))
 
-        #Initializes localizacion
+        # Initializes localizacion
         l10n()
-
-
 
     """
     Generates a human readable string for the Cron Expression
@@ -68,7 +67,7 @@ class ExpressionDescriptor(object):
     @returns: The cron expression description
     """
 
-    def GetDescription(self, type = DescriptionTypeEnum.FULL):
+    def GetDescription(self, type=DescriptionTypeEnum.FULL):
         description = ''
 
         try:
@@ -140,7 +139,8 @@ class ExpressionDescriptor(object):
                 description,
                 self.m_options.CasingType)
         except Exception as ex:
-            description = _("An error occured when generating the expression description.  Check the cron expression syntax.")
+            description = _(
+                "An error occured when generating the expression description.  Check the cron expression syntax.")
             if self.m_options.ThrowExceptionOnParseError:
                 raise FormatException(description)
 
@@ -313,7 +313,8 @@ class ExpressionDescriptor(object):
                     dayString)
             else:
                 description = self.GetSegmentDescription(
-                    expression, _(", every day"), lambda s: s, lambda s: _(", every day") if s == "1" else _(", every {0} days"),
+                    expression, _(", every day"), lambda s: s, lambda s: _(
+                        ", every day") if s == "1" else _(", every {0} days"),
                                                     lambda s: _(", between day {0} and {1} of the month"), lambda s: _(", on day {0} of the month"))
 
         return description
@@ -478,6 +479,8 @@ Generates a human readable string for the Cron Expression
 @param: options Options to control the output description
 @returns: The cron expression description
 """
+
+
 def GetDescription(expression, options=Options()):
     descripter = ExpressionDescriptor(expression, options)
     return descripter.GetDescription(DescriptionTypeEnum.FULL)
