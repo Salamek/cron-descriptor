@@ -30,7 +30,7 @@ class ExpressionParser(object):
     """
 
     def __init__(self, expression, options):
-        self.m_expression = expression
+        self.m_expression = ' '.join(expression.split())
         self.m_options = options
 
     """
