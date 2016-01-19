@@ -288,6 +288,9 @@ class TestFormats(TestCase.TestCase):
         self.assertEqual(
             "At 12:23 PM, on the second Sunday of the month", GetDescription("23 12 * * 1#2", options))
 
+    def testDayOfWeekModifierWithDayOfMonth(self):
+        self.assertEqual("At 00:00 AM, on day 1, 2, and 3 of the month, only on Wednesday and Friday", GetDescription("0 0      0 1,2,3 * WED,FRI"))
+
     def testHourRangeWithEveryPortion(self):
 
         self.assertEqual(
