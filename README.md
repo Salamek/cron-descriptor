@@ -18,7 +18,7 @@ A Python library that converts cron expressions into human readable strings. Por
 ## Installation
 Using PIP
 ```bash
-pip install cron_descriptor
+pip install cron-descriptor
 ```
 
 ## Usage example
