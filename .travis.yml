@@ -10,5 +10,5 @@ script:
   - python setup.py test
 sudo: false
 install:
-  pip install six
-  pip install pep8
+  - pip install six
+  - pip install pep8
