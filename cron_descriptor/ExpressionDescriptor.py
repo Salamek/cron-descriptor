@@ -217,14 +217,14 @@ class ExpressionDescriptor(object):
     """
 
     def get_seconds_description(self):
-        return self.get_segment_description(self._expression_parts[0],
-                                            _("every second"),
-                                            lambda s: s.zfill(2),
-                                            lambda s: _(
-                                            "every {0} seconds").format(s),
-                                            lambda s: _(
-                                            "seconds {0} through {1} past the minute"),
-                                            lambda s: _("at {0} seconds past the minute"))
+        return self.get_segment_description(
+            self._expression_parts[0],
+            _("every second"),
+            lambda s: s.zfill(2),
+            lambda s: _("every {0} seconds").format(s),
+            lambda s: _("seconds {0} through {1} past the minute"),
+            lambda s: _("at {0} seconds past the minute")
+        )
 
     """
     Generates a description for only the MINUTE portion of the expression
@@ -232,14 +232,14 @@ class ExpressionDescriptor(object):
     """
 
     def get_minutes_description(self):
-        return self.get_segment_description(self._expression_parts[1],
-                                            _("every minute"),
-                                            lambda s: s.zfill(2),
-                                            lambda s: _(
-                                            "every {0} minutes").format(s.zfill(2)),
-                                            lambda s: _(
-                                            "minutes {0} through {1} past the hour"),
-                                            lambda s: '' if s == "0" else _("at {0} minutes past the hour"))
+        return self.get_segment_description(
+            self._expression_parts[1],
+            _("every minute"),
+            lambda s: s.zfill(2),
+            lambda s: _("every {0} minutes").format(s.zfill(2)),
+            lambda s: _("minutes {0} through {1} past the hour"),
+            lambda s: '' if s == "0" else _("at {0} minutes past the hour")
+        )
 
     """
     Generates a description for only the HOUR portion of the expression
@@ -248,12 +248,14 @@ class ExpressionDescriptor(object):
 
     def get_hours_description(self):
         expression = self._expression_parts[2]
-        return self.get_segment_description(expression,
-                                            _("every hour"),
-                                            lambda s: self.format_time(s, "0"),
-                                            lambda s: _("every {0} hours").format(s.zfill(2)),
-                                            lambda s: _("between {0} and {1}"),
-                                            lambda s: _("at {0}"))
+        return self.get_segment_description(
+            expression,
+            _("every hour"),
+            lambda s: self.format_time(s, "0"),
+            lambda s: _("every {0} hours").format(s.zfill(2)),
+            lambda s: _("between {0} and {1}"),
+            lambda s: _("at {0}")
+        )
 
     """
     Generates a description for only the DAYOFWEEK portion of the expression
@@ -295,12 +297,14 @@ class ExpressionDescriptor(object):
 
             return format
 
-        return self.get_segment_description(self._expression_parts[5],
-                                            _(", every day"),
-                                            lambda s: get_day_name(s),
-                                            lambda s: _(", every {0} days of the week").format(s),
-                                            lambda s: _(", {0} through {1}"),
-                                            lambda s: get_format(s))
+        return self.get_segment_description(
+            self._expression_parts[5],
+            _(", every day"),
+            lambda s: get_day_name(s),
+            lambda s: _(", every {0} days of the week").format(s),
+            lambda s: _(", {0} through {1}"),
+            lambda s: get_format(s)
+        )
 
     """
     Generates a description for only the MONTH portion of the expression
@@ -308,13 +312,14 @@ class ExpressionDescriptor(object):
     """
 
     def get_month_description(self):
-        return self.get_segment_description(self._expression_parts[4],
-                                            '',
-                                            lambda s: datetime.date(
-                                            datetime.date.today().year, int(s), 1).strftime("%B"),
-                                            lambda s: _(", every {0} months").format(s),
-                                            lambda s: _(", {0} through {1}"),
-                                            lambda s: _(", only in {0}"))
+        return self.get_segment_description(
+            self._expression_parts[4],
+            '',
+            lambda s: datetime.date(datetime.date.today().year, int(s), 1).strftime("%B"),
+            lambda s: _(", every {0} months").format(s),
+            lambda s: _(", {0} through {1}"),
+            lambda s: _(", only in {0}")
+        )
 
     """
     Generates a description for only the DAYOFMONTH portion of the expression
@@ -341,13 +346,14 @@ class ExpressionDescriptor(object):
                 description = _(", on the {0} of the month").format(
                     day_string)
             else:
-                description = self.get_segment_description(expression,
-                                                           _(", every day"),
-                                                           lambda s: s,
-                                                           lambda s: _(", every day") if s == "1" else _(
-                                                               ", every {0} days"),
-                                                           lambda s: _(", between day {0} and {1} of the month"),
-                                                           lambda s: _(", on day {0} of the month"))
+                description = self.get_segment_description(
+                    expression,
+                    _(", every day"),
+                    lambda s: s,
+                    lambda s: _(", every day") if s == "1" else _(", every {0} days"),
+                    lambda s: _(", between day {0} and {1} of the month"),
+                    lambda s: _(", on day {0} of the month")
+                )
 
         return description
 
@@ -357,12 +363,14 @@ class ExpressionDescriptor(object):
     """
 
     def get_year_description(self):
-        return self.get_segment_description(self._expression_parts[6],
-                                            '',
-                                            lambda s: s.zfill(4),
-                                            lambda s: _(", every {0} years").format(s),
-                                            lambda s: _(", {0} through {1}"),
-                                            lambda s: _(", only in {0}"))
+        return self.get_segment_description(
+            self._expression_parts[6],
+            '',
+            lambda s: s.zfill(4),
+            lambda s: _(", every {0} years").format(s),
+            lambda s: _(", {0} through {1}"),
+            lambda s: _(", only in {0}")
+        )
 
     """
     Returns segment description
@@ -375,13 +383,15 @@ class ExpressionDescriptor(object):
     @returns segment description
     """
 
-    def get_segment_description(self,
-                                expression,
-                                all_description,
-                                get_single_item_description,
-                                get_interval_description_format,
-                                get_between_description_format,
-                                get_description_format):
+    def get_segment_description(
+        self,
+        expression,
+        all_description,
+        get_single_item_description,
+        get_interval_description_format,
+        get_between_description_format,
+        get_description_format
+    ):
 
         description = None
         if expression is None or expression == '':
@@ -446,10 +456,12 @@ class ExpressionDescriptor(object):
     @returns: Formatted time description
     """
 
-    def format_time(self,
-                    hour_expression,
-                    minute_expression,
-                    second_expression=''):
+    def format_time(
+        self,
+        hour_expression,
+        minute_expression,
+        second_expression=''
+    ):
         hour = int(hour_expression)
 
         period = ''
