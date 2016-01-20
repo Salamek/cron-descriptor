@@ -32,11 +32,11 @@ from .Exception import FormatException, WrongArgumentException
 
 
 class ExpressionDescriptor(object):
-    m_special_characters = ['/', '-', ',', '*']
-    m_expression = ''
-    m_options = None
-    m_expression_parts = []
-    m_parsed = False
+    _special_characters = ['/', '-', ',', '*']
+    _expression = ''
+    _options = None
+    _expression_parts = []
+    _parsed = False
 
     """
     Initializes a new instance of the ExpressionDescriptorclass
@@ -47,15 +47,15 @@ class ExpressionDescriptor(object):
     def __init__(self, expression, options=None, **kwargs):
         if options is None:
             options = Options()
-        self.m_expression = expression
-        self.m_options = options
-        self.m_expression_parts = []
-        self.m_parsed = False
+        self._expression = expression
+        self._options = options
+        self._expression_parts = []
+        self._parsed = False
 
-        # if kwargs in m_options, overwrite it, if not raise exeption
+        # if kwargs in _options, overwrite it, if not raise exeption
         for kwarg in kwargs:
-            if hasattr(self.m_options, kwarg):
-                setattr(self.m_options, kwarg, kwargs[kwarg])
+            if hasattr(self._options, kwarg):
+                setattr(self._options, kwarg, kwargs[kwarg])
             else:
                 raise WrongArgumentException(
                     "Unknow {} configuration argument".format(kwarg))
@@ -73,10 +73,10 @@ class ExpressionDescriptor(object):
         description = ''
 
         try:
-            if self.m_parsed is False:
-                parser = ExpressionParser(self.m_expression, self.m_options)
-                self.m_expression_parts = parser.parse()
-                self.m_parsed = True
+            if self._parsed is False:
+                parser = ExpressionParser(self._expression, self._options)
+                self._expression_parts = parser.parse()
+                self._parsed = True
 
             if type == DescriptionTypeEnum.FULL:
                 description = self.get_full_description()
@@ -100,7 +100,7 @@ class ExpressionDescriptor(object):
                 description = self.get_seconds_description()
 
         except Exception as ex:
-            if self.m_options.throw_exception_on_parse_error:
+            if self._options.throw_exception_on_parse_error:
                 raise
             else:
                 description = str(ex)
@@ -131,19 +131,19 @@ class ExpressionDescriptor(object):
 
             description = "{0}{1}{2}{3}".format(
                 time_segment,
-                day_of_wm(self.m_expression_parts[3]),
+                day_of_wm(self._expression_parts[3]),
                 month_desc,
                 year_desc)
 
             description = self.transform_verbosity(
-                description, self.m_options.verbose)
+                description, self._options.verbose)
             description = self.transform_case(
                 description,
-                self.m_options.casing_type)
+                self._options.casing_type)
         except Exception:
             description = _(
                 "An error occured when generating the expression description.  Check the cron expression syntax.")
-            if self.m_options.throw_exception_on_parse_error:
+            if self._options.throw_exception_on_parse_error:
                 raise FormatException(description)
 
         return description
@@ -154,16 +154,16 @@ class ExpressionDescriptor(object):
     """
 
     def get_time_of_day_description(self):
-        seconds_expression = self.m_expression_parts[0]
-        minute_expression = self.m_expression_parts[1]
-        hour_expression = self.m_expression_parts[2]
+        seconds_expression = self._expression_parts[0]
+        minute_expression = self._expression_parts[1]
+        hour_expression = self._expression_parts[2]
 
         description = StringBuilder()
 
         # handle special cases first
-        if any(exp in minute_expression for exp in self.m_special_characters) is False and \
-            any(exp in hour_expression for exp in self.m_special_characters) is False and \
-                any(exp in seconds_expression for exp in self.m_special_characters) is False:
+        if any(exp in minute_expression for exp in self._special_characters) is False and \
+            any(exp in hour_expression for exp in self._special_characters) is False and \
+                any(exp in seconds_expression for exp in self._special_characters) is False:
             # specific time of day (i.e. 10 14)
             description.append(_("At "))
             description.append(
@@ -173,12 +173,12 @@ class ExpressionDescriptor(object):
                     seconds_expression))
         elif "-" in minute_expression and \
             "," not in minute_expression and \
-                any(exp in hour_expression for exp in self.m_special_characters) is False:
+                any(exp in hour_expression for exp in self._special_characters) is False:
             # minute range in single hour (i.e. 0-10 11)
             minute_parts = minute_expression.split('-')
             description.append(_("Every minute between {0} and {1}").format(
                 self.format_time(hour_expression, minute_parts[0]), self.format_time(hour_expression, minute_parts[1])))
-        elif "," in hour_expression and any(exp in minute_expression for exp in self.m_special_characters) is False:
+        elif "," in hour_expression and any(exp in minute_expression for exp in self._special_characters) is False:
             # hours list with single minute (o.e. 30 6,14,16)
             hour_parts = hour_expression.split(',')
             description.append(_("At"))
@@ -217,7 +217,7 @@ class ExpressionDescriptor(object):
     """
 
     def get_seconds_description(self):
-        return self.get_segment_description(self.m_expression_parts[0],
+        return self.get_segment_description(self._expression_parts[0],
                                             _("every second"),
                                             lambda s: s.zfill(2),
                                             lambda s: _(
@@ -232,7 +232,7 @@ class ExpressionDescriptor(object):
     """
 
     def get_minutes_description(self):
-        return self.get_segment_description(self.m_expression_parts[1],
+        return self.get_segment_description(self._expression_parts[1],
                                             _("every minute"),
                                             lambda s: s.zfill(2),
                                             lambda s: _(
@@ -247,7 +247,7 @@ class ExpressionDescriptor(object):
     """
 
     def get_hours_description(self):
-        expression = self.m_expression_parts[2]
+        expression = self._expression_parts[2]
         return self.get_segment_description(expression,
                                             _("every hour"),
                                             lambda s: self.format_time(s, "0"),
@@ -295,7 +295,7 @@ class ExpressionDescriptor(object):
 
             return format
 
-        return self.get_segment_description(self.m_expression_parts[5],
+        return self.get_segment_description(self._expression_parts[5],
                                             _(", every day"),
                                             lambda s: get_day_name(s),
                                             lambda s: _(", every {0} days of the week").format(s),
@@ -308,7 +308,7 @@ class ExpressionDescriptor(object):
     """
 
     def get_month_description(self):
-        return self.get_segment_description(self.m_expression_parts[4],
+        return self.get_segment_description(self._expression_parts[4],
                                             '',
                                             lambda s: datetime.date(
                                             datetime.date.today().year, int(s), 1).strftime("%B"),
@@ -323,7 +323,7 @@ class ExpressionDescriptor(object):
 
     def get_day_of_month_description(self):
         description = None
-        expression = self.m_expression_parts[3]
+        expression = self._expression_parts[3]
         expression = expression.replace("?", "*")
 
         if expression == "L":
@@ -357,7 +357,7 @@ class ExpressionDescriptor(object):
     """
 
     def get_year_description(self):
-        return self.get_segment_description(self.m_expression_parts[6],
+        return self.get_segment_description(self._expression_parts[6],
                                             '',
                                             lambda s: s.zfill(4),
                                             lambda s: _(", every {0} years").format(s),
@@ -453,7 +453,7 @@ class ExpressionDescriptor(object):
         hour = int(hour_expression)
 
         period = ''
-        if self.m_options.use_24hour_time_format is False:
+        if self._options.use_24hour_time_format is False:
             period = " PM" if (hour >= 12) else " AM"
             if hour > 12:
                 hour -= 12

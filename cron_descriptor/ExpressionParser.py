@@ -20,8 +20,8 @@ from .Exception import MissingFieldException, FormatException
 
 
 class ExpressionParser(object):
-    m_expression = ''
-    m_options = None
+    _expression = ''
+    _options = None
 
     """
     Initializes a new instance of the ExpressionParser class
@@ -30,8 +30,8 @@ class ExpressionParser(object):
     """
 
     def __init__(self, expression, options):
-        self.m_expression = expression
-        self.m_options = options
+        self._expression = expression
+        self._options = options
 
     """
     Parses the cron expression string
@@ -42,10 +42,10 @@ class ExpressionParser(object):
         # Initialize all elements of parsed array to empty strings
         parsed = ['', '', '', '', '', '', '']
 
-        if self.m_expression is None or len(self.m_expression) == 0:
+        if self._expression is None or len(self._expression) == 0:
             raise MissingFieldException("ExpressionDescriptor.expression")
         else:
-            expression_parts_temp = self.m_expression.split()
+            expression_parts_temp = self._expression.split()
             expression_parts_temp_length = len(expression_parts_temp)
             if expression_parts_temp_length < 5:
                 raise FormatException(
@@ -123,7 +123,7 @@ class ExpressionParser(object):
                 expression_parts[i] = "*"
 
         # handle DayOfWeekStartIndexZero option where SUN=1 rather than SUN=0
-        if self.m_options.day_of_week_start_index_zero is False:
+        if self._options.day_of_week_start_index_zero is False:
             dow_chars = list(expression_parts[5])
             for i in range(0, len(dow_chars)):
                 if i == 0 or dow_chars[i - 1] != '#':
