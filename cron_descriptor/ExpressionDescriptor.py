@@ -86,26 +86,19 @@ class ExpressionDescriptor(object):
                 self._expression_parts = parser.parse()
                 self._parsed = True
 
-            if description_type == DescriptionTypeEnum.FULL:
-                description = self.get_full_description()
-            elif description_type == DescriptionTypeEnum.TIMEOFDAY:
-                description = self.get_time_of_day_description()
-            elif description_type == DescriptionTypeEnum.HOURS:
-                description = self.get_hours_description()
-            elif description_type == DescriptionTypeEnum.MINUTES:
-                description = self.get_minutes_description()
-            elif description_type == DescriptionTypeEnum.SECONDS:
-                description = self.get_seconds_description()
-            elif description_type == DescriptionTypeEnum.DAYOFMONTH:
-                description = self.get_day_of_month_description()
-            elif description_type == DescriptionTypeEnum.MONTH:
-                description = self.get_month_description()
-            elif description_type == DescriptionTypeEnum.DAYOFWEEK:
-                description = self.get_day_of_week_description()
-            elif description_type == DescriptionTypeEnum.YEAR:
-                description = self.get_year_description()
-            else:
-                description = self.get_seconds_description()
+            choices = {
+                DescriptionTypeEnum.FULL: self.get_full_description,
+                DescriptionTypeEnum.TIMEOFDAY: self.get_time_of_day_description,
+                DescriptionTypeEnum.HOURS: self.get_hours_description,
+                DescriptionTypeEnum.MINUTES: self.get_minutes_description,
+                DescriptionTypeEnum.SECONDS: self.get_seconds_description,
+                DescriptionTypeEnum.DAYOFMONTH: self.get_day_of_month_description,
+                DescriptionTypeEnum.MONTH: self.get_month_description,
+                DescriptionTypeEnum.DAYOFWEEK: self.get_day_of_week_description,
+                DescriptionTypeEnum.YEAR: self.get_year_description,
+            }
+
+            description = choices.get(description_type, self.get_seconds_description)()
 
         except Exception as ex:
             if self._options.throw_exception_on_parse_error:
@@ -290,18 +283,20 @@ class ExpressionDescriptor(object):
         def get_format(s):
             format = None
             if "#" in s:
-                day_of_week_of_month_number = s[s.find("#") + 1:]
-                day_of_week_of_month_description = None
-                if day_of_week_of_month_number == "1":
-                    day_of_week_of_month_description = _("first")
-                elif day_of_week_of_month_number == "2":
-                    day_of_week_of_month_description = _("second")
-                elif day_of_week_of_month_number == "3":
-                    day_of_week_of_month_description = _("third")
-                elif day_of_week_of_month_number == "4":
-                    day_of_week_of_month_description = _("forth")
-                elif day_of_week_of_month_number == "5":
-                    day_of_week_of_month_description = _("fifth")
+                day_of_week_of_month = s[s.find("#") + 1:]
+
+                try:
+                    day_of_week_of_month_numer = int(day_of_week_of_month)
+                    choices = {
+                        1: _("first"),
+                        2: _("second"),
+                        3: _("third"),
+                        4: _("forth"),
+                        5: _("fifth"),
+                    }
+                    day_of_week_of_month_description = choices.get(day_of_week_of_month_numer, None)
+                except ValueError:
+                    day_of_week_of_month_description = None
 
                 format = "{}{}{}".format(_(", on the "),
                                          day_of_week_of_month_description, _(" {0} of the month"))
