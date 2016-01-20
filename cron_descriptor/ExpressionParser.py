@@ -71,7 +71,7 @@ class ExpressionParser(object):
                     parsed[5] = expression_parts_temp[4]
                     parsed[6] = expression_parts_temp[5]
                 else:
-                    for i in range(0, expression_parts_temp_length):
+                    for i in range(expression_parts_temp_length):
                         parsed[i] = expression_parts_temp[i]
             elif expression_parts_temp_length == 7:
                 parsed = expression_parts_temp
@@ -118,14 +118,14 @@ class ExpressionParser(object):
 
         # convert */1 to *
         length = len(expression_parts)
-        for i in range(0, length):
+        for i in range(length):
             if expression_parts[i] == "*/1":
                 expression_parts[i] = "*"
 
         # handle DayOfWeekStartIndexZero option where SUN=1 rather than SUN=0
         if self._options.day_of_week_start_index_zero is False:
             dow_chars = list(expression_parts[5])
-            for i in range(0, len(dow_chars)):
+            for i in range(len(dow_chars)):
                 if i == 0 or dow_chars[i - 1] != '#':
                     try:
                         char_numeric = int(dow_chars[i])
@@ -135,7 +135,7 @@ class ExpressionParser(object):
             expression_parts[5] = ''.join(dow_chars)
 
         # convert SUN-SAT format to 0-6 format
-        for i in range(0, 6):
+        for i in range(6):
             expression_parts[5] = expression_parts[
                 5].replace(number_to_day(i)[:3].upper(), str(i))
 
