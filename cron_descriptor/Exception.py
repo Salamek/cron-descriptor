@@ -16,14 +16,32 @@
 
 class MissingFieldException(Exception):
 
+    """
+    Exception for cases when something is missing
+    """
+
     def __init__(self, message):
+        """Initialize MissingFieldException
+
+        Args:
+            message: Message of exception
+
+        """
         super(MissingFieldException, self).__init__(
             "Field '{}' not found.".format(message))
 
 
 class FormatException(Exception):
+
+    """
+    Exception for cases when something has wrong format
+    """
     pass
 
 
 class WrongArgumentException(Exception):
+
+    """
+    Exception for cases when wrong argument is passed
+    """
     pass

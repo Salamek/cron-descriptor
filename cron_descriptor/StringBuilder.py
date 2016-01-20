@@ -16,10 +16,21 @@
 
 class StringBuilder(object):
 
+    """
+    Builds string parts together acting like Java/.NET StringBuilder
+    """
+
     def __init__(self):
         self.string = []
 
     def append(self, string):
+        """Appends non empty string
+
+        Args:
+            string: String to append
+        Returns:
+            None
+        """
         if string:
             self.string.append(string)
 

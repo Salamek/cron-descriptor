@@ -18,6 +18,10 @@ import tests.TestCase as TestCase
 
 class TestImport(TestCase.TestCase):
 
+    """
+    Tests that inline and separated imports are working
+    """
+
     def test_inline_import(self):
         from cron_descriptor import Options, DescriptionTypeEnum, ExpressionDescriptor
         options = Options()

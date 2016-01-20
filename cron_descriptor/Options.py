@@ -15,12 +15,13 @@
 import locale
 
 from .CasingTypeEnum import CasingTypeEnum
-"""
-Options for parsing and describing a Cron Expression
-"""
 
 
 class Options(object):
+
+    """
+    Options for parsing and describing a Cron Expression
+    """
 
     def __init__(self):
         self.throw_exception_on_parse_error = True

@@ -21,6 +21,12 @@ __date__ = "$2016-01-17 14:51:02$"
 
 class TestCase(unittest.TestCase):
 
+    """
+    Test case for all tests
+    """
+
     def setUp(self):
+        """Set up en_US.utf8 locale
+        """
         # all tests are written in en_US
         locale.setlocale(locale.LC_ALL, 'en_US.utf8')

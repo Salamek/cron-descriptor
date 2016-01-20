@@ -1,15 +1,22 @@
 from cron_descriptor import Options, ExpressionDescriptor
 import re
 
-"""
-Simple example reading /etc/contab
-"""
-
 
 class CrontabReader(object):
+
+    """
+    Simple example reading /etc/contab
+    """
     rex = re.compile("^(\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}).+$")
 
     def __init__(self, cronfile):
+        """Initialize CrontabReader
+
+        Args:
+            cronfile: Path to cronfile
+        Returns:
+            None
+        """
         options = Options()
         options.day_of_week_start_index_zero = False
         options.use_24hour_time_format = True
@@ -20,6 +27,13 @@ class CrontabReader(object):
                     print("{} -> {}".format(parsed_line, ExpressionDescriptor(parsed_line, options)))
 
     def parse_cron_line(self, line):
+        """Parses crontab line and returns only starting time string
+
+        Args:
+            line: crontab line
+        Returns:
+            Time part of cron line
+        """
         stripped = line.strip()
 
         if stripped and stripped.startswith('#') is False:

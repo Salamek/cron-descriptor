@@ -19,6 +19,10 @@ from cron_descriptor import Options, get_description
 
 class TestFormats(TestCase.TestCase):
 
+    """
+    Tests formated cron expressions
+    """
+
     def test_every_minute(self):
 
         self.assertEqual("Every minute", get_description("* * * * *"))

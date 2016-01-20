@@ -19,6 +19,10 @@ from cron_descriptor import Options, DescriptionTypeEnum, ExpressionDescriptor
 
 class TestApi(TestCase.TestCase):
 
+    """
+    Testing that API of ExpressionDescriptor is working as specified in DOCs
+    """
+
     def test_full(self):
         options = Options()
         options.use_24hour_time_format = True

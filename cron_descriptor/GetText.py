@@ -21,7 +21,13 @@ import logging
 
 class GetText(object):
 
+    """
+    Handles language translations and Initializes global _() function
+    """
+
     def __init__(self):
+        """Initialize GetText
+        """
         code, encoding = locale.getlocale()
         try:
             filename = os.path.join('locale', '{}.mo'.format(code))

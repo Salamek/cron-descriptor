@@ -19,6 +19,10 @@ from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, Expres
 
 class TestCasing(TestCase.TestCase):
 
+    """
+    Tests casing transformation
+    """
+
     def test_sentence_casing(self):
         options = Options()
         options.casing_type = CasingTypeEnum.Sentence

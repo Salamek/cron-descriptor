@@ -13,12 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"""
-Enum to define the casing types for the Cron Expression description
-"""
-
 
 class CasingTypeEnum(object):
+
+    """
+    Enum to define the casing types for the Cron Expression description
+    """
+
     Title = 1
     Sentence = 2
     LowerCase = 3

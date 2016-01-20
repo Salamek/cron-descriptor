@@ -20,6 +20,10 @@ from cron_descriptor import Options, DescriptionTypeEnum, ExpressionDescriptor, 
 
 class TestExceptions(TestCase.TestCase):
 
+    """
+    Tests that Exceptions are/not propery raised
+    """
+
     def test_none_cron_expression_exception(self):
         options = Options()
         options.throw_exception_on_parse_error = True

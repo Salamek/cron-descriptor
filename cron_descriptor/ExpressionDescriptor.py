@@ -26,25 +26,28 @@ from .StringBuilder import StringBuilder
 from .Exception import FormatException, WrongArgumentException
 
 
-"""
- Converts a Cron Expression into a human readable string
-"""
-
-
 class ExpressionDescriptor(object):
+
+    """
+     Converts a Cron Expression into a human readable string
+    """
+
     _special_characters = ['/', '-', ',', '*']
     _expression = ''
     _options = None
     _expression_parts = []
     _parsed = False
 
-    """
-    Initializes a new instance of the ExpressionDescriptorclass
-    @param: expression: The cron expression string
-    @param: options: Options to control the output description
-    """
-
     def __init__(self, expression, options=None, **kwargs):
+        """Initializes a new instance of the ExpressionDescriptorclass
+
+        Args:
+            expression: The cron expression string
+            options: Options to control the output description
+        Raises:
+            WrongArgumentException: if kwarg is unknow
+
+        """
         if options is None:
             options = Options()
         self._expression = expression
@@ -63,13 +66,18 @@ class ExpressionDescriptor(object):
         # Initializes localization
         GetText()
 
-    """
-    Generates a human readable string for the Cron Expression
-    @param type: Which part(s) of the expression to describe
-    @returns: The cron expression description
-    """
+    def get_description(self, description_type=DescriptionTypeEnum.FULL):
+        """Generates a human readable string for the Cron Expression
 
-    def get_description(self, type=DescriptionTypeEnum.FULL):
+        Args:
+            description_type: Which part(s) of the expression to describe
+            options: Options to control the output description
+        Returns:
+            The cron expression description
+        Raises:
+            Exception: if throw_exception_on_parse_error is True
+
+        """
         description = ''
 
         try:
@@ -78,23 +86,23 @@ class ExpressionDescriptor(object):
                 self._expression_parts = parser.parse()
                 self._parsed = True
 
-            if type == DescriptionTypeEnum.FULL:
+            if description_type == DescriptionTypeEnum.FULL:
                 description = self.get_full_description()
-            elif type == DescriptionTypeEnum.TIMEOFDAY:
+            elif description_type == DescriptionTypeEnum.TIMEOFDAY:
                 description = self.get_time_of_day_description()
-            elif type == DescriptionTypeEnum.HOURS:
+            elif description_type == DescriptionTypeEnum.HOURS:
                 description = self.get_hours_description()
-            elif type == DescriptionTypeEnum.MINUTES:
+            elif description_type == DescriptionTypeEnum.MINUTES:
                 description = self.get_minutes_description()
-            elif type == DescriptionTypeEnum.SECONDS:
+            elif description_type == DescriptionTypeEnum.SECONDS:
                 description = self.get_seconds_description()
-            elif type == DescriptionTypeEnum.DAYOFMONTH:
+            elif description_type == DescriptionTypeEnum.DAYOFMONTH:
                 description = self.get_day_of_month_description()
-            elif type == DescriptionTypeEnum.MONTH:
+            elif description_type == DescriptionTypeEnum.MONTH:
                 description = self.get_month_description()
-            elif type == DescriptionTypeEnum.DAYOFWEEK:
+            elif description_type == DescriptionTypeEnum.DAYOFWEEK:
                 description = self.get_day_of_week_description()
-            elif type == DescriptionTypeEnum.YEAR:
+            elif description_type == DescriptionTypeEnum.YEAR:
                 description = self.get_year_description()
             else:
                 description = self.get_seconds_description()
@@ -106,12 +114,15 @@ class ExpressionDescriptor(object):
                 description = str(ex)
         return description
 
-    """
-    Generates the FULL description
-    @returns: The FULL description
-    """
-
     def get_full_description(self):
+        """Generates the FULL description
+
+        Returns:
+            The FULL description
+        Raises:
+            FormatException: if formating fails and throw_exception_on_parse_error is True
+
+        """
         description = ''
 
         try:
@@ -148,12 +159,13 @@ class ExpressionDescriptor(object):
 
         return description
 
-    """
-    Generates a description for only the TIMEOFDAY portion of the expression
-    @returns: The TIMEOFDAY description
-    """
-
     def get_time_of_day_description(self):
+        """Generates a description for only the TIMEOFDAY portion of the expression
+
+        Returns:
+            The TIMEOFDAY description
+
+        """
         seconds_expression = self._expression_parts[0]
         minute_expression = self._expression_parts[1]
         hour_expression = self._expression_parts[2]
@@ -211,12 +223,13 @@ class ExpressionDescriptor(object):
             description.append(hours_description)
         return str(description)
 
-    """
-    Generates a description for only the SECONDS portion of the expression
-    @returns: The SECONDS description
-    """
-
     def get_seconds_description(self):
+        """Generates a description for only the SECONDS portion of the expression
+
+        Returns:
+            The SECONDS description
+
+        """
         return self.get_segment_description(
             self._expression_parts[0],
             _("every second"),
@@ -226,12 +239,13 @@ class ExpressionDescriptor(object):
             lambda s: _("at {0} seconds past the minute")
         )
 
-    """
-    Generates a description for only the MINUTE portion of the expression
-    @returns: The MINUTE description
-    """
-
     def get_minutes_description(self):
+        """Generates a description for only the MINUTE portion of the expression
+
+        Returns:
+            The MINUTE description
+
+        """
         return self.get_segment_description(
             self._expression_parts[1],
             _("every minute"),
@@ -241,12 +255,13 @@ class ExpressionDescriptor(object):
             lambda s: '' if s == "0" else _("at {0} minutes past the hour")
         )
 
-    """
-    Generates a description for only the HOUR portion of the expression
-    @returns: The HOUR description
-    """
-
     def get_hours_description(self):
+        """Generates a description for only the HOUR portion of the expression
+
+        Returns:
+            The HOUR description
+
+        """
         expression = self._expression_parts[2]
         return self.get_segment_description(
             expression,
@@ -257,13 +272,13 @@ class ExpressionDescriptor(object):
             lambda s: _("at {0}")
         )
 
-    """
-    Generates a description for only the DAYOFWEEK portion of the expression
-    @returns: The DAYOFWEEK description
-    """
-
     def get_day_of_week_description(self):
+        """Generates a description for only the DAYOFWEEK portion of the expression
 
+        Returns:
+            The DAYOFWEEK description
+
+        """
         def get_day_name(s):
             exp = s
             if "#" in s:
@@ -306,12 +321,13 @@ class ExpressionDescriptor(object):
             lambda s: get_format(s)
         )
 
-    """
-    Generates a description for only the MONTH portion of the expression
-    @returns: The MONTH description
-    """
-
     def get_month_description(self):
+        """Generates a description for only the MONTH portion of the expression
+
+        Returns:
+            The MONTH description
+
+        """
         return self.get_segment_description(
             self._expression_parts[4],
             '',
@@ -321,12 +337,13 @@ class ExpressionDescriptor(object):
             lambda s: _(", only in {0}")
         )
 
-    """
-    Generates a description for only the DAYOFMONTH portion of the expression
-    @returns: The DAYOFMONTH description
-    """
-
     def get_day_of_month_description(self):
+        """Generates a description for only the DAYOFMONTH portion of the expression
+
+        Returns:
+            The DAYOFMONTH description
+
+        """
         description = None
         expression = self._expression_parts[3]
         expression = expression.replace("?", "*")
@@ -357,12 +374,13 @@ class ExpressionDescriptor(object):
 
         return description
 
-    """
-    Generates a description for only the YEAR portion of the expression
-    @returns: The YEAR description
-    """
-
     def get_year_description(self):
+        """Generates a description for only the YEAR portion of the expression
+
+        Returns:
+            The YEAR description
+
+        """
         return self.get_segment_description(
             self._expression_parts[6],
             '',
@@ -371,17 +389,6 @@ class ExpressionDescriptor(object):
             lambda s: _(", {0} through {1}"),
             lambda s: _(", only in {0}")
         )
-
-    """
-    Returns segment description
-    @param: expression
-    @param: all_description
-    @param: get_single_item_description
-    @param: get_interval_description_format
-    @param: get_between_description_format
-    @param: get_description_format
-    @returns segment description
-    """
 
     def get_segment_description(
         self,
@@ -392,7 +399,18 @@ class ExpressionDescriptor(object):
         get_between_description_format,
         get_description_format
     ):
+        """Returns segment description
+        Args:
+            expression: Segment to descript
+            all_description: *
+            get_single_item_description: 1
+            get_interval_description_format: 1/2
+            get_between_description_format: 1-2
+            get_description_format: format get_single_item_description
+        Returns:
+            segment description
 
+        """
         description = None
         if expression is None or expression == '':
             description = ''
@@ -448,20 +466,21 @@ class ExpressionDescriptor(object):
 
         return description
 
-    """
-    Given time parts, will contruct a formatted time description
-    @param: hour_expression Hours part
-    @param: minute_expression Minutes part
-    @param: second_expression Seconds part
-    @returns: Formatted time description
-    """
-
     def format_time(
         self,
         hour_expression,
         minute_expression,
         second_expression=''
     ):
+        """Given time parts, will contruct a formatted time description
+        Args:
+            hour_expression: Hours part
+            minute_expression: Minutes part
+            second_expression: Seconds part
+        Returns:
+            Formatted time description
+
+        """
         hour = int(hour_expression)
 
         period = ''
@@ -477,14 +496,16 @@ class ExpressionDescriptor(object):
 
         return "{0}:{1}{2}{3}".format(str(hour).zfill(2), minute.zfill(2), second, period)
 
-    """
-    Transforms the verbosity of the expression description by stripping verbosity from original description
-    @param: description The description to transform
-    @param: use_verbose_format If true, will leave description as it, if false, will strip verbose parts
-    @returns: The transformed description with proper verbosity
-    """
-
     def transform_verbosity(self, description, use_verbose_format):
+        """Transforms the verbosity of the expression description by stripping verbosity from original description
+        Args:
+            description: The description to transform
+            use_verbose_format: If True, will leave description as it, if False, will strip verbose parts
+            second_expression: Seconds part
+        Returns:
+            The transformed description with proper verbosity
+
+        """
         if use_verbose_format is False:
             description = description.replace(
                 _(", every minute"), '')
@@ -492,14 +513,16 @@ class ExpressionDescriptor(object):
             description = description.replace(_(", every day"), '')
         return description
 
-    """
-    Transforms the case of the expression description, based on options
-    @param: description The description to transform
-    @param: case_type The casing type that controls the output casing
-    @returns: The transformed description with proper casing
-    """
-
     def transform_case(self, description, case_type):
+        """Transforms the case of the expression description, based on options
+        Args:
+            description: The description to transform
+            case_type: The casing type that controls the output casing
+            second_expression: Seconds part
+        Returns:
+            The transformed description with proper casing
+
+        """
         if case_type == CasingTypeEnum.Sentence:
             description = "{}{}".format(
                 description[0].upper(),
@@ -516,14 +539,15 @@ class ExpressionDescriptor(object):
     def __repr__(self):
         return self.get_description()
 
-"""
-Generates a human readable string for the Cron Expression
-@param: expression The cron expression string
-@param: options Options to control the output description
-@returns: The cron expression description
-"""
-
 
 def get_description(expression, options=None):
+    """Generates a human readable string for the Cron Expression
+    Args:
+        expression: The cron expression string
+        options: Options to control the output description
+    Returns:
+        The cron expression description
+
+    """
     descripter = ExpressionDescriptor(expression, options)
     return descripter.get_description(DescriptionTypeEnum.FULL)

@@ -20,25 +20,32 @@ from .Exception import MissingFieldException, FormatException
 
 
 class ExpressionParser(object):
+
+    """
+     Parses and validates a Cron Expression into list of fixed len()
+    """
+
     _expression = ''
     _options = None
 
-    """
-    Initializes a new instance of the ExpressionParser class
-    @param: expression The cron expression string
-    @param: options Parsing options
-    """
-
     def __init__(self, expression, options):
+        """Initializes a new instance of the ExpressionParser class
+        Args:
+            expression: The cron expression string
+            options: Parsing options
+
+        """
         self._expression = expression
         self._options = options
 
-    """
-    Parses the cron expression string
-    @returns: A 7 part string array, one part for each component of the cron expression (seconds, minutes, etc.)
-    """
-
     def parse(self):
+        """Parses the cron expression string
+        Returns:
+            A 7 part string array, one part for each component of the cron expression (seconds, minutes, etc.)
+        Raises:
+            MissingFieldException: if _expression is empty or None
+            FormatException: if _expression has wrong format
+        """
         # Initialize all elements of parsed array to empty strings
         parsed = ['', '', '', '', '', '', '']
 
@@ -76,11 +83,17 @@ class ExpressionParser(object):
         return parsed
 
     """
-    Converts cron expression components into consistent, predictable formats.
-    @param: expression_parts A 7 part string array, one part for each component of the cron expression
+
+    @param:
     """
 
     def normalize_expression(self, expression_parts):
+        """Converts cron expression components into consistent, predictable formats.
+        Args:
+            expression_parts: A 7 part string array, one part for each component of the cron expression
+        Returns:
+            None
+        """
         # convert ? to * only for DOM and DOW
         expression_parts[3] = expression_parts[3].replace("?", "*")
         expression_parts[5] = expression_parts[5].replace("?", "*")
