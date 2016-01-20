@@ -182,10 +182,10 @@ class ExpressionDescriptor(object):
             # hours list with single minute (o.e. 30 6,14,16)
             hour_parts = hour_expression.split(',')
             description.append(_("At"))
-            for i in range(len(hour_parts)):
+            for i, hour_part in enumerate(hour_parts):
                 description.append(" ")
                 description.append(
-                    self.format_time(hour_parts[i], minute_expression))
+                    self.format_time(hour_part, minute_expression))
 
                 if i < (len(hour_parts) - 2):
                     description.append(",")
@@ -430,7 +430,7 @@ class ExpressionDescriptor(object):
             segments = expression.split(',')
 
             description_content = ''
-            for i in range(len(segments)):
+            for i, segment in enumerate(segments):
                 if i > 0 and len(segments) > 2:
                     description_content += ","
 
@@ -440,7 +440,7 @@ class ExpressionDescriptor(object):
                 if i > 0 and len(segments) > 1 and (i == len(segments) - 1 or len(segments) == 2):
                     description_content += _(" and ")
 
-                description_content += get_single_item_description(segments[i])
+                description_content += get_single_item_description(segment)
 
             description = get_description_format(
                 expression).format(

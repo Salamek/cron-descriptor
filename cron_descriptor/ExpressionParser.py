@@ -53,26 +53,18 @@ class ExpressionParser(object):
                         expression_parts_temp_length))
             elif expression_parts_temp_length == 5:
                 # 5 part cron so shift array past seconds element
-                parsed[1] = expression_parts_temp[0]
-                parsed[2] = expression_parts_temp[1]
-                parsed[3] = expression_parts_temp[2]
-                parsed[4] = expression_parts_temp[3]
-                parsed[5] = expression_parts_temp[4]
-
+                for i, expression_part_temp in enumerate(expression_parts_temp):
+                    parsed[i + 1] = expression_part_temp
             elif expression_parts_temp_length == 6:
                 # If last element ends with 4 digits, a year element has been
                 # supplied and no seconds element
                 year_regex = re.compile("\d{4}$")
                 if year_regex.search(expression_parts_temp[5]) is not None:
-                    parsed[1] = expression_parts_temp[0]
-                    parsed[2] = expression_parts_temp[1]
-                    parsed[3] = expression_parts_temp[2]
-                    parsed[4] = expression_parts_temp[3]
-                    parsed[5] = expression_parts_temp[4]
-                    parsed[6] = expression_parts_temp[5]
+                    for i, expression_part_temp in enumerate(expression_parts_temp):
+                        parsed[i + 1] = expression_part_temp
                 else:
-                    for i in range(expression_parts_temp_length):
-                        parsed[i] = expression_parts_temp[i]
+                    for i, expression_part_temp in enumerate(expression_parts_temp):
+                        parsed[i] = expression_part_temp
             elif expression_parts_temp_length == 7:
                 parsed = expression_parts_temp
             else:
@@ -125,10 +117,10 @@ class ExpressionParser(object):
         # handle DayOfWeekStartIndexZero option where SUN=1 rather than SUN=0
         if self._options.day_of_week_start_index_zero is False:
             dow_chars = list(expression_parts[5])
-            for i in range(len(dow_chars)):
+            for i, dow_char in enumerate(dow_chars):
                 if i == 0 or dow_chars[i - 1] != '#':
                     try:
-                        char_numeric = int(dow_chars[i])
+                        char_numeric = int(dow_char)
                         dow_chars[i] = str(char_numeric - 1)[0]
                     except ValueError:
                         pass
