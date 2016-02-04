@@ -6,24 +6,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
 "POT-Creation-Date: 2016-01-19 02:00+0100\n"
-"PO-Revision-Date: 2016-01-19 03:08+0100\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Language: es_ES\n"
+"PO-Revision-Date: 2016-01-19 02:00+0100\n"
 "Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
 "Language-Team: \n"
-"X-Generator: Poedit 1.8.4\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
 
 #: ExpressionDescriptor.py:130
 msgid ""
-"An error occured when generating the expression description.  Check the cron "
-"expression syntax."
+"An error occured when generating the expression description.  Check the cron"
+" expression syntax."
 msgstr ""
-"OcurriÃ³ un error mientras se generaba la descripciÃ³n de la expresiÃ³n. "
-"Revise la sintaxis de la expresiÃ³n de cron."
+"Ocurrió un error mientras se generaba la descripción de la expresión. Revise"
+" la sintaxis de la expresión de cron."
 
 #: ExpressionDescriptor.py:151
 msgid "At "
@@ -131,22 +130,22 @@ msgstr " {0} del mes"
 #: ExpressionDescriptor.py:254
 #, python-brace-format
 msgid ", on the last {0} of the month"
-msgstr ", en el Ãºltimo {0} del mes"
+msgstr ", en el último {0} del mes"
 
 #: ExpressionDescriptor.py:256
 #, python-brace-format
 msgid ", only on {0}"
-msgstr ", sÃ³lo el {0}"
+msgstr ", sólo el {0}"
 
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303
 #: ExpressionDescriptor.py:435
 msgid ", every day"
-msgstr ", cada dÃ­a"
+msgstr ", cada día"
 
 #: ExpressionDescriptor.py:260
 #, python-brace-format
 msgid ", every {0} days of the week"
-msgstr ", cada {0} dÃ­as de la semana"
+msgstr ", cada {0} días de la semana"
 
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:274
 #: ExpressionDescriptor.py:318
@@ -162,24 +161,24 @@ msgstr ", cada {0} meses"
 #: ExpressionDescriptor.py:275 ExpressionDescriptor.py:319
 #, python-brace-format
 msgid ", only in {0}"
-msgstr ", sÃ³lo en {0}"
+msgstr ", sólo en {0}"
 
 #: ExpressionDescriptor.py:288
 msgid ", on the last day of the month"
-msgstr ", en el Ãºltimo dÃ­a del mes"
+msgstr ", en el último día del mes"
 
 #: ExpressionDescriptor.py:290
 msgid ", on the last weekday of the month"
-msgstr ", en el Ãºltimo dÃ­a de la semana del mes"
+msgstr ", en el último día de la semana del mes"
 
 #: ExpressionDescriptor.py:297
 msgid "first weekday"
-msgstr "primer dÃ­a de la semana"
+msgstr "primer día de la semana"
 
 #: ExpressionDescriptor.py:297
 #, python-brace-format
 msgid "weekday nearest day {0}"
-msgstr "dÃ­a de la semana mÃ¡s prÃ³ximo al {0}"
+msgstr "día de la semana más próximo al {0}"
 
 #: ExpressionDescriptor.py:299
 #, python-brace-format
@@ -189,22 +188,22 @@ msgstr ", en el {0} del mes"
 #: ExpressionDescriptor.py:303
 #, python-brace-format
 msgid ", every {0} days"
-msgstr ", cada {0} dÃ­as"
+msgstr ", cada {0} días"
 
 #: ExpressionDescriptor.py:304
 #, python-brace-format
 msgid ", between day {0} and {1} of the month"
-msgstr ", entre los dÃ­as {0} y {1} del mes"
+msgstr ", entre los días {0} y {1} del mes"
 
 #: ExpressionDescriptor.py:304
 #, python-brace-format
 msgid ", on day {0} of the month"
-msgstr ", el dÃ­a {0} del mes"
+msgstr ", el día {0} del mes"
 
 #: ExpressionDescriptor.py:316
 #, python-brace-format
 msgid ", every {0} years"
-msgstr ", cada {0} aÃ±os"
+msgstr ", cada {0} años"
 
 #: ExpressionDescriptor.py:385
 msgid " and "

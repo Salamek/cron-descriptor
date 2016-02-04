@@ -6,27 +6,26 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
 "POT-Creation-Date: 2016-01-19 02:00+0100\n"
-"PO-Revision-Date: 2016-01-19 03:10+0100\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Language: nb_NO\n"
+"PO-Revision-Date: 2016-01-19 02:00+0100\n"
 "Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
 "Language-Team: \n"
-"X-Generator: Poedit 1.8.4\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb_NO\n"
 
 #: ExpressionDescriptor.py:130
 msgid ""
-"An error occured when generating the expression description.  Check the cron "
-"expression syntax."
+"An error occured when generating the expression description.  Check the cron"
+" expression syntax."
 msgstr ""
 "En feil intraff ved generering av uttrykksbeskrivelse. Sjekk cron syntaks."
 
 #: ExpressionDescriptor.py:151
 msgid "At "
-msgstr "PÃ¥ "
+msgstr "På "
 
 #: ExpressionDescriptor.py:160
 #, python-brace-format
@@ -35,7 +34,7 @@ msgstr "Hvert minutt mellom {0} og {1}"
 
 #: ExpressionDescriptor.py:165
 msgid "At"
-msgstr "PÃ¥"
+msgstr "På"
 
 #: ExpressionDescriptor.py:175
 msgid " and"
@@ -58,7 +57,7 @@ msgstr "sekundene fra {0} til og med {1} etter minuttet"
 #: ExpressionDescriptor.py:201
 #, python-brace-format
 msgid "at {0} seconds past the minute"
-msgstr "pÃ¥ {0} sekunder etter minuttet"
+msgstr "på {0} sekunder etter minuttet"
 
 #: ExpressionDescriptor.py:209
 msgid "every minute"
@@ -77,7 +76,7 @@ msgstr "minuttene fra {0} til og med {1} etter timen"
 #: ExpressionDescriptor.py:209
 #, python-brace-format
 msgid "at {0} minutes past the hour"
-msgstr "pÃ¥ {0} minutter etter timen"
+msgstr "på {0} minutter etter timen"
 
 #: ExpressionDescriptor.py:218
 msgid "every hour"
@@ -96,11 +95,11 @@ msgstr "mellom {0} og {1}"
 #: ExpressionDescriptor.py:218
 #, python-brace-format
 msgid "at {0}"
-msgstr "pÃ¥ {0}"
+msgstr "på {0}"
 
 #: ExpressionDescriptor.py:241
 msgid "first"
-msgstr "fÃ¸rste"
+msgstr "første"
 
 #: ExpressionDescriptor.py:243
 msgid "second"
@@ -120,22 +119,22 @@ msgstr "femte"
 
 #: ExpressionDescriptor.py:251
 msgid ", on the "
-msgstr ", pÃ¥ den "
+msgstr ", på den "
 
 #: ExpressionDescriptor.py:252
 #, python-brace-format
 msgid " {0} of the month"
-msgstr " {0} av mÃ¥neden"
+msgstr " {0} av måneden"
 
 #: ExpressionDescriptor.py:254
 #, python-brace-format
 msgid ", on the last {0} of the month"
-msgstr ", pÃ¥ den siste {0} av mÃ¥neden"
+msgstr ", på den siste {0} av måneden"
 
 #: ExpressionDescriptor.py:256
 #, python-brace-format
 msgid ", only on {0}"
-msgstr ", bare pÃ¥ {0}"
+msgstr ", bare på {0}"
 
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303
 #: ExpressionDescriptor.py:435
@@ -156,7 +155,7 @@ msgstr ", {0} til og med {1}"
 #: ExpressionDescriptor.py:272
 #, python-brace-format
 msgid ", every {0} months"
-msgstr ", hver {0} mÃ¥ned]"
+msgstr ", hver {0} måned]"
 
 #: ExpressionDescriptor.py:275 ExpressionDescriptor.py:319
 #, python-brace-format
@@ -165,25 +164,25 @@ msgstr ", bare i {0}"
 
 #: ExpressionDescriptor.py:288
 msgid ", on the last day of the month"
-msgstr ", pÃ¥ den siste dagen i mÃ¥neden"
+msgstr ", på den siste dagen i måneden"
 
 #: ExpressionDescriptor.py:290
 msgid ", on the last weekday of the month"
-msgstr ", pÃ¥ den siste ukedagen i mÃ¥neden"
+msgstr ", på den siste ukedagen i måneden"
 
 #: ExpressionDescriptor.py:297
 msgid "first weekday"
-msgstr "fÃ¸rste ukedag"
+msgstr "første ukedag"
 
 #: ExpressionDescriptor.py:297
 #, python-brace-format
 msgid "weekday nearest day {0}"
-msgstr "ukedag nÃ¦rmest dag {0}"
+msgstr "ukedag nærmest dag {0}"
 
 #: ExpressionDescriptor.py:299
 #, python-brace-format
 msgid ", on the {0} of the month"
-msgstr ", pÃ¥ den {0} av mÃ¥neden"
+msgstr ", på den {0} av måneden"
 
 #: ExpressionDescriptor.py:303
 #, python-brace-format
@@ -193,17 +192,17 @@ msgstr ", hver {0} dag"
 #: ExpressionDescriptor.py:304
 #, python-brace-format
 msgid ", between day {0} and {1} of the month"
-msgstr ", mellom dag {0} og {1} av mÃ¥neden"
+msgstr ", mellom dag {0} og {1} av måneden"
 
 #: ExpressionDescriptor.py:304
 #, python-brace-format
 msgid ", on day {0} of the month"
-msgstr ", pÃ¥ dag {0} av mÃ¥neden"
+msgstr ", på dag {0} av måneden"
 
 #: ExpressionDescriptor.py:316
 #, python-brace-format
 msgid ", every {0} years"
-msgstr ", hvert {0} Ã¥r"
+msgstr ", hvert {0} år"
 
 #: ExpressionDescriptor.py:385
 msgid " and "

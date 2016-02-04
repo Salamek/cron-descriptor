@@ -3,19 +3,18 @@
 # This file is distributed under the same license as the cron_descriptor package.
 # Adam Schubert <adam.schubert@sg1-game.net>, 2016.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
 "POT-Creation-Date: 2016-01-19 02:00+0100\n"
 "PO-Revision-Date: 2016-01-19 02:00+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
+"Language: it_IT\n"
 
 #: ExpressionDescriptor.py:130
 msgid ""
