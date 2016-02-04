@@ -1,5 +1,14 @@
-from cron_descriptor import Options, ExpressionDescriptor
 import re
+
+try:
+    from cron_descriptor import Options, ExpressionDescriptor
+except ImportError:
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    print('\033[1mFailed to import cron_descriptor, maybe ? "pip install cron-descriptor ?"\033[0m')
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    raise
+
+
 
 
 class CrontabReader(object):
