@@ -15,7 +15,6 @@
 
 import re
 
-from .Tools import number_to_day, number_to_month
 from .Exception import MissingFieldException, FormatException
 
 
@@ -27,6 +26,31 @@ class ExpressionParser(object):
 
     _expression = ''
     _options = None
+
+    _cron_days = {
+        0: 'SUN',
+        1: 'MON',
+        2: 'TUE',
+        3: 'WED',
+        4: 'THU',
+        5: 'FRI',
+        6: 'SAT'
+    }
+
+    _cron_months = {
+        1: 'JAN',
+        2: 'FEB',
+        3: 'MAR',
+        4: 'APR',
+        5: 'MAY',
+        6: 'JUN',
+        7: 'JUL',
+        8: 'AUG',
+        9: 'SEP',
+        10: 'OCT',
+        11: 'NOV',
+        12: 'DEC'
+    }
 
     def __init__(self, expression, options):
         """Initializes a new instance of the ExpressionParser class
@@ -140,14 +164,12 @@ class ExpressionParser(object):
             expression_parts[5] = ''.join(dow_chars)
 
         # convert SUN-SAT format to 0-6 format
-        for i in range(6):
-            expression_parts[5] = expression_parts[
-                5].replace(number_to_day(i)[:3].upper(), str(i))
+        for day_number in self._cron_days:
+            expression_parts[5] = expression_parts[5].replace(self._cron_days[day_number], str(day_number))
 
         # convert JAN-DEC format to 1-12 format
-        for i in range(1, 13):
-            expression_parts[4] = expression_parts[4].replace(
-                number_to_month(i)[:3].upper(), str(i))
+        for month_number in self._cron_months:
+            expression_parts[4] = expression_parts[4].replace(self._cron_months[month_number], str(month_number))
 
         # convert 0 second to (empty)
         if expression_parts[0] == "0":

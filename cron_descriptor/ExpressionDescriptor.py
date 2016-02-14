@@ -15,13 +15,13 @@
 
 import re
 import datetime
+import calendar
 
 from .GetText import GetText
 from .CasingTypeEnum import CasingTypeEnum
 from .DescriptionTypeEnum import DescriptionTypeEnum
 from .ExpressionParser import ExpressionParser
 from .Options import Options
-from .Tools import number_to_day
 from .StringBuilder import StringBuilder
 from .Exception import FormatException, WrongArgumentException
 
@@ -278,7 +278,7 @@ class ExpressionDescriptor(object):
                 exp, useless = s.split("#", 2)
             elif "L" in s:
                 exp = exp.replace("L", '')
-            return number_to_day(int(exp))
+            return self.number_to_day(int(exp))
 
         def get_format(s):
             format = None
@@ -527,6 +527,26 @@ class ExpressionDescriptor(object):
         else:
             description = description.lower()
         return description
+
+    def number_to_day(self, day_number):
+        """Returns localized day name by its CRON number
+
+        Args:
+            day_number: Number of a day
+        Returns:
+            Day corresponding to day_number
+        Raises:
+            IndexError: When day_number is not found
+        """
+        return [
+                calendar.day_name[6],
+                calendar.day_name[0],
+                calendar.day_name[1],
+                calendar.day_name[2],
+                calendar.day_name[3],
+                calendar.day_name[4],
+                calendar.day_name[5]
+            ][day_number]
 
     def __str__(self):
         return self.get_description()
