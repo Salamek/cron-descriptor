@@ -94,15 +94,16 @@ python setup.py test
 ```
 
 ## Translating
-cron-descriptor is using [Gettext](https://www.gnu.org/software/gettext/) for translations
-For creating new translations or editing existing ones, please install [Poedit](https://poedit.net/)
+cron-descriptor is using [Gettext](https://www.gnu.org/software/gettext/) for translations.
+
+> To create new translation or edit existing one, i suggest using [Poedit](https://poedit.net/).
 
 You can copy/rename and translate any file from `locale` directory:
 ```bash
-mv ./locale/de_DE.po ./locale/YOUR_LOCALE_CODE.po
+cp ./locale/de_DE.po ./locale/YOUR_LOCALE_CODE.po
 poedit ./locale/YOUR_LOCALE_CODE.po
 ```
-or you can generate new empty *.po file from sources by running:
+or you can generate new untranslated *.po file from sources by running:
 ```bash
 xgettext *.py
 ```
