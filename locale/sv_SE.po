@@ -28,7 +28,7 @@ msgstr ""
 
 #: ExpressionDescriptor.py:151
 msgid "At "
-msgstr "Vid"
+msgstr "Vid "
 
 #: ExpressionDescriptor.py:160
 msgid "Every minute between {0} and {1}"
