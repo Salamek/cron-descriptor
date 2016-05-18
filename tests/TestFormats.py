@@ -333,9 +333,13 @@ class TestFormats(TestCase.TestCase):
     def test_muti_part_range_seconds(self):
 
         self.assertEqual(
-            "Minutes 2,4 through 05 past the hour, at 01:00 AM", get_description("2,4-5 1 * * *"))
+            "At 02 and 04 through 05 minutes past the hour, at 01:00 AM", get_description("2,4-5 1 * * *"))
 
     def test_muti_part_range_seconds2(self):
 
         self.assertEqual(
-            "Minutes 2,26 through 28 past the hour, at 06:00 PM", get_description("2,26-28 18 * * *"))
+            "At 02 and 26 through 28 minutes past the hour, at 06:00 PM", get_description("2,26-28 18 * * *"))
+
+    def test_individual_weekdays_and_range(self):
+        self.assertEqual('At 08:38 PM, only on Sunday, Tuesday, and Wednesday through Saturday',
+                         get_description('38 20 * * 0,2,3-6'))

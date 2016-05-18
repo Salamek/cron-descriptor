@@ -431,14 +431,6 @@ class ExpressionDescriptor(object):
                     ":00", ":59")
                 description += ", " + get_between_description_format(between_segment_of_interval).format(
                     between_segment_1_description, between_segment_2_description)
-        elif "-" in expression:
-            segments = expression.split('-')
-            between_segment_1_description = get_single_item_description(segments[0])
-            between_segment_2_description = get_single_item_description(segments[1])
-            between_segment_2_description = between_segment_2_description.replace(
-                ":00", ":59")
-            description = get_between_description_format(expression).format(
-                between_segment_1_description, between_segment_2_description)
         elif "," in expression:
             segments = expression.split(',')
 
@@ -453,11 +445,31 @@ class ExpressionDescriptor(object):
                 if i > 0 and len(segments) > 1 and (i == len(segments) - 1 or len(segments) == 2):
                     description_content += _(" and ")
 
-                description_content += get_single_item_description(segment)
+                if "-" in segment:
+                    between_segments = segment.split('-')
+                    between_segment_1_description = get_single_item_description(between_segments[0])
+                    between_segment_2_description = get_single_item_description(between_segments[1])
+                    between_segment_2_description = between_segment_2_description.replace(":00", ":59")
+                    between_description = _(", {0} through {1}").format(
+                        between_segment_1_description, between_segment_2_description)
+
+                    between_description = between_description.replace(", ", "")
+
+                    description_content += between_description
+                else:
+                    description_content += get_single_item_description(segment)
 
             description = get_description_format(
                 expression).format(
                     description_content)
+        elif "-" in expression:
+            segments = expression.split('-')
+            between_segment_1_description = get_single_item_description(segments[0])
+            between_segment_2_description = get_single_item_description(segments[1])
+            between_segment_2_description = between_segment_2_description.replace(
+                ":00", ":59")
+            description = get_between_description_format(expression).format(
+                between_segment_1_description, between_segment_2_description)
 
         return description
 
@@ -539,14 +551,14 @@ class ExpressionDescriptor(object):
             IndexError: When day_number is not found
         """
         return [
-                calendar.day_name[6],
-                calendar.day_name[0],
-                calendar.day_name[1],
-                calendar.day_name[2],
-                calendar.day_name[3],
-                calendar.day_name[4],
-                calendar.day_name[5]
-            ][day_number]
+            calendar.day_name[6],
+            calendar.day_name[0],
+            calendar.day_name[1],
+            calendar.day_name[2],
+            calendar.day_name[3],
+            calendar.day_name[4],
+            calendar.day_name[5]
+        ][day_number]
 
     def __str__(self):
         return self.get_description()
