@@ -281,7 +281,7 @@ class ExpressionDescriptor(object):
             return self.number_to_day(int(exp))
 
         def get_format(s):
-            format = None
+            formated = None
             if "#" in s:
                 day_of_week_of_month = s[s.find("#") + 1:]
 
@@ -298,14 +298,14 @@ class ExpressionDescriptor(object):
                 except ValueError:
                     day_of_week_of_month_description = None
 
-                format = "{}{}{}".format(_(", on the "),
+                formated = "{}{}{}".format(_(", on the "),
                                          day_of_week_of_month_description, _(" {0} of the month"))
             elif "L" in s:
-                format = _(", on the last {0} of the month")
+                formated = _(", on the last {0} of the month")
             else:
-                format = _(", only on {0}")
+                formated = _(", only on {0}")
 
-            return format
+            return formated
 
         return self.get_segment_description(
             self._expression_parts[5],
