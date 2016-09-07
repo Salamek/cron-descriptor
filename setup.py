@@ -22,15 +22,18 @@ if __name__ == "__main__":
     setuptools.setup(
         name="cron_descriptor",
         version=version,
-        description="A Python library that converts cron expressions into human readable strings.",
+        description="A Python library that converts cron expressions "
+                    "into human readable strings.",
         author="Adam Schubert",
         author_email="adam.schubert@sg1-game.net",
         url="https://github.com/Salamek/cron-descriptor",
         long_description=open('README.md').read(),
-        packages=[
-            "cron_descriptor",
-            "tests"
-        ],
+        packages=setuptools.find_packages(),
+        package_data={
+            'cron_descriptor': [
+                'locale/*.mo',
+            ],
+        },
         classifiers=[
             "Development Status :: 5 - Production/Stable",
             "Environment :: Web Environment",
