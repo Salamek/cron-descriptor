@@ -299,7 +299,7 @@ class ExpressionDescriptor(object):
                     day_of_week_of_month_description = None
 
                 formated = "{}{}{}".format(_(", on the "),
-                                         day_of_week_of_month_description, _(" {0} of the month"))
+                                           day_of_week_of_month_description, _(" {0} of the month"))
             elif "L" in s:
                 formated = _(", on the last {0} of the month")
             else:
