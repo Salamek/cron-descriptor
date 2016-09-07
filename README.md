@@ -100,14 +100,19 @@ cron-descriptor is using [Gettext](https://www.gnu.org/software/gettext/) for tr
 
 You can copy/rename and translate any file from `locale` directory:
 ```bash
-cp ./locale/de_DE.po ./locale/YOUR_LOCALE_CODE.po
-poedit ./locale/YOUR_LOCALE_CODE.po
+cp ./cron_descriptor/locale/de_DE.po ./cron_descriptor/locale/YOUR_LOCALE_CODE.po
+poedit ./cron_descriptor/locale/YOUR_LOCALE_CODE.po
 ```
-or you can generate new untranslated *.po file from sources by running:
+or you can generate new untranslated *.po file from sources by running in `cron_descriptor` directory:
 ```bash
-xgettext *.py
+cd cron_descriptor
+xgettext *.py -o locale/YOUR_LOCALE_CODE.po
 ```
-in `cron_descriptor` directory
+
+Generating *.mo file from *.po file. In root directory run command:
+```bash
+msgfmt -o cron_descriptor/locale/YOUR_LOCALE_CODE.mo cron_descriptor/locale/YOUR_LOCALE_CODE.po
+```
 
 ## Developing
 
