@@ -30,7 +30,8 @@ class GetText(object):
         """
         code, encoding = locale.getlocale()
         try:
-            filename = os.path.join('locale', '{}.mo'.format(code))
+            filename = os.path.join(os.path.abspath(__file__),
+                                    'locale', '{}.mo'.format(code))
             trans = gettext.GNUTranslations(open(filename, "rb"))
             logging.debug('{} Loaded'.format(filename))
         except IOError:
