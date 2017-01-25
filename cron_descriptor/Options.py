@@ -31,5 +31,6 @@ class Options(object):
         self.use_24hour_time_format = False
 
         code, encoding = locale.getlocale()
+        self.locale_code = code
         self.use_24hour_time_format = code in [
             "ru_RU", "uk_UA", "de_DE", "it_IT", "tr_TR", "cs_CZ"]

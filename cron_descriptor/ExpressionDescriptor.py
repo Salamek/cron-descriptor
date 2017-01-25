@@ -64,7 +64,7 @@ class ExpressionDescriptor(object):
                     "Unknow {} configuration argument".format(kwarg))
 
         # Initializes localization
-        GetText()
+        GetText(options.locale_code)
 
     def get_description(self, description_type=DescriptionTypeEnum.FULL):
         """Generates a human readable string for the Cron Expression

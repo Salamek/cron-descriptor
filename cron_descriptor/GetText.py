@@ -25,12 +25,13 @@ class GetText(object):
     Handles language translations and Initializes global _() function
     """
 
-    def __init__(self):
-        """Initialize GetText
+    def __init__(self, locale_code):
         """
-        code, encoding = locale.getlocale()
+        Initialize GetText
+        :param locale_code selected locale
+        """
         try:
-            filename = os.path.join('locale', '{}.mo'.format(code))
+            filename = os.path.join('locale', '{}.mo'.format(locale_code))
             trans = gettext.GNUTranslations(open(filename, "rb"))
             logging.debug('{} Loaded'.format(filename))
         except IOError:
