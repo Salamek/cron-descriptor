@@ -18,10 +18,10 @@ from cron_descriptor import Options, ExpressionDescriptor
 
 
 class TestLocale(TestCase.TestCase):
-    def test_default(self):
+    def test_locale_de(self):
         options = Options()
-        options.locale = 'de_DE'
+        options.locale_code = 'de_DE'
         options.use_24hour_time_format = True
         self.assertEqual(
-            "jede Minute",
+            "Jede Minute",
             ExpressionDescriptor("* * * * *", options).get_description())
