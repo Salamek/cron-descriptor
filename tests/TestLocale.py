@@ -13,9 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import locale
 import tests.TestCase as TestCase
-from cron_descriptor import Options, DescriptionTypeEnum, ExpressionDescriptor, CasingTypeEnum
+from cron_descriptor import Options, ExpressionDescriptor
 
 
 class TestLocale(TestCase.TestCase):
