@@ -30,10 +30,12 @@ class GetText(object):
         :param locale_code selected locale
         """
         try:
-            filename = os.path.join('locale', '{}.mo'.format(locale_code))
+            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                    'locale', '{}.mo'.format(locale_code))
             trans = gettext.GNUTranslations(open(filename, "rb"))
             logging.debug('{} Loaded'.format(filename))
         except IOError:
+            logging.debug('Failed to found locale {}'.format(locale_code))
             trans = gettext.NullTranslations()
 
         trans.install()
