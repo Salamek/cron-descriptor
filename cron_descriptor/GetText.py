@@ -18,6 +18,9 @@ import os
 import logging
 
 
+logger = logging.getLogger(__name__)
+
+
 class GetText(object):
 
     """
@@ -33,9 +36,9 @@ class GetText(object):
             filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                     'locale', '{}.mo'.format(locale_code))
             trans = gettext.GNUTranslations(open(filename, "rb"))
-            logging.debug('{} Loaded'.format(filename))
+            logger.debug('{} Loaded'.format(filename))
         except IOError:
-            logging.debug('Failed to found locale {}'.format(locale_code))
+            logger.debug('Failed to found locale {}'.format(locale_code))
             trans = gettext.NullTranslations()
 
         trans.install()
