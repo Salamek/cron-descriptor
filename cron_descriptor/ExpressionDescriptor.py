@@ -173,7 +173,8 @@ class ExpressionDescriptor(object):
             minute_parts = minute_expression.split('-')
             description.append(_("Every minute between {0} and {1}").format(
                 self.format_time(hour_expression, minute_parts[0]), self.format_time(hour_expression, minute_parts[1])))
-        elif "," in hour_expression and "-" not in hour_expression and any(exp in minute_expression for exp in self._special_characters) is False:
+        elif "," in hour_expression and "-" not in hour_expression and \
+                any(exp in minute_expression for exp in self._special_characters) is False:
             # hours list with single minute (o.e. 30 6,14,16)
             hour_parts = hour_expression.split(',')
             description.append(_("At"))
@@ -428,7 +429,8 @@ class ExpressionDescriptor(object):
 
             # interval contains 'between' piece (i.e. 2-59/3 )
             if "-" in segments[0]:
-                between_segment_description = self.generate_between_segment_description(segments[0], get_between_description_format, get_single_item_description)
+                between_segment_description = self.generate_between_segment_description(
+                    segments[0], get_between_description_format, get_single_item_description)
                 if not between_segment_description.startswith(", "):
                     description += ", "
                 description += between_segment_description
@@ -470,16 +472,22 @@ class ExpressionDescriptor(object):
                 expression).format(
                     description_content)
         elif "-" in expression:
-            description = self.generate_between_segment_description(expression, get_between_description_format, get_single_item_description)
+            description = self.generate_between_segment_description(
+                expression, get_between_description_format, get_single_item_description)
 
         return description
 
-    def generate_between_segment_description(self, between_expression, get_between_description_format, get_single_item_description):
+    def generate_between_segment_description(
+            self,
+            between_expression,
+            get_between_description_format,
+            get_single_item_description
+    ):
         """
-        Generates the between segment description 
-        :param between_expression: 
-        :param get_between_description_format: 
-        :param get_single_item_description: 
+        Generates the between segment description
+        :param between_expression:
+        :param get_between_description_format:
+        :param get_single_item_description:
         :return: The between segment description
         """
         description = ""

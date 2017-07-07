@@ -161,7 +161,8 @@ class ExpressionParser(object):
 
         # convert JAN-DEC format to 1-12 format
         for month_number in self._cron_months:
-            expression_parts[4] = expression_parts[4].upper().replace(self._cron_months[month_number], str(month_number))
+            expression_parts[4] = expression_parts[4].upper().replace(
+                self._cron_months[month_number], str(month_number))
 
         # convert 0 second to (empty)
         if expression_parts[0] == "0":
@@ -178,8 +179,8 @@ class ExpressionParser(object):
             """
             Convert Month,DOW,Year step values with a starting value (i.e. not '*') to between expressions.
             This allows us to reuse the between expression handling for step values.
-            
-            For Example: 
+
+            For Example:
             - month part '3/2' will be converted to '3-12/2' (every 2 months between March and December)
             - DOW part '3/2' will be converted to '3-6/2' (every 2 days between Tuesday and Saturday)
             """

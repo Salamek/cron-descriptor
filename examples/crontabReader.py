@@ -10,6 +10,7 @@ except ImportError:
 
 
 class CrontabReader(object):
+
     """
     Simple example reading /etc/contab
     """

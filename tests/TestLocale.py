@@ -18,6 +18,7 @@ from cron_descriptor import Options, ExpressionDescriptor
 
 
 class TestLocale(TestCase.TestCase):
+
     def test_locale_de(self):
         options = Options()
         options.locale_code = 'de_DE'

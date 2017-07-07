@@ -363,7 +363,9 @@ class TestFormats(TestCase.TestCase):
 
     def test_day_of_week_with_day_of_month(self):
         self.assertEqual(
-            "At 00:00 AM, on day 1, 2, and 3 of the month, only on Wednesday and Friday", get_description("0 0 0 1,2,3 * WED,FRI"))
+            "At 00:00 AM, on day 1, 2, and 3 of the month, only on Wednesday and Friday",
+            get_description("0 0 0 1,2,3 * WED,FRI")
+        )
 
     def test_seconds_internal_with_step_value(self):
         self.assertEqual(
@@ -404,6 +406,3 @@ class TestFormats(TestCase.TestCase):
         self.assertEqual(
             "At 1 minutes past the hour, at 01:00 AM and 03:00 AM through 04:59 AM",
             get_description("1 1,3-4 * * *"))
-
-
-
