@@ -53,12 +53,12 @@ class TestFormats(TestCase.TestCase):
 
     def test_every5_minutes(self):
 
-        self.assertEqual("Every 05 minutes", get_description("*/5 * * * *"))
+        self.assertEqual("Every 5 minutes", get_description("*/5 * * * *"))
         self.assertEqual("Every 10 minutes", get_description("0 0/10 * * * ?"))
 
     def test_every5_minutes_on_the_second(self):
 
-        self.assertEqual("Every 05 minutes", get_description("0 */5 * * * *"))
+        self.assertEqual("Every 5 minutes", get_description("0 */5 * * * *"))
 
     def test_weekdays_at_time(self):
 
@@ -134,12 +134,6 @@ class TestFormats(TestCase.TestCase):
             "At 12:23 PM, January through March",
             get_description("23 12 * JAN-MAR *"))
 
-    def test_month_name_range3_lowercase(self):
-
-        self.assertEqual(
-            "At 12:23 PM, January through March",
-            get_description("23 12 * jan-mar *"))
-
     def test_day_of_week_name(self):
 
         self.assertEqual(
@@ -155,7 +149,7 @@ class TestFormats(TestCase.TestCase):
     def test_day_of_week_range(self):
 
         self.assertEqual(
-            "Every 05 minutes, at 03:00 PM, Monday through Friday", get_description("*/5 15 * * MON-FRI"))
+            "Every 5 minutes, at 03:00 PM, Monday through Friday", get_description("*/5 15 * * MON-FRI"))
 
     def test_day_of_week_once_in_month(self):
 
@@ -170,7 +164,7 @@ class TestFormats(TestCase.TestCase):
     def test_last_day_of_the_month(self):
 
         self.assertEqual(
-            "Every 05 minutes, on the last day of the month, only in January", get_description("*/5 * L JAN *"))
+            "Every 5 minutes, on the last day of the month, only in January", get_description("*/5 * L JAN *"))
 
     def test_last_weekday_of_the_month(self):
 
@@ -211,23 +205,23 @@ class TestFormats(TestCase.TestCase):
 
         self.assertEqual("At 02:02:30 PM", get_description("30 02 14 * * *"))
 
-    def test_second_internvals(self):
+    def test_second_intervals(self):
 
         self.assertEqual(
-            "Seconds 05 through 10 past the minute",
+            "Seconds 5 through 10 past the minute",
             get_description("5-10 * * * * *"))
 
     def test_second_minutes_hours_intervals(self):
 
         self.assertEqual((
-            "Seconds 05 through 10 past the minute, "
+            "Seconds 5 through 10 past the minute, "
             "minutes 30 through 35 past the hour, "
             "between 10:00 AM and 12:59 PM"), get_description("5-10 30-35 10-12 * * *"))
 
     def test_every5_minutes_at30_seconds(self):
 
         self.assertEqual(
-            "At 30 seconds past the minute, every 05 minutes", get_description("30 */5 * * * *"))
+            "At 30 seconds past the minute, every 5 minutes", get_description("30 */5 * * * *"))
 
     def test_minutes_past_the_hour_range(self):
 
@@ -239,12 +233,12 @@ class TestFormats(TestCase.TestCase):
     def test_seconds_past_the_minute_interval(self):
 
         self.assertEqual(
-            "At 10 seconds past the minute, every 05 minutes", get_description("10 0/5 * * * ?"))
+            "At 10 seconds past the minute, every 5 minutes", get_description("10 0/5 * * * ?"))
 
     def test_between_with_interval(self):
 
         self.assertEqual(
-            ("Every 03 minutes, minutes 02 through 59 past the hour, "
+            ("Every 3 minutes, minutes 2 through 59 past the hour, "
              "at 01:00 AM, 09:00 AM, and 10:00 PM, between day 11 and 26 of the month, "
              "January through June"), get_description("2-59/3 1,9,22 11-26 1-6 ?"))
 
@@ -255,7 +249,7 @@ class TestFormats(TestCase.TestCase):
     def test_minutes_past_the_hour(self):
 
         self.assertEqual(
-            "At 05 minutes past the hour",
+            "At 5 minutes past the hour",
             get_description("0 5 0/1 * * ?"))
 
     def test_one_year_only_with_seconds(self):
@@ -304,10 +298,6 @@ class TestFormats(TestCase.TestCase):
         self.assertEqual(
             "At 12:23 PM, on the second Sunday of the month", get_description("23 12 * * 1#2", options))
 
-    def test_day_of_week_modifier_with_day_of_month(self):
-        self.assertEqual("At 00:00 AM, on day 1, 2, and 3 of the month, only on Wednesday and Friday",
-                         get_description("0 0      0 1,2,3 * WED,FRI"))
-
     def test_hour_range_with_every_portion(self):
 
         self.assertEqual((
@@ -332,6 +322,19 @@ class TestFormats(TestCase.TestCase):
             "At 10:15 AM, every 3 days of the week",
             get_description("0 15 10 ? * */3"))
 
+    def test_every_2_day_of_the_week_in_range(self):
+        self.assertEqual(
+            "Every second, every 2 days of the week, Monday through Friday",
+            get_description("* * * ? * 1-5/2"))
+
+    def test_every_2_day_of_the_week_in_range_with_sunday_start_one(self):
+        options = Options()
+        options.day_of_week_start_index_zero = False
+
+        self.assertEqual(
+            "Every second, every 2 days of the week, Monday through Friday",
+            get_description("* * * ? * 2-6/2", options))
+
     def test_every3_month(self):
 
         self.assertEqual(
@@ -342,16 +345,65 @@ class TestFormats(TestCase.TestCase):
         self.assertEqual(
             "At 06:15 AM, on day 1 of the month, only in January, every 2 years", get_description("0 15 6 1 1 ? 1/2"))
 
-    def test_muti_part_range_seconds(self):
-
+    def test_muti_part_range_minutes(self):
         self.assertEqual(
-            "At 02 and 04 through 05 minutes past the hour, at 01:00 AM", get_description("2,4-5 1 * * *"))
+            "At 2 and 4 through 5 minutes past the hour, at 01:00 AM", get_description("2,4-5 1 * * *"))
 
-    def test_muti_part_range_seconds2(self):
-
+    def test_muti_part_range_minutes_2(self):
         self.assertEqual(
-            "At 02 and 26 through 28 minutes past the hour, at 06:00 PM", get_description("2,26-28 18 * * *"))
+            "At 2 and 26 through 28 minutes past the hour, at 06:00 PM", get_description("2,26-28 18 * * *"))
 
-    def test_individual_weekdays_and_range(self):
-        self.assertEqual('At 08:38 PM, only on Sunday, Tuesday, and Wednesday through Saturday',
-                         get_description('38 20 * * 0,2,3-6'))
+    def test_trailing_space_does_not_cause_a_wrong_description(self):
+        self.assertEqual(
+            "At 07:00 AM", get_description("0 7 * * * "))
+
+    def test_multi_part_day_of_the_week(self):
+        self.assertEqual(
+            "At 10:00 AM, only on Monday through Thursday and Sunday", get_description("0 00 10 ? * MON-THU,SUN *"))
+
+    def test_day_of_week_with_day_of_month(self):
+        self.assertEqual(
+            "At 00:00 AM, on day 1, 2, and 3 of the month, only on Wednesday and Friday", get_description("0 0 0 1,2,3 * WED,FRI"))
+
+    def test_seconds_internal_with_step_value(self):
+        self.assertEqual(
+            "Every 30 seconds, starting at 5 seconds past the minute",
+            get_description("5/30 * * * * ?"))
+
+    def test_minutes_internal_with_step_value(self):
+        self.assertEqual(
+            "Every 30 minutes, starting at 5 minutes past the hour",
+            get_description("0 5/30 * * * ?"))
+
+    def test_hours_internal_with_step_value(self):
+        self.assertEqual(
+            "Every second, every 8 hours, starting at 05:00 AM",
+            get_description("* * 5/8 * * ?"))
+
+    def test_day_of_month_internal_with_step_value(self):
+        self.assertEqual(
+            "At 07:05 AM, every 3 days, starting on day 2 of the month",
+            get_description("0 5 7 2/3 * ? *"))
+
+    def test_month_internal_with_step_value(self):
+        self.assertEqual(
+            "At 07:05 AM, every 2 months, March through December",
+            get_description("0 5 7 ? 3/2 ? *"))
+
+    def test_day_of_week_internal_with_step_value(self):
+        self.assertEqual(
+            "At 07:05 AM, every 3 days of the week, Tuesday through Saturday",
+            get_description("0 5 7 ? * 2/3 *"))
+
+    def test_year_internal_with_step_value(self):
+        self.assertEqual(
+            "At 07:05 AM, every 4 years, 2016 through 9999",
+            get_description("0 5 7 ? * ? 2016/4"))
+
+    def test_minites_combined_with_multiple_hour_ranges(self):
+        self.assertEqual(
+            "At 1 minutes past the hour, at 01:00 AM and 03:00 AM through 04:59 AM",
+            get_description("1 1,3-4 * * *"))
+
+
+

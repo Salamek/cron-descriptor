@@ -145,23 +145,15 @@ class ExpressionParser(object):
         if expression_parts[5].startswith("1/"):
             expression_parts[5] = expression_parts[5].replace("1/", "*/")  # DOW
 
-        # convert */1 to *
-        length = len(expression_parts)
-        for i in range(length):
-            if expression_parts[i] == "*/1":
-                expression_parts[i] = "*"
+        if expression_parts[6].startswith("1/"):
+            expression_parts[6] = expression_parts[6].replace("1/", "*/")
 
         # handle DayOfWeekStartIndexZero option where SUN=1 rather than SUN=0
         if self._options.day_of_week_start_index_zero is False:
-            dow_chars = list(expression_parts[5])
-            for i, dow_char in enumerate(dow_chars):
-                if i == 0 or dow_chars[i - 1] != '#':
-                    try:
-                        char_numeric = int(dow_char)
-                        dow_chars[i] = str(char_numeric - 1)[0]
-                    except ValueError:
-                        pass
-            expression_parts[5] = ''.join(dow_chars)
+            expression_parts[5] = self.decrease_days_of_week(expression_parts[5])
+
+        if expression_parts[3] == "?":
+            expression_parts[3] = "*"
 
         # convert SUN-SAT format to 0-6 format
         for day_number in self._cron_days:
@@ -174,3 +166,44 @@ class ExpressionParser(object):
         # convert 0 second to (empty)
         if expression_parts[0] == "0":
             expression_parts[0] = ''
+
+        # Loop through all parts and apply global normalization
+        length = len(expression_parts)
+        for i in range(length):
+
+            # convert all '*/1' to '*'
+            if expression_parts[i] == "*/1":
+                expression_parts[i] = "*"
+
+            """
+            Convert Month,DOW,Year step values with a starting value (i.e. not '*') to between expressions.
+            This allows us to reuse the between expression handling for step values.
+            
+            For Example: 
+            - month part '3/2' will be converted to '3-12/2' (every 2 months between March and December)
+            - DOW part '3/2' will be converted to '3-6/2' (every 2 days between Tuesday and Saturday)
+            """
+
+            if "/" in expression_parts[i] and any(exp in expression_parts[i] for exp in ['*', '-', ',']) is False:
+                choices = {
+                    4: "12",
+                    5: "6",
+                    6: "9999"
+                }
+
+                step_range_through = choices.get(i)
+
+                if step_range_through is not None:
+                    parts = expression_parts[i].split('/')
+                    expression_parts[i] = "{0}-{1}/{2}".format(parts[0], step_range_through, parts[1])
+
+    def decrease_days_of_week(self, day_of_week_expression_part):
+        dow_chars = list(day_of_week_expression_part)
+        for i, dow_char in enumerate(dow_chars):
+            if i == 0 or dow_chars[i - 1] != '#' and dow_chars[i - 1] != '/':
+                try:
+                    char_numeric = int(dow_char)
+                    dow_chars[i] = str(char_numeric - 1)[0]
+                except ValueError:
+                    pass
+        return ''.join(dow_chars)

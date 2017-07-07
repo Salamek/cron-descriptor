@@ -78,8 +78,6 @@ class ExpressionDescriptor(object):
             Exception: if throw_exception_on_parse_error is True
 
         """
-        description = ''
-
         try:
             if self._parsed is False:
                 parser = ExpressionParser(self._expression, self._options)
@@ -116,7 +114,6 @@ class ExpressionDescriptor(object):
             FormatException: if formating fails and throw_exception_on_parse_error is True
 
         """
-        description = ''
 
         try:
             time_segment = self.get_time_of_day_description()
@@ -125,17 +122,10 @@ class ExpressionDescriptor(object):
             day_of_week_desc = self.get_day_of_week_description()
             year_desc = self.get_year_description()
 
-            def day_of_wm(exp):
-                if exp == "*":
-                    return day_of_week_desc
-                elif "," in exp:
-                    return "{}{}".format(day_of_month_desc, day_of_week_desc)
-                else:
-                    return day_of_month_desc
-
-            description = "{0}{1}{2}{3}".format(
+            description = "{0}{1}{2}{3}{4}".format(
                 time_segment,
-                day_of_wm(self._expression_parts[3]),
+                day_of_month_desc,
+                day_of_week_desc,
                 month_desc,
                 year_desc)
 
@@ -183,7 +173,7 @@ class ExpressionDescriptor(object):
             minute_parts = minute_expression.split('-')
             description.append(_("Every minute between {0} and {1}").format(
                 self.format_time(hour_expression, minute_parts[0]), self.format_time(hour_expression, minute_parts[1])))
-        elif "," in hour_expression and any(exp in minute_expression for exp in self._special_characters) is False:
+        elif "," in hour_expression and "-" not in hour_expression and any(exp in minute_expression for exp in self._special_characters) is False:
             # hours list with single minute (o.e. 30 6,14,16)
             hour_parts = hour_expression.split(',')
             description.append(_("At"))
@@ -223,10 +213,11 @@ class ExpressionDescriptor(object):
             The SECONDS description
 
         """
+
         return self.get_segment_description(
             self._expression_parts[0],
             _("every second"),
-            lambda s: s.zfill(2),
+            lambda s: s,
             lambda s: _("every {0} seconds").format(s),
             lambda s: _("seconds {0} through {1} past the minute"),
             lambda s: _("at {0} seconds past the minute")
@@ -239,11 +230,12 @@ class ExpressionDescriptor(object):
             The MINUTE description
 
         """
+
         return self.get_segment_description(
             self._expression_parts[1],
             _("every minute"),
-            lambda s: s.zfill(2),
-            lambda s: _("every {0} minutes").format(s.zfill(2)),
+            lambda s: s,
+            lambda s: _("every {0} minutes").format(s),
             lambda s: _("minutes {0} through {1} past the hour"),
             lambda s: '' if s == "0" else _("at {0} minutes past the hour")
         )
@@ -260,7 +252,7 @@ class ExpressionDescriptor(object):
             expression,
             _("every hour"),
             lambda s: self.format_time(s, "0"),
-            lambda s: _("every {0} hours").format(s.zfill(2)),
+            lambda s: _("every {0} hours").format(s),
             lambda s: _("between {0} and {1}"),
             lambda s: _("at {0}")
         )
@@ -272,6 +264,12 @@ class ExpressionDescriptor(object):
             The DAYOFWEEK description
 
         """
+
+        if self._expression_parts[5] == "*" and self._expression_parts[3] != "*":
+            # DOM is specified and DOW is * so to prevent contradiction like "on day 1 of the month, every day"
+            # we will not specified a DOW description.
+            return ""
+
         def get_day_name(s):
             exp = s
             if "#" in s:
@@ -281,7 +279,6 @@ class ExpressionDescriptor(object):
             return self.number_to_day(int(exp))
 
         def get_format(s):
-            formated = None
             if "#" in s:
                 day_of_week_of_month = s[s.find("#") + 1:]
 
@@ -339,7 +336,6 @@ class ExpressionDescriptor(object):
             The DAYOFMONTH description
 
         """
-        description = None
         expression = self._expression_parts[3]
         expression = expression.replace("?", "*")
 
@@ -376,10 +372,21 @@ class ExpressionDescriptor(object):
             The YEAR description
 
         """
+
+        def format_year(s):
+            regex = re.compile("^\d+$")
+            if regex.match(s):
+                year_int = int(s)
+                if year_int < 1900:
+                    return year_int
+                return datetime.date(year_int, 1, 1).strftime("%Y")
+            else:
+                return s
+
         return self.get_segment_description(
             self._expression_parts[6],
             '',
-            lambda s: s.zfill(4),
+            lambda s: format_year(s),
             lambda s: _(", every {0} years").format(s),
             lambda s: _(", {0} through {1}"),
             lambda s: _(", only in {0}")
@@ -421,16 +428,17 @@ class ExpressionDescriptor(object):
 
             # interval contains 'between' piece (i.e. 2-59/3 )
             if "-" in segments[0]:
-                between_segment_of_interval = segments[0]
-                between_segements = between_segment_of_interval.split('-')
-                between_segment_1_description = get_single_item_description(
-                    between_segements[0])
-                between_segment_2_description = get_single_item_description(
-                    between_segements[1])
-                between_segment_2_description = between_segment_2_description.replace(
-                    ":00", ":59")
-                description += ", " + get_between_description_format(between_segment_of_interval).format(
-                    between_segment_1_description, between_segment_2_description)
+                between_segment_description = self.generate_between_segment_description(segments[0], get_between_description_format, get_single_item_description)
+                if not between_segment_description.startswith(", "):
+                    description += ", "
+                description += between_segment_description
+            elif any(ext in segments[0] for ext in ['*', ',']) is False:
+                range_item_description = get_description_format(segments[0]).format(
+                    get_single_item_description(segments[0])
+                )
+                range_item_description = range_item_description.replace(", ", "")
+
+                description += _(", starting {0}").format(range_item_description)
         elif "," in expression:
             segments = expression.split(',')
 
@@ -446,12 +454,11 @@ class ExpressionDescriptor(object):
                     description_content += _(" and ")
 
                 if "-" in segment:
-                    between_segments = segment.split('-')
-                    between_segment_1_description = get_single_item_description(between_segments[0])
-                    between_segment_2_description = get_single_item_description(between_segments[1])
-                    between_segment_2_description = between_segment_2_description.replace(":00", ":59")
-                    between_description = _(", {0} through {1}").format(
-                        between_segment_1_description, between_segment_2_description)
+                    between_description = self.generate_between_segment_description(
+                        segment,
+                        lambda s: _(", {0} through {1}"),
+                        get_single_item_description
+                    )
 
                     between_description = between_description.replace(", ", "")
 
@@ -463,13 +470,27 @@ class ExpressionDescriptor(object):
                 expression).format(
                     description_content)
         elif "-" in expression:
-            segments = expression.split('-')
-            between_segment_1_description = get_single_item_description(segments[0])
-            between_segment_2_description = get_single_item_description(segments[1])
-            between_segment_2_description = between_segment_2_description.replace(
-                ":00", ":59")
-            description = get_between_description_format(expression).format(
-                between_segment_1_description, between_segment_2_description)
+            description = self.generate_between_segment_description(expression, get_between_description_format, get_single_item_description)
+
+        return description
+
+    def generate_between_segment_description(self, between_expression, get_between_description_format, get_single_item_description):
+        """
+        Generates the between segment description 
+        :param between_expression: 
+        :param get_between_description_format: 
+        :param get_single_item_description: 
+        :return: The between segment description
+        """
+        description = ""
+        between_segments = between_expression.split('-')
+        between_segment_1_description = get_single_item_description(between_segments[0])
+        between_segment_2_description = get_single_item_description(between_segments[1])
+        between_segment_2_description = between_segment_2_description.replace(
+            ":00", ":59")
+
+        between_description_format = get_between_description_format(between_expression)
+        description += between_description_format.format(between_segment_1_description, between_segment_2_description)
 
         return description
 
