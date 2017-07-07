@@ -165,11 +165,11 @@ class ExpressionParser(object):
 
         # convert SUN-SAT format to 0-6 format
         for day_number in self._cron_days:
-            expression_parts[5] = expression_parts[5].replace(self._cron_days[day_number], str(day_number))
+            expression_parts[5] = expression_parts[5].upper().replace(self._cron_days[day_number], str(day_number))
 
         # convert JAN-DEC format to 1-12 format
         for month_number in self._cron_months:
-            expression_parts[4] = expression_parts[4].replace(self._cron_months[month_number], str(month_number))
+            expression_parts[4] = expression_parts[4].upper().replace(self._cron_months[month_number], str(month_number))
 
         # convert 0 second to (empty)
         if expression_parts[0] == "0":

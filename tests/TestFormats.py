@@ -134,11 +134,23 @@ class TestFormats(TestCase.TestCase):
             "At 12:23 PM, January through March",
             get_description("23 12 * JAN-MAR *"))
 
+    def test_month_name_range3_lowercase(self):
+
+        self.assertEqual(
+            "At 12:23 PM, January through March",
+            get_description("23 12 * jan-mar *"))
+
     def test_day_of_week_name(self):
 
         self.assertEqual(
             "At 12:23 PM, only on Sunday",
             get_description("23 12 * * SUN"))
+
+    def test_day_of_week_name_lowercase(self):
+
+        self.assertEqual(
+            "At 12:23 PM, only on Sunday",
+            get_description("23 12 * * sun"))
 
     def test_day_of_week_range(self):
 
