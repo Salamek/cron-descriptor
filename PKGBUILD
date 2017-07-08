@@ -1,14 +1,14 @@
 pkgbase=python-cron-descriptor
 pkgname=('python-cron-descriptor' 'python2-cron-descriptor')
 projname=cron-descriptor
-pkgver=1.2.6
+pkgver=1.2.9
 pkgrel=1
 pkgdesc="A Python library that converts cron expressions into human readable strings."
 arch=('any')
 license=('MIT')
 url='https://github.com/Salamek/cron-descriptor'
 source=("${pkgbase}-${pkgver}.tar.gz::https://github.com/Salamek/${projname}/archive/$pkgver.tar.gz")
-md5sums=('8d4244c74bf6ce31c08432bcb13eea09')
+md5sums=('74260e2519e76331950b742700cf9821')
 
 package_python-cron-descriptor() {
   depends=('python')
