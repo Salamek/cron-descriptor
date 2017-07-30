@@ -14,7 +14,7 @@ A Python library that converts cron expressions into human readable strings. Por
  * Supports 5, 6 (w/ seconds or year), or 7 (w/ seconds and year) part cron expressions
  * Provides casing options (Sentence, Title, Lower, etc.)
  * Localization with support for 14 languages
- * Supports Python 2.7 - 3.4
+ * Supports Python 2.7 - 3.5
 
 ## Installation
 Using PIP
