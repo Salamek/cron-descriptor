@@ -14,11 +14,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import setuptools
+import sys
 
 version = "1.2.9"
 
 
 if __name__ == "__main__":
+    if sys.version_info >= (3,0):
+        long_description = open('README.md', encoding='utf-8').read()
+    else:
+        long_description = open('README.md').read()
+    
     setuptools.setup(
         name="cron_descriptor",
         version=version,
@@ -27,7 +33,7 @@ if __name__ == "__main__":
         author="Adam Schubert",
         author_email="adam.schubert@sg1-game.net",
         url="https://github.com/Salamek/cron-descriptor",
-        long_description=open('README.md').read(),
+        long_description=long_description,
         packages=setuptools.find_packages(),
         package_data={
             'cron_descriptor': [
