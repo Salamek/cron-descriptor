@@ -27,7 +27,7 @@ class GetText(object):
     Handles language translations and Initializes global _() function
     """
 
-    def __init__(self, locale_code):
+    def __init__(self, locale_code, install=True):
         """
         Initialize GetText
         :param locale_code selected locale
@@ -41,4 +41,6 @@ class GetText(object):
             logger.debug('Failed to found locale {}'.format(locale_code))
             trans = gettext.NullTranslations()
 
-        trans.install()
+        if install:
+            trans.install()
+        self.trans = trans
