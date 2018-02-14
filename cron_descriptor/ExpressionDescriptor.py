@@ -38,7 +38,7 @@ class ExpressionDescriptor(object):
     _expression_parts = []
     _parsed = False
 
-    def __init__(self, expression, options=None, get_text=None, **kwargs):
+    def __init__(self, expression, options=None, **kwargs):
         """Initializes a new instance of the ExpressionDescriptorclass
 
         Args:
@@ -64,11 +64,7 @@ class ExpressionDescriptor(object):
                     "Unknow {} configuration argument".format(kwarg))
 
         # Initializes localization
-        if get_text:
-            self._ = get_text
-        else:
-            GetText(options.locale_code)
-            self._ = _
+        self._ = GetText(options.locale_code, install=False).trans
 
     def get_description(self, description_type=DescriptionTypeEnum.FULL):
         """Generates a human readable string for the Cron Expression
