@@ -66,7 +66,6 @@ class ExpressionDescriptor(object):
         # Initializes localization
         if get_text:
             self._ = get_text
-            print self._("Sunday")
         else:
             GetText(options.locale_code)
             self._ = _
