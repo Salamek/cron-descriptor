@@ -7,6 +7,8 @@ stages:
 test:debian:
   stage: test
   script:
+    - apt-get update -qy
+    - apt-get install python3 -qy
     - python3 setup.py test
   tags:
     - debian
@@ -14,6 +16,7 @@ test:debian:
 test:archlinux:
   stage: test
   script:
+    - pacman -Syu python --noconfirm
     - python setup.py test
   tags:
     - archlinux

@@ -18,7 +18,7 @@ import sys
 
 
 if __name__ == "__main__":
-    if sys.version_info >= (3,0):
+    if sys.version_info >= (3, 0):
         long_description = open('README.md', encoding='utf-8').read()
     else:
         long_description = open('README.md').read()
