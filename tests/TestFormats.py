@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import tests.TestCase as TestCase
-from cron_descriptor import Options, get_description
+from cron_descriptor import get_description
 
 
 class TestFormats(TestCase.TestCase):
@@ -164,7 +164,11 @@ class TestFormats(TestCase.TestCase):
     def test_last_day_of_the_month(self):
 
         self.assertEqual(
-            "Every 5 minutes, on the last day of the month, only in January", get_description("*/5 * L JAN *", self.options))
+            "Every 5 minutes, on the last day of the month, only in January", get_description(
+                "*/5 * L JAN *",
+                self.options
+            )
+        )
 
     def test_last_weekday_of_the_month(self):
 
@@ -272,12 +276,20 @@ class TestFormats(TestCase.TestCase):
     def test_year_range2(self):
 
         self.assertEqual(
-            "At 12:23 PM, January through February, 2013 through 2014", get_description("23 12 * JAN-FEB * 2013-2014", self.options))
+            "At 12:23 PM, January through February, 2013 through 2014", get_description(
+                "23 12 * JAN-FEB * 2013-2014",
+                self.options
+            )
+        )
 
     def test_year_range3(self):
 
         self.assertEqual(
-            "At 12:23 PM, January through March, 2013 through 2015", get_description("23 12 * JAN-MAR * 2013-2015", self.options))
+            "At 12:23 PM, January through March, 2013 through 2015", get_description(
+                "23 12 * JAN-MAR * 2013-2015",
+                self.options
+            )
+        )
 
     def test_hour_range(self):
 
@@ -341,7 +353,11 @@ class TestFormats(TestCase.TestCase):
     def test_every2_years(self):
 
         self.assertEqual(
-            "At 06:15 AM, on day 1 of the month, only in January, every 2 years", get_description("0 15 6 1 1 ? 1/2", self.options))
+            "At 06:15 AM, on day 1 of the month, only in January, every 2 years", get_description(
+                "0 15 6 1 1 ? 1/2",
+                self.options
+            )
+        )
 
     def test_muti_part_range_minutes(self):
         self.assertEqual(
@@ -349,7 +365,11 @@ class TestFormats(TestCase.TestCase):
 
     def test_muti_part_range_minutes_2(self):
         self.assertEqual(
-            "At 2 and 26 through 28 minutes past the hour, at 06:00 PM", get_description("2,26-28 18 * * *", self.options))
+            "At 2 and 26 through 28 minutes past the hour, at 06:00 PM", get_description(
+                "2,26-28 18 * * *",
+                self.options
+            )
+        )
 
     def test_trailing_space_does_not_cause_a_wrong_description(self):
         self.assertEqual(

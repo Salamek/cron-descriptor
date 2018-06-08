@@ -15,7 +15,7 @@
 
 
 import tests.TestCase as TestCase
-from cron_descriptor import Options, DescriptionTypeEnum, ExpressionDescriptor, MissingFieldException, FormatException
+from cron_descriptor import DescriptionTypeEnum, ExpressionDescriptor, MissingFieldException, FormatException
 
 
 class TestExceptions(TestCase.TestCase):

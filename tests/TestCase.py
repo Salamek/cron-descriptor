@@ -31,4 +31,3 @@ class TestCase(unittest.TestCase):
         # all tests are written in en_US
         self.options = Options()
         self.options.locale_code = 'en_US'
-
