@@ -16,8 +16,6 @@
 import setuptools
 import sys
 
-version = "1.2.10"
-
 
 if __name__ == "__main__":
     if sys.version_info >= (3,0):
@@ -27,7 +25,7 @@ if __name__ == "__main__":
     
     setuptools.setup(
         name="cron_descriptor",
-        version=version,
+        version="1.2.10",
         description="A Python library that converts cron expressions "
                     "into human readable strings.",
         author="Adam Schubert",
