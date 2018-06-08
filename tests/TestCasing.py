@@ -24,25 +24,22 @@ class TestCasing(TestCase.TestCase):
     """
 
     def test_sentence_casing(self):
-        options = Options()
-        options.casing_type = CasingTypeEnum.Sentence
-        ceh = ExpressionDescriptor("* * * * *", options)
+        self.options.casing_type = CasingTypeEnum.Sentence
+        ceh = ExpressionDescriptor("* * * * *", self.options)
         self.assertEqual(
             "Every minute",
             ceh.get_description(DescriptionTypeEnum.FULL))
 
     def test_title_casing(self):
-        options = Options()
-        options.casing_type = CasingTypeEnum.Title
-        ceh = ExpressionDescriptor("* * * * *", options)
+        self.options.casing_type = CasingTypeEnum.Title
+        ceh = ExpressionDescriptor("* * * * *", self.options)
         self.assertEqual(
             "Every Minute",
             ceh.get_description(DescriptionTypeEnum.FULL))
 
     def test_lower_casing(self):
-        options = Options()
-        options.casing_type = CasingTypeEnum.LowerCase
-        ceh = ExpressionDescriptor("* * * * *", options)
+        self.options.casing_type = CasingTypeEnum.LowerCase
+        ceh = ExpressionDescriptor("* * * * *", self.options)
         self.assertEqual(
             "every minute",
             ceh.get_description(DescriptionTypeEnum.FULL))

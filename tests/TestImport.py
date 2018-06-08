@@ -26,6 +26,7 @@ class TestImport(TestCase.TestCase):
         from cron_descriptor import Options, DescriptionTypeEnum, ExpressionDescriptor
         options = Options()
         options.use_24hour_time_format = True
+        options.locale_code = self.options.locale_code
         ceh = ExpressionDescriptor("* * * * *", options)
         self.assertEqual(
             "Every minute",
@@ -38,6 +39,7 @@ class TestImport(TestCase.TestCase):
 
         options = Options()
         options.use_24hour_time_format = True
+        options.locale_code = self.options.locale_code
         ceh = ExpressionDescriptor("* * * * *", options)
         self.assertEqual(
             'Every minute',

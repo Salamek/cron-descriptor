@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
-import locale
+from cron_descriptor import Options
 
 __author__ = "Adam Schubert <adam.schubert@sg1-game.net>"
 __date__ = "$2016-01-17 14:51:02$"
@@ -26,7 +26,9 @@ class TestCase(unittest.TestCase):
     """
 
     def setUp(self):
-        """Set up en_US.utf8 locale
+        """Set up en_US locale
         """
         # all tests are written in en_US
-        locale.setlocale(locale.LC_ALL, 'en_US.utf8')
+        self.options = Options()
+        self.options.locale_code = 'en_US'
+

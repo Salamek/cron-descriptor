@@ -24,9 +24,8 @@ class TestApi(TestCase.TestCase):
     """
 
     def test_full(self):
-        options = Options()
-        options.use_24hour_time_format = True
-        ceh = ExpressionDescriptor("* * * * *", options)
+        self.options.use_24hour_time_format = True
+        ceh = ExpressionDescriptor("* * * * *", self.options)
         self.assertEqual(
             "Every minute",
             ceh.get_description(DescriptionTypeEnum.FULL))
@@ -34,17 +33,17 @@ class TestApi(TestCase.TestCase):
     def test_default(self):
         self.assertEqual(
             "Every minute",
-            ExpressionDescriptor("* * * * *").get_description())
+            ExpressionDescriptor("* * * * *", self.options).get_description())
 
     def test_to_str(self):
         self.assertEqual(
             "Every minute",
-            str(ExpressionDescriptor("* * * * *")))
+            str(ExpressionDescriptor("* * * * *", self.options)))
 
     def test_to_repr(self):
-        self.assertIsInstance(ExpressionDescriptor("* * * * *"), ExpressionDescriptor)
+        self.assertIsInstance(ExpressionDescriptor("* * * * *", self.options), ExpressionDescriptor)
 
     def test_to_kargs(self):
         self.assertEqual(
             "At 17:17",
-            str(ExpressionDescriptor("17 17 * * *", use_24hour_time_format=True)))
+            str(ExpressionDescriptor("17 17 * * *", self.options, use_24hour_time_format=True)))
