@@ -49,7 +49,7 @@ package:archlinux:
 
   artifacts:
     paths:
-      - archlinux/version*
+      - archlinux/python-cron-descriptor*
     expire_in: 1d
 
 packagetest:debian:
@@ -70,7 +70,7 @@ packagetest:archlinux:
   script:
     - pacman -Sy
     - cd archlinux
-    - pacman -U version*.pkg.tar.xz --noconfirm
+    - pacman -U python-cron-descriptor*.pkg.tar.xz --noconfirm
   tags:
     - virtualbox-archlinux
   dependencies:
