@@ -92,7 +92,7 @@ repoupdate:
 
     # PyPi
     - 'echo -e "[distutils]\nindex-servers =\n   pypi\n\n[pypi]\nrepository=https://pypi.python.org/pypi\nusername=Salamek\npassword=" > ~/.pypirc'
-    - echo $PYPI_PASSWORD > ~/.pypirc
+    - echo $PYPI_PASSWORD >> ~/.pypirc
   script:
     - ssh www-data@salamek.cz 'rm -rf /var/www/arch.salamek.cz/www/any/python-cron-descriptor*.pkg.tar.xz'
     - ssh www-data@salamek.cz 'rm -rf /var/www/apt.salamek.cz/cache/python3-cron-descriptor*.deb'
