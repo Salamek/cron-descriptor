@@ -57,20 +57,23 @@ print(descripter.get_description(DescriptionTypeEnum.FULL))
 ```
 
 ## Languages Available
-  * English ([Brady Holt](https://github.com/bradyholt))
-  * Brazilian ([Renato Lima](https://github.com/natenho))
-  * Spanish ([Ivan Santos](https://github.com/ivansg))
-  * Norwegian ([Siarhei Khalipski](https://github.com/KhalipskiSiarhei))
-  * Turkish ([Mustafa SADEDİL](https://github.com/sadedil))
-  * Dutch ([TotalMace](https://github.com/TotalMace))
-  * Chinese Simplified ([Star Peng](https://github.com/starpeng))
-  * Russian ([LbISS](https://github.com/LbISS))
-  * French ([Arnaud TAMAILLON](https://github.com/Greybird))
-  * German ([Michael Schuler](https://github.com/mschuler))
-  * Ukrainian ([Taras](https://github.com/tbudurovych))
-  * Italian ([rinaldihno](https://github.com/rinaldihno))
-  * Czech ([Adam Schubert](https://github.com/salamek))
-  * Swedish ([Åke Engelbrektson](https://github.com/eson57))
+
+|Language| locale_code | contributor |
+|--------|-------------|-------------|
+|English |en|[Brady Holt](https://github.com/bradyholt)|
+|Brazilian |pt_PT|[Renato Lima](https://github.com/natenho)|
+|Chinese Simplified | zh_CN |[Star Peng](https://github.com/starpeng)|
+|Spanish |es_ES|[Ivan Santos](https://github.com/ivansg)|
+|Norwegian |nb_NO|[Siarhei Khalipski](https://github.com/KhalipskiSiarhei)|
+|Turkish |tr_TR|[Mustafa SADEDİL](https://github.com/sadedil)|
+|Dutch |nl_NL|[TotalMace](https://github.com/TotalMace)|
+|Russian |ru_RU|[LbISS](https://github.com/LbISS)|
+|French |fr_FR|[Arnaud TAMAILLON](https://github.com/Greybird)|
+|German |de_DE|[Michael Schuler](https://github.com/mschuler)|
+|Ukrainian |uk_UA|[Taras](https://github.com/tbudurovych)|
+|Italian |it_IT|[rinaldihno](https://github.com/rinaldihno)|
+|Czech |cs_CZ|[Adam Schubert](https://github.com/salamek)|
+|Swedish |sv_SE|[Åke Engelbrektson](https://github.com/eson57)|
 
 <!-- SOON
 ## Demo
