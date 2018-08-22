@@ -32,6 +32,7 @@ if __name__ == "__main__":
         author_email="adam.schubert@sg1-game.net",
         url="https://github.com/Salamek/cron-descriptor",
         long_description=long_description,
+        long_description_content_type='text/markdown',
         packages=setuptools.find_packages(),
         package_data={
             'cron_descriptor': [
