@@ -80,18 +80,18 @@ packagetest:archlinux:
 
 repoupdate:
   stage: deploy
+  variables:
+    TWINE_USERNAME: Salamek
   before_script:
     # SSH
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - apt-get update -y
-    - apt-get install python-setuptools -y
+    - apt-get install twine python-setuptools python3-wheel python-wheel -y
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-    # PyPi
-    - 'echo -e "[distutils]\nindex-servers =\n   pypi\n\n[pypi]\nrepository=https://pypi.python.org/pypi\nusername=Salamek\npassword=$PYPI_PASSWORD" > ~/.pypirc'
   script:
     - ssh www-data@salamek.cz 'rm -rf /var/www/arch.salamek.cz/www/any/python-cron-descriptor*.pkg.tar.xz'
     - ssh www-data@salamek.cz 'rm -rf /var/www/apt.salamek.cz/cache/python3-cron-descriptor*.deb'
@@ -100,11 +100,12 @@ repoupdate:
     - ssh www-data@salamek.cz '/var/www/arch.salamek.cz/update_repo.sh'
     - ssh www-data@salamek.cz '/var/www/apt.salamek.cz/update_repo.sh'
     # PyPi update
-    - python setup.py sdist upload -r pypi
+    - python3 setup.py sdist bdist_wheel
+    - twine upload dist/*
   dependencies:
     - package:archlinux
     - package:debian
   tags:
-    - docker
+    - debian
   only:
     - tags
