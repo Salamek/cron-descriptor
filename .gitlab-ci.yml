@@ -86,7 +86,7 @@ repoupdate:
     # SSH
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - apt-get update -y
-    - apt-get install twine python-setuptools python3-wheel python-wheel -y
+    - apt-get install twine python-setuptools -y
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
@@ -100,7 +100,7 @@ repoupdate:
     - ssh www-data@salamek.cz '/var/www/arch.salamek.cz/update_repo.sh'
     - ssh www-data@salamek.cz '/var/www/apt.salamek.cz/update_repo.sh'
     # PyPi update
-    - python3 setup.py sdist bdist_wheel
+    - python3 setup.py sdist
     - twine upload dist/*
   dependencies:
     - package:archlinux
