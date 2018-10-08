@@ -33,7 +33,7 @@ if __name__ == "__main__":
         url="https://github.com/Salamek/cron-descriptor",
         long_description=long_description,
         long_description_content_type='text/markdown',
-        packages=setuptools.find_packages(),
+        packages=setuptools.find_packages(exclude=['tests*',]),
         package_data={
             'cron_descriptor': [
                 'locale/*.mo',
