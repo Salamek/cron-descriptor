@@ -375,7 +375,7 @@ class ExpressionDescriptor(object):
         """
 
         def format_year(s):
-            regex = re.compile("^\d+$")
+            regex = re.compile(r"^\d+$")
             if regex.match(s):
                 year_int = int(s)
                 if year_int < 1900:

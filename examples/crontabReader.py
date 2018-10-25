@@ -14,7 +14,7 @@ class CrontabReader(object):
     """
     Simple example reading /etc/contab
     """
-    rex = re.compile("^(\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}).+$")
+    rex = re.compile(r"^(\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}).+$")
 
     def __init__(self, cronfile):
         """Initialize CrontabReader

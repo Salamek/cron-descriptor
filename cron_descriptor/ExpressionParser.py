@@ -89,7 +89,7 @@ class ExpressionParser(object):
             elif expression_parts_temp_length == 6:
                 # If last element ends with 4 digits, a year element has been
                 # supplied and no seconds element
-                year_regex = re.compile("\d{4}$")
+                year_regex = re.compile(r"\d{4}$")
                 if year_regex.search(expression_parts_temp[5]) is not None:
                     for i, expression_part_temp in enumerate(expression_parts_temp):
                         parsed[i + 1] = expression_part_temp
