@@ -1,4 +1,6 @@
 language: python
+sudo: required
+dist: xenial
 python:
   - "2.7"
   - "3.3"
@@ -10,7 +12,6 @@ before_script:
   - ./code-check.sh
 script:
   - python setup.py test
-sudo: false
 install:
   - pip install pep8
   - pip install flake8
