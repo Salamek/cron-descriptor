@@ -57,5 +57,10 @@ if __name__ == "__main__":
             "Programming Language :: Python :: 3.5",
             "Topic :: Software Development",
         ],
+        tests_require=[
+            'pep8',
+            'flake8',
+            'pep8-naming'
+        ],
         test_suite="tests"
     )
