@@ -78,7 +78,6 @@ class ExpressionDescriptor(object):
 
         Args:
             description_type: Which part(s) of the expression to describe
-            options: Options to control the output description
         Returns:
             The cron expression description
         Raises:
@@ -291,7 +290,7 @@ class ExpressionDescriptor(object):
                 day_of_week_of_month = s[s.find("#") + 1:]
 
                 try:
-                    day_of_week_of_month_numer = int(day_of_week_of_month)
+                    day_of_week_of_month_number = int(day_of_week_of_month)
                     choices = {
                         1: _("first"),
                         2: _("second"),
@@ -299,9 +298,9 @@ class ExpressionDescriptor(object):
                         4: _("forth"),
                         5: _("fifth"),
                     }
-                    day_of_week_of_month_description = choices.get(day_of_week_of_month_numer, None)
+                    day_of_week_of_month_description = choices.get(day_of_week_of_month_number, '')
                 except ValueError:
-                    day_of_week_of_month_description = None
+                    day_of_week_of_month_description = ''
 
                 formated = "{}{}{}".format(_(", on the "),
                                            day_of_week_of_month_description, _(" {0} of the month"))
