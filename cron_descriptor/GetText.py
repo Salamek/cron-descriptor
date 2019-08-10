@@ -45,7 +45,7 @@ class GetText(object):
             trans = gettext.GNUTranslations(open(filename, "rb"))
             logger.debug('{} Loaded'.format(filename))
         except IOError:
-            logger.debug('Failed to found locale {}'.format(locale_code))
+            logger.debug('Failed to find locale {}'.format(locale_code))
             trans = gettext.NullTranslations()
 
         trans.install()
