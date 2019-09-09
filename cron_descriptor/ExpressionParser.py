@@ -113,11 +113,6 @@ class ExpressionParser(object):
 
         return parsed
 
-    """
-
-    @param:
-    """
-
     def normalize_expression(self, expression_parts):
         """Converts cron expression components into consistent, predictable formats.
         Args:
