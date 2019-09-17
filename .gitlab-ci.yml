@@ -8,6 +8,7 @@ test:debian:
   stage: test
   script:
     - apt-get update -qy
+    - apt-get upgrade -qy
     - apt-get install python3-setuptools -qy
     - python3 setup.py test
   tags:
