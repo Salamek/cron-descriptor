@@ -1,17 +1,24 @@
-# Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>
+# The MIT License (MIT)
 #
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# Copyright (c) 2016 Adam Schubert
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 #
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 import re
 
@@ -89,7 +96,7 @@ class ExpressionParser(object):
             elif expression_parts_temp_length == 6:
                 # If last element ends with 4 digits, a year element has been
                 # supplied and no seconds element
-                year_regex = re.compile("\d{4}$")
+                year_regex = re.compile(r"\d{4}$")
                 if year_regex.search(expression_parts_temp[5]) is not None:
                     for i, expression_part_temp in enumerate(expression_parts_temp):
                         parsed[i + 1] = expression_part_temp
@@ -105,11 +112,6 @@ class ExpressionParser(object):
         self.normalize_expression(parsed)
 
         return parsed
-
-    """
-
-    @param:
-    """
 
     def normalize_expression(self, expression_parts):
         """Converts cron expression components into consistent, predictable formats.
@@ -151,9 +153,6 @@ class ExpressionParser(object):
         # handle DayOfWeekStartIndexZero option where SUN=1 rather than SUN=0
         if self._options.day_of_week_start_index_zero is False:
             expression_parts[5] = self.decrease_days_of_week(expression_parts[5])
-        # "7" also means Sunday so we will convert to "0" to normalize it
-        elif expression_parts[5] == "7":
-            expression_parts[5] = "0"
 
         if expression_parts[3] == "?":
             expression_parts[3] = "*"
