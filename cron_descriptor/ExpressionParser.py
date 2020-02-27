@@ -150,9 +150,7 @@ class ExpressionParser(object):
         if expression_parts[6].startswith("1/"):
             expression_parts[6] = expression_parts[6].replace("1/", "*/")
 
-        # handle DayOfWeekStartIndexZero option where SUN=1 rather than SUN=0
-        if self._options.day_of_week_start_index_zero is False:
-            expression_parts[5] = self.decrease_days_of_week(expression_parts[5])
+        expression_parts[5] = self.adjust_dow(expression_parts[5])
 
         if expression_parts[3] == "?":
             expression_parts[3] = "*"
@@ -200,13 +198,20 @@ class ExpressionParser(object):
                     parts = expression_parts[i].split('/')
                     expression_parts[i] = "{0}-{1}/{2}".format(parts[0], step_range_through, parts[1])
 
-    def decrease_days_of_week(self, day_of_week_expression_part):
+    def adjust_dow(self, day_of_week_expression_part):
         dow_chars = list(day_of_week_expression_part)
         for i, dow_char in enumerate(dow_chars):
             if i == 0 or dow_chars[i - 1] != '#' and dow_chars[i - 1] != '/':
                 try:
                     char_numeric = int(dow_char)
-                    dow_chars[i] = str(char_numeric - 1)[0]
+                    # handle DayOfWeekStartIndexZero
+                    # option where SUN=1 rather than SUN=0
+                    if self._options.day_of_week_start_index_zero is False:
+                        dow_chars[i] = str(char_numeric - 1)[0]
+                    # "7" also means Sunday
+                    # so we will convert to "0" to normalize it
+                    elif char_numeric == 7:
+                        dow_chars[i] = "0"
                 except ValueError:
                     pass
         return ''.join(dow_chars)
