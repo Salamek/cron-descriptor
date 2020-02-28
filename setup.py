@@ -16,7 +16,7 @@
 import setuptools
 import sys
 
-version = "1.2.10+se"
+version = "1.2.10+se-1"
 
 
 if __name__ == "__main__":
