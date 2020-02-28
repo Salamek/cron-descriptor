@@ -1,21 +1,27 @@
-# Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>
+# The MIT License (MIT)
 #
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# Copyright (c) 2016 Adam Schubert
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 #
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 import tests.TestCase as TestCase
-from cron_descriptor import Options, DescriptionTypeEnum, ExpressionDescriptor, MissingFieldException, FormatException
+from cron_descriptor import DescriptionTypeEnum, ExpressionDescriptor, MissingFieldException, FormatException
 
 
 class TestExceptions(TestCase.TestCase):
@@ -25,52 +31,46 @@ class TestExceptions(TestCase.TestCase):
     """
 
     def test_none_cron_expression_exception(self):
-        options = Options()
-        options.throw_exception_on_parse_error = True
-        ceh = ExpressionDescriptor(None, options)
+        self.options.throw_exception_on_parse_error = True
+        ceh = ExpressionDescriptor(None, self.options)
         self.assertRaises(
             MissingFieldException,
             ceh.get_description,
             DescriptionTypeEnum.FULL)
 
     def test_empty_cron_expression_exception(self):
-        options = Options()
-        options.throw_exception_on_parse_error = True
-        ceh = ExpressionDescriptor('', options)
+        self.options.throw_exception_on_parse_error = True
+        ceh = ExpressionDescriptor('', self.options)
         self.assertRaises(
             MissingFieldException,
             ceh.get_description,
             DescriptionTypeEnum.FULL)
 
     def test_none_cron_expression_error(self):
-        options = Options()
-        options.throw_exception_on_parse_error = False
-        ceh = ExpressionDescriptor(None, options)
+        self.options.throw_exception_on_parse_error = False
+        ceh = ExpressionDescriptor(None, self.options)
         self.assertEqual(
             "Field 'ExpressionDescriptor.expression' not found.",
             ceh.get_description(DescriptionTypeEnum.FULL))
 
     def test_invalid_cron_expression_exception(self):
-        options = Options()
-        options.throw_exception_on_parse_error = True
-        ceh = ExpressionDescriptor("INVALID", options)
+        self.options.throw_exception_on_parse_error = True
+        ceh = ExpressionDescriptor("INVALID", self.options)
         self.assertRaises(
             FormatException,
             ceh.get_description,
             DescriptionTypeEnum.FULL)
 
     def test_invalid_cron_expression_error(self):
-        options = Options()
-        options.throw_exception_on_parse_error = False
-        ceh = ExpressionDescriptor("INVALID CRON", options)
+        self.options.throw_exception_on_parse_error = False
+        ceh = ExpressionDescriptor("INVALID CRON", self.options)
         self.assertEqual(
             "Error: Expression only has 2 parts.  At least 5 part are required.",
             ceh.get_description(DescriptionTypeEnum.FULL))
 
     def test_invalid_syntax_exception(self):
-        options = Options()
-        options.throw_exception_on_parse_error = True
-        ceh = ExpressionDescriptor("* $ * * *", options)
+        self.options.throw_exception_on_parse_error = True
+        ceh = ExpressionDescriptor("* $ * * *", self.options)
         self.assertRaises(
             FormatException,
             ceh.get_description,

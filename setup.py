@@ -1,40 +1,46 @@
-# Copyright (C) 2016 Adam Schubert <adam.schubert@sg1-game.net>
+# The MIT License (MIT)
 #
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# Copyright (c) 2016 Adam Schubert
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 #
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 import setuptools
 import sys
 
-version = "1.2.10+se-1"
-
 
 if __name__ == "__main__":
-    if sys.version_info >= (3,0):
+    if sys.version_info >= (3, 0):
         long_description = open('README.md', encoding='utf-8').read()
     else:
         long_description = open('README.md').read()
     
     setuptools.setup(
         name="cron_descriptor",
-        version=version,
+        version="1.2.24+se-1",
         description="A Python library that converts cron expressions "
                     "into human readable strings.",
         author="Adam Schubert",
         author_email="adam.schubert@sg1-game.net",
         url="https://github.com/Salamek/cron-descriptor",
         long_description=long_description,
-        packages=setuptools.find_packages(),
+        long_description_content_type='text/markdown',
+        packages=setuptools.find_packages(exclude=['tests*',]),
         package_data={
             'cron_descriptor': [
                 'locale/*.mo',
@@ -56,7 +62,14 @@ if __name__ == "__main__":
             "Programming Language :: Python :: 3.3",
             "Programming Language :: Python :: 3.4",
             "Programming Language :: Python :: 3.5",
+            "Programming Language :: Python :: 3.6",
+            "Programming Language :: Python :: 3.7",
             "Topic :: Software Development",
+        ],
+        tests_require=[
+            'pep8',
+            'flake8',
+            'pep8-naming'
         ],
         test_suite="tests"
     )

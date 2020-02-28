@@ -1,0 +1,112 @@
+stages:
+  - test
+  - package
+  - packagetest
+  - deploy
+
+test:debian:
+  stage: test
+  script:
+    - apt-get update -qy
+    - apt-get install python3-setuptools ca-certificates -qy
+    - python3 setup.py test
+  tags:
+    - debian
+
+test:archlinux:
+  stage: test
+  script:
+    - pacman -Syu python-setuptools --noconfirm
+    - python setup.py test
+  tags:
+    - archlinux
+
+package:debian:
+  stage: package
+  script:
+    - apt-get update -qy
+    - apt-get install -y python-all python3-stdeb
+    - rm -rf "./deb_dist"
+    - export DEB_BUILD_OPTIONS=nocheck
+    - python3 setup.py --command-packages=stdeb.command bdist_deb
+  tags:
+    - debian
+
+  artifacts:
+    paths:
+      - deb_dist/*.deb
+    expire_in: 1d
+
+package:archlinux:
+  stage: package
+  script:
+    - pacman -Sy sudo fakeroot systemd binutils python-setuptools --noconfirm
+    - useradd -m -G users -s /bin/bash package
+    - chown -R package:users archlinux
+    - cd archlinux
+    - sudo -H -u package makepkg -f
+  tags:
+    - archlinux
+
+  artifacts:
+    paths:
+      - archlinux/python-cron-descriptor*
+    expire_in: 1d
+
+packagetest:debian:
+  stage: packagetest
+  script:
+    - apt-get update -qy
+    - cd deb_dist
+    - apt install ./*.deb -qy
+  tags:
+    - virtualbox-debian
+  dependencies:
+    - package:debian
+  only:
+    - tags
+
+packagetest:archlinux:
+  stage: packagetest
+  script:
+    - pacman -Sy
+    - cd archlinux
+    - pacman -U python-cron-descriptor*.pkg.tar.xz --noconfirm
+  tags:
+    - virtualbox-archlinux
+  dependencies:
+    - package:archlinux
+  only:
+    - tags
+
+repoupdate:
+  stage: deploy
+  variables:
+    TWINE_USERNAME: Salamek
+  before_script:
+    # SSH
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - apt-get update -y
+    - apt-get install twine python-setuptools -y
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+  script:
+    - ssh www-data@salamek.cz 'rm -rf /var/www/arch.salamek.cz/www/any/python-cron-descriptor*.pkg.tar.xz'
+    - ssh www-data@salamek.cz 'rm -rf /var/www/apt.salamek.cz/cache/python3-cron-descriptor*.deb'
+    - scp archlinux/python-cron-descriptor*.pkg.tar.xz www-data@salamek.cz:/var/www/arch.salamek.cz/www/any
+    - scp deb_dist/*.deb www-data@salamek.cz:/var/www/apt.salamek.cz/cache
+    - ssh www-data@salamek.cz '/var/www/arch.salamek.cz/update_repo.sh'
+    - ssh www-data@salamek.cz '/var/www/apt.salamek.cz/update_repo.sh'
+    # PyPi update
+    - python3 setup.py sdist
+    - twine upload dist/*
+  dependencies:
+    - package:archlinux
+    - package:debian
+  tags:
+    - debian
+  only:
+    - tags
