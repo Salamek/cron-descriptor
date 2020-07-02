@@ -88,8 +88,9 @@ print(descripter.get_description(DescriptionTypeEnum.FULL))
  - .NET - [https://github.com/bradyholt/cron-expression-descriptor](https://github.com/bradyholt/cron-expression-descriptor)
 
 ## Ports
- - Java - [https://github.com/RedHogs/cron-parser](https://github.com/RedHogs/cron-parser)
- - Ruby - [https://github.com/alpinweis/cronex](https://github.com/alpinweis/cronex)
+ - Java     - [https://github.com/RedHogs/cron-parser](https://github.com/RedHogs/cron-parser)
+ - Ruby     - [https://github.com/alpinweis/cronex](https://github.com/alpinweis/cronex)
+ - Golang   - [https://github.com/jsuar/go-cron-descriptor](https://github.com/jsuar/go-cron-descriptor)
 
 ## Running Unit Tests
 
