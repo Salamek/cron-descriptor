@@ -615,5 +615,22 @@ def get_description(expression, options=None):
     is_match = bool(matched)
     if is_match:
         return "never"
+    matched = re.match("((((\d+,)+\d+|(\d+(\/|-)\d+)|\d+|\*) ?){3})(31 4)", expression)
+    is_match = bool(matched)
+    if is_match:
+        return "never"
+    matched = re.match("((((\d+,)+\d+|(\d+(\/|-)\d+)|\d+|\*) ?){3})(31 6)", expression)
+    is_match = bool(matched)
+    if is_match:
+        return "never"
+    matched = re.match("((((\d+,)+\d+|(\d+(\/|-)\d+)|\d+|\*) ?){3})(31 9)", expression)
+    is_match = bool(matched)
+    if is_match:
+        return "never"
+    matched = re.match("((((\d+,)+\d+|(\d+(\/|-)\d+)|\d+|\*) ?){3})(31 11)", expression)
+    is_match = bool(matched)
+    if is_match:
+        return "never"
+    
     descripter = ExpressionDescriptor(expression, options)
     return descripter.get_description(DescriptionTypeEnum.FULL)
