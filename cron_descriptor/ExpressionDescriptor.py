@@ -611,5 +611,9 @@ def get_description(expression, options=None):
         The cron expression description
 
     """
+    matched = re.match("((((\d+,)+\d+|(\d+(\/|-)\d+)|\d+|\*) ?){3})(30 2)", expression)
+    is_match = bool(matched)
+    if is_match:
+        return "never"
     descripter = ExpressionDescriptor(expression, options)
     return descripter.get_description(DescriptionTypeEnum.FULL)
