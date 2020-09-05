@@ -58,7 +58,7 @@ print(descripter.get_description(DescriptionTypeEnum.FULL))
 
 ## Languages Available
 
-|Language| locale_code | contributor |
+|Language| Locale Code | Contributor |
 |--------|-------------|-------------|
 |English |en|[Brady Holt](https://github.com/bradyholt)|
 |Brazilian |pt_PT|[Renato Lima](https://github.com/natenho)|
