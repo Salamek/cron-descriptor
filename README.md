@@ -40,7 +40,13 @@ print(str(ExpressionDescriptor("* 2 3 * *")))
 # Consult Options.py/CasingTypeEnum.py/DescriptionTypeEnum.py for more info
 from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor
 
-descripter = ExpressionDescriptor("*/10 * * * *", throw_exception_on_parse_error = True, casing_type = CasingTypeEnum.Sentence, use_24hour_time_format = True)
+descripter = ExpressionDescriptor(
+    expression = "*/10 * * * *", 
+    throw_exception_on_parse_error = True, 
+    casing_type = CasingTypeEnum.Sentence, 
+    use_24hour_time_format = True
+)
+
 # GetDescription uses DescriptionTypeEnum.FULL by default:
 print(descripter.get_description())
 print("{}".format(descripter))
@@ -53,12 +59,11 @@ options.casing_type = CasingTypeEnum.Sentence
 options.use_24hour_time_format = True
 descripter = ExpressionDescriptor("*/10 * * * *", options)
 print(descripter.get_description(DescriptionTypeEnum.FULL))
-
 ```
 
 ## Languages Available
 
-|Language| locale_code | contributor |
+|Language| Locale Code | Contributor |
 |--------|-------------|-------------|
 |English |en|[Brady Holt](https://github.com/bradyholt)|
 |Brazilian |pt_PT|[Renato Lima](https://github.com/natenho)|
