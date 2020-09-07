@@ -29,7 +29,6 @@ logger = logging.getLogger(__name__)
 
 
 class GetText(object):
-
     """
     Handles language translations and Initializes global _() function
     """
@@ -42,7 +41,8 @@ class GetText(object):
         try:
             filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                     'locale', '{}.mo'.format(locale_code))
-            trans = gettext.GNUTranslations(open(filename, "rb"))
+            with open(filename, "rb") as f:
+                trans = gettext.GNUTranslations(f)
             logger.debug('{} Loaded'.format(filename))
         except IOError:
             logger.debug('Failed to find locale {}'.format(locale_code))
