@@ -543,7 +543,6 @@ class ExpressionDescriptor(object):
         Args:
             description: The description to transform
             use_verbose_format: If True, will leave description as it, if False, will strip verbose parts
-            second_expression: Seconds part
         Returns:
             The transformed description with proper verbosity
 
@@ -560,7 +559,6 @@ class ExpressionDescriptor(object):
         Args:
             description: The description to transform
             case_type: The casing type that controls the output casing
-            second_expression: Seconds part
         Returns:
             The transformed description with proper casing
 
