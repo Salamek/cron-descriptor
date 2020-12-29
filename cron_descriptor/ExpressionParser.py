@@ -79,7 +79,7 @@ class ExpressionParser(object):
         """
         # Initialize all elements of parsed array to empty strings
         parsed = ['', '', '', '', '', '', '']
-
+        
         if self._expression is None or len(self._expression) == 0:
             raise MissingFieldException("ExpressionDescriptor.expression")
         else:
@@ -269,7 +269,7 @@ class ExpressionParser(object):
         mi, mx = (0, 59)
         if re.match(r"\d{1,2}$", expr):
             self.check_range(expr=expr, mi=mi, mx=mx, prefix=prefix)
-
+            
         elif re.search(r"[-*,/]", expr):
             if '*' == expr:
                 pass
@@ -279,12 +279,12 @@ class ExpressionParser(object):
                 self.check_range(expr=parts[0], mi=mi, mx=mx, prefix=prefix)
                 self.check_range(expr=parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.compare_range(st=parts[0], ed=parts[1], mi=mi, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"\d{1,2}/\d{1,2}$", expr):
                 parts = expr.split("/")
                 self.check_range(expr=parts[0], mi=mi, mx=mx, prefix=prefix)
                 self.check_range('interval', expr=parts[1], mi=mi, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"\d{1,2}-\d{1,2}/\d{1,2}$", expr):
                 parts = expr.split("/")
                 fst_parts = parts[0].split("-")
@@ -292,17 +292,16 @@ class ExpressionParser(object):
                 self.check_range(expr=fst_parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.compare_range(st=fst_parts[0], ed=fst_parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.check_range('interval', expr=parts[1], mi=mi, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"\*/\d{1,2}$", expr):
                 parts = expr.split("/")
                 self.check_range('interval', expr=parts[1], mi=mi, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"^(\d{1,2}|\d{1,2}-\d{1,2})(,\d{1,2}|,\d{1,2}-\d{1,2})+$", expr):
                 limit = 60
                 expr_ls = expr.split(",")
                 if len(expr_ls) > limit:
-                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(
-                        prefix, limit, len(expr_ls))
+                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(prefix, limit, len(expr_ls))
                     raise FormatException(msg)
                 else:
                     for n in expr_ls:
@@ -316,7 +315,7 @@ class ExpressionParser(object):
             else:
                 msg = "({0}) Illegal Expression Format '{1}'".format(prefix, expr)
                 raise FormatException(msg)
-
+            
         else:
             msg = "({0}) Illegal Expression Format '{1}'".format(prefix, expr)
             raise FormatException(msg)
@@ -334,7 +333,7 @@ class ExpressionParser(object):
         mi, mx = (0, 23)
         if re.match(r"\d{1,2}$", expr):
             self.check_range(expr=expr, mi=mi, mx=mx, prefix=prefix)
-
+            
         elif re.search(r"[-*,/]", expr):
             if '*' == expr:
                 pass
@@ -344,12 +343,12 @@ class ExpressionParser(object):
                 self.check_range(expr=parts[0], mi=mi, mx=mx, prefix=prefix)
                 self.check_range(expr=parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.compare_range(st=parts[0], ed=parts[1], mi=mi, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"\d{1,2}/\d{1,2}$", expr):
                 parts = expr.split("/")
                 self.check_range(expr=parts[0], mi=mi, mx=mx, prefix=prefix)
                 self.check_range('interval', expr=parts[1], mi=mi, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"\d{1,2}-\d{1,2}/\d{1,2}$", expr):
                 parts = expr.split("/")
                 fst_parts = parts[0].split("-")
@@ -357,17 +356,16 @@ class ExpressionParser(object):
                 self.check_range(expr=fst_parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.compare_range(st=fst_parts[0], ed=fst_parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.check_range('interval', expr=parts[1], mi=mi, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"\*/\d{1,2}$", expr):
                 parts = expr.split("/")
                 self.check_range('interval', expr=parts[1], mi=mi, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"^(\d{1,2}|\d{1,2}-\d{1,2})(,\d{1,2}|,\d{1,2}-\d{1,2})+$", expr):
                 limit = 24
                 expr_ls = expr.split(",")
                 if len(expr_ls) > limit:
-                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(
-                        prefix, 24, len(limit))
+                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(prefix, 24, len(limit))
                     raise FormatException(msg)
                 else:
                     for n in expr_ls:
@@ -414,12 +412,12 @@ class ExpressionParser(object):
                 self.check_range(expr=parts[0], mi=mi, mx=mx, prefix=prefix)
                 self.check_range(expr=parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.compare_range(st=parts[0], ed=parts[1], mi=mi, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"\d{1,2}/\d{1,2}$", expr):
                 parts = expr.split("/")
                 self.check_range(expr=parts[0], mi=mi, mx=mx, prefix=prefix)
                 self.check_range('interval', expr=parts[1], mi=0, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"\d{1,2}-\d{1,2}/\d{1,2}$", expr):
                 parts = expr.split("/")
                 fst_parts = parts[0].split("-")
@@ -427,17 +425,16 @@ class ExpressionParser(object):
                 self.check_range(expr=fst_parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.compare_range(st=fst_parts[0], ed=fst_parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.check_range('interval', expr=parts[1], mi=0, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"\*/\d{1,2}$", expr):
                 parts = expr.split("/")
                 self.check_range('interval', expr=parts[1], mi=0, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"^\d{1,2}(,\d{1,2})+$", expr):
                 limit = 31
                 expr_ls = expr.split(",")
                 if len(expr_ls) > 31:
-                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(
-                        prefix, limit, len(expr_ls))
+                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(prefix, limit, len(expr_ls))
                     raise FormatException(msg)
                 else:
                     for dayofmonth in expr_ls:
@@ -448,7 +445,7 @@ class ExpressionParser(object):
             else:
                 msg = "Illegal Expression Format '{0}'".format(expr)
                 raise FormatException(msg)
-
+            
         elif re.match(r"^(L|l)(W|w)?$", expr):
             pass
 
@@ -464,7 +461,7 @@ class ExpressionParser(object):
         else:
             msg = "({0}) Illegal Expression Format '{1}'".format(prefix, expr)
             raise FormatException(msg)
-
+    
     def month(self, expr, prefix):
         """ month expressions (n : Number, s: String)
         *
@@ -528,8 +525,7 @@ class ExpressionParser(object):
                 limit = 12
                 expr_ls = expr.split(",")
                 if len(expr_ls) > limit:
-                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(
-                        prefix, limit, len(expr_ls))
+                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(prefix, limit, len(expr_ls))
                     raise FormatException(msg)
                 else:
                     for month in expr_ls:
@@ -544,8 +540,7 @@ class ExpressionParser(object):
                 limit = 12
                 expr_ls = expr.split(",")
                 if len(expr_ls) > limit:
-                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(
-                        prefix, limit, len(expr_ls))
+                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(prefix, limit, len(expr_ls))
                     raise FormatException(msg)
                 else:
                     cron_months = {v: k for (k, v) in self._cron_months.items()}
@@ -568,7 +563,7 @@ class ExpressionParser(object):
         else:
             msg = "({0}) Illegal Expression Format '{1}'".format(prefix, expr)
             raise FormatException(msg)
-
+    
     def dayofweek(self, expr, prefix):
         """ DAYOfWeek expressions (n : Number, s: String)
         *
@@ -643,8 +638,7 @@ class ExpressionParser(object):
             limit = 7
             expr_ls = expr.split(",")
             if len(expr_ls) > limit:
-                msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(
-                    prefix, limit, len(expr_ls))
+                msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(prefix, limit, len(expr_ls))
                 raise FormatException(msg)
             else:
                 cron_days = {v: k for (k, v) in self._cron_days.items()}
@@ -673,7 +667,7 @@ class ExpressionParser(object):
             self.check_range(expr=parts[1], mi=mi, mx=5, prefix=prefix, type='dow')
         elif re.match(r"\D{3}#\d{1}$", expr):
             parts = expr.split('#')
-            cron_days = {v: k for (k, v) in self._cron_days.items()}
+            cron_days = {v: k for (k,v) in self._cron_days.items()}
             try:
                 st_day = cron_days[parts[0].upper()]
             except KeyError:
@@ -683,7 +677,7 @@ class ExpressionParser(object):
         else:
             msg = "({0}) Illegal Expression Format '{1}'".format(prefix, expr)
             raise FormatException(msg)
-
+        
     def year(self, expr, prefix):
         """ Year - valid expression (n : Number)
         *
@@ -696,7 +690,7 @@ class ExpressionParser(object):
         mi, mx = (1970, 2099)
         if re.match(r"\d{4}$", expr):
             self.check_range(expr=expr, mi=mi, mx=mx, prefix=prefix)
-
+            
         elif re.search(r"[-*,/]", expr):
 
             if '*' == expr:
@@ -707,12 +701,12 @@ class ExpressionParser(object):
                 self.check_range(expr=parts[0], mi=mi, mx=mx, prefix=prefix)
                 self.check_range(expr=parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.compare_range(st=parts[0], ed=parts[1], mi=mi, mx=mx, prefix=prefix)
-
+                
             elif re.match(r"\d{4}/\d{1,3}$", expr):
                 parts = expr.split("/")
                 self.check_range(expr=parts[0], mi=mi, mx=mx, prefix=prefix)
                 self.check_range('interval', expr=parts[1], mi=0, mx=129, prefix=prefix)
-
+                
             elif re.match(r"\d{4}-\d{4}/\d{1,3}$", expr):
                 parts = expr.split("/")
                 fst_parts = parts[0].split("-")
@@ -720,7 +714,7 @@ class ExpressionParser(object):
                 self.check_range(expr=fst_parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.compare_range(st=fst_parts[0], ed=fst_parts[1], mi=mi, mx=mx, prefix=prefix)
                 self.check_range('interval', expr=parts[1], mi=0, mx=129, prefix=prefix)
-
+                
             elif re.match(r"\*/\d{1,3}$", expr):
                 parts = expr.split("/")
                 self.check_range('interval', expr=parts[1], mi=0, mx=129, prefix=prefix)
@@ -729,13 +723,12 @@ class ExpressionParser(object):
                 parts = expr.split("/")
                 self.check_range(expr=parts[0], mi=0, mx=129, prefix=prefix)
                 self.check_range('interval', expr=parts[1], mi=0, mx=129, prefix=prefix)
-
+                
             elif re.match(r"^(\d{4}|\d{4}-\d{4})(,\d{4}|,\d{4}-\d{4})+$", expr):
                 limit = 84
                 expr_ls = expr.split(",")
                 if len(expr_ls) > limit:
-                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(
-                        prefix, limit, len(expr_ls))
+                    msg = "({0}) Exceeded maximum number({1}) of specified value. '{2}' is provided".format(prefix, limit, len(expr_ls))
                     raise FormatException(msg)
                 else:
                     for year in expr_ls:
@@ -768,7 +761,7 @@ class ExpressionParser(object):
                 msg = "({0}) Accepted increment value range is {1}~{2} but '{3}' is provided".format(prefix,
                                                                                                      mi, mx, expr)
             elif type == 'dow':
-                msg = "({0}) Accepted week value is {1}~{2} but '{3}' is provided".format(prefix, mi, mx, expr)
+                msg = "({0}) Accepted week value is {1}~{2} but '{3}' is provided".format(prefix,mi, mx, expr)
             raise FormatException(msg)
         else:
             pass
