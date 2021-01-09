@@ -1,0 +1,222 @@
+# Translation of cron_descriptor
+# Copyright (C) 2016
+# This file is distributed under the same license as the cron_descriptor package.
+# Adam Schubert <adam.schubert@sg1-game.net>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-10 02:15+0330\n"
+"PO-Revision-Date: 2021-01-10 02:54+0330\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: M. Yas. Davoodeh <MYDavoodeh@gmail.com>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.4.1\n"
+
+#: ExpressionDescriptor.py:145
+msgid ""
+"An error occured when generating the expression description.  Check the cron "
+"expression syntax."
+msgstr "خطایی هنگام تولید اصطلاحات بوجود آمده است. نحو کرون را بررسی کنید."
+
+#: ExpressionDescriptor.py:169
+msgid "At "
+msgstr "در "
+
+#: ExpressionDescriptor.py:180
+#, python-brace-format
+msgid "Every minute between {0} and {1}"
+msgstr "هر دقیقه بین {0} و {1}"
+
+#: ExpressionDescriptor.py:186
+msgid "At"
+msgstr "در"
+
+#: ExpressionDescriptor.py:196
+msgid " and"
+msgstr " و"
+
+#: ExpressionDescriptor.py:226
+msgid "every second"
+msgstr "هر ثانیه"
+
+#: ExpressionDescriptor.py:228
+#, python-brace-format
+msgid "every {0} seconds"
+msgstr "هر {0} ثانیه"
+
+#: ExpressionDescriptor.py:229
+#, python-brace-format
+msgid "seconds {0} through {1} past the minute"
+msgstr "ثانیه {0} از {1} دقیقه گذشته"
+
+#: ExpressionDescriptor.py:230
+#, python-brace-format
+msgid "at {0} seconds past the minute"
+msgstr "در {0} ثانیه از دقیقه گذشته"
+
+#: ExpressionDescriptor.py:243
+msgid "every minute"
+msgstr "هر دقیقه"
+
+#: ExpressionDescriptor.py:245
+#, python-brace-format
+msgid "every {0} minutes"
+msgstr "هر {0} دقیقه"
+
+#: ExpressionDescriptor.py:246
+#, python-brace-format
+msgid "minutes {0} through {1} past the hour"
+msgstr "{0} دقیقه از {1} ساعت گذشته"
+
+#: ExpressionDescriptor.py:247
+#, python-brace-format
+msgid "at {0} minutes past the hour"
+msgstr "در {0} دقیقه از ساعت  گذشته"
+
+#: ExpressionDescriptor.py:260
+msgid "every hour"
+msgstr "هر ساعت"
+
+#: ExpressionDescriptor.py:262
+#, python-brace-format
+msgid "every {0} hours"
+msgstr "هر {0} ساعت"
+
+#: ExpressionDescriptor.py:263
+#, python-brace-format
+msgid "between {0} and {1}"
+msgstr "بین {0} و {1}"
+
+#: ExpressionDescriptor.py:264
+#, python-brace-format
+msgid "at {0}"
+msgstr "در {0}"
+
+#: ExpressionDescriptor.py:295
+msgid "first"
+msgstr "اولین"
+
+#: ExpressionDescriptor.py:296
+msgid "second"
+msgstr "دومین"
+
+#: ExpressionDescriptor.py:297
+msgid "third"
+msgstr "سومین"
+
+#: ExpressionDescriptor.py:298
+msgid "forth"
+msgstr "چهارمین"
+
+#: ExpressionDescriptor.py:299
+msgid "fifth"
+msgstr "پنجمین"
+
+#: ExpressionDescriptor.py:305
+msgid ", on the "
+msgstr "، در "
+
+#: ExpressionDescriptor.py:306
+#, python-brace-format
+msgid " {0} of the month"
+msgstr " {0} ماه"
+
+#: ExpressionDescriptor.py:308
+#, python-brace-format
+msgid ", on the last {0} of the month"
+msgstr "، در آخرین {0} ماه"
+
+#: ExpressionDescriptor.py:310
+#, python-brace-format
+msgid ", only on {0}"
+msgstr "، فقط در {0}"
+
+#: ExpressionDescriptor.py:316 ExpressionDescriptor.py:366
+#: ExpressionDescriptor.py:368 ExpressionDescriptor.py:554
+msgid ", every day"
+msgstr "، هر روز"
+
+#: ExpressionDescriptor.py:318
+#, python-brace-format
+msgid ", every {0} days of the week"
+msgstr "، هر {0} روز هفته"
+
+#: ExpressionDescriptor.py:319 ExpressionDescriptor.py:335
+#: ExpressionDescriptor.py:398 ExpressionDescriptor.py:467
+#, python-brace-format
+msgid ", {0} through {1}"
+msgstr "، از {0} تا {1}"
+
+#: ExpressionDescriptor.py:334
+#, python-brace-format
+msgid ", every {0} months"
+msgstr "، هر {0} ماه"
+
+#: ExpressionDescriptor.py:336 ExpressionDescriptor.py:399
+#, python-brace-format
+msgid ", only in {0}"
+msgstr "، فقط در {0}"
+
+#: ExpressionDescriptor.py:350
+msgid ", on the last day of the month"
+msgstr "، در آخرین {0} ماه"
+
+#: ExpressionDescriptor.py:352
+msgid ", on the last weekday of the month"
+msgstr "، در آخرین روز هفته ماه"
+
+#: ExpressionDescriptor.py:359
+msgid "first weekday"
+msgstr "اولین روز هفته"
+
+#: ExpressionDescriptor.py:359
+#, python-brace-format
+msgid "weekday nearest day {0}"
+msgstr "روز هفته نزدیک به روز {0}"
+
+#: ExpressionDescriptor.py:361
+#, python-brace-format
+msgid ", on the {0} of the month"
+msgstr "، در {0} ماه"
+
+#: ExpressionDescriptor.py:368
+#, python-brace-format
+msgid ", every {0} days"
+msgstr "، هر {0} روز"
+
+#: ExpressionDescriptor.py:369
+#, python-brace-format
+msgid ", between day {0} and {1} of the month"
+msgstr "، بین روز {0} و {1} از ماه"
+
+#: ExpressionDescriptor.py:370
+#, python-brace-format
+msgid ", on day {0} of the month"
+msgstr "، در روز {0} ماه"
+
+#: ExpressionDescriptor.py:397
+#, python-brace-format
+msgid ", every {0} years"
+msgstr "، هر {0} سال"
+
+#: ExpressionDescriptor.py:449
+#, python-brace-format
+msgid ", starting {0}"
+msgstr "، در حال شروع {0}"
+
+#: ExpressionDescriptor.py:462
+msgid " and "
+msgstr " و "
+
+#: ExpressionDescriptor.py:552
+msgid ", every minute"
+msgstr "، هر دقیقه"
+
+#: ExpressionDescriptor.py:553
+msgid ", every hour"
+msgstr "، هر ساعت"
