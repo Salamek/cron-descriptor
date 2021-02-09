@@ -431,3 +431,8 @@ class TestFormats(TestCase.TestCase):
         self.assertEqual(
             "At 1 minutes past the hour, at 01:00 AM and 03:00 AM through 04:59 AM",
             get_description("1 1,3-4 * * *", self.options))
+
+    def test_7th_weekday(self):
+        self.assertEqual(
+            "Every minute, only on Sunday",
+            get_description("* * * * 7", self.options))

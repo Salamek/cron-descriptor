@@ -590,7 +590,8 @@ class ExpressionDescriptor(object):
             calendar.day_name[2],
             calendar.day_name[3],
             calendar.day_name[4],
-            calendar.day_name[5]
+            calendar.day_name[5],
+            calendar.day_name[6]
         ][day_number]
 
     def __str__(self):
