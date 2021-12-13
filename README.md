@@ -24,8 +24,8 @@ pip install cron-descriptor
 
 ## Usage example
 
+### Simple
 ```python
-# Simple
 from cron_descriptor import get_description, ExpressionDescriptor
 
 print(get_description("* 2 3 * *"))
@@ -35,30 +35,30 @@ print(get_description("* 2 3 * *"))
 print(str(ExpressionDescriptor("* 2 3 * *")))
 ```
 
+### Advanced
 ```python
-# Advanced
 # Consult Options.py/CasingTypeEnum.py/DescriptionTypeEnum.py for more info
 from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor
 
-descripter = ExpressionDescriptor(
-    expression = "*/10 * * * *", 
+descriptor = ExpressionDescriptor(
+    expression = "*/10 * * * *",
     throw_exception_on_parse_error = True, 
     casing_type = CasingTypeEnum.Sentence, 
     use_24hour_time_format = True
 )
 
 # GetDescription uses DescriptionTypeEnum.FULL by default:
-print(descripter.get_description())
-print("{}".format(descripter))
+print(descriptor.get_description())
+print("{}".format(descriptor))
 
-#or passing Options class as second argument:
+# Or passing Options class as second argument:
 
 options = Options()
 options.throw_exception_on_parse_error = True
 options.casing_type = CasingTypeEnum.Sentence
 options.use_24hour_time_format = True
-descripter = ExpressionDescriptor("*/10 * * * *", options)
-print(descripter.get_description(DescriptionTypeEnum.FULL))
+descriptor = ExpressionDescriptor("*/10 * * * *", options)
+print(descriptor.get_description(DescriptionTypeEnum.FULL))
 ```
 
 ## Languages Available
@@ -126,7 +126,7 @@ msgfmt -o cron_descriptor/locale/YOUR_LOCALE_CODE.mo cron_descriptor/locale/YOUR
 
 ## Developing
 
-All suggescions and PR's are welcomed
+All suggestions and PR's are welcomed
 
 Just clone this repository and register pre-commit hook by running:
 
