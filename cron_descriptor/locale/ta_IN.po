@@ -1,0 +1,213 @@
+# Translation of cron_descriptor
+# Copyright (C) 2016
+# This file is distributed under the same license as the cron_descriptor package.
+# Sankar Hari <sankar.hari@outlook.com>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-23 02:00+0100\n"
+"PO-Revision-Date: 2022-01-23 23:54+0530\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ta_IN\n"
+"Last-Translator: Sankar Hari <sankar.hari@outlook.com>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 3.0\n"
+
+#: ExpressionDescriptor.py:130
+msgid "An error occured when generating the expression description.  Check the cron expression syntax."
+msgstr "வெளிப்பாடு விளக்கத்தை உருவாக்கும் போது பிழை ஏற்பட்டது. க்ரான் வெளிப்பாட்டை சரிபார்க்கவும்.வெளிப்பாடு தொடரியல்."
+
+#: ExpressionDescriptor.py:151
+msgid "At "
+msgstr "Ve "
+
+#: ExpressionDescriptor.py:160
+#, python-brace-format
+msgid "Every minute between {0} and {1}"
+msgstr "ஒவ்வொரு நிமிடமும் {0} மற்றும் {1} இடையே"
+
+#: ExpressionDescriptor.py:165
+msgid "At"
+msgstr "மணிக்கு"
+
+#: ExpressionDescriptor.py:175
+msgid " and"
+msgstr "மற்றும்"
+
+#: ExpressionDescriptor.py:201
+msgid "every second"
+msgstr "ஒவ்வொரு நொடியும்"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "every {0} seconds"
+msgstr "ஒவ்வொரு {0} வினாடிகளுக்கும்"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "seconds {0} through {1} past the minute"
+msgstr "நிமிடத்தை கடந்த {0} முதல் {1} வினாடிகள்"
+
+#: ExpressionDescriptor.py:201
+#, python-brace-format
+msgid "at {0} seconds past the minute"
+msgstr "நிமிடத்தை கடந்த {0} வினாடிகளில்"
+
+#: ExpressionDescriptor.py:209
+msgid "every minute"
+msgstr "ஒவ்வொரு நிமிடமும்"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "every {0} minutes"
+msgstr "ஒவ்வொரு {0} நிமிடங்களுக்கும்"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "minutes {0} through {1} past the hour"
+msgstr "மணிநேரத்தை கடந்த {0} முதல் {1} நிமிடங்கள்"
+
+#: ExpressionDescriptor.py:209
+#, python-brace-format
+msgid "at {0} minutes past the hour"
+msgstr "மணிநேரத்தை கடந்த {0} நிமிடங்களில்"
+
+#: ExpressionDescriptor.py:218
+msgid "every hour"
+msgstr "ஒவ்வொரு மணி நேரமும்"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "every {0} hours"
+msgstr "ஒவ்வொரு {0} மணிநேரமும்"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "between {0} and {1}"
+msgstr "{0} மற்றும் {1} இடையே"
+
+#: ExpressionDescriptor.py:218
+#, python-brace-format
+msgid "at {0}"
+msgstr "{0} மணிக்கு"
+
+#: ExpressionDescriptor.py:241
+msgid "first"
+msgstr "முதலில்"
+
+#: ExpressionDescriptor.py:243
+msgid "second"
+msgstr "இரண்டாவது"
+
+#: ExpressionDescriptor.py:245
+msgid "third"
+msgstr "மூன்றாவது"
+
+#: ExpressionDescriptor.py:247
+msgid "forth"
+msgstr "நான்காவது"
+
+#: ExpressionDescriptor.py:249
+msgid "fifth"
+msgstr "ஐந்தாவது"
+
+#: ExpressionDescriptor.py:251
+msgid ", on the "
+msgstr ", அதன் மேல்"
+
+#: ExpressionDescriptor.py:252
+#, python-brace-format
+msgid " {0} of the month"
+msgstr " மாதத்தின் {0}"
+
+#: ExpressionDescriptor.py:254
+#, python-brace-format
+msgid ", on the last {0} of the month"
+msgstr ", மாதத்தின் கடைசி {0} அன்று"
+
+#: ExpressionDescriptor.py:256
+#, python-brace-format
+msgid ", only on {0}"
+msgstr ", {0} அன்று மட்டும்"
+
+#: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303 ExpressionDescriptor.py:435
+msgid ", every day"
+msgstr ", தினமும்"
+
+#: ExpressionDescriptor.py:260
+#, python-brace-format
+msgid ", every {0} days of the week"
+msgstr ", வாரத்தின் ஒவ்வொரு {0} நாட்களுக்கும்"
+
+#: ExpressionDescriptor.py:260 ExpressionDescriptor.py:274 ExpressionDescriptor.py:318
+#, python-brace-format
+msgid ", {0} through {1}"
+msgstr ", {0} முதல் {1} வரை"
+
+#: ExpressionDescriptor.py:272
+#, python-brace-format
+msgid ", every {0} months"
+msgstr ", ஒவ்வொரு {0} மாதங்களுக்கும்"
+
+#: ExpressionDescriptor.py:275 ExpressionDescriptor.py:319
+#, python-brace-format
+msgid ", only in {0}"
+msgstr ", {0} இல் மட்டும்"
+
+#: ExpressionDescriptor.py:288
+msgid ", on the last day of the month"
+msgstr ", மாதத்தின் கடைசி நாளில்"
+
+#: ExpressionDescriptor.py:290
+msgid ", on the last weekday of the month"
+msgstr ", மாதத்தின் கடைசி வார நாளில்"
+
+#: ExpressionDescriptor.py:297
+msgid "first weekday"
+msgstr "முதல் வார நாள்"
+
+#: ExpressionDescriptor.py:297
+#, python-brace-format
+msgid "weekday nearest day {0}"
+msgstr "வார நாள் அருகிலுள்ள நாள் {0}"
+
+#: ExpressionDescriptor.py:299
+#, python-brace-format
+msgid ", on the {0} of the month"
+msgstr ", மாதத்தின் {0} அன்று"
+
+#: ExpressionDescriptor.py:303
+#, python-brace-format
+msgid ", every {0} days"
+msgstr ", ஒவ்வொரு {0} நாட்களுக்கும்"
+
+#: ExpressionDescriptor.py:304
+#, python-brace-format
+msgid ", between day {0} and {1} of the month"
+msgstr ", மாதத்தின் {0} மற்றும் {1} நாட்களுக்கு இடையில்"
+
+#: ExpressionDescriptor.py:304
+#, python-brace-format
+msgid ", on day {0} of the month"
+msgstr ", மாதத்தின் {0} நாளில்"
+
+#: ExpressionDescriptor.py:316
+#, python-brace-format
+msgid ", every {0} years"
+msgstr ", ஒவ்வொரு {0} வருடங்களுக்கும்"
+
+#: ExpressionDescriptor.py:385
+msgid " and "
+msgstr " மற்றும் "
+
+#: ExpressionDescriptor.py:433
+msgid ", every minute"
+msgstr ", ஒவ்வொரு நிமிடமும்"
+
+#: ExpressionDescriptor.py:434
+msgid ", every hour"
+msgstr ", ஒவ்வொரு மணி நேரமும்"

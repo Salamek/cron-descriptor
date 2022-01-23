@@ -79,6 +79,7 @@ print(descriptor.get_description(DescriptionTypeEnum.FULL))
 |Italian |it_IT|[rinaldihno](https://github.com/rinaldihno)|
 |Czech |cs_CZ|[Adam Schubert](https://github.com/salamek)|
 |Swedish |sv_SE|[Åke Engelbrektson](https://github.com/eson57)|
+|Tamil |ta_IN|[Sankar Hari](https://github.com/sankarhari)|
 
 <!-- SOON
 ## Demo

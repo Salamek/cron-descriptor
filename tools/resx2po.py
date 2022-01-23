@@ -87,3 +87,4 @@ resx2po('Resources.resx', 'Resources.ru.resx', 'messages.po', directory, 'ru_RU'
 resx2po('Resources.resx', 'Resources.tr.resx', 'messages.po', directory, 'tr_TR')
 resx2po('Resources.resx', 'Resources.uk.resx', 'messages.po', directory, 'uk_UA')
 resx2po('Resources.resx', 'Resources.zh-CHS.resx', 'messages.po', directory, 'zh_CN')
+resx2po('Resources.resx', 'Resources.ta.resx', 'messages.po', directory, 'ta_IN')
