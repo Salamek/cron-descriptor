@@ -25,7 +25,7 @@ package:debian:
   stage: package
   script:
     - apt-get update -qy
-    - apt-get install -y python-all python3-stdeb
+    - apt-get install -y python-all python3-stdeb dh-python
     - rm -rf "./deb_dist"
     - export DEB_BUILD_OPTIONS=nocheck
     - python3 setup.py --command-packages=stdeb.command bdist_deb
