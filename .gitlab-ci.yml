@@ -70,7 +70,7 @@ packagetest:archlinux:
   script:
     - pacman -Sy
     - cd archlinux
-    - pacman -U python-cron-descriptor*.pkg.tar.xz --noconfirm
+    - pacman -U python-cron-descriptor*.pkg.tar.zst --noconfirm
   tags:
     - archlinux
   dependencies:
@@ -91,12 +91,13 @@ repoupdate:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
   script:
-    - ssh www-data@salamek.cz 'rm -rf /var/www/arch.salamek.cz/www/any/python-cron-descriptor*.pkg.tar.xz'
-    - ssh www-data@salamek.cz 'rm -rf /var/www/apt.salamek.cz/cache/python3-cron-descriptor*.deb'
-    - scp archlinux/python-cron-descriptor*.pkg.tar.xz www-data@salamek.cz:/var/www/arch.salamek.cz/www/any
-    - scp deb_dist/*.deb www-data@salamek.cz:/var/www/apt.salamek.cz/cache
-    - ssh www-data@salamek.cz '/var/www/arch.salamek.cz/update_repo.sh'
-    - ssh www-data@salamek.cz '/var/www/apt.salamek.cz/update_repo.sh'
+    - ssh www-data@repository 'rm -rf /var/www/repository.salamek.cz/www/arch/pub/any/python-cron-descriptor*.pkg.tar.zst'
+    - ssh www-data@repository 'rm -rf /var/www/repository.salamek.cz/cache/deb/pub/all/python3-cron-descriptor*.deb'
+    - scp archlinux/python-cron-descriptor*.pkg.tar.zst www-data@repository:/var/www/repository.salamek.cz/www/arch/pub/any
+    - scp deb_dist/*.deb www-data@repository:/var/www/repository.salamek.cz/cache/deb/pub/all
+    - ssh www-data@repository '/var/www/repository.salamek.cz/deb-pub-update.sh'
+    - ssh www-data@repository '/var/www/repository.salamek.cz/arch-pub-update.sh'
+  
     # PyPi update
     - python3 setup.py sdist
     - twine upload dist/*
