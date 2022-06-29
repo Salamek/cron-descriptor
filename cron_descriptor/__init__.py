@@ -27,6 +27,6 @@ from .CasingTypeEnum import CasingTypeEnum
 from .Exception import MissingFieldException, FormatException, WrongArgumentException
 
 
-__version__ = '1.2.26'
+__version__ = '1.2.27'
 __all__ = ['Options', 'ExpressionDescriptor', 'get_description', 'DescriptionTypeEnum',
            'CasingTypeEnum', 'MissingFieldException', 'FormatException', 'WrongArgumentException']

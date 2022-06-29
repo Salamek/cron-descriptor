@@ -1,5 +1,5 @@
 pkgname=python-cron-descriptor
-pkgver=1.2.26
+pkgver=1.2.27
 pkgdesc="A Python library that converts cron expressions into human readable strings."
 pkgrel=1
 arch=('any')
