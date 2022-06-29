@@ -1,6 +1,6 @@
 # Cron Descriptor
 
-Master: [![Master Build Status](https://api.travis-ci.org/Salamek/cron-descriptor.svg?branch=master)](https://travis-ci.org/Salamek/cron-descriptor) All: [![Build Status](https://api.travis-ci.org/Salamek/cron-descriptor.svg)](https://travis-ci.org/Salamek/cron-descriptor)
+[![Python tests](https://github.com/Salamek/cron-descriptor/actions/workflows/python-test.yml/badge.svg)](https://github.com/Salamek/cron-descriptor/actions/workflows/python-test.yml)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/salamek)
 
 A Python library that converts cron expressions into human readable strings. Ported to Python from https://github.com/bradyholt/cron-expression-descriptor.
