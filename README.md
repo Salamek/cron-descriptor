@@ -13,7 +13,7 @@ A Python library that converts cron expressions into human readable strings. Por
  * Supports all cron expression special characters including * / , - ? L W, #
  * Supports 5, 6 (w/ seconds or year), or 7 (w/ seconds and year) part cron expressions
  * Provides casing options (Sentence, Title, Lower, etc.)
- * Localization with support for 14 languages
+ * Localization with support for 17 languages
  * Supports Python 2.7 - 3.10
 
 ## Installation
@@ -80,6 +80,9 @@ print(descriptor.get_description(DescriptionTypeEnum.FULL))
 |Czech |cs_CZ|[Adam Schubert](https://github.com/salamek)|
 |Swedish |sv_SE|[Åke Engelbrektson](https://github.com/eson57)|
 |Tamil |ta_IN|[Sankar Hari](https://github.com/sankarhari)|
+|Persian|fa_IR|[M. Yas. Davoodeh](https://github.com/Davoodeh)|
+|Korean|ko_KR|[KyuJoo Han](https://github.com/hanqyu)|
+|Japanese |ja_JP|[Sankar Hari](https://github.com/tho-asterist)|
 
 <!-- SOON
 ## Demo
