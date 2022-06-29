@@ -1,0 +1,221 @@
+# Translation of cron_descriptor
+# Copyright (C) 2016
+# This file is distributed under the same license as the cron_descriptor package.
+# Adam Schubert <adam.schubert@sg1-game.net>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
+"POT-Creation-Date: 2016-01-19 02:00+0100\n"
+"PO-Revision-Date: 2016-01-19 02:00+0100\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja_JP\n"
+
+#: ExpressionDescriptor.py:145
+msgid ""
+"An error occured when generating the expression description.  Check the cron "
+"expression syntax."
+msgstr "式の記述を生成する際にエラーが発生しました。Cron 式の構文を確認してください。"
+
+#: ExpressionDescriptor.py:169
+msgid "At "
+msgstr "次において実施 "
+
+#: ExpressionDescriptor.py:180
+#, python-brace-format
+msgid "Every minute between {0} and {1}"
+msgstr "{0} から {1} まで毎分"
+
+#: ExpressionDescriptor.py:186
+msgid "At"
+msgstr "次において実施"
+
+#: ExpressionDescriptor.py:196
+msgid " and"
+msgstr " と"
+
+#: ExpressionDescriptor.py:226
+msgid "every second"
+msgstr "毎秒"
+
+#: ExpressionDescriptor.py:228
+#, python-brace-format
+msgid "every {0} seconds"
+msgstr "{0} 秒ごと"
+
+#: ExpressionDescriptor.py:229
+#, python-brace-format
+msgid "seconds {0} through {1} past the minute"
+msgstr "毎分 {0} 秒から {1} 秒まで"
+
+#: ExpressionDescriptor.py:230
+#, python-brace-format
+msgid "at {0} seconds past the minute"
+msgstr "毎分 {0} 秒過ぎ"
+
+#: ExpressionDescriptor.py:243
+msgid "every minute"
+msgstr "毎分"
+
+#: ExpressionDescriptor.py:245
+#, python-brace-format
+msgid "every {0} minutes"
+msgstr "{0} 分ごと"
+
+#: ExpressionDescriptor.py:246
+#, python-brace-format
+msgid "minutes {0} through {1} past the hour"
+msgstr "毎時 {0} 分から {1} 分まで"
+
+#: ExpressionDescriptor.py:247
+#, python-brace-format
+msgid "at {0} minutes past the hour"
+msgstr "毎時 {0} 分過ぎ"
+
+#: ExpressionDescriptor.py:260
+msgid "every hour"
+msgstr "毎時"
+
+#: ExpressionDescriptor.py:262
+#, python-brace-format
+msgid "every {0} hours"
+msgstr "{0} 時間ごと"
+
+#: ExpressionDescriptor.py:263
+#, python-brace-format
+msgid "between {0} and {1}"
+msgstr "{0} と {1} の間"
+
+#: ExpressionDescriptor.py:264
+#, python-brace-format
+msgid "at {0}"
+msgstr "次において実施 {0}"
+
+#: ExpressionDescriptor.py:295
+msgid "first"
+msgstr "1 番目"
+
+#: ExpressionDescriptor.py:296
+msgid "second"
+msgstr "2 番目"
+
+#: ExpressionDescriptor.py:297
+msgid "third"
+msgstr "3 番目"
+
+#: ExpressionDescriptor.py:298
+msgid "forth"
+msgstr "4 番目"
+
+#: ExpressionDescriptor.py:299
+msgid "fifth"
+msgstr "5 番目"
+
+#: ExpressionDescriptor.py:305
+msgid ", on the "
+msgstr "、次に "
+
+#: ExpressionDescriptor.py:306
+#, python-brace-format
+msgid " {0} of the month"
+msgstr "月のうち {0}"
+
+#: ExpressionDescriptor.py:308
+#, python-brace-format
+msgid ", on the last {0} of the month"
+msgstr "、月の最後の {0} に"
+
+#: ExpressionDescriptor.py:310
+#, python-brace-format
+msgid ", only on {0}"
+msgstr "、{0} にのみ"
+
+#: ExpressionDescriptor.py:316 ExpressionDescriptor.py:366
+#: ExpressionDescriptor.py:368 ExpressionDescriptor.py:554
+msgid ", every day"
+msgstr "、毎日"
+
+#: ExpressionDescriptor.py:318
+#, python-brace-format
+msgid ", every {0} days of the week"
+msgstr "、週のうち {0} 日ごと"
+
+#: ExpressionDescriptor.py:319 ExpressionDescriptor.py:335
+#: ExpressionDescriptor.py:398 ExpressionDescriptor.py:467
+#, python-brace-format
+msgid ", {0} through {1}"
+msgstr "、{0} から {1} まで"
+
+#: ExpressionDescriptor.py:334
+#, python-brace-format
+msgid ", every {0} months"
+msgstr "、{0} か月ごと"
+
+#: ExpressionDescriptor.py:336 ExpressionDescriptor.py:399
+#, python-brace-format
+msgid ", only in {0}"
+msgstr "、{0} でのみ"
+
+#: ExpressionDescriptor.py:350
+msgid ", on the last day of the month"
+msgstr "、次の最終日に"
+
+#: ExpressionDescriptor.py:352
+msgid ", on the last weekday of the month"
+msgstr "、月の最後の平日に"
+
+#: ExpressionDescriptor.py:359
+msgid "first weekday"
+msgstr "最初の平日"
+
+#: ExpressionDescriptor.py:359
+#, python-brace-format
+msgid "weekday nearest day {0}"
+msgstr "{0} 日の直近の平日"
+
+#: ExpressionDescriptor.py:361
+#, python-brace-format
+msgid ", on the {0} of the month"
+msgstr "、月の {0} に"
+
+#: ExpressionDescriptor.py:368
+#, python-brace-format
+msgid ", every {0} days"
+msgstr "、{0} 日ごと"
+
+#: ExpressionDescriptor.py:369
+#, python-brace-format
+msgid ", between day {0} and {1} of the month"
+msgstr "、月の {0} 日から {1} 日の間"
+
+#: ExpressionDescriptor.py:370
+#, python-brace-format
+msgid ", on day {0} of the month"
+msgstr "、月の {0} 日目"
+
+#: ExpressionDescriptor.py:397
+#, python-brace-format
+msgid ", every {0} years"
+msgstr "、{0} 年ごと"
+
+#: ExpressionDescriptor.py:449
+#, python-brace-format
+msgid ", starting {0}"
+msgstr "、{0} に開始"
+
+#: ExpressionDescriptor.py:462
+msgid " and "
+msgstr " と "
+
+#: ExpressionDescriptor.py:552
+msgid ", every minute"
+msgstr "、毎分"
+
+#: ExpressionDescriptor.py:553
+msgid ", every hour"
+msgstr "、毎時"
