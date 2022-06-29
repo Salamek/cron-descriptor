@@ -60,11 +60,10 @@ packagetest:debian:
     - cd deb_dist
     - apt install ./*.deb -qy
   tags:
-    - virtualbox-debian
+    - debian
   dependencies:
     - package:debian
-  only:
-    - tags
+
 
 packagetest:archlinux:
   stage: packagetest
@@ -73,11 +72,9 @@ packagetest:archlinux:
     - cd archlinux
     - pacman -U python-cron-descriptor*.pkg.tar.xz --noconfirm
   tags:
-    - virtualbox-archlinux
+    - archlinux
   dependencies:
     - package:archlinux
-  only:
-    - tags
 
 repoupdate:
   stage: deploy
