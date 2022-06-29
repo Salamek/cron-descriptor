@@ -82,7 +82,7 @@ print(descriptor.get_description(DescriptionTypeEnum.FULL))
 |Tamil |ta_IN|[Sankar Hari](https://github.com/sankarhari)|
 |Persian|fa_IR|[M. Yas. Davoodeh](https://github.com/Davoodeh)|
 |Korean|ko_KR|[KyuJoo Han](https://github.com/hanqyu)|
-|Japanese |ja_JP|[Sankar Hari](https://github.com/tho-asterist)|
+|Japanese |ja_JP|[Tho Nguyen](https://github.com/tho-asterist)|
 
 <!-- SOON
 ## Demo
