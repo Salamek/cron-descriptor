@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-19 02:00+0100\n"
-"PO-Revision-Date: 2022-06-29 23:40+0200\n"
+"PO-Revision-Date: 2022-06-30 14:21+0200\n"
 "Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -233,3 +233,31 @@ msgstr ", starting {0}"
 #: ExpressionDescriptor.py:390
 msgid ", {0} days before the last day of the month"
 msgstr ", {0} days before the last day of the month"
+
+#: ExpressionDescriptor.py:231
+msgid "at {0} seconds past the minute [grThen20]"
+msgstr "at {0} seconds past the minute"
+
+#: ExpressionDescriptor.py:242
+msgid ", second {0} through second {1}"
+msgstr ", {0} through {1}"
+
+#: ExpressionDescriptor.py:262
+msgid "at {0} minutes past the hour [grThen20]"
+msgstr "at {0} minutes past the hour"
+
+#: ExpressionDescriptor.py:273
+msgid ", minute {0} through minute {1}"
+msgstr ", {0} through {1}"
+
+#: ExpressionDescriptor.py:291
+msgid ", hour {0} through hour {1}"
+msgstr ", {0} through {1}"
+
+#: ExpressionDescriptor.py:363 ExpressionDescriptor.py:365
+msgid ", month {0} through month {1}"
+msgstr ", {0} through {1}"
+
+#: ExpressionDescriptor.py:432 ExpressionDescriptor.py:434
+msgid ", year {0} through year {1}"
+msgstr ", {0} through {1}"

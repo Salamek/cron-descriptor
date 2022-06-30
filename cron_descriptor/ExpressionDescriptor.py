@@ -225,7 +225,10 @@ class ExpressionDescriptor:
                 return ""
 
             try:
-                return self._("at {0} seconds past the minute") if int(s) < 20 else self._("AtX0SecondsPastTheMinuteGt20") or self._("at {0} seconds past the minute")  # !FIXME
+                if int(s) < 20:
+                    return self._("at {0} seconds past the minute")
+                else:
+                    return self._("at {0} seconds past the minute [grThen20]") or self._("at {0} seconds past the minute")
             except ValueError:
                 return self._("at {0} seconds past the minute")
 
@@ -236,7 +239,7 @@ class ExpressionDescriptor:
             lambda s: self._("every {0} seconds").format(s),
             lambda s: self._("seconds {0} through {1} past the minute"),
             get_description_format,
-            lambda s: self._("ComaMinX0ThroughMinX1") or self._(", {0} through {1}")  # !FIXME
+            lambda s: self._(", second {0} through second {1}") or self._(", {0} through {1}")
         )
 
     def get_minutes_description(self):
@@ -253,7 +256,10 @@ class ExpressionDescriptor:
                 return ""
 
             try:
-                return self._("at {0} minutes past the hour") if int(s) < 20 else self._("AtX0MinutesPastTheHourGt20") or self._("at {0} minutes past the hour")  # !FIXME
+                if int(s) < 20:
+                    return self._("at {0} minutes past the hour")
+                else:
+                    return self._("at {0} minutes past the hour [grThen20]") or self._("at {0} minutes past the hour")
             except ValueError:
                 return self._("at {0} minutes past the hour")
 
@@ -264,7 +270,7 @@ class ExpressionDescriptor:
             lambda s: self._("every {0} minutes").format(s),
             lambda s: self._("minutes {0} through {1} past the hour"),
             get_description_format,
-            lambda s: self._("ComaMinX0ThroughMinX1") or self._(", {0} through {1}")   # !FIXME
+            lambda s: self._(", minute {0} through minute {1}") or self._(", {0} through {1}")
         )
 
     def get_hours_description(self):
@@ -282,7 +288,7 @@ class ExpressionDescriptor:
             lambda s: self._("every {0} hours").format(s),
             lambda s: self._("between {0} and {1}"),
             lambda s: self._("at {0}"),
-            lambda s: self._("ComaMinX0ThroughMinX1") or self._(", {0} through {1}")  # !FIXME
+            lambda s: self._(", hour {0} through hour {1}") or self._(", {0} through {1}")
         )
 
     def get_day_of_week_description(self):
@@ -354,9 +360,9 @@ class ExpressionDescriptor:
             '',
             lambda s: datetime.date(datetime.date.today().year, int(s), 1).strftime("%B"),
             lambda s: self._(", every {0} months").format(s),
-            lambda s: self._("ComaMonthX0ThroughMonthX1") or self._(", {0} through {1}"),  # !FIXME
+            lambda s: self._(", month {0} through month {1}") or self._(", {0} through {1}"),
             lambda s: self._(", only in {0}"),
-            lambda s: self._("ComaMonthX0ThroughMonthX1") or self._(", {0} through {1}")  # !FIXME
+            lambda s: self._(", month {0} through month {1}") or self._(", {0} through {1}")
         )
 
     def get_day_of_month_description(self):
@@ -423,9 +429,9 @@ class ExpressionDescriptor:
             '',
             lambda s: format_year(s),
             lambda s: self._(", every {0} years").format(s),
-            lambda s: self._("ComaYearX0ThroughYearX1") or self._(", {0} through {1}"),  #!FIXME
+            lambda s: self._(", year {0} through year {1}") or self._(", {0} through {1}"),
             lambda s: self._(", only in {0}"),
-            lambda s: self._("ComaYearX0ThroughYearX1") or self._(", {0} through {1}") #!FIXME
+            lambda s: self._(", year {0} through year {1}") or self._(", {0} through {1}")
         )
 
     def get_segment_description(
