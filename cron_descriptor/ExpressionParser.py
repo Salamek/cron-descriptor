@@ -29,6 +29,15 @@ class ExpressionParser(object):
 
     """
      Parses and validates a Cron Expression into list of fixed len()
+     ┌───────────── minute (0 - 59)
+     │ ┌───────────── hour (0 - 23)
+     │ │ ┌───────────── day of month (1 - 31)
+     │ │ │ ┌───────────── month (1 - 12)
+     │ │ │ │ ┌───────────── day of week (0 - 6) (Sunday to Saturday; 7 is also Sunday on some systems)
+     │ │ │ │ │
+     │ │ │ │ │
+     │ │ │ │ │
+     * * * * *  command to execute
     """
 
     _expression = ''
@@ -88,27 +97,36 @@ class ExpressionParser(object):
             if expression_parts_temp_length < 5:
                 raise FormatException(
                     "Error: Expression only has {0} parts.  At least 5 part are required.".format(
-                        expression_parts_temp_length))
+                        expression_parts_temp_length
+                    )
+                )
             elif expression_parts_temp_length == 5:
                 # 5 part cron so shift array past seconds element
                 for i, expression_part_temp in enumerate(expression_parts_temp):
                     parsed[i + 1] = expression_part_temp
             elif expression_parts_temp_length == 6:
-                # If last element ends with 4 digits, a year element has been
-                # supplied and no seconds element
+                # We will detect if this 6 part expression has a year specified and if so we will shift the parts and treat the
+                # first part as a minute part rather than a second part.
+                # Ways we detect:
+                # 1. Last part is a literal year (i.e. 2020)
+                # 2. 3rd or 5th part is specified as "?" (DOM or DOW)
                 year_regex = re.compile(r"\d{4}$")
-                if year_regex.search(expression_parts_temp[5]) is not None:
-                    for i, expression_part_temp in enumerate(expression_parts_temp):
+                is_year_with_no_seconds_part = bool(year_regex.search(expression_parts_temp[5])) or "?" in [expression_parts_temp[4], expression_parts_temp[2]]
+                for i, expression_part_temp in enumerate(expression_parts_temp):
+                    if is_year_with_no_seconds_part:
+                        # Shift parts over by one
                         parsed[i + 1] = expression_part_temp
-                else:
-                    for i, expression_part_temp in enumerate(expression_parts_temp):
+                    else:
                         parsed[i] = expression_part_temp
+
             elif expression_parts_temp_length == 7:
                 parsed = expression_parts_temp
             else:
                 raise FormatException(
                     "Error: Expression has too many parts ({0}).  Expression must not have more than 7 parts.".format(
-                        expression_parts_temp_length))
+                        expression_parts_temp_length
+                    )
+                )
         self.normalize_expression(parsed)
 
         return parsed
@@ -126,34 +144,42 @@ class ExpressionParser(object):
 
         # convert 0/, 1/ to */
         if expression_parts[0].startswith("0/"):
-            expression_parts[0] = expression_parts[
-                0].replace("0/", "*/")  # seconds
+            expression_parts[0] = expression_parts[0].replace("0/", "*/")  # seconds
 
         if expression_parts[1].startswith("0/"):
-            expression_parts[1] = expression_parts[
-                1].replace("0/", "*/")  # minutes
+            expression_parts[1] = expression_parts[1].replace("0/", "*/")  # minutes
 
         if expression_parts[2].startswith("0/"):
-            expression_parts[2] = expression_parts[
-                2].replace("0/", "*/")  # hours
+            expression_parts[2] = expression_parts[2].replace("0/", "*/")  # hours
 
         if expression_parts[3].startswith("1/"):
             expression_parts[3] = expression_parts[3].replace("1/", "*/")  # DOM
 
         if expression_parts[4].startswith("1/"):
-            expression_parts[4] = expression_parts[
-                4].replace("1/", "*/")  # Month
+            expression_parts[4] = expression_parts[4].replace("1/", "*/")  # Month
 
         if expression_parts[5].startswith("1/"):
             expression_parts[5] = expression_parts[5].replace("1/", "*/")  # DOW
 
         if expression_parts[6].startswith("1/"):
-            expression_parts[6] = expression_parts[6].replace("1/", "*/")
+            expression_parts[6] = expression_parts[6].replace("1/", "*/")  # Years
 
-        # handle DayOfWeekStartIndexZero option where SUN=1 rather than SUN=0
-        if self._options.day_of_week_start_index_zero is False:
-            expression_parts[5] = self.decrease_days_of_week(expression_parts[5])
+        # Adjust DOW based on dayOfWeekStartIndexZero option
+        def digit_replace(match):
+            match_value = match.group()
+            dow_digits = re.sub(r'\D', "", match_value)
+            dow_digits_adjusted = dow_digits
+            if self._options.day_of_week_start_index_zero:
+                if dow_digits == "7":
+                    dow_digits_adjusted = "0"
+            else:
+                dow_digits_adjusted = str(int(dow_digits) - 1)
 
+            return match_value.replace(dow_digits, dow_digits_adjusted)
+
+        expression_parts[5] = re.sub(r'(^\d)|([^#/\s]\d)', digit_replace, expression_parts[5])
+
+        # Convert DOM '?' to '*'
         if expression_parts[3] == "?":
             expression_parts[3] = "*"
 
@@ -169,6 +195,18 @@ class ExpressionParser(object):
         # convert 0 second to (empty)
         if expression_parts[0] == "0":
             expression_parts[0] = ''
+
+        # If time interval is specified for seconds or minutes and next time part is single item, make it a "self-range" so
+        # the expression can be interpreted as an interval 'between' range.
+        # For example:
+        # 0-20/3 9 * * * => 0-20/3 9-9 * * * (9 => 9-9)
+        # */5 3 * * * => */5 3-3 * * * (3 => 3-3)
+        star_and_slash = ['*', '/']
+        has_part_zero_star_and_slash = any(ext in expression_parts[0] for ext in star_and_slash)
+        has_part_one_star_and_slash = any(ext in expression_parts[1] for ext in star_and_slash)
+        has_part_two_special_chars = any(ext in expression_parts[2] for ext in ['*', '-', ',', '/'])
+        if not has_part_two_special_chars and (has_part_zero_star_and_slash or has_part_one_star_and_slash):
+            expression_parts[2] += '-{}'.format(expression_parts[2])
 
         # Loop through all parts and apply global normalization
         length = len(expression_parts)
@@ -187,7 +225,7 @@ class ExpressionParser(object):
             - DOW part '3/2' will be converted to '3-6/2' (every 2 days between Tuesday and Saturday)
             """
 
-            if "/" in expression_parts[i] and any(exp in expression_parts[i] for exp in ['*', '-', ',']) is False:
+            if "/" in expression_parts[i] and not any(exp in expression_parts[i] for exp in ['*', '-', ',']):
                 choices = {
                     4: "12",
                     5: "6",
@@ -199,14 +237,3 @@ class ExpressionParser(object):
                 if step_range_through is not None:
                     parts = expression_parts[i].split('/')
                     expression_parts[i] = "{0}-{1}/{2}".format(parts[0], step_range_through, parts[1])
-
-    def decrease_days_of_week(self, day_of_week_expression_part):
-        dow_chars = list(day_of_week_expression_part)
-        for i, dow_char in enumerate(dow_chars):
-            if i == 0 or dow_chars[i - 1] != '#' and dow_chars[i - 1] != '/':
-                try:
-                    char_numeric = int(dow_char)
-                    dow_chars[i] = str(char_numeric - 1)[0]
-                except ValueError:
-                    pass
-        return ''.join(dow_chars)

@@ -33,26 +33,27 @@ from .StringBuilder import StringBuilder
 from .Exception import FormatException, WrongArgumentException
 
 
-class ExpressionDescriptor(object):
+class ExpressionDescriptor:
 
     """
      Converts a Cron Expression into a human readable string
     """
 
     _special_characters = ['/', '-', ',', '*']
+
     _expression = ''
     _options = None
     _expression_parts = []
     _parsed = False
 
     def __init__(self, expression, options=None, **kwargs):
-        """Initializes a new instance of the ExpressionDescriptorclass
+        """Initializes a new instance of the ExpressionDescriptor
 
         Args:
             expression: The cron expression string
             options: Options to control the output description
         Raises:
-            WrongArgumentException: if kwarg is unknow
+            WrongArgumentException: if kwarg is unknown
 
         """
         if options is None:
@@ -62,19 +63,21 @@ class ExpressionDescriptor(object):
         self._expression_parts = []
         self._parsed = False
 
-        # if kwargs in _options, overwrite it, if not raise exeption
+        # if kwargs in _options, overwrite it, if not raise exception
         for kwarg in kwargs:
             if hasattr(self._options, kwarg):
                 setattr(self._options, kwarg, kwargs[kwarg])
             else:
-                raise WrongArgumentException(
-                    "Unknow {} configuration argument".format(kwarg))
+                raise WrongArgumentException("Unknown {} configuration argument".format(kwarg))
 
         # Initializes localization
-        GetText(options.locale_code)
+        self.get_text = GetText(options.locale_code)
+
+    def _(self, message):
+        return self.get_text.trans.gettext(message)
 
     def get_description(self, description_type=DescriptionTypeEnum.FULL):
-        """Generates a human readable string for the Cron Expression
+        """Generates a humanreadable string for the Cron Expression
 
         Args:
             description_type: Which part(s) of the expression to describe
@@ -135,14 +138,11 @@ class ExpressionDescriptor(object):
                 month_desc,
                 year_desc)
 
-            description = self.transform_verbosity(
-                description, self._options.verbose)
-            description = self.transform_case(
-                description,
-                self._options.casing_type)
+            description = self.transform_verbosity(description, self._options.verbose)
+            description = ExpressionDescriptor.transform_case(description, self._options.casing_type)
         except Exception:
-            description = _(
-                "An error occured when generating the expression description.  Check the cron expression syntax.")
+            description = self._(
+                "An error occurred when generating the expression description.  Check the cron expression syntax.")
             if self._options.throw_exception_on_parse_error:
                 raise FormatException(description)
 
@@ -166,34 +166,33 @@ class ExpressionDescriptor(object):
             any(exp in hour_expression for exp in self._special_characters) is False and \
                 any(exp in seconds_expression for exp in self._special_characters) is False:
             # specific time of day (i.e. 10 14)
-            description.append(_("At "))
+            description.append(self._("At "))
             description.append(
                 self.format_time(
                     hour_expression,
                     minute_expression,
                     seconds_expression))
-        elif "-" in minute_expression and \
+        elif seconds_expression == "" and "-" in minute_expression and \
             "," not in minute_expression and \
                 any(exp in hour_expression for exp in self._special_characters) is False:
             # minute range in single hour (i.e. 0-10 11)
             minute_parts = minute_expression.split('-')
-            description.append(_("Every minute between {0} and {1}").format(
+            description.append(self._("Every minute between {0} and {1}").format(
                 self.format_time(hour_expression, minute_parts[0]), self.format_time(hour_expression, minute_parts[1])))
-        elif "," in hour_expression and "-" not in hour_expression and \
+        elif seconds_expression == "" and "," in hour_expression and "-" not in hour_expression and \
                 any(exp in minute_expression for exp in self._special_characters) is False:
             # hours list with single minute (o.e. 30 6,14,16)
             hour_parts = hour_expression.split(',')
-            description.append(_("At"))
+            description.append(self._("At"))
             for i, hour_part in enumerate(hour_parts):
                 description.append(" ")
-                description.append(
-                    self.format_time(hour_part, minute_expression))
+                description.append(self.format_time(hour_part, minute_expression))
 
                 if i < (len(hour_parts) - 2):
                     description.append(",")
 
                 if i == len(hour_parts) - 2:
-                    description.append(_(" and"))
+                    description.append(self._(" and"))
         else:
             # default time description
             seconds_description = self.get_seconds_description()
@@ -202,12 +201,12 @@ class ExpressionDescriptor(object):
 
             description.append(seconds_description)
 
-            if description:
+            if description and minutes_description:
                 description.append(", ")
 
             description.append(minutes_description)
 
-            if description:
+            if description and hours_description:
                 description.append(", ")
 
             description.append(hours_description)
@@ -221,13 +220,23 @@ class ExpressionDescriptor(object):
 
         """
 
+        def get_description_format(s):
+            if s == "0":
+                return ""
+
+            try:
+                return self._("at {0} seconds past the minute") if int(s) < 20 else self._("AtX0SecondsPastTheMinuteGt20") or self._("at {0} seconds past the minute")  # !FIXME
+            except ValueError:
+                return self._("at {0} seconds past the minute")
+
         return self.get_segment_description(
             self._expression_parts[0],
-            _("every second"),
+            self._("every second"),
             lambda s: s,
-            lambda s: _("every {0} seconds").format(s),
-            lambda s: _("seconds {0} through {1} past the minute"),
-            lambda s: _("at {0} seconds past the minute")
+            lambda s: self._("every {0} seconds").format(s),
+            lambda s: self._("seconds {0} through {1} past the minute"),
+            get_description_format,
+            lambda s: self._("ComaMinX0ThroughMinX1") or self._(", {0} through {1}")  # !FIXME
         )
 
     def get_minutes_description(self):
@@ -237,14 +246,25 @@ class ExpressionDescriptor(object):
             The MINUTE description
 
         """
+        seconds_expression = self._expression_parts[0]
+
+        def get_description_format(s):
+            if s == "0" and seconds_expression == "":
+                return ""
+
+            try:
+                return self._("at {0} minutes past the hour") if int(s) < 20 else self._("AtX0MinutesPastTheHourGt20") or self._("at {0} minutes past the hour")  # !FIXME
+            except ValueError:
+                return self._("at {0} minutes past the hour")
 
         return self.get_segment_description(
             self._expression_parts[1],
-            _("every minute"),
+            self._("every minute"),
             lambda s: s,
-            lambda s: _("every {0} minutes").format(s),
-            lambda s: _("minutes {0} through {1} past the hour"),
-            lambda s: '' if s == "0" else _("at {0} minutes past the hour")
+            lambda s: self._("every {0} minutes").format(s),
+            lambda s: self._("minutes {0} through {1} past the hour"),
+            get_description_format,
+            lambda s: self._("ComaMinX0ThroughMinX1") or self._(", {0} through {1}")   # !FIXME
         )
 
     def get_hours_description(self):
@@ -257,11 +277,12 @@ class ExpressionDescriptor(object):
         expression = self._expression_parts[2]
         return self.get_segment_description(
             expression,
-            _("every hour"),
+            self._("every hour"),
             lambda s: self.format_time(s, "0"),
-            lambda s: _("every {0} hours").format(s),
-            lambda s: _("between {0} and {1}"),
-            lambda s: _("at {0}")
+            lambda s: self._("every {0} hours").format(s),
+            lambda s: self._("between {0} and {1}"),
+            lambda s: self._("at {0}"),
+            lambda s: self._("ComaMinX0ThroughMinX1") or self._(", {0} through {1}")  # !FIXME
         )
 
     def get_day_of_week_description(self):
@@ -272,18 +293,19 @@ class ExpressionDescriptor(object):
 
         """
 
-        if self._expression_parts[5] == "*" and self._expression_parts[3] != "*":
-            # DOM is specified and DOW is * so to prevent contradiction like "on day 1 of the month, every day"
-            # we will not specified a DOW description.
+        if self._expression_parts[5] == "*":
+            # DOW is specified as * so we will not generate a description and defer to DOM part.
+            # Otherwise, we could get a contradiction like "on day 1 of the month, every day"
+            # or a dupe description like "every day, every day".
             return ""
 
         def get_day_name(s):
             exp = s
             if "#" in s:
-                exp, useless = s.split("#", 2)
+                exp, _ = s.split("#", 2)
             elif "L" in s:
                 exp = exp.replace("L", '')
-            return self.number_to_day(int(exp))
+            return ExpressionDescriptor.number_to_day(int(exp))
 
         def get_format(s):
             if "#" in s:
@@ -292,32 +314,32 @@ class ExpressionDescriptor(object):
                 try:
                     day_of_week_of_month_number = int(day_of_week_of_month)
                     choices = {
-                        1: _("first"),
-                        2: _("second"),
-                        3: _("third"),
-                        4: _("forth"),
-                        5: _("fifth"),
+                        1: self._("first"),
+                        2: self._("second"),
+                        3: self._("third"),
+                        4: self._("forth"),
+                        5: self._("fifth"),
                     }
                     day_of_week_of_month_description = choices.get(day_of_week_of_month_number, '')
                 except ValueError:
                     day_of_week_of_month_description = ''
 
-                formated = "{}{}{}".format(_(", on the "),
-                                           day_of_week_of_month_description, _(" {0} of the month"))
+                formatted = "{}{}{}".format(self._(", on the "), day_of_week_of_month_description, self._(" {0} of the month"))
             elif "L" in s:
-                formated = _(", on the last {0} of the month")
+                formatted = self._(", on the last {0} of the month")
             else:
-                formated = _(", only on {0}")
+                formatted = self._(", only on {0}")
 
-            return formated
+            return formatted
 
         return self.get_segment_description(
             self._expression_parts[5],
-            _(", every day"),
+            self._(", every day"),
             lambda s: get_day_name(s),
-            lambda s: _(", every {0} days of the week").format(s),
-            lambda s: _(", {0} through {1}"),
-            lambda s: get_format(s)
+            lambda s: self._(", every {0} days of the week").format(s),
+            lambda s: self._(", {0} through {1}"),
+            lambda s: get_format(s),
+            lambda s: self._(", {0} through {1}")
         )
 
     def get_month_description(self):
@@ -331,9 +353,10 @@ class ExpressionDescriptor(object):
             self._expression_parts[4],
             '',
             lambda s: datetime.date(datetime.date.today().year, int(s), 1).strftime("%B"),
-            lambda s: _(", every {0} months").format(s),
-            lambda s: _(", {0} through {1}"),
-            lambda s: _(", only in {0}")
+            lambda s: self._(", every {0} months").format(s),
+            lambda s: self._("ComaMonthX0ThroughMonthX1") or self._(", {0} through {1}"),  # !FIXME
+            lambda s: self._(", only in {0}"),
+            lambda s: self._("ComaMonthX0ThroughMonthX1") or self._(", {0} through {1}")  # !FIXME
         )
 
     def get_day_of_month_description(self):
@@ -344,31 +367,36 @@ class ExpressionDescriptor(object):
 
         """
         expression = self._expression_parts[3]
-        expression = expression.replace("?", "*")
 
         if expression == "L":
-            description = _(", on the last day of the month")
+            description = self._(", on the last day of the month")
         elif expression == "LW" or expression == "WL":
-            description = _(", on the last weekday of the month")
+            description = self._(", on the last weekday of the month")
         else:
-            regex = re.compile("(\\d{1,2}W)|(W\\d{1,2})")
-            if regex.match(expression):
-                m = regex.match(expression)
+            regex = re.compile(r"(\d{1,2}W)|(W\d{1,2})")
+            m = regex.match(expression)
+            if m:  # if matches
                 day_number = int(m.group().replace("W", ""))
 
-                day_string = _("first weekday") if day_number == 1 else _("weekday nearest day {0}").format(
-                    day_number)
-                description = _(", on the {0} of the month").format(
-                    day_string)
+                day_string = self._("first weekday") if day_number == 1 else self._("weekday nearest day {0}").format(day_number)
+                description = self._(", on the {0} of the month").format(day_string)
             else:
-                description = self.get_segment_description(
-                    expression,
-                    _(", every day"),
-                    lambda s: s,
-                    lambda s: _(", every day") if s == "1" else _(", every {0} days"),
-                    lambda s: _(", between day {0} and {1} of the month"),
-                    lambda s: _(", on day {0} of the month")
-                )
+                # Handle "last day offset"(i.e.L - 5: "5 days before the last day of the month")
+                regex = re.compile(r"L-(\d{1,2})")
+                m = regex.match(expression)
+                if m:  # if matches
+                    off_set_days = m.group(1)
+                    description = self._(", {0} days before the last day of the month").format(off_set_days)
+                else:
+                    description = self.get_segment_description(
+                        expression,
+                        self._(", every day"),
+                        lambda s: s,
+                        lambda s: self._(", every day") if s == "1" else self._(", every {0} days"),
+                        lambda s: self._(", between day {0} and {1} of the month"),
+                        lambda s: self._(", on day {0} of the month"),
+                        lambda s: self._(", {0} through {1}")
+                    )
 
         return description
 
@@ -394,9 +422,10 @@ class ExpressionDescriptor(object):
             self._expression_parts[6],
             '',
             lambda s: format_year(s),
-            lambda s: _(", every {0} years").format(s),
-            lambda s: _(", {0} through {1}"),
-            lambda s: _(", only in {0}")
+            lambda s: self._(", every {0} years").format(s),
+            lambda s: self._("ComaYearX0ThroughYearX1") or self._(", {0} through {1}"),  #!FIXME
+            lambda s: self._(", only in {0}"),
+            lambda s: self._("ComaYearX0ThroughYearX1") or self._(", {0} through {1}") #!FIXME
         )
 
     def get_segment_description(
@@ -406,7 +435,8 @@ class ExpressionDescriptor(object):
         get_single_item_description,
         get_interval_description_format,
         get_between_description_format,
-        get_description_format
+        get_description_format,
+        get_range_format
     ):
         """Returns segment description
         Args:
@@ -416,6 +446,7 @@ class ExpressionDescriptor(object):
             get_interval_description_format: 1/2
             get_between_description_format: 1-2
             get_description_format: format get_single_item_description
+            get_range_format: function that formats range expressions depending on cron parts
         Returns:
             segment description
 
@@ -426,19 +457,21 @@ class ExpressionDescriptor(object):
         elif expression == "*":
             description = all_description
         elif any(ext in expression for ext in ['/', '-', ',']) is False:
-            description = get_description_format(expression).format(
-                get_single_item_description(expression))
+            description = get_description_format(expression).format(get_single_item_description(expression))
         elif "/" in expression:
             segments = expression.split('/')
-            description = get_interval_description_format(
-                segments[1]).format(get_single_item_description(segments[1]))
+            description = get_interval_description_format(segments[1]).format(get_single_item_description(segments[1]))
 
             # interval contains 'between' piece (i.e. 2-59/3 )
             if "-" in segments[0]:
                 between_segment_description = self.generate_between_segment_description(
-                    segments[0], get_between_description_format, get_single_item_description)
+                    segments[0],
+                    get_between_description_format,
+                    get_single_item_description
+                )
                 if not between_segment_description.startswith(", "):
                     description += ", "
+
                 description += between_segment_description
             elif any(ext in segments[0] for ext in ['*', ',']) is False:
                 range_item_description = get_description_format(segments[0]).format(
@@ -446,7 +479,7 @@ class ExpressionDescriptor(object):
                 )
                 range_item_description = range_item_description.replace(", ", "")
 
-                description += _(", starting {0}").format(range_item_description)
+                description += self._(", starting {0}").format(range_item_description)
         elif "," in expression:
             segments = expression.split(',')
 
@@ -459,27 +492,28 @@ class ExpressionDescriptor(object):
                         description_content += " "
 
                 if i > 0 and len(segments) > 1 and (i == len(segments) - 1 or len(segments) == 2):
-                    description_content += _(" and ")
+                    description_content += self._(" and ")
 
                 if "-" in segment:
-                    between_description = self.generate_between_segment_description(
+                    between_segment_description = self.generate_between_segment_description(
                         segment,
-                        lambda s: _(", {0} through {1}"),
+                        get_range_format,
                         get_single_item_description
                     )
 
-                    between_description = between_description.replace(", ", "")
+                    between_segment_description = between_segment_description.replace(", ", "")
 
-                    description_content += between_description
+                    description_content += between_segment_description
                 else:
                     description_content += get_single_item_description(segment)
 
-            description = get_description_format(
-                expression).format(
-                    description_content)
+            description = get_description_format(expression).format(description_content)
         elif "-" in expression:
             description = self.generate_between_segment_description(
-                expression, get_between_description_format, get_single_item_description)
+                expression,
+                get_between_description_format,
+                get_single_item_description
+            )
 
         return description
 
@@ -500,8 +534,7 @@ class ExpressionDescriptor(object):
         between_segments = between_expression.split('-')
         between_segment_1_description = get_single_item_description(between_segments[0])
         between_segment_2_description = get_single_item_description(between_segments[1])
-        between_segment_2_description = between_segment_2_description.replace(
-            ":00", ":59")
+        between_segment_2_description = between_segment_2_description.replace(":00", ":59")
 
         between_description_format = get_between_description_format(between_expression)
         description += between_description_format.format(between_segment_1_description, between_segment_2_description)
@@ -527,11 +560,18 @@ class ExpressionDescriptor(object):
 
         period = ''
         if self._options.use_24hour_time_format is False:
-            period = " PM" if (hour >= 12) else " AM"
+            period = self._("PM") if (hour >= 12) else self._("AM")
+            if period:
+                # add preceding space
+                period = " " + period
+
             if hour > 12:
                 hour -= 12
 
-        minute = str(int(minute_expression))  # !FIXME WUT ???
+            if hour == 0:
+                hour = 12
+
+        minute = str(int(minute_expression))  # Removes leading zero if any
         second = ''
         if second_expression is not None and second_expression:
             second = "{}{}".format(":", str(int(second_expression)).zfill(2))
@@ -548,20 +588,20 @@ class ExpressionDescriptor(object):
 
         """
         if use_verbose_format is False:
-            description = description.replace(
-                _(", every minute"), '')
-            description = description.replace(_(", every hour"), '')
-            description = description.replace(_(", every day"), '')
+            description = description.replace(self._(", every minute"), '')
+            description = description.replace(self._(", every hour"), '')
+            description = description.replace(self._(", every day"), '')
+            description = re.sub(r', ?$', '', description)
         return description
 
-    def transform_case(self, description, case_type):
+    @staticmethod
+    def transform_case(description, case_type):
         """Transforms the case of the expression description, based on options
         Args:
             description: The description to transform
             case_type: The casing type that controls the output casing
         Returns:
             The transformed description with proper casing
-
         """
         if case_type == CasingTypeEnum.Sentence:
             description = "{}{}".format(
@@ -573,7 +613,8 @@ class ExpressionDescriptor(object):
             description = description.lower()
         return description
 
-    def number_to_day(self, day_number):
+    @staticmethod
+    def number_to_day(day_number):
         """Returns localized day name by its CRON number
 
         Args:
@@ -583,15 +624,18 @@ class ExpressionDescriptor(object):
         Raises:
             IndexError: When day_number is not found
         """
-        return [
-            calendar.day_name[6],
-            calendar.day_name[0],
-            calendar.day_name[1],
-            calendar.day_name[2],
-            calendar.day_name[3],
-            calendar.day_name[4],
-            calendar.day_name[5]
-        ][day_number]
+        try:
+            return [
+                calendar.day_name[6],
+                calendar.day_name[0],
+                calendar.day_name[1],
+                calendar.day_name[2],
+                calendar.day_name[3],
+                calendar.day_name[4],
+                calendar.day_name[5]
+            ][day_number]
+        except IndexError:
+            raise IndexError("Day {} is out of range!".format(day_number))
 
     def __str__(self):
         return self.get_description()

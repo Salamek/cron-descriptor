@@ -28,9 +28,15 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class FallBackNull(gettext.NullTranslations):
+    def gettext(self, message):
+        # If we get here, that means that original translator failed, we will return empty string
+        return ""
+
+
 class GetText(object):
     """
-    Handles language translations and Initializes global _() function
+    Handles language translations
     """
 
     def __init__(self, locale_code):
@@ -39,13 +45,21 @@ class GetText(object):
         :param locale_code selected locale
         """
         try:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    'locale', '{}.mo'.format(locale_code))
-            with open(filename, "rb") as f:
-                trans = gettext.GNUTranslations(f)
-            logger.debug('{} Loaded'.format(filename))
+            self.trans = self.load_locale(locale_code)
         except IOError:
             logger.debug('Failed to find locale {}'.format(locale_code))
-            trans = gettext.NullTranslations()
+            logger.debug('Attempting to load en_US as fallback')
+            self.trans = self.load_locale('en_US')
 
-        trans.install()
+        # Add fallback that does not return original string, this is hack to add
+        # support for _("") or _("")
+        self.trans.add_fallback(FallBackNull())
+
+    def load_locale(self, locale_code):
+        filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'locale', '{}.mo'.format(locale_code))
+        with open(filename, "rb") as f:
+            trans = gettext.GNUTranslations(f)
+        logger.debug('{} Loaded'.format(filename))
+        return trans
+
+
