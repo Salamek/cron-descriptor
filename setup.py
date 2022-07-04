@@ -53,9 +53,6 @@ if __name__ == "__main__":
             "License :: OSI Approved :: MIT License",
             "Operating System :: OS Independent",
             "Programming Language :: Python",
-            "Programming Language :: Python :: 2",
-            "Programming Language :: Python :: 2.5",
-            "Programming Language :: Python :: 2.6",
             "Programming Language :: Python :: 2.7",
             "Programming Language :: Python :: 3",
             "Programming Language :: Python :: 3.2",
@@ -69,6 +66,11 @@ if __name__ == "__main__":
             "Programming Language :: Python :: 3.10",
             "Topic :: Software Development",
         ],
+        extras_require={
+            'dev': [
+                'polib',
+            ]
+        },
         tests_require=[
             'pep8',
             'flake8',
