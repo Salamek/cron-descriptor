@@ -120,7 +120,7 @@ class ExpressionDescriptor:
         Returns:
             The FULL description
         Raises:
-            FormatException: if formating fails and throw_exception_on_parse_error is True
+            FormatException: if formatting fails and throw_exception_on_parse_error is True
 
         """
 
@@ -553,7 +553,7 @@ class ExpressionDescriptor:
         minute_expression,
         second_expression=''
     ):
-        """Given time parts, will contruct a formatted time description
+        """Given time parts, will construct a formatted time description
         Args:
             hour_expression: Hours part
             minute_expression: Minutes part
