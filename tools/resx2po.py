@@ -19,72 +19,100 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import datetime
 
-from resx2dict import resx2dict
-import os
+import xml.etree.ElementTree as ET
+from pathlib import Path
 import polib
-import shutil
 
 
-class resx2po(object):
-    """
-    Converts resx to po and mo, it is using template.po file to keep file.py:line_number info
-    """
-    def __init__(self, resxen2name, resxlocale, potemplate, out_path, code):
-        if os.path.isfile(resxen2name) is False:
-            raise Exception("Resx bound not found")
+class Resx2Po:
+    def __init__(self, en_resx: Path, translation_resx: Path, code: str, output_po: Path):
+        if not en_resx.is_file():
+            raise Exception("EN Resx {} not found".format(en_resx.absolute()))
 
-        if os.path.isfile(resxlocale) is False:
-            raise Exception("Resx trans not found")
+        if not translation_resx.is_file():
+            raise Exception("Translation {} {} Resx bound not found".format(code, translation_resx.absolute()))
 
-        if os.path.isfile(potemplate) is False:
-            raise Exception("PO template not found")
+        self.en_resx = self.resx2dict(en_resx)
+        self.translation_resx = self.resx2dict(translation_resx)
+        self.code = code
+        self.output_po = output_po
 
-        bound = resx2dict(resxen2name)
-        trans = resx2dict(resxlocale)
+        self.generate()
 
-        motable = {}
-        for boundk in sorted(bound, key=len, reverse=True):
-            if boundk in trans:
-                motable[bound[boundk]] = trans[boundk]
-            else:
-                print("WARNING: {} not found in {}, wont be added into motable".format(boundk, resxen2name))
+    def resx2dict(self, resx):
+        tree = ET.parse(resx)
+        root = tree.getroot()
+        translation_table = {}
+        for first in root.findall('./data'):
+            translation_table[first.attrib['name']] = first.find('./value').text
 
-        po = polib.pofile(potemplate)
+        return translation_table
 
+    def generate(self):
+        po = polib.POFile()
+        now = datetime.datetime.now(datetime.timezone.utc)
         po.metadata = {
             'Project-Id-Version': '1.0',
             'Report-Msgid-Bugs-To': 'adam.schubert@sg1-game.net',
-            'POT-Creation-Date': '2016-01-19 02:00+0100',
-            'PO-Revision-Date': '2016-01-19 02:00+0100',
+            'POT-Creation-Date': now.strftime("%Y-%m-%d %H:%M%z"),
+            'PO-Revision-Date': now.strftime("%Y-%m-%d %H:%M%z"),
             'Last-Translator': 'Adam Schubert <adam.schubert@sg1-game.net>',
             'Language-Team': '',
             'MIME-Version': '1.0',
             'Content-Type': 'text/plain; charset=utf-8',
             'Content-Transfer-Encoding': '8bit',
-            'Language': code
+            'Language': self.code
         }
-        for entry in po:
-            if entry.msgid in motable:
-                entry.msgstr = motable[entry.msgid]
+
+        for message_en_id, message_en in self.en_resx.items():
+            if message_en_id in self.translation_resx:
+                entry = polib.POEntry(
+                    msgid=message_en,
+                    msgstr=self.translation_resx[message_en_id],
+                    comment=message_en_id
+                )
+                po.append(entry)
             else:
-                print("WARNING: {} not found in {}".format(entry.msgid, 'motable'))
+                print('WARNING: {} not found in {} resx'.format(message_en_id, self.code))
 
-        po.save()
-        po.save_as_mofile(os.path.join(out_path, '{}.mo'.format(code)))
-        shutil.copy2(potemplate, os.path.join(out_path, '{}.po'.format(code)))
+        po.save(str(self.output_po.absolute()))
 
 
-directory = '../locale'
-resx2po('Resources.resx', 'Resources.de.resx', 'messages.po', directory, 'de_DE')
-resx2po('Resources.resx', 'Resources.es.resx', 'messages.po', directory, 'es_ES')
-resx2po('Resources.resx', 'Resources.fr.resx', 'messages.po', directory, 'fr_FR')
-resx2po('Resources.resx', 'Resources.it.resx', 'messages.po', directory, 'it_IT')
-resx2po('Resources.resx', 'Resources.nl.resx', 'messages.po', directory, 'nl_NL')
-resx2po('Resources.resx', 'Resources.no.resx', 'messages.po', directory, 'nb_NO')
-resx2po('Resources.resx', 'Resources.pt.resx', 'messages.po', directory, 'pt_PT')
-resx2po('Resources.resx', 'Resources.ru.resx', 'messages.po', directory, 'ru_RU')
-resx2po('Resources.resx', 'Resources.tr.resx', 'messages.po', directory, 'tr_TR')
-resx2po('Resources.resx', 'Resources.uk.resx', 'messages.po', directory, 'uk_UA')
-resx2po('Resources.resx', 'Resources.zh-CHS.resx', 'messages.po', directory, 'zh_CN')
-resx2po('Resources.resx', 'Resources.ta.resx', 'messages.po', directory, 'ta_IN')
+code_list = {
+    'da': 'da_DK',
+
+    # 'de': 'de_DE',
+    # 'es': 'es_ES',
+    # 'es-MX': 'es_MX',
+    # 'fa': 'fa_IR',
+    # 'fi': 'fi_FI',
+    # 'fr': 'fr_FR',
+    # 'it': 'it_IT',
+    # 'ja': 'ja_IP',
+    # 'ko': 'ko_KR',
+    # 'nb': 'nb_NO',
+    # 'nl': 'nl_NL',
+    # 'pl': 'pl_PL',
+    # 'pt': 'pt_PT',
+    # 'ro': 'ro_RO',
+    # 'ru': 'ru_RU',
+    # 'sl': 'sl_SI',
+    # 'sv': 'sv_SE',
+    # 'tr': 'tr_TR',
+    # 'uk': 'uk_UA',
+    # 'zh-Hans': 'zh_Hans_CN',
+    # 'zh-Hant': 'zh_Hant',
+}
+
+output_dir = Path('../locale')
+
+for from_code, to_code in code_list.items():
+    output_file = output_dir.joinpath('{}.po'.format(to_code))
+    Resx2Po(
+        Path('Resources.resx'),
+        Path('Resources.{}.resx'.format(from_code)),
+        to_code,
+        output_file
+    )
