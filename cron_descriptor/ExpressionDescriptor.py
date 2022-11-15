@@ -142,7 +142,8 @@ class ExpressionDescriptor:
             description = ExpressionDescriptor.transform_case(description, self._options.casing_type)
         except Exception:
             description = self._(
-                "An error occurred when generating the expression description.  Check the cron expression syntax.")
+                "An error occurred when generating the expression description.  Check the cron expression syntax."
+            )
             if self._options.throw_exception_on_parse_error:
                 raise FormatException(description)
 
