@@ -6,10 +6,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # see https://github.com/actions/setup-python/issues/162#issuecomment-1325307787
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
-        python-version: ["2.7.18", "3.6.15", "3.7.15", "3.8.14", "3.9.15", "3.10.8", "3.11.0"]
+        python-version: ["2.7", "3.6", "3.7", "3.8", "3.9", "3.10", "3.11.0-alpha - 3.11"]
 
     steps:
     - uses: actions/checkout@v1
