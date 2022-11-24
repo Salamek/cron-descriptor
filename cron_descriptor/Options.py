@@ -37,6 +37,7 @@ class Options(object):
         self.verbose = False
         self.day_of_week_start_index_zero = True
         self.use_24hour_time_format = False
+        self.locale_location = None
 
         code, encoding = locale.getlocale()
         self.locale_code = code
