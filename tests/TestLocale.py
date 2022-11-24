@@ -53,4 +53,4 @@ class TestLocale(TestCase.TestCase):
         options.use_24hour_time_format = True
         
         self.assertEqual("Jede Minute", ExpressionDescriptor("* * * * *", options).get_description())
-        logger.debug.assert_called_once_with(f'{temp_path} Loaded')
+        logger.debug.assert_called_once_with("{temp_path} Loaded".format(**{"temp_path":temp_path}))
