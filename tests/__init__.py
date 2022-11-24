@@ -20,7 +20,8 @@ from tests.TestExceptions import TestExceptions
 from tests.TestFormats import TestFormats
 from tests.TestApi import TestApi
 from tests.TestImport import TestImport
+from tests.TestLocale import TestLocale
 
-__all__ = ['TestCasing', 'TestExceptions', 'TestFormats', 'TestApi', 'TestImport']
+__all__ = ['TestCasing', 'TestExceptions', 'TestFormats', 'TestApi', 'TestImport', 'TestLocale']
 __author__ = "Adam Schubert <adam.schubert@sg1-game.net>"
 __date__ = "$2016-01-17 14:51:02$"

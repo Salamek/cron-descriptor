@@ -22,10 +22,9 @@
 
 import tests.TestCase as TestCase
 from cron_descriptor import Options, ExpressionDescriptor
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 import tempfile, shutil, os
 import logging
-import glob 
 
 
 class TestLocale(TestCase.TestCase):
