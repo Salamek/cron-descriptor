@@ -39,13 +39,13 @@ class GetText(object):
     Handles language translations
     """
 
-    def __init__(self, locale_code):
+    def __init__(self, locale_code, locale_location=None):
         """
         Initialize GetText
         :param locale_code selected locale
         """
         try:
-            self.trans = self.load_locale(locale_code)
+            self.trans = self.load_locale(locale_code, locale_location)
         except IOError:
             logger.debug('Failed to find locale {}'.format(locale_code))
             logger.debug('Attempting to load en_US as fallback')
@@ -55,8 +55,11 @@ class GetText(object):
         # support for _("") or _("")
         self.trans.add_fallback(FallBackNull())
 
-    def load_locale(self, locale_code):
-        filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'locale', '{}.mo'.format(locale_code))
+    def load_locale(self, locale_code, locale_location=None):
+        if locale_location is None:
+            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'locale', '{}.mo'.format(locale_code))
+        else:
+            filename = os.path.join(locale_location, '{}.mo'.format(locale_code))
         with open(filename, "rb") as f:
             trans = gettext.GNUTranslations(f)
         logger.debug('{} Loaded'.format(filename))

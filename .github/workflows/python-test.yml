@@ -6,7 +6,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # see https://github.com/actions/setup-python/issues/162#issuecomment-1325307787
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         python-version: ["2.7", "3.6", "3.7", "3.8", "3.9", "3.10", "3.11.0-alpha - 3.11"]
@@ -20,6 +21,6 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pep8 flake8 pep8-naming
+        pip install mock pep8 flake8 pep8-naming
     - name: Test
       run: python setup.py test

@@ -71,7 +71,7 @@ class ExpressionDescriptor:
                 raise WrongArgumentException("Unknown {} configuration argument".format(kwarg))
 
         # Initializes localization
-        self.get_text = GetText(options.locale_code)
+        self.get_text = GetText(options.locale_code, options.locale_location)
 
     def _(self, message):
         return self.get_text.trans.gettext(message)
