@@ -22,7 +22,7 @@
 
 import tests.TestCase as TestCase
 from cron_descriptor import Options, ExpressionDescriptor
-from mock import patch
+from unittest.mock import patch
 import tempfile, shutil, os
 import logging
 

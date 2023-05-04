@@ -42,8 +42,7 @@ from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum, Expres
 
 descriptor = ExpressionDescriptor(
     expression = "*/10 * * * *",
-    throw_exception_on_parse_error = True, 
-    casing_type = CasingTypeEnum.Sentence, 
+    casing_type = CasingTypeEnum.Sentence,
     use_24hour_time_format = True
 )
 
@@ -54,7 +53,6 @@ print("{}".format(descriptor))
 # Or passing Options class as second argument:
 
 options = Options()
-options.throw_exception_on_parse_error = True
 options.casing_type = CasingTypeEnum.Sentence
 options.use_24hour_time_format = True
 descriptor = ExpressionDescriptor("*/10 * * * *", options)

@@ -32,7 +32,6 @@ class Options(object):
     """
 
     def __init__(self):
-        self.throw_exception_on_parse_error = True
         self.casing_type = CasingTypeEnum.Sentence
         self.verbose = False
         self.day_of_week_start_index_zero = True

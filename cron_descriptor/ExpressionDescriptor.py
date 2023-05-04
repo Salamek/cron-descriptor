@@ -44,7 +44,6 @@ class ExpressionDescriptor:
     _expression = ''
     _options = None
     _expression_parts = []
-    _parsed = False
 
     def __init__(self, expression, options=None, **kwargs):
         """Initializes a new instance of the ExpressionDescriptor
@@ -61,7 +60,6 @@ class ExpressionDescriptor:
         self._expression = expression
         self._options = options
         self._expression_parts = []
-        self._parsed = False
 
         # if kwargs in _options, overwrite it, if not raise exception
         for kwarg in kwargs:
@@ -72,6 +70,10 @@ class ExpressionDescriptor:
 
         # Initializes localization
         self.get_text = GetText(options.locale_code, options.locale_location)
+
+        # Parse expression
+        parser = ExpressionParser(self._expression, self._options)
+        self._expression_parts = parser.parse()
 
     def _(self, message):
         return self.get_text.trans.gettext(message)
@@ -84,35 +86,22 @@ class ExpressionDescriptor:
         Returns:
             The cron expression description
         Raises:
-            Exception: if throw_exception_on_parse_error is True
+            Exception:
 
         """
-        try:
-            if self._parsed is False:
-                parser = ExpressionParser(self._expression, self._options)
-                self._expression_parts = parser.parse()
-                self._parsed = True
+        choices = {
+            DescriptionTypeEnum.FULL: self.get_full_description,
+            DescriptionTypeEnum.TIMEOFDAY: self.get_time_of_day_description,
+            DescriptionTypeEnum.HOURS: self.get_hours_description,
+            DescriptionTypeEnum.MINUTES: self.get_minutes_description,
+            DescriptionTypeEnum.SECONDS: self.get_seconds_description,
+            DescriptionTypeEnum.DAYOFMONTH: self.get_day_of_month_description,
+            DescriptionTypeEnum.MONTH: self.get_month_description,
+            DescriptionTypeEnum.DAYOFWEEK: self.get_day_of_week_description,
+            DescriptionTypeEnum.YEAR: self.get_year_description,
+        }
 
-            choices = {
-                DescriptionTypeEnum.FULL: self.get_full_description,
-                DescriptionTypeEnum.TIMEOFDAY: self.get_time_of_day_description,
-                DescriptionTypeEnum.HOURS: self.get_hours_description,
-                DescriptionTypeEnum.MINUTES: self.get_minutes_description,
-                DescriptionTypeEnum.SECONDS: self.get_seconds_description,
-                DescriptionTypeEnum.DAYOFMONTH: self.get_day_of_month_description,
-                DescriptionTypeEnum.MONTH: self.get_month_description,
-                DescriptionTypeEnum.DAYOFWEEK: self.get_day_of_week_description,
-                DescriptionTypeEnum.YEAR: self.get_year_description,
-            }
-
-            description = choices.get(description_type, self.get_seconds_description)()
-
-        except Exception as ex:
-            if self._options.throw_exception_on_parse_error:
-                raise
-            else:
-                description = str(ex)
-        return description
+        return choices.get(description_type, self.get_seconds_description)()
 
     def get_full_description(self):
         """Generates the FULL description
@@ -120,7 +109,7 @@ class ExpressionDescriptor:
         Returns:
             The FULL description
         Raises:
-            FormatException: if formatting fails and throw_exception_on_parse_error is True
+            FormatException: if formatting fails
 
         """
 
@@ -144,8 +133,7 @@ class ExpressionDescriptor:
             description = self._(
                 "An error occurred when generating the expression description.  Check the cron expression syntax."
             )
-            if self._options.throw_exception_on_parse_error:
-                raise FormatException(description)
+            raise FormatException(description)
 
         return description
 
