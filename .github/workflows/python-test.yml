@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-    # see https://github.com/actions/setup-python/issues/162#issuecomment-1325307787
     runs-on: ubuntu-22.04
     strategy:
       matrix:
