@@ -27,7 +27,7 @@ from cron_descriptor import get_description
 class TestFormats(TestCase.TestCase):
 
     """
-    Tests formated cron expressions
+    Tests formatted cron expressions
     """
 
     def test_every_minute(self):

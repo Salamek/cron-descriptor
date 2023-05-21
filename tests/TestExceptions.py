@@ -27,7 +27,7 @@ from cron_descriptor import DescriptionTypeEnum, ExpressionDescriptor, MissingFi
 class TestExceptions(TestCase.TestCase):
 
     """
-    Tests that Exceptions are/not propery raised
+    Tests that Exceptions are/not properly raised
     """
 
     def test_none_cron_expression_exception(self):

@@ -648,5 +648,5 @@ def get_description(expression, options=None):
         The cron expression description
 
     """
-    descripter = ExpressionDescriptor(expression, options)
-    return descripter.get_description(DescriptionTypeEnum.FULL)
+    descriptor = ExpressionDescriptor(expression, options)
+    return descriptor.get_description(DescriptionTypeEnum.FULL)
