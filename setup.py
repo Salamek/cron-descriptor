@@ -21,15 +21,12 @@
 # SOFTWARE.
 
 import setuptools
-import sys
 
 
 if __name__ == "__main__":
-    if sys.version_info >= (3, 0):
-        long_description = open('README.md', encoding='utf-8').read()
-    else:
-        long_description = open('README.md').read()
-    
+    with open('README.md', encoding='utf-8') as in_file:
+        long_description = in_file.read()
+
     setuptools.setup(
         name="cron_descriptor",
         version="1.4.0",
@@ -53,17 +50,11 @@ if __name__ == "__main__":
             "License :: OSI Approved :: MIT License",
             "Operating System :: OS Independent",
             "Programming Language :: Python",
-            "Programming Language :: Python :: 2.7",
-            "Programming Language :: Python :: 3",
-            "Programming Language :: Python :: 3.2",
-            "Programming Language :: Python :: 3.3",
-            "Programming Language :: Python :: 3.4",
-            "Programming Language :: Python :: 3.5",
-            "Programming Language :: Python :: 3.6",
             "Programming Language :: Python :: 3.7",
             "Programming Language :: Python :: 3.8",
             "Programming Language :: Python :: 3.9",
             "Programming Language :: Python :: 3.10",
+            "Programming Language :: Python :: 3.11",
             "Topic :: Software Development",
         ],
         extras_require={
@@ -72,9 +63,7 @@ if __name__ == "__main__":
             ]
         },
         tests_require=[
-            'pep8',
-            'flake8',
-            'pep8-naming'
+            'ruff',
         ],
         test_suite="tests"
     )

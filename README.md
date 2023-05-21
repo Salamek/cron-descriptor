@@ -139,7 +139,5 @@ ln -s ../../pre-commit.sh .git/hooks/pre-commit
 Then install dev requirements:
 
 ```bash
-pip install pep8
-pip install flake8
-pip install pep8-naming
+pip install ruff
 ```
