@@ -23,7 +23,9 @@
 import tests.TestCase as TestCase
 from cron_descriptor import Options, ExpressionDescriptor
 from unittest.mock import patch
-import tempfile, shutil, os
+import tempfile
+import shutil
+import os
 import logging
 
 
@@ -49,6 +51,6 @@ class TestLocale(TestCase.TestCase):
             options.locale_location = temp_dir
             options.locale_code = 'de_DE'
             options.use_24hour_time_format = True
-            
+
             self.assertEqual("Jede Minute", ExpressionDescriptor("* * * * *", options).get_description())
             mock_logger.assert_called_once_with("{temp_path} Loaded".format(**{"temp_path":temp_path}))
