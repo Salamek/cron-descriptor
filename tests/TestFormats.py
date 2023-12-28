@@ -492,6 +492,12 @@ class TestFormats(TestCase.TestCase):
             get_description("0-20/3 9 * * *", self.options)
         )
 
+    def test_list_with_range_and_interval(self):
+        self.assertEqual(
+            "At 12:00 AM and every 2 hours, between 06:00 AM and 11:59 PM",
+            get_description("0 0,6-23/2 * * *", self.options)
+        )
+
     def minutes_zero_1(self):
         self.assertEqual(
             "Every second, at 0 minutes past the hour, every 4 hours",
