@@ -494,11 +494,11 @@ class ExpressionDescriptor:
                     get_between_description_format,
                     get_single_item_description
                 )
-                if not between_segment_description.startswith(", "):
+                if description and not between_segment_description.startswith(", "):
                     description += ", "
 
                 description += between_segment_description
-            else:
+            elif "*" not in segments[0]:
                 range_item_description = get_description_format(segments[0]).format(
                     get_single_item_description(segments[0])
                 )
