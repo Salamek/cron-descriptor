@@ -453,28 +453,6 @@ class ExpressionDescriptor:
             description = all_description
         elif any(ext in expression for ext in ['/', '-', ',']) is False:
             description = get_description_format(expression).format(get_single_item_description(expression))
-        elif "/" in expression:
-            segments = expression.split('/')
-            description = get_interval_description_format(segments[1]).format(get_single_item_description(segments[1]))
-
-            # interval contains 'between' piece (i.e. 2-59/3 )
-            if "-" in segments[0]:
-                between_segment_description = self.generate_between_segment_description(
-                    segments[0],
-                    get_between_description_format,
-                    get_single_item_description
-                )
-                if not between_segment_description.startswith(", "):
-                    description += ", "
-
-                description += between_segment_description
-            elif any(ext in segments[0] for ext in ['*', ',']) is False:
-                range_item_description = get_description_format(segments[0]).format(
-                    get_single_item_description(segments[0])
-                )
-                range_item_description = range_item_description.replace(", ", "")
-
-                description += self._(", starting {0}").format(range_item_description)
         elif "," in expression:
             segments = expression.split(',')
 
@@ -489,26 +467,44 @@ class ExpressionDescriptor:
                 if i > 0 and len(segments) > 1 and (i == len(segments) - 1 or len(segments) == 2):
                     description_content += self._(" and ")
 
-                if "-" in segment:
-                    between_segment_description = self.generate_between_segment_description(
+                if "-" in segment or "/" in segment:
+                    description_content += self.get_segment_description(
                         segment,
+                        all_description,
+                        get_single_item_description,
+                        get_interval_description_format,
+                        get_between_description_format,
+                        get_description_format,
                         get_range_format,
-                        get_single_item_description
                     )
-
-                    between_segment_description = between_segment_description.replace(", ", "")
-
-                    description_content += between_segment_description
                 else:
                     description_content += get_single_item_description(segment)
 
             description = get_description_format(expression).format(description_content)
-        elif "-" in expression:
-            description = self.generate_between_segment_description(
-                expression,
-                get_between_description_format,
-                get_single_item_description
-            )
+        else:
+            segments = expression.split('/')
+            description = ''
+            if len(segments) > 1:
+                description = get_interval_description_format(segments[1]).format(get_single_item_description(segments[1]))
+
+            # interval contains 'between' piece (i.e. 2-59/3 )
+            if "-" in segments[0]:
+                between_segment_description = self.generate_between_segment_description(
+                    segments[0],
+                    get_between_description_format,
+                    get_single_item_description
+                )
+                if not between_segment_description.startswith(", "):
+                    description += ", "
+
+                description += between_segment_description
+            else:
+                range_item_description = get_description_format(segments[0]).format(
+                    get_single_item_description(segments[0])
+                )
+                range_item_description = range_item_description.replace(", ", "")
+
+                description += self._(", starting {0}").format(range_item_description)
 
         return description
 
