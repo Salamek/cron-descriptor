@@ -40,7 +40,7 @@ package:debian:
 package:archlinux:
   stage: package
   script:
-    - pacman -Sy sudo fakeroot systemd binutils python-setuptools --noconfirm
+    - pacman -Syu sudo fakeroot systemd binutils python-setuptools --noconfirm
     - useradd -m -G users -s /bin/bash package
     - chown -R package:users archlinux
     - cd archlinux
