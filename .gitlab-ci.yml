@@ -25,7 +25,7 @@ package:debian:
   stage: package
   script:
     - apt-get update -qy
-    - apt-get install -y python-all python3-stdeb dh-python
+    - apt-get install -y python3-stdeb dh-python
     - rm -rf "./deb_dist"
     - export DEB_BUILD_OPTIONS=nocheck
     - python3 setup.py --command-packages=stdeb.command bdist_deb
@@ -78,8 +78,6 @@ packagetest:archlinux:
 
 repoupdate:
   stage: deploy
-  variables:
-    TWINE_USERNAME: Salamek
   before_script:
     # SSH
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
