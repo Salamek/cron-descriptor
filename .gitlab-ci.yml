@@ -82,7 +82,7 @@ repoupdate:
     # SSH
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - apt-get update -y
-    - apt-get install twine python3-setuptools -y
+    - apt-get install twine python3-setuptools python3-wheel -y
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
