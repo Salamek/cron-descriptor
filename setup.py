@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     setuptools.setup(
         name="cron_descriptor",
-        version="1.4.1",
+        version="1.4.2",
         description="A Python library that converts cron expressions "
                     "into human readable strings.",
         author="Adam Schubert",
