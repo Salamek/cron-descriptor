@@ -312,7 +312,7 @@ class ExpressionDescriptor:
                         1: self._("first"),
                         2: self._("second"),
                         3: self._("third"),
-                        4: self._("forth"),
+                        4: self._("fourth"),
                         5: self._("fifth"),
                     }
                     day_of_week_of_month_description = choices.get(day_of_week_of_month_number, '')

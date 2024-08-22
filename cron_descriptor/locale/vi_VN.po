@@ -110,7 +110,7 @@ msgid "third"
 msgstr "thứ ba"
 
 #: ExpressionDescriptor.py:298
-msgid "forth"
+msgid "fourth"
 msgstr "thứ tư"
 
 #: ExpressionDescriptor.py:299

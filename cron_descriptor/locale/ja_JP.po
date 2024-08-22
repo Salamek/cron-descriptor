@@ -109,7 +109,7 @@ msgid "third"
 msgstr "3 番目"
 
 #: ExpressionDescriptor.py:298
-msgid "forth"
+msgid "fourth"
 msgstr "4 番目"
 
 #: ExpressionDescriptor.py:299
