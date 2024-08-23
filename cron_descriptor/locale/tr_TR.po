@@ -111,7 +111,7 @@ msgid "third"
 msgstr "üçüncü"
 
 #: ExpressionDescriptor.py:247
-msgid "forth"
+msgid "fourth"
 msgstr "dördüncü"
 
 #: ExpressionDescriptor.py:249
