@@ -323,7 +323,10 @@ class ExpressionDescriptor:
             elif "L" in s:
                 formatted = self._(", on the last {0} of the month")
             else:
-                formatted = self._(", only on {0}")
+                if self._expression_parts[3] == '*' or '/' in self._expression_parts[3]:
+                    formatted = self._(", only on {0}")
+                else:
+                    formatted = ", and on {0}"
 
             return formatted
 
