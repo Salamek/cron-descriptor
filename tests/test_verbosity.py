@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from cron_descriptor import get_description, Options
+from cron_descriptor import Options, get_description
 
 """
 Tests verbosity

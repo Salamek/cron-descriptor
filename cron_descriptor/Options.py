@@ -58,16 +58,32 @@ class Options:
         "es_CO",  # Colombia
     )
 
-    def __init__(self) -> None:
-        self.casing_type = CasingTypeEnum.Sentence
-        self.verbose = False
-        self.day_of_week_start_index_zero = True
-        self.use_24hour_time_format = False
-        self.locale_location = None
+    def __init__(self,
+                 casing_type: CasingTypeEnum = CasingTypeEnum.Sentence,
+                 *,
+                 verbose: bool = False,
+                 day_of_week_start_index_zero: bool = True,
+                 use_24hour_time_format: bool | None = None,
+                 locale_code: str | None = None,
+                 locale_location: str | None = None,
+                 ) -> None:
+        self.casing_type = casing_type
+        self.verbose = verbose
+        self.day_of_week_start_index_zero = day_of_week_start_index_zero
+        self.locale_location = locale_location
 
-        code, _encoding = locale.getlocale()
-        if not code:
-            msg = "Failed to retrieve locale code"
-            raise ValueError(msg)
-        self.locale_code = code
-        self.use_24hour_time_format = code not in self._twelve_hour_locales
+        if not locale_code:
+            # Autodetect
+            code, _encoding = locale.getlocale()
+            if not code:
+                msg = "Failed to retrieve locale code"
+                raise ValueError(msg)
+            self.locale_code = code
+        else:
+            self.locale_code = locale_code
+
+        if use_24hour_time_format is None:
+            # Autodetect
+            self.use_24hour_time_format = self.locale_code not in self._twelve_hour_locales
+        else:
+            self.use_24hour_time_format = use_24hour_time_format
