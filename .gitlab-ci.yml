@@ -105,7 +105,7 @@ repoupdate:
     - ssh www-data@repository '/var/www/repository.salamek.cz/arch-pub-update.sh'
   
     # PyPi update
-    - python3 setup.py sdist bdist_wheel
+    - python3 -m build
     - twine upload dist/*
   dependencies:
     - package:archlinux

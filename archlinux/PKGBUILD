@@ -20,5 +20,10 @@ prepare() {
 
 package() {
   cd "${srcdir}/${pkgname}"
-  python setup.py install --root="$pkgdir/" --optimize=1
+  python -m pip install \
+        --root="$pkgdir" \
+        --optimize=1 \
+        --no-deps \
+        --no-user \
+        .
 }
