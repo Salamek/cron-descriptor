@@ -7,25 +7,33 @@ stages:
 test:debian:
   stage: test
   script:
-    - apt-get update -qy
-    - apt-get install python3-setuptools ca-certificates python3-pip python3-mock -qy
-    - python3 setup.py test
+    - apt update --yes
+    - apt install ca-certificates python3-venv --yes
+    - python3 -m venv venv
+    - ./venv/bin/pip install mock ruff setuptools mypy pytest
+    - ./venv/bin/ruff check .
+    - ./venv/bin/mypy .
+    - ./venv/bin/pytest .
   tags:
     - debian
 
 test:archlinux:
   stage: test
   script:
-    - pacman -Syu python-setuptools python-pip --noconfirm
-    - python setup.py test
+    - pacman -Syu python-venv python-pip --noconfirm
+    - python -m venv venv
+    - ./venv/bin/pip install mock ruff setuptools mypy pytest
+    - ./venv/bin/ruff check .
+    - ./venv/bin/mypy .
+    - ./venv/bin/pytest .
   tags:
     - archlinux
 
 package:debian:
   stage: package
   script:
-    - apt-get update -qy
-    - apt-get install -y python3-stdeb dh-python
+    - apt update --yes
+    - apt install python3-stdeb dh-python --yes
     - rm -rf "./deb_dist"
     - export DEB_BUILD_OPTIONS=nocheck
     - python3 setup.py --command-packages=stdeb.command bdist_deb
@@ -56,9 +64,9 @@ package:archlinux:
 packagetest:debian:
   stage: packagetest
   script:
-    - apt-get update -qy
+    - apt update --yes
     - cd deb_dist
-    - apt install ./*.deb -qy
+    - apt install ./*.deb --yes
   tags:
     - debian
   dependencies:
