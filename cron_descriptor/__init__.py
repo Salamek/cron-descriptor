@@ -26,7 +26,7 @@ from .Exception import FormatError, MissingFieldError, WrongArgumentError
 from .ExpressionDescriptor import ExpressionDescriptor, get_description
 from .Options import Options
 
-__version__ = "1.4.5"
+__version__ = "2.0.0"
 __all__ = [
            "CasingTypeEnum",
            "DescriptionTypeEnum",
