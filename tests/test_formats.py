@@ -278,8 +278,8 @@ def test_multi_part_range_minutes_2(options: Options) -> None:
 def test_trailing_space_does_not_cause_a_wrong_description(options: Options) -> None:
     assert get_description("0 7 * * * ", options) == "At 07:00 AM"
 
-def test_multi_part_day_of_the_week() -> None:
-    assert get_description("0 00 10 ? * MON-THU,SUN *") == "At 10:00 AM, only on Monday through Thursday and Sunday"
+def test_multi_part_day_of_the_week(options: Options) -> None:
+    assert get_description("0 00 10 ? * MON-THU,SUN *", options) == "At 10:00 AM, only on Monday through Thursday and Sunday"
 
 
 def test_day_of_week_with_day_of_month(options: Options) -> None:
