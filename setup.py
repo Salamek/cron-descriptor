@@ -22,9 +22,8 @@
 
 import setuptools
 
-
 if __name__ == "__main__":
-    with open('README.md', encoding='utf-8') as in_file:
+    with open("README.md", encoding="utf-8") as in_file:
         long_description = in_file.read()
 
     setuptools.setup(
@@ -36,11 +35,11 @@ if __name__ == "__main__":
         author_email="adam.schubert@sg1-game.net",
         url="https://github.com/Salamek/cron-descriptor",
         long_description=long_description,
-        long_description_content_type='text/markdown',
-        packages=setuptools.find_packages(exclude=['tests*', ]),
+        long_description_content_type="text/markdown",
+        packages=setuptools.find_packages(exclude=["tests*" ]),
         package_data={
-            'cron_descriptor': [
-                'locale/*.mo',
+            "cron_descriptor": [
+                "locale/*.mo",
             ],
         },
         classifiers=[
@@ -60,12 +59,12 @@ if __name__ == "__main__":
             "Topic :: Software Development",
         ],
         extras_require={
-            'dev': [
-                'polib',
-            ]
+            "dev": [
+                "polib",
+            ],
         },
         tests_require=[
-            'ruff',
+            "ruff",
         ],
-        test_suite="tests"
+        test_suite="tests",
     )

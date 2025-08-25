@@ -20,21 +20,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from .Options import Options
-from .ExpressionDescriptor import ExpressionDescriptor, get_description
-from .DescriptionTypeEnum import DescriptionTypeEnum
 from .CasingTypeEnum import CasingTypeEnum
-from .Exception import MissingFieldException, FormatException, WrongArgumentException
+from .DescriptionTypeEnum import DescriptionTypeEnum
+from .Exception import FormatException, MissingFieldException, WrongArgumentException
+from .ExpressionDescriptor import ExpressionDescriptor, get_description
+from .Options import Options
 
-
-__version__ = '1.4.5'
+__version__ = "1.4.5"
 __all__ = [
-           'CasingTypeEnum',
-           'DescriptionTypeEnum',
-           'ExpressionDescriptor',
-           'FormatException',
-           'MissingFieldException',
-           'Options',
-           'WrongArgumentException',
-           'get_description',
+           "CasingTypeEnum",
+           "DescriptionTypeEnum",
+           "ExpressionDescriptor",
+           "FormatException",
+           "MissingFieldException",
+           "Options",
+           "WrongArgumentException",
+           "get_description",
 ]

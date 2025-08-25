@@ -20,10 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import List
+
 
 class StringBuilder:
-    string: List[str]
+    string: list[str]
     """
     Builds string parts together acting like Java/.NET StringBuilder
     """
@@ -38,12 +38,13 @@ class StringBuilder:
             string: String to append
         Returns:
             None
+
         """
         if string:
             self.string.append(string)
 
     def __str__(self) -> str:
-        return ''.join(self.string)
+        return "".join(self.string)
 
     def __len__(self) -> int:
         return len(self.string)

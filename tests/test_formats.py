@@ -20,10 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from cron_descriptor import Options
-from cron_descriptor import get_description
-
-
+from cron_descriptor import Options, get_description
 
 """
 Tests formatted cron expressions
@@ -119,13 +116,13 @@ def test_last_day_of_the_week_of_the_month(options: Options) -> None:
 def test_last_day_of_the_month(options: Options) -> None:
     assert get_description(
         "*/5 * L JAN *",
-        options
+        options,
     ) == "Every 5 minutes, on the last day of the month, only in January"
 
 def test_last_day_offset(options: Options) -> None:
     assert get_description(
         "0 0 0 L-5 * ?",
-        options
+        options,
     ) == "At 12:00 AM, 5 days before the last day of the month"
 
 
@@ -204,14 +201,14 @@ def test_two_years_only(options: Options) -> None:
 def test_year_range2(options: Options) -> None:
     assert get_description(
         "23 12 * JAN-FEB * 2013-2014",
-        options
+        options,
     ) == "At 12:23 PM, January through February, 2013 through 2014"
 
 
 def test_year_range3(options: Options) -> None:
     assert get_description(
         "23 12 * JAN-MAR * 2013-2015",
-        options
+        options,
     ) == "At 12:23 PM, January through March, 2013 through 2015"
 
 
@@ -261,7 +258,7 @@ def test_every3_month(options: Options) -> None:
 def test_every2_years(options: Options) -> None:
     assert get_description(
         "0 15 6 1 1 ? 1/2",
-        options
+        options,
     ) == "At 06:15 AM, on day 1 of the month, only in January, every 2 years"
 
 
@@ -271,7 +268,7 @@ def test_multi_part_range_minutes(options: Options) -> None:
 def test_multi_part_range_minutes_2(options: Options) -> None:
     assert get_description(
         "2,26-28 18 * * *",
-        options
+        options,
     ) == "At 2 and 26 through 28 minutes past the hour, at 06:00 PM"
 
 

@@ -20,19 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import datetime
-from typing import Dict
 import xml.etree.ElementTree as ET
 from pathlib import Path
+
 import polib
 
 
 class Resx2Po:
     def __init__(self, en_resx: Path, translation_resx: Path, code: str, output_po: Path):
         if not en_resx.is_file():
-            raise Exception("EN Resx {} not found".format(en_resx.absolute()))
+            raise Exception(f"EN Resx {en_resx.absolute()} not found")
 
         if not translation_resx.is_file():
-            raise Exception("Translation {} {} Resx bound not found".format(code, translation_resx.absolute()))
+            raise Exception(f"Translation {code} {translation_resx.absolute()} Resx bound not found")
 
         self.en_resx = self.resx2dict(en_resx)
         self.translation_resx = self.resx2dict(translation_resx)
@@ -41,31 +41,31 @@ class Resx2Po:
 
         self.generate()
 
-    def resx2dict(self, resx: Path) -> Dict[str, str]:
+    def resx2dict(self, resx: Path) -> dict[str, str]:
         tree = ET.parse(resx)
         root = tree.getroot()
         translation_table = {}
-        for first in root.findall('./data'):
-            found_value = first.find('./value')
+        for first in root.findall("./data"):
+            found_value = first.find("./value")
             if found_value and found_value.text:
-                translation_table[first.attrib['name']] = found_value.text
+                translation_table[first.attrib["name"]] = found_value.text
 
         return translation_table
 
     def generate(self) -> None:
         po = polib.POFile()
-        now = datetime.datetime.now(datetime.timezone.utc)
+        now = datetime.datetime.now(datetime.UTC)
         po.metadata = {
-            'Project-Id-Version': '1.0',
-            'Report-Msgid-Bugs-To': 'adam.schubert@sg1-game.net',
-            'POT-Creation-Date': now.strftime("%Y-%m-%d %H:%M%z"),
-            'PO-Revision-Date': now.strftime("%Y-%m-%d %H:%M%z"),
-            'Last-Translator': 'Adam Schubert <adam.schubert@sg1-game.net>',
-            'Language-Team': '',
-            'MIME-Version': '1.0',
-            'Content-Type': 'text/plain; charset=utf-8',
-            'Content-Transfer-Encoding': '8bit',
-            'Language': self.code
+            "Project-Id-Version": "1.0",
+            "Report-Msgid-Bugs-To": "adam.schubert@sg1-game.net",
+            "POT-Creation-Date": now.strftime("%Y-%m-%d %H:%M%z"),
+            "PO-Revision-Date": now.strftime("%Y-%m-%d %H:%M%z"),
+            "Last-Translator": "Adam Schubert <adam.schubert@sg1-game.net>",
+            "Language-Team": "",
+            "MIME-Version": "1.0",
+            "Content-Type": "text/plain; charset=utf-8",
+            "Content-Transfer-Encoding": "8bit",
+            "Language": self.code,
         }
 
         for message_en_id, message_en in self.en_resx.items():
@@ -73,17 +73,17 @@ class Resx2Po:
                 entry = polib.POEntry(
                     msgid=message_en,
                     msgstr=self.translation_resx[message_en_id],
-                    comment=message_en_id
+                    comment=message_en_id,
                 )
                 po.append(entry)
             else:
-                print('WARNING: {} not found in {} resx'.format(message_en_id, self.code))
+                print(f"WARNING: {message_en_id} not found in {self.code} resx")
 
         po.save(str(self.output_po.absolute()))
 
 
 code_list = {
-    'da': 'da_DK',
+    "da": "da_DK",
 
     # 'de': 'de_DE',
     # 'es': 'es_ES',
@@ -108,13 +108,13 @@ code_list = {
     # 'zh-Hant': 'zh_Hant',
 }
 
-output_dir = Path('../locale')
+output_dir = Path("../locale")
 
 for from_code, to_code in code_list.items():
-    output_file = output_dir.joinpath('{}.po'.format(to_code))
+    output_file = output_dir.joinpath(f"{to_code}.po")
     Resx2Po(
-        Path('Resources.resx'),
-        Path('Resources.{}.resx'.format(from_code)),
+        Path("Resources.resx"),
+        Path(f"Resources.{from_code}.resx"),
         to_code,
-        output_file
+        output_file,
     )

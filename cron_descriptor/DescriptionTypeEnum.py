@@ -25,9 +25,7 @@ import enum
 
 @enum.unique
 class DescriptionTypeEnum(enum.IntEnum):
-
-    """
-    DescriptionTypeEnum
+    """DescriptionTypeEnum
     """
 
     FULL = 1

@@ -21,10 +21,8 @@
 # SOFTWARE.
 
 import gettext
-import os
-from typing import Optional
 import logging
-
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -36,34 +34,32 @@ class FallBackNull(gettext.NullTranslations):
 
 
 class GetText:
-    """
-    Handles language translations
+    """Handles language translations
     """
 
-    def __init__(self, locale_code: str, locale_location: Optional[str]=None):
-        """
-        Initialize GetText
+    def __init__(self, locale_code: str, locale_location: str | None=None):
+        """Initialize GetText
         :param locale_code selected locale
         """
         try:
             self.trans = self.load_locale(locale_code, locale_location)
-        except IOError:
-            logger.debug('Failed to find locale {}'.format(locale_code))
-            logger.debug('Attempting to load en_US as fallback')
-            self.trans = self.load_locale('en_US')
+        except OSError:
+            logger.debug(f"Failed to find locale {locale_code}")
+            logger.debug("Attempting to load en_US as fallback")
+            self.trans = self.load_locale("en_US")
 
         # Add fallback that does not return original string, this is hack to add
         # support for _("") or _("")
         self.trans.add_fallback(FallBackNull())
 
-    def load_locale(self, locale_code: str, locale_location: Optional[str]=None) -> gettext.GNUTranslations:
+    def load_locale(self, locale_code: str, locale_location: str | None=None) -> gettext.GNUTranslations:
         if locale_location is None:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'locale', '{}.mo'.format(locale_code))
+            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), "locale", f"{locale_code}.mo")
         else:
-            filename = os.path.join(locale_location, '{}.mo'.format(locale_code))
+            filename = os.path.join(locale_location, f"{locale_code}.mo")
         with open(filename, "rb") as f:
             trans = gettext.GNUTranslations(f)
-        logger.debug('{} Loaded'.format(filename))
+        logger.debug(f"{filename} Loaded")
         return trans
 
 

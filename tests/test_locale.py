@@ -20,32 +20,32 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from cron_descriptor import Options, ExpressionDescriptor
-from unittest.mock import patch
-import tempfile
-import shutil
-import os
 import logging
+import os
+import shutil
+import tempfile
+from unittest.mock import patch
 
+from cron_descriptor import ExpressionDescriptor, Options
 
 
 def test_locale_de() -> None:
     options = Options()
-    options.locale_code = 'de_DE'
+    options.locale_code = "de_DE"
     options.use_24hour_time_format = True
     assert ExpressionDescriptor("* * * * *", options).get_description() == "Jede Minute"
 
 def test_locale_de_custom_location() -> None:
-    logger = logging.getLogger('cron_descriptor.GetText')
+    logger = logging.getLogger("cron_descriptor.GetText")
     with patch.object(logger, "debug") as mock_logger:
         # Copy existing .mo file to temp directory:
         temp_dir = tempfile.gettempdir()
-        temp_path = os.path.join(temp_dir, 'de_DE.mo')
-        shutil.copyfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../cron_descriptor/locale/', 'de_DE.mo'), temp_path)
+        temp_path = os.path.join(temp_dir, "de_DE.mo")
+        shutil.copyfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../cron_descriptor/locale/", "de_DE.mo"), temp_path)
 
         options = Options()
         options.locale_location = temp_dir
-        options.locale_code = 'de_DE'
+        options.locale_code = "de_DE"
         options.use_24hour_time_format = True
 
         assert ExpressionDescriptor("* * * * *", options).get_description() == "Jede Minute"

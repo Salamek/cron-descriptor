@@ -21,39 +21,39 @@
 # SOFTWARE.
 
 import re
-from typing import ClassVar, Dict, List
+from typing import ClassVar
 
+from .Exception import FormatException, MissingFieldException
 from .Options import Options
-from .Exception import MissingFieldException, FormatException
 
 
 class ExpressionParser:
-    _expression = ''
+    _expression = ""
     _options: Options
 
-    _cron_days: ClassVar[Dict[int, str]] = {
-        0: 'SUN',
-        1: 'MON',
-        2: 'TUE',
-        3: 'WED',
-        4: 'THU',
-        5: 'FRI',
-        6: 'SAT'
+    _cron_days: ClassVar[dict[int, str]] = {
+        0: "SUN",
+        1: "MON",
+        2: "TUE",
+        3: "WED",
+        4: "THU",
+        5: "FRI",
+        6: "SAT",
     }
 
-    _cron_months: ClassVar[Dict[int, str]] = {
-        1: 'JAN',
-        2: 'FEB',
-        3: 'MAR',
-        4: 'APR',
-        5: 'MAY',
-        6: 'JUN',
-        7: 'JUL',
-        8: 'AUG',
-        9: 'SEP',
-        10: 'OCT',
-        11: 'NOV',
-        12: 'DEC'
+    _cron_months: ClassVar[dict[int, str]] = {
+        1: "JAN",
+        2: "FEB",
+        3: "MAR",
+        4: "APR",
+        5: "MAY",
+        6: "JUN",
+        7: "JUL",
+        8: "AUG",
+        9: "SEP",
+        10: "OCT",
+        11: "NOV",
+        12: "DEC",
     }
 
     def __init__(self, expression: str, options: Options):
@@ -66,16 +66,18 @@ class ExpressionParser:
         self._expression = expression
         self._options = options
 
-    def parse(self) -> List[str]:
+    def parse(self) -> list[str]:
         """Parses the cron expression string
         Returns:
             A 7 part string array, one part for each component of the cron expression (seconds, minutes, etc.)
+
         Raises:
             MissingFieldException: if _expression is empty or None
             FormatException: if _expression has wrong format
+
         """
         # Initialize all elements of parsed array to empty strings
-        parsed = ['', '', '', '', '', '', '']
+        parsed = ["", "", "", "", "", "", ""]
 
         if not self._expression:
             raise MissingFieldException("ExpressionDescriptor.expression")
@@ -84,9 +86,7 @@ class ExpressionParser:
             expression_parts_temp_length = len(expression_parts_temp)
             if expression_parts_temp_length < 5:
                 raise FormatException(
-                    "Error: Expression only has {0} parts.  At least 5 part are required.".format(
-                        expression_parts_temp_length
-                    )
+                    f"Error: Expression only has {expression_parts_temp_length} parts.  At least 5 part are required.",
                 )
             elif expression_parts_temp_length == 5:
                 # 5 part cron so shift array past seconds element
@@ -111,20 +111,20 @@ class ExpressionParser:
                 parsed = expression_parts_temp
             else:
                 raise FormatException(
-                    "Error: Expression has too many parts ({0}).  Expression must not have more than 7 parts.".format(
-                        expression_parts_temp_length
-                    )
+                    f"Error: Expression has too many parts ({expression_parts_temp_length}).  Expression must not have more than 7 parts.",
                 )
         self.normalize_expression(parsed)
 
         return parsed
 
-    def normalize_expression(self, expression_parts: List[str]) -> None:
+    def normalize_expression(self, expression_parts: list[str]) -> None:
         """Converts cron expression components into consistent, predictable formats.
+
         Args:
             expression_parts: A 7 part string array, one part for each component of the cron expression
         Returns:
             None
+
         """
         # convert ? to * only for DOM and DOW
         expression_parts[3] = expression_parts[3].replace("?", "*")
@@ -155,7 +155,7 @@ class ExpressionParser:
         # Adjust DOW based on dayOfWeekStartIndexZero option
         def digit_replace(match: re.Match[str]) -> str:
             match_value = match.group()
-            dow_digits = re.sub(r'\D', "", match_value)
+            dow_digits = re.sub(r"\D", "", match_value)
             dow_digits_adjusted = dow_digits
             if self._options.day_of_week_start_index_zero:
                 if dow_digits == "7":
@@ -165,7 +165,7 @@ class ExpressionParser:
 
             return match_value.replace(dow_digits, dow_digits_adjusted)
 
-        expression_parts[5] = re.sub(r'(^\d)|([^#/\s]\d)', digit_replace, expression_parts[5])
+        expression_parts[5] = re.sub(r"(^\d)|([^#/\s]\d)", digit_replace, expression_parts[5])
 
         # Convert DOM '?' to '*'
         if expression_parts[3] == "?":
@@ -182,19 +182,19 @@ class ExpressionParser:
 
         # convert 0 second to (empty)
         if expression_parts[0] == "0":
-            expression_parts[0] = ''
+            expression_parts[0] = ""
 
         # If time interval is specified for seconds or minutes and next time part is single item, make it a "self-range" so
         # the expression can be interpreted as an interval 'between' range.
         # For example:
         # 0-20/3 9 * * * => 0-20/3 9-9 * * * (9 => 9-9)
         # */5 3 * * * => */5 3-3 * * * (3 => 3-3)
-        star_and_slash = ['*', '/']
+        star_and_slash = ["*", "/"]
         has_part_zero_star_and_slash = any(ext in expression_parts[0] for ext in star_and_slash)
         has_part_one_star_and_slash = any(ext in expression_parts[1] for ext in star_and_slash)
-        has_part_two_special_chars = any(ext in expression_parts[2] for ext in ['*', '-', ',', '/'])
+        has_part_two_special_chars = any(ext in expression_parts[2] for ext in ["*", "-", ",", "/"])
         if not has_part_two_special_chars and (has_part_zero_star_and_slash or has_part_one_star_and_slash):
-            expression_parts[2] += '-{}'.format(expression_parts[2])
+            expression_parts[2] += f"-{expression_parts[2]}"
 
         # Loop through all parts and apply global normalization
         length = len(expression_parts)
@@ -213,15 +213,15 @@ class ExpressionParser:
             - DOW part '3/2' will be converted to '3-6/2' (every 2 days between Tuesday and Saturday)
             """
 
-            if "/" in expression_parts[i] and not any(exp in expression_parts[i] for exp in ['*', '-', ',']):
+            if "/" in expression_parts[i] and not any(exp in expression_parts[i] for exp in ["*", "-", ","]):
                 choices = {
                     4: "12",
                     5: "6",
-                    6: "9999"
+                    6: "9999",
                 }
 
                 step_range_through = choices.get(i)
 
                 if step_range_through is not None:
-                    parts = expression_parts[i].split('/')
-                    expression_parts[i] = "{0}-{1}/{2}".format(parts[0], step_range_through, parts[1])
+                    parts = expression_parts[i].split("/")
+                    expression_parts[i] = f"{parts[0]}-{step_range_through}/{parts[1]}"

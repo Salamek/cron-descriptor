@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import locale
-from typing import Optional
+
 from .CasingTypeEnum import CasingTypeEnum
 
 
@@ -31,7 +31,7 @@ class Options:
     verbose: bool
     day_of_week_start_index_zero: bool
     use_24hour_time_format: bool
-    locale_location: Optional[str]
+    locale_location: str | None
     """
     Options for parsing and describing a Cron Expression
     """
@@ -45,6 +45,6 @@ class Options:
 
         code, _encoding = locale.getlocale()
         if not code:
-            raise ValueError('Failed to retrieve locale code')
+            raise ValueError("Failed to retrieve locale code")
         self.locale_code = code
         self.use_24hour_time_format = code in ["ru_RU", "uk_UA", "de_DE", "it_IT", "tr_TR", "cs_CZ", "ta_IN"]

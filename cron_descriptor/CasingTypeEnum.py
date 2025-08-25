@@ -20,10 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""
-Enum to define the casing types for the Cron Expression description
+"""Enum to define the casing types for the Cron Expression description
 """
 import enum
+
 
 @enum.unique
 class CasingTypeEnum(enum.IntEnum):

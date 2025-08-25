@@ -22,9 +22,7 @@
 
 
 class MissingFieldException(Exception):
-
-    """
-    Exception for cases when something is missing
+    """Exception for cases when something is missing
     """
 
     def __init__(self, message: str):
@@ -35,20 +33,18 @@ class MissingFieldException(Exception):
 
         """
         super(MissingFieldException, self).__init__(
-            "Field '{}' not found.".format(message))
+            f"Field '{message}' not found.")
 
 
 class FormatException(Exception):
+    """Exception for cases when something has wrong format
+    """
 
-    """
-    Exception for cases when something has wrong format
-    """
     pass
 
 
 class WrongArgumentException(Exception):
+    """Exception for cases when wrong argument is passed
+    """
 
-    """
-    Exception for cases when wrong argument is passed
-    """
     pass

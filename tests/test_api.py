@@ -20,9 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from cron_descriptor import DescriptionTypeEnum, ExpressionDescriptor
-from cron_descriptor import Options
-
+from cron_descriptor import DescriptionTypeEnum, ExpressionDescriptor, Options
 
 """
 Testing that API of ExpressionDescriptor is working as specified in DOCs

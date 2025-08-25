@@ -20,11 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from cron_descriptor import Options
-from cron_descriptor import CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor
-
-
-
+from cron_descriptor import CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor, Options
 
 """
 Tests casing transformation
