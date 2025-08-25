@@ -1,0 +1,209 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
+"POT-Creation-Date: 2025-08-25 19:23+0000\n"
+"PO-Revision-Date: 2025-08-25 19:23+0000\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"Language: es_MX\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. EveryMinute
+msgid "every minute"
+msgstr "cada un minuto"
+
+#. EveryHour
+msgid "every hour"
+msgstr "cada una hora"
+
+#. AnErrorOccurredWhenGeneratingTheExpressionD
+msgid ""
+"An error occured when generating the expression description.  Check the cron"
+" expression syntax."
+msgstr ""
+"Error al momento de generar la descripción de la expresión.  Verifique la "
+"sintaxis de la expresión Cron."
+
+#. AtSpace
+msgid "At "
+msgstr "A las "
+
+#. EveryMinuteBetweenX0AndX1
+msgid "Every minute between {0} and {1}"
+msgstr "Cada un minuto entre las {0} y las {1}"
+
+#. At
+msgid "At"
+msgstr "A las"
+
+#. SpaceAnd
+msgid " and"
+msgstr " y"
+
+#. EverySecond
+msgid "every second"
+msgstr "cada un segundo"
+
+#. EveryX0Seconds
+msgid "every {0} seconds"
+msgstr "cada {0} segundos"
+
+#. SecondsX0ThroughX1PastTheMinute
+msgid "seconds {0} through {1} past the minute"
+msgstr "segundos {0} hasta {1} después del minuto"
+
+#. AtX0SecondsPastTheMinute
+msgid "at {0} seconds past the minute"
+msgstr "a {0} segundos después del minuto"
+
+#. EveryX0Minutes
+msgid "every {0} minutes"
+msgstr "cada {0} minutos"
+
+#. MinutesX0ThroughX1PastTheHour
+msgid "minutes {0} through {1} past the hour"
+msgstr "minutos {0} hasta {1} después de la hora"
+
+#. AtX0MinutesPastTheHour
+msgid "at {0} minutes past the hour"
+msgstr "a {0} minutos después de la hora"
+
+#. EveryX0Hours
+msgid "every {0} hours"
+msgstr "cada {0} horas"
+
+#. BetweenX0AndX1
+msgid "between {0} and {1}"
+msgstr "entre {0} y {1}"
+
+#. AtX0
+msgid "at {0}"
+msgstr "a {0}"
+
+#. ComaEveryDay
+msgid ", every day"
+msgstr ", todos los días"
+
+#. ComaEveryX0DaysOfTheWeek
+msgid ", every {0} days of the week"
+msgstr ", cada {0} días de la semana"
+
+#. ComaX0ThroughX1
+msgid ", {0} through {1}"
+msgstr ", {0} hasta {1}"
+
+#. First
+msgid "first"
+msgstr "primero"
+
+#. Second
+msgid "second"
+msgstr "segundo"
+
+#. Third
+msgid "third"
+msgstr "tercero"
+
+#. Fourth
+msgid "fourth"
+msgstr "cuarto"
+
+#. Fifth
+msgid "fifth"
+msgstr "quinto"
+
+#. ComaOnThe
+msgid ", on the "
+msgstr ", el "
+
+#. SpaceX0OfTheMonth
+msgid " {0} of the month"
+msgstr " {0} del mes"
+
+#. ComaOnTheLastX0OfTheMonth
+msgid ", on the last {0} of the month"
+msgstr ", el último {0} del mes"
+
+#. ComaOnlyOnX0
+msgid ", only on {0}"
+msgstr ", solo el {0}"
+
+#. ComaEveryX0Months
+msgid ", every {0} months"
+msgstr ", cada {0} meses"
+
+#. ComaOnlyInX0
+msgid ", only in {0}"
+msgstr ", solo en {0}"
+
+#. ComaOnTheLastDayOfTheMonth
+msgid ", on the last day of the month"
+msgstr ", el último día del mes"
+
+#. ComaOnTheLastWeekdayOfTheMonth
+msgid ", on the last weekday of the month"
+msgstr ", el último día hábil del mes"
+
+#. FirstWeekday
+msgid "first weekday"
+msgstr "primer día hábil"
+
+#. WeekdayNearestDayX0
+msgid "weekday nearest day {0}"
+msgstr "el día más próximo al día hábil {0}"
+
+#. ComaOnTheX0OfTheMonth
+msgid ", on the {0} of the month"
+msgstr ", el {0} del mes"
+
+#. ComaEveryX0Days
+msgid ", every {0} days"
+msgstr ", cada {0} días"
+
+#. ComaBetweenDayX0AndX1OfTheMonth
+msgid ", between day {0} and {1} of the month"
+msgstr ", entre el {0} y el {1} día del mes"
+
+#. ComaOnDayX0OfTheMonth
+msgid ", on day {0} of the month"
+msgstr ", el día {0} del mes"
+
+#. SpaceAndSpace
+msgid " and "
+msgstr " y "
+
+#. ComaEveryMinute
+msgid ", every minute"
+msgstr ", cada un minuto"
+
+#. ComaEveryHour
+msgid ", every hour"
+msgstr ", cada una hora"
+
+#. ComaEveryX0Years
+msgid ", every {0} years"
+msgstr ", cada {0} años"
+
+#. CommaStartingX0
+msgid ", starting {0}"
+msgstr ", a partir de {0}"
+
+#. AMPeriod
+msgid "AM"
+msgstr "A. M."
+
+#. PMPeriod
+msgid "PM"
+msgstr "P. M."
+
+#. CommaDaysBeforeTheLastDayOfTheMonth
+msgid ", {0} days before the last day of the month"
+msgstr ", {0} días antes del último día del mes"
+
+#. ComaOnlyInYearX0
+msgid ", only in {0}"
+msgstr ", solo en {0}"

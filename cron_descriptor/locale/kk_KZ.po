@@ -1,0 +1,201 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
+"POT-Creation-Date: 2025-08-25 19:23+0000\n"
+"PO-Revision-Date: 2025-08-25 19:23+0000\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"Language: kk_KZ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. EveryMinute
+msgid "every minute"
+msgstr "әрбір минут сайын"
+
+#. EveryHour
+msgid "every hour"
+msgstr "әрбір сағат сайын"
+
+#. AnErrorOccurredWhenGeneratingTheExpressionD
+msgid ""
+"An error occured when generating the expression description.  Check the cron"
+" expression syntax."
+msgstr ""
+"Өрнек сипаттамасын жасау кезінде қате пайда болды.  Cron өрнек синтаксисін "
+"тексеріңіз."
+
+#. AtSpace
+msgid "At "
+msgstr "Сағат "
+
+#. EveryMinuteBetweenX0AndX1
+msgid "Every minute between {0} and {1}"
+msgstr "Әрбір минут арасында {0} және {1}"
+
+#. At
+msgid "At"
+msgstr "Сағат"
+
+#. SpaceAnd
+msgid " and"
+msgstr " және"
+
+#. EverySecond
+msgid "every second"
+msgstr "әрбір секунд сайын"
+
+#. EveryX0Seconds
+msgid "every {0} seconds"
+msgstr "әрбір {0} секунд"
+
+#. SecondsX0ThroughX1PastTheMinute
+msgid "seconds {0} through {1} past the minute"
+msgstr "секунд {0} жөніндегі {1} минутына"
+
+#. AtX0SecondsPastTheMinute
+msgid "at {0} seconds past the minute"
+msgstr "{0} секундтан кейін басталғаннан кейін минут"
+
+#. EveryX0Minutes
+msgid "every {0} minutes"
+msgstr "әрбір {0} минут"
+
+#. MinutesX0ThroughX1PastTheHour
+msgid "minutes {0} through {1} past the hour"
+msgstr "минут {0}-{1}"
+
+#. AtX0MinutesPastTheHour
+msgid "at {0} minutes past the hour"
+msgstr "{0} минуттан кейін сағат"
+
+#. EveryX0Hours
+msgid "every {0} hours"
+msgstr "әрбір {0} сағат"
+
+#. BetweenX0AndX1
+msgid "between {0} and {1}"
+msgstr "арасында {0} және {1}"
+
+#. AtX0
+msgid "at {0}"
+msgstr "сағат {0}"
+
+#. ComaEveryDay
+msgid ", every day"
+msgstr ", әрбір күні"
+
+#. ComaEveryX0DaysOfTheWeek
+msgid ", every {0} days of the week"
+msgstr ", әрбір {0} күн апта"
+
+#. ComaX0ThroughX1
+msgid ", {0} through {1}"
+msgstr ", {0}-{1}"
+
+#. First
+msgid "first"
+msgstr "бірінші"
+
+#. Second
+msgid "second"
+msgstr "екінші"
+
+#. Third
+msgid "third"
+msgstr "үшінші"
+
+#. Fourth
+msgid "fourth"
+msgstr "төртінші"
+
+#. Fifth
+msgid "fifth"
+msgstr "бесінші"
+
+#. ComaOnThe
+msgid ", on the "
+msgstr ", "
+
+#. SpaceX0OfTheMonth
+msgid " {0} of the month"
+msgstr " {0} ай"
+
+#. ComaOnTheLastX0OfTheMonth
+msgid ", on the last {0} of the month"
+msgstr ", әрбір айдың соңғы {0}"
+
+#. ComaOnlyOnX0
+msgid ", only on {0}"
+msgstr ", тек {0}"
+
+#. ComaEveryX0Months
+msgid ", every {0} months"
+msgstr ", әрбір {0} ай сайын"
+
+#. ComaOnlyInX0
+msgid ", only in {0}"
+msgstr ", тек {0}"
+
+#. ComaOnTheLastDayOfTheMonth
+msgid ", on the last day of the month"
+msgstr ", айдың соңғы күні"
+
+#. ComaOnTheLastWeekdayOfTheMonth
+msgid ", on the last weekday of the month"
+msgstr ", соңғы жұмыс күні ай"
+
+#. FirstWeekday
+msgid "first weekday"
+msgstr "бірінші жұмыс күні"
+
+#. WeekdayNearestDayX0
+msgid "weekday nearest day {0}"
+msgstr "жақында {0}-ші күні"
+
+#. ComaOnTheX0OfTheMonth
+msgid ", on the {0} of the month"
+msgstr ", {0}-айдың"
+
+#. ComaEveryX0Days
+msgid ", every {0} days"
+msgstr ", әрбір {0} күн"
+
+#. ComaBetweenDayX0AndX1OfTheMonth
+msgid ", between day {0} and {1} of the month"
+msgstr ", арасында {0} және {1}-күндіз ай"
+
+#. ComaOnDayX0OfTheMonth
+msgid ", on day {0} of the month"
+msgstr ", {0}-ші күні ай"
+
+#. SpaceAndSpace
+msgid " and "
+msgstr " және "
+
+#. ComaEveryMinute
+msgid ", every minute"
+msgstr ", әрбір минут сайын"
+
+#. ComaEveryHour
+msgid ", every hour"
+msgstr ", әрбір сағат сайын"
+
+#. ComaEveryX0Years
+msgid ", every {0} years"
+msgstr ", әрбір {0} жыл сайын"
+
+#. CommaStartingX0
+msgid ", starting {0}"
+msgstr ", бастап {0}"
+
+#. CommaDaysBeforeTheLastDayOfTheMonth
+msgid ", {0} days before the last day of the month"
+msgstr ", {0} күн айдың соңғы күні"
+
+#. ComaOnlyInYearX0
+msgid ", only in {0}"
+msgstr ", тек {0}"

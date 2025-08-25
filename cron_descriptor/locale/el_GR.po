@@ -1,0 +1,209 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
+"POT-Creation-Date: 2025-08-25 19:23+0000\n"
+"PO-Revision-Date: 2025-08-25 19:23+0000\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"Language: el_GR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. EveryMinute
+msgid "every minute"
+msgstr "κάθε λεπτό"
+
+#. EveryHour
+msgid "every hour"
+msgstr "κάθε ώρα"
+
+#. AnErrorOccurredWhenGeneratingTheExpressionD
+msgid ""
+"An error occured when generating the expression description.  Check the cron"
+" expression syntax."
+msgstr ""
+"Ένα σφάλμα συνέβη κατά τη δημιουργία της περιγραφής έκφρασης. Ελέγξτε τη "
+"σύνταξη της έκφρασης cron."
+
+#. AtSpace
+msgid "At "
+msgstr "Στις "
+
+#. EveryMinuteBetweenX0AndX1
+msgid "Every minute between {0} and {1}"
+msgstr "Κάθε λεπτό μεταξύ {0} και {1}"
+
+#. At
+msgid "At"
+msgstr "Στις"
+
+#. SpaceAnd
+msgid " and"
+msgstr " και"
+
+#. EverySecond
+msgid "every second"
+msgstr "κάθε δευτερόλεπτο"
+
+#. EveryX0Seconds
+msgid "every {0} seconds"
+msgstr "κάθε {0} δευτερόλεπτα"
+
+#. SecondsX0ThroughX1PastTheMinute
+msgid "seconds {0} through {1} past the minute"
+msgstr "δευτερόλεπτα {0} έως {1} μετά το λεπτό"
+
+#. AtX0SecondsPastTheMinute
+msgid "at {0} seconds past the minute"
+msgstr "στις {0} δευτερόλεπτα μετά το λεπτό"
+
+#. EveryX0Minutes
+msgid "every {0} minutes"
+msgstr "κάθε {0} λεπτά"
+
+#. MinutesX0ThroughX1PastTheHour
+msgid "minutes {0} through {1} past the hour"
+msgstr "λεπτά {0} έως {1} μετά την ώρα"
+
+#. AtX0MinutesPastTheHour
+msgid "at {0} minutes past the hour"
+msgstr "στις {0} λεπτά μετά την ώρα"
+
+#. EveryX0Hours
+msgid "every {0} hours"
+msgstr "κάθε {0} ώρες"
+
+#. BetweenX0AndX1
+msgid "between {0} and {1}"
+msgstr "μεταξύ {0} και {1}"
+
+#. AtX0
+msgid "at {0}"
+msgstr "στις {0}"
+
+#. ComaEveryDay
+msgid ", every day"
+msgstr ", κάθε μέρα"
+
+#. ComaEveryX0DaysOfTheWeek
+msgid ", every {0} days of the week"
+msgstr ", κάθε {0} ημέρες της εβδομάδας"
+
+#. ComaX0ThroughX1
+msgid ", {0} through {1}"
+msgstr ", {0} έως {1}"
+
+#. First
+msgid "first"
+msgstr "πρώτα"
+
+#. Second
+msgid "second"
+msgstr "δεύτερος"
+
+#. Third
+msgid "third"
+msgstr "τρίτος"
+
+#. Fourth
+msgid "fourth"
+msgstr "τέταρτος"
+
+#. Fifth
+msgid "fifth"
+msgstr "πέμπτος"
+
+#. ComaOnThe
+msgid ", on the "
+msgstr ", την"
+
+#. SpaceX0OfTheMonth
+msgid " {0} of the month"
+msgstr " {0} του μήνα"
+
+#. ComaOnTheLastX0OfTheMonth
+msgid ", on the last {0} of the month"
+msgstr ", την τελευταία {0} του μήνα"
+
+#. ComaOnlyOnX0
+msgid ", only on {0}"
+msgstr ", μόνο το {0}"
+
+#. ComaEveryX0Months
+msgid ", every {0} months"
+msgstr ", κάθε {0} μήνες"
+
+#. ComaOnlyInX0
+msgid ", only in {0}"
+msgstr ", μόνο το {0}"
+
+#. ComaOnTheLastDayOfTheMonth
+msgid ", on the last day of the month"
+msgstr ", την τελευταία ημέρα του μήνα"
+
+#. ComaOnTheLastWeekdayOfTheMonth
+msgid ", on the last weekday of the month"
+msgstr ", την τελευταία εργάσιμη ημέρα του μήνα"
+
+#. FirstWeekday
+msgid "first weekday"
+msgstr "πρώτη εργάσιμη ημέρα"
+
+#. WeekdayNearestDayX0
+msgid "weekday nearest day {0}"
+msgstr "εργάσιμη ημέρα κοντά στην ημέρα {0}"
+
+#. ComaOnTheX0OfTheMonth
+msgid ", on the {0} of the month"
+msgstr ", την {0} του μήνα"
+
+#. ComaEveryX0Days
+msgid ", every {0} days"
+msgstr ", κάθε {0} ημέρες"
+
+#. ComaBetweenDayX0AndX1OfTheMonth
+msgid ", between day {0} and {1} of the month"
+msgstr ", μεταξύ {0} και {1} του μήνα"
+
+#. ComaOnDayX0OfTheMonth
+msgid ", on day {0} of the month"
+msgstr ", την {0} ημέρα του μήνα"
+
+#. SpaceAndSpace
+msgid " and "
+msgstr " και "
+
+#. ComaEveryMinute
+msgid ", every minute"
+msgstr ", κάθε λεπτό"
+
+#. ComaEveryHour
+msgid ", every hour"
+msgstr ", κάθε ώρα"
+
+#. ComaEveryX0Years
+msgid ", every {0} years"
+msgstr ", κάθε {0} χρόνια"
+
+#. CommaStartingX0
+msgid ", starting {0}"
+msgstr ", ξεκινώντας {0}"
+
+#. AMPeriod
+msgid "AM"
+msgstr "π.μ"
+
+#. PMPeriod
+msgid "PM"
+msgstr "μμ"
+
+#. CommaDaysBeforeTheLastDayOfTheMonth
+msgid ", {0} days before the last day of the month"
+msgstr ", {0} ημέρες πριν από την τελευταία ημέρα του μήνα"
+
+#. ComaOnlyInYearX0
+msgid ", only in {0}"
+msgstr ", μόνο το {0}"

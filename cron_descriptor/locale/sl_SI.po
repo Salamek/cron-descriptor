@@ -1,0 +1,201 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
+"POT-Creation-Date: 2025-08-25 19:23+0000\n"
+"PO-Revision-Date: 2025-08-25 19:23+0000\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"Language: sl_SI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. EveryMinute
+msgid "every minute"
+msgstr "vsako minuto"
+
+#. EveryHour
+msgid "every hour"
+msgstr "vsako uro"
+
+#. AnErrorOccurredWhenGeneratingTheExpressionD
+msgid ""
+"An error occured when generating the expression description.  Check the cron"
+" expression syntax."
+msgstr ""
+"Pri generiranju opisa izraza je prišlo do napake. Preverite sintakso izraza "
+"cron."
+
+#. AtSpace
+msgid "At "
+msgstr "Ob "
+
+#. EveryMinuteBetweenX0AndX1
+msgid "Every minute between {0} and {1}"
+msgstr "Vsako minuto od {0} do {1}"
+
+#. At
+msgid "At"
+msgstr "Ob"
+
+#. SpaceAnd
+msgid " and"
+msgstr " in"
+
+#. EverySecond
+msgid "every second"
+msgstr "vsako sekundo"
+
+#. EveryX0Seconds
+msgid "every {0} seconds"
+msgstr "vsakih {0} sekund"
+
+#. SecondsX0ThroughX1PastTheMinute
+msgid "seconds {0} through {1} past the minute"
+msgstr "sekunde od {0} do {1}"
+
+#. AtX0SecondsPastTheMinute
+msgid "at {0} seconds past the minute"
+msgstr "ob {0}. sekundi"
+
+#. EveryX0Minutes
+msgid "every {0} minutes"
+msgstr "vsakih {0} minut"
+
+#. MinutesX0ThroughX1PastTheHour
+msgid "minutes {0} through {1} past the hour"
+msgstr "minute od {0} do {1}"
+
+#. AtX0MinutesPastTheHour
+msgid "at {0} minutes past the hour"
+msgstr "ob {0}. minuti"
+
+#. EveryX0Hours
+msgid "every {0} hours"
+msgstr "vsakih {0} ur"
+
+#. BetweenX0AndX1
+msgid "between {0} and {1}"
+msgstr "od {0} do {1}"
+
+#. AtX0
+msgid "at {0}"
+msgstr "ob {0}"
+
+#. ComaEveryDay
+msgid ", every day"
+msgstr ", vsak dan"
+
+#. ComaEveryX0DaysOfTheWeek
+msgid ", every {0} days of the week"
+msgstr ", vsakih {0} dni v tednu"
+
+#. ComaX0ThroughX1
+msgid ", {0} through {1}"
+msgstr ", od {0} do {1}"
+
+#. First
+msgid "first"
+msgstr "prvi"
+
+#. Second
+msgid "second"
+msgstr "drugi"
+
+#. Third
+msgid "third"
+msgstr "tretji"
+
+#. Fourth
+msgid "fourth"
+msgstr "četrti"
+
+#. Fifth
+msgid "fifth"
+msgstr "peti"
+
+#. ComaOnThe
+msgid ", on the "
+msgstr ", "
+
+#. SpaceX0OfTheMonth
+msgid " {0} of the month"
+msgstr " {0} v mesecu"
+
+#. ComaOnTheLastX0OfTheMonth
+msgid ", on the last {0} of the month"
+msgstr ", zadnji {0} v mesecu"
+
+#. ComaOnlyOnX0
+msgid ", only on {0}"
+msgstr ", samo v {0}"
+
+#. ComaEveryX0Months
+msgid ", every {0} months"
+msgstr ", vsakih {0} mesecev"
+
+#. ComaOnlyInX0
+msgid ", only in {0}"
+msgstr ", samo v {0}"
+
+#. ComaOnTheLastDayOfTheMonth
+msgid ", on the last day of the month"
+msgstr ", zadnji dan v mesecu"
+
+#. ComaOnTheLastWeekdayOfTheMonth
+msgid ", on the last weekday of the month"
+msgstr ", zadnji delovni dan v mesecu"
+
+#. FirstWeekday
+msgid "first weekday"
+msgstr "prvi delovni dan"
+
+#. WeekdayNearestDayX0
+msgid "weekday nearest day {0}"
+msgstr "delovni dan, najbližji {0}. dnevu"
+
+#. ComaOnTheX0OfTheMonth
+msgid ", on the {0} of the month"
+msgstr ", {0} v mesecu"
+
+#. ComaEveryX0Days
+msgid ", every {0} days"
+msgstr ", vsakih {0} dni"
+
+#. ComaBetweenDayX0AndX1OfTheMonth
+msgid ", between day {0} and {1} of the month"
+msgstr ", od {0}. do {1}. dne v mesecu"
+
+#. ComaOnDayX0OfTheMonth
+msgid ", on day {0} of the month"
+msgstr ", {0}. dan v mesecu"
+
+#. SpaceAndSpace
+msgid " and "
+msgstr " in "
+
+#. ComaEveryMinute
+msgid ", every minute"
+msgstr ", vsako minuto"
+
+#. ComaEveryHour
+msgid ", every hour"
+msgstr ", vsako uro"
+
+#. ComaEveryX0Years
+msgid ", every {0} years"
+msgstr ", vsakih {0} let"
+
+#. CommaStartingX0
+msgid ", starting {0}"
+msgstr ", začenši {0}"
+
+#. CommaDaysBeforeTheLastDayOfTheMonth
+msgid ", {0} days before the last day of the month"
+msgstr ", {0} dni pred koncem meseca"
+
+#. ComaOnlyInYearX0
+msgid ", only in {0}"
+msgstr ", samo v {0}"

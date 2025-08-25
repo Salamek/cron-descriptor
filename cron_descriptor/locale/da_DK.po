@@ -1,0 +1,200 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
+"POT-Creation-Date: 2025-08-25 19:23+0000\n"
+"PO-Revision-Date: 2025-08-25 19:23+0000\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"Language: da_DK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. EveryMinute
+msgid "every minute"
+msgstr "hvert minut"
+
+#. EveryHour
+msgid "every hour"
+msgstr "hver time"
+
+#. AnErrorOccurredWhenGeneratingTheExpressionD
+msgid ""
+"An error occured when generating the expression description.  Check the cron"
+" expression syntax."
+msgstr ""
+"Der skete en fejl ved genereringen af beskrivelsen. Kontroller cron reglen."
+
+#. AtSpace
+msgid "At "
+msgstr "kl "
+
+#. EveryMinuteBetweenX0AndX1
+msgid "Every minute between {0} and {1}"
+msgstr "hvert minut mellem {0} og {1}"
+
+#. At
+msgid "At"
+msgstr "kl"
+
+#. SpaceAnd
+msgid " and"
+msgstr " og"
+
+#. EverySecond
+msgid "every second"
+msgstr "hvert sekund"
+
+#. EveryX0Seconds
+msgid "every {0} seconds"
+msgstr "hvert {0}. sekund"
+
+#. SecondsX0ThroughX1PastTheMinute
+msgid "seconds {0} through {1} past the minute"
+msgstr "sekunderne fra {0} til og med {1} hvert minut"
+
+#. AtX0SecondsPastTheMinute
+msgid "at {0} seconds past the minute"
+msgstr "{0} sekunder efter minutskift"
+
+#. EveryX0Minutes
+msgid "every {0} minutes"
+msgstr "hvert {0}. minut"
+
+#. MinutesX0ThroughX1PastTheHour
+msgid "minutes {0} through {1} past the hour"
+msgstr "minutterne fra {0} til og med {1} hver time"
+
+#. AtX0MinutesPastTheHour
+msgid "at {0} minutes past the hour"
+msgstr "{0} minutter efter timeskift"
+
+#. EveryX0Hours
+msgid "every {0} hours"
+msgstr "hver {0}. time"
+
+#. BetweenX0AndX1
+msgid "between {0} and {1}"
+msgstr "mellem {0} og {1}"
+
+#. AtX0
+msgid "at {0}"
+msgstr "kl {0}"
+
+#. ComaEveryDay
+msgid ", every day"
+msgstr ", hver dag"
+
+#. ComaEveryX0DaysOfTheWeek
+msgid ", every {0} days of the week"
+msgstr ", hver {0}. ugedag"
+
+#. ComaX0ThroughX1
+msgid ", {0} through {1}"
+msgstr ", {0} til og med {1}"
+
+#. First
+msgid "first"
+msgstr "første"
+
+#. Second
+msgid "second"
+msgstr "anden"
+
+#. Third
+msgid "third"
+msgstr "tredje"
+
+#. Fourth
+msgid "fourth"
+msgstr "fjerde"
+
+#. Fifth
+msgid "fifth"
+msgstr "femte"
+
+#. ComaOnThe
+msgid ", on the "
+msgstr ", på den "
+
+#. SpaceX0OfTheMonth
+msgid " {0} of the month"
+msgstr " {0} i måneden"
+
+#. ComaOnTheLastX0OfTheMonth
+msgid ", on the last {0} of the month"
+msgstr ", på den sidste {0} i måneden"
+
+#. ComaOnlyOnX0
+msgid ", only on {0}"
+msgstr ", kun {0}"
+
+#. ComaEveryX0Months
+msgid ", every {0} months"
+msgstr ", hver {0}. måned"
+
+#. ComaOnlyInX0
+msgid ", only in {0}"
+msgstr ", kun i {0}"
+
+#. ComaOnTheLastDayOfTheMonth
+msgid ", on the last day of the month"
+msgstr ", på den sidste dag i måneden"
+
+#. ComaOnTheLastWeekdayOfTheMonth
+msgid ", on the last weekday of the month"
+msgstr ", på den sidste hverdag i måneden"
+
+#. FirstWeekday
+msgid "first weekday"
+msgstr "første hverdag"
+
+#. WeekdayNearestDayX0
+msgid "weekday nearest day {0}"
+msgstr "hverdag nærmest dag {0}"
+
+#. ComaOnTheX0OfTheMonth
+msgid ", on the {0} of the month"
+msgstr ", på den {0} i måneden"
+
+#. ComaEveryX0Days
+msgid ", every {0} days"
+msgstr ", hver {0}. dag"
+
+#. ComaBetweenDayX0AndX1OfTheMonth
+msgid ", between day {0} and {1} of the month"
+msgstr ", mellem dag {0} og {1} i måneden"
+
+#. ComaOnDayX0OfTheMonth
+msgid ", on day {0} of the month"
+msgstr ", på dag {0} i måneden"
+
+#. SpaceAndSpace
+msgid " and "
+msgstr " og "
+
+#. ComaEveryMinute
+msgid ", every minute"
+msgstr ", hvert minut"
+
+#. ComaEveryHour
+msgid ", every hour"
+msgstr ", hver time"
+
+#. ComaEveryX0Years
+msgid ", every {0} years"
+msgstr ", hvert {0}. år"
+
+#. CommaStartingX0
+msgid ", starting {0}"
+msgstr ", startende {0}"
+
+#. CommaDaysBeforeTheLastDayOfTheMonth
+msgid ", {0} days before the last day of the month"
+msgstr ", {0} dage før den sidste dag i måneden"
+
+#. ComaOnlyInYearX0
+msgid ", only in {0}"
+msgstr ", kun i {0}"

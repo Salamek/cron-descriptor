@@ -1,0 +1,199 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
+"POT-Creation-Date: 2025-08-25 19:23+0000\n"
+"PO-Revision-Date: 2025-08-25 19:23+0000\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. EveryMinute
+msgid "every minute"
+msgstr "每分鐘"
+
+#. EveryHour
+msgid "every hour"
+msgstr "每小時"
+
+#. AnErrorOccurredWhenGeneratingTheExpressionD
+msgid ""
+"An error occured when generating the expression description.  Check the cron"
+" expression syntax."
+msgstr "產生正規表達式描述時發生了錯誤，請檢查 cron 表達式語法。"
+
+#. AtSpace
+msgid "At "
+msgstr "在 "
+
+#. EveryMinuteBetweenX0AndX1
+msgid "Every minute between {0} and {1}"
+msgstr "在 {0} 和 {1} 之間的每分鐘"
+
+#. At
+msgid "At"
+msgstr "在"
+
+#. SpaceAnd
+msgid " and"
+msgstr " 和"
+
+#. EverySecond
+msgid "every second"
+msgstr "每秒"
+
+#. EveryX0Seconds
+msgid "every {0} seconds"
+msgstr "每 {0} 秒"
+
+#. SecondsX0ThroughX1PastTheMinute
+msgid "seconds {0} through {1} past the minute"
+msgstr "在每分鐘的 {0} 到 {1} 秒"
+
+#. AtX0SecondsPastTheMinute
+msgid "at {0} seconds past the minute"
+msgstr "在每分鐘的 {0} 秒"
+
+#. EveryX0Minutes
+msgid "every {0} minutes"
+msgstr "每 {0} 分鐘"
+
+#. MinutesX0ThroughX1PastTheHour
+msgid "minutes {0} through {1} past the hour"
+msgstr "在每小時的 {0} 到 {1} 分鐘"
+
+#. AtX0MinutesPastTheHour
+msgid "at {0} minutes past the hour"
+msgstr "在每小時的 {0} 分"
+
+#. EveryX0Hours
+msgid "every {0} hours"
+msgstr "每 {0} 小時"
+
+#. BetweenX0AndX1
+msgid "between {0} and {1}"
+msgstr "在 {0} 和 {1} 之間"
+
+#. AtX0
+msgid "at {0}"
+msgstr "在 {0}"
+
+#. ComaEveryDay
+msgid ", every day"
+msgstr ", 每天"
+
+#. ComaEveryX0DaysOfTheWeek
+msgid ", every {0} days of the week"
+msgstr ", 每週的每 {0} 天"
+
+#. ComaX0ThroughX1
+msgid ", {0} through {1}"
+msgstr ", {0} 到 {1}"
+
+#. First
+msgid "first"
+msgstr "第一個"
+
+#. Second
+msgid "second"
+msgstr "第二個"
+
+#. Third
+msgid "third"
+msgstr "第三個"
+
+#. Fourth
+msgid "fourth"
+msgstr "第四個"
+
+#. Fifth
+msgid "fifth"
+msgstr "第五個"
+
+#. ComaOnThe
+msgid ", on the "
+msgstr ", 在 "
+
+#. SpaceX0OfTheMonth
+msgid " {0} of the month"
+msgstr "{0} 每月"
+
+#. ComaOnTheLastX0OfTheMonth
+msgid ", on the last {0} of the month"
+msgstr ", 每月的最後一個 {0} "
+
+#. ComaOnlyOnX0
+msgid ", only on {0}"
+msgstr ", 僅在 {0}"
+
+#. ComaEveryX0Months
+msgid ", every {0} months"
+msgstr ", 每 {0} 月"
+
+#. ComaOnlyInX0
+msgid ", only in {0}"
+msgstr ", 僅在 {0}"
+
+#. ComaOnTheLastDayOfTheMonth
+msgid ", on the last day of the month"
+msgstr ", 每月的最後一天"
+
+#. ComaOnTheLastWeekdayOfTheMonth
+msgid ", on the last weekday of the month"
+msgstr ", 每月的最後一個平日"
+
+#. FirstWeekday
+msgid "first weekday"
+msgstr "第一個平日"
+
+#. WeekdayNearestDayX0
+msgid "weekday nearest day {0}"
+msgstr "最接近 {0} 號的平日"
+
+#. ComaOnTheX0OfTheMonth
+msgid ", on the {0} of the month"
+msgstr ", 每月的 {0} "
+
+#. ComaEveryX0Days
+msgid ", every {0} days"
+msgstr ", 每 {0} 天"
+
+#. ComaBetweenDayX0AndX1OfTheMonth
+msgid ", between day {0} and {1} of the month"
+msgstr ", 在每月的 {0} 和 {1} 號之間"
+
+#. ComaOnDayX0OfTheMonth
+msgid ", on day {0} of the month"
+msgstr ", 每月的 {0} 號"
+
+#. SpaceAndSpace
+msgid " and "
+msgstr " 和 "
+
+#. ComaEveryMinute
+msgid ", every minute"
+msgstr ", 每分鐘"
+
+#. ComaEveryHour
+msgid ", every hour"
+msgstr ", 每小時"
+
+#. ComaEveryX0Years
+msgid ", every {0} years"
+msgstr ", 每 {0} 年"
+
+#. CommaStartingX0
+msgid ", starting {0}"
+msgstr ", 開始 {0}"
+
+#. CommaDaysBeforeTheLastDayOfTheMonth
+msgid ", {0} days before the last day of the month"
+msgstr ", {0} 這個月的最後一天的前幾天"
+
+#. ComaOnlyInYearX0
+msgid ", only in {0}"
+msgstr ", 僅在 {0}"

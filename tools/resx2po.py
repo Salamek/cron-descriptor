@@ -51,7 +51,7 @@ class Resx2Po:
         translation_table = {}
         for first in root.findall("./data"):
             found_value = first.find("./value")
-            if found_value and found_value.text:
+            if found_value is not None and found_value.text:
                 translation_table[first.attrib["name"]] = found_value.text
 
         return translation_table
@@ -87,16 +87,44 @@ class Resx2Po:
 
 
 code_list = {
-    "da": "da_DK",
+    "cs": "cs_CZ",        # Czech
+    "da": "da_DK",        # Danish
+    "de": "de_DE",        # German
+    "el": "el_GR",        # Greek
+    "es": "es_ES",        # Spanish (Spain)
+    "es-MX": "es_MX",     # Spanish (Mexico)
+    "fa": "fa_IR",        # Persian (Iran)
+    "fi": "fi_FI",        # Finnish
+    "fr": "fr_FR",        # French (France)
+    "he-IL": "he_IL",     # Hebrew (Israel)
+    "hu": "hu_HU",        # Hungarian
+    "it": "it_IT",        # Italian
+    "ja": "ja_JP",        # Japanese
+    "kk": "kk_KZ",        # Kazakh
+    "ko": "ko_KR",        # Korean
+    "nb": "nb_NO",        # Norwegian Bokmål
+    "nl": "nl_NL",        # Dutch (Netherlands)
+    "pl": "pl_PL",        # Polish
+    "pt": "pt_PT",        # Portuguese (Portugal)
+    "ro": "ro_RO",        # Romanian
+    "ru": "ru_RU",        # Russian
+    "sl": "sl_SI",        # Slovenian
+    "sv": "sv_SE",        # Swedish
+    "tr": "tr_TR",        # Turkish
+    "uk": "uk_UA",        # Ukrainian
+    "vi": "vi_VN",        # Vietnamese
+    "zh-Hans": "zh_CN",   # Simplified Chinese (China)
+    "zh-Hant": "zh_TW",   # Traditional Chinese (Taiwan)
 }
 
-output_dir = Path("../locale")
+output_dir = Path("./locale")
+input_dir = Path("./source")
 
 for from_code, to_code in code_list.items():
     output_file = output_dir.joinpath(f"{to_code}.po")
     Resx2Po(
-        Path("Resources.resx"),
-        Path(f"Resources.{from_code}.resx"),
+        input_dir.joinpath("Resources.resx"),
+        input_dir.joinpath(f"Resources.{from_code}.resx"),
         to_code,
         output_file,
     )

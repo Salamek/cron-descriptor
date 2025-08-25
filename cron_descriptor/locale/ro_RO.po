@@ -1,0 +1,203 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: adam.schubert@sg1-game.net\n"
+"POT-Creation-Date: 2025-08-25 19:23+0000\n"
+"PO-Revision-Date: 2025-08-25 19:23+0000\n"
+"Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
+"Language-Team: \n"
+"Language: ro_RO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. EveryMinute
+msgid "every minute"
+msgstr "în fiecare minut"
+
+#. EveryHour
+msgid "every hour"
+msgstr "în fiecare oră"
+
+#. AnErrorOccurredWhenGeneratingTheExpressionD
+msgid ""
+"An error occured when generating the expression description.  Check the cron"
+" expression syntax."
+msgstr "Eroare la generarea descrierii. Verificați sintaxa."
+
+#. AtSpace
+msgid "At "
+msgstr "La "
+
+#. EveryMinuteBetweenX0AndX1
+msgid "Every minute between {0} and {1}"
+msgstr "În fiecare minut între {0} și {1}"
+
+#. At
+msgid "At"
+msgstr "La"
+
+#. SpaceAnd
+msgid " and"
+msgstr " și"
+
+#. EverySecond
+msgid "every second"
+msgstr "în fiecare secundă"
+
+#. EveryX0Seconds
+msgid "every {0} seconds"
+msgstr "la fiecare {0} secunde"
+
+#. SecondsX0ThroughX1PastTheMinute
+msgid "seconds {0} through {1} past the minute"
+msgstr "între secunda {0} și secunda {1}"
+
+#. AtX0SecondsPastTheMinute
+msgid "at {0} seconds past the minute"
+msgstr "la și {0} secunde"
+
+#. EveryX0Minutes
+msgid "every {0} minutes"
+msgstr "la fiecare {0} minute"
+
+#. MinutesX0ThroughX1PastTheHour
+msgid "minutes {0} through {1} past the hour"
+msgstr "între minutele {0} și {1}"
+
+#. AtX0MinutesPastTheHour
+msgid "at {0} minutes past the hour"
+msgstr "la și {0} minute"
+
+#. EveryX0Hours
+msgid "every {0} hours"
+msgstr "la fiecare {0} ore"
+
+#. BetweenX0AndX1
+msgid "between {0} and {1}"
+msgstr "între {0} și {1}"
+
+#. AtX0
+msgid "at {0}"
+msgstr "la {0}"
+
+#. ComaEveryDay
+msgid ", every day"
+msgstr ", în fiecare zi"
+
+#. ComaEveryX0DaysOfTheWeek
+msgid ", every {0} days of the week"
+msgstr ", la fiecare a {0}-a zi a săptămânii"
+
+#. ComaX0ThroughX1
+msgid ", {0} through {1}"
+msgstr ", de {0} până {1}"
+
+#. First
+msgid "first"
+msgstr "prima"
+
+#. Second
+msgid "second"
+msgstr "a doua"
+
+#. Third
+msgid "third"
+msgstr "a treia"
+
+#. Fourth
+msgid "fourth"
+msgstr "a patra"
+
+#. Fifth
+msgid "fifth"
+msgstr "a cincea"
+
+#. ComaOnThe
+msgid ", on the "
+msgstr ", în "
+
+#. SpaceX0OfTheMonth
+msgid " {0} of the month"
+msgstr " {0} a lunii"
+
+#. ComaOnTheLastX0OfTheMonth
+msgid ", on the last {0} of the month"
+msgstr ", în ultima {0} a lunii"
+
+#. ComaOnlyOnX0
+msgid ", only on {0}"
+msgstr ", doar {0}"
+
+#. ComaEveryX0Months
+msgid ", every {0} months"
+msgstr ", la fiecare {0} luni"
+
+#. ComaOnlyInX0
+msgid ", only in {0}"
+msgstr ", doar în {0}"
+
+#. ComaOnTheLastDayOfTheMonth
+msgid ", on the last day of the month"
+msgstr ", în ultima zi a lunii"
+
+#. ComaOnTheLastWeekdayOfTheMonth
+msgid ", on the last weekday of the month"
+msgstr ", în ultima zi lucrătoare a lunii"
+
+#. FirstWeekday
+msgid "first weekday"
+msgstr "prima zi a săptămânii"
+
+#. WeekdayNearestDayX0
+msgid "weekday nearest day {0}"
+msgstr "cea mai apropiată zi a săptămânii de ziua {0}"
+
+#. ComaOnTheX0OfTheMonth
+msgid ", on the {0} of the month"
+msgstr ", în {0} a lunii"
+
+#. ComaEveryX0Days
+msgid ", every {0} days"
+msgstr ", la fiecare {0} zile"
+
+#. ComaBetweenDayX0AndX1OfTheMonth
+msgid ", between day {0} and {1} of the month"
+msgstr ", între zilele {0} și {1} ale lunii"
+
+#. ComaOnDayX0OfTheMonth
+msgid ", on day {0} of the month"
+msgstr ", în ziua {0} a lunii"
+
+#. SpaceAndSpace
+msgid " and "
+msgstr " și "
+
+#. ComaEveryMinute
+msgid ", every minute"
+msgstr ", în fiecare minut"
+
+#. ComaEveryHour
+msgid ", every hour"
+msgstr ", în fiecare oră"
+
+#. ComaEveryX0Years
+msgid ", every {0} years"
+msgstr ", o dată la {0} ani"
+
+#. CommaStartingX0
+msgid ", starting {0}"
+msgstr ", începând {0}"
+
+#. PMPeriod
+msgid "PM"
+msgstr "după amiază"
+
+#. CommaDaysBeforeTheLastDayOfTheMonth
+msgid ", {0} days before the last day of the month"
+msgstr ", {0} zile înainte de ultima zi a lunii"
+
+#. ComaOnlyInYearX0
+msgid ", only in {0}"
+msgstr ", doar în {0}"
