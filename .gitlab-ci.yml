@@ -10,7 +10,7 @@ test:debian:
     - apt update --yes
     - apt install ca-certificates python3-venv --yes
     - python3 -m venv venv
-    - ./venv/bin/pip install mock ruff setuptools mypy pytest
+    - ./venv/bin/pip install mock ruff setuptools mypy pytest polib
     - ./venv/bin/ruff check .
     - ./venv/bin/mypy .
     - ./venv/bin/pytest .
@@ -20,9 +20,9 @@ test:debian:
 test:archlinux:
   stage: test
   script:
-    - pacman -Syu python-venv python-pip --noconfirm
+    - pacman -Syu python-pip --noconfirm
     - python -m venv venv
-    - ./venv/bin/pip install mock ruff setuptools mypy pytest
+    - ./venv/bin/pip install mock ruff setuptools mypy pytest polib
     - ./venv/bin/ruff check .
     - ./venv/bin/mypy .
     - ./venv/bin/pytest .
