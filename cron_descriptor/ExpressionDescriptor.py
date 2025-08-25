@@ -459,7 +459,7 @@ class ExpressionDescriptor:
 
         if "/" in expression:
             segments = expression.split("/")
-            description = get_interval_description_format(segments[1]).format(get_single_item_description(segments[1]))
+            description = get_interval_description_format(segments[1]).format(segments[1])
 
             # interval contains 'between' piece (i.e. 2-59/3 )
             if "-" in segments[0]:

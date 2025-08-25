@@ -240,6 +240,9 @@ def test_every3_day(options: Options) -> None:
 def tests_every3_day_of_the_week(options: Options) -> None:
     assert get_description("0 15 10 ? * */3", options) == "At 10:15 AM, every 3 days of the week"
 
+def test_every_7_day_of_the_week(options: Options) -> None:
+    assert get_description("0 * * * */7", options) == "Every hour, every 7 days of the week"
+
 def test_every_2_day_of_the_week_in_range(options: Options) -> None:
     assert get_description("* * * ? * 1-5/2", options) == "Every second, every 2 days of the week, Monday through Friday"
 
