@@ -377,6 +377,10 @@ class ExpressionDescriptor:
 
                 day_string = self.translate("first weekday") if day_number == 1 else self.translate("weekday nearest day {0}").format(day_number)
                 description = self.translate(", on the {0} of the month").format(day_string)
+            elif expression == "*" and self._expression_parts[5] != "*":
+                # DOW is specified, but DOM is *, so do not generate DOM description.
+                # Otherwise, we could get a contradiction like "every day, on Tuesday"
+                description = ""
             else:
                 # Handle "last day offset"(i.e.L - 5: "5 days before the last day of the month")
                 regex = re.compile(r"L-(\d{1,2})")

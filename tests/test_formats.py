@@ -348,3 +348,5 @@ def sunday_7(options: Options) -> None:
 def every_year(options: Options) -> None:
     assert get_description("0/10 * ? * MON-FRI *", options) == "Every 10 minutes, Monday through Friday"
 
+def tuesday_9(options: Options) -> None:
+    assert get_description("0 9 * * 2", options) == "At 09:00 AM, only on Tuesday"
