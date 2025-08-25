@@ -5,7 +5,7 @@ pkgrel=1
 arch=('any')
 license=('MIT')
 url='https://github.com/Salamek/cron-descriptor'
-makedepends=('python-setuptools')
+makedepends=(python-build python-installer python-wheel python-setuptools)
 depends=(
     'python'
 )
@@ -14,16 +14,16 @@ prepare() {
   mkdir -p "${srcdir}/${pkgname}"
   cp -R "${srcdir}/../../cron_descriptor" "${srcdir}/${pkgname}"
   cp -R "${srcdir}/../../tests" "${srcdir}/${pkgname}"
-  cp -R "${srcdir}/../../setup.py" "${srcdir}/${pkgname}"
+  cp -R "${srcdir}/../../pyproject.toml" "${srcdir}/${pkgname}"
   cp -R "${srcdir}/../../README.md" "${srcdir}/${pkgname}"
+}
+
+build() {
+    cd "${srcdir}/${pkgname}"
+    python -m build --wheel --no-isolation
 }
 
 package() {
   cd "${srcdir}/${pkgname}"
-  python -m pip install \
-        --root="$pkgdir" \
-        --optimize=1 \
-        --no-deps \
-        --no-user \
-        .
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
