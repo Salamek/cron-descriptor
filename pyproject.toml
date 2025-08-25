@@ -82,6 +82,7 @@ max-returns = 10
 "tests/test_import.py" = ["PLC0415"]  # Top level import
 "examples/crontabReader.py" = ["T201", "INP001"]  # print in code, not a package
 "tools/resx2po.py" = ["S314", "INP001"] # xml parse untrusted and not a package
+"tools/compilepos.py" = ["INP001"] # xml parse untrusted and not a package
 
 
 [tool.mypy]
