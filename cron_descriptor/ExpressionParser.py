@@ -23,7 +23,7 @@
 import re
 from typing import ClassVar
 
-from .Exception import FormatException, MissingFieldException
+from .Exception import FormatError, MissingFieldError
 from .Options import Options
 
 
@@ -56,7 +56,7 @@ class ExpressionParser:
         12: "DEC",
     }
 
-    def __init__(self, expression: str, options: Options):
+    def __init__(self, expression: str, options: Options) -> None:
         """Initializes a new instance of the ExpressionParser class
         Args:
             expression: The cron expression string
@@ -80,39 +80,38 @@ class ExpressionParser:
         parsed = ["", "", "", "", "", "", ""]
 
         if not self._expression:
-            raise MissingFieldException("ExpressionDescriptor.expression")
-        else:
-            expression_parts_temp = self._expression.split()
-            expression_parts_temp_length = len(expression_parts_temp)
-            if expression_parts_temp_length < 5:
-                raise FormatException(
-                    f"Error: Expression only has {expression_parts_temp_length} parts.  At least 5 part are required.",
-                )
-            elif expression_parts_temp_length == 5:
-                # 5 part cron so shift array past seconds element
-                for i, expression_part_temp in enumerate(expression_parts_temp):
-                    parsed[i + 1] = expression_part_temp
-            elif expression_parts_temp_length == 6:
-                # We will detect if this 6 part expression has a year specified and if so we will shift the parts and treat the
-                # first part as a minute part rather than a second part.
-                # Ways we detect:
-                # 1. Last part is a literal year (i.e. 2020)
-                # 2. 3rd or 5th part is specified as "?" (DOM or DOW)
-                year_regex = re.compile(r"\d{4}$")
-                is_year_with_no_seconds_part = bool(year_regex.search(expression_parts_temp[5])) or "?" in [expression_parts_temp[4], expression_parts_temp[2]]
-                for i, expression_part_temp in enumerate(expression_parts_temp):
-                    if is_year_with_no_seconds_part:
-                        # Shift parts over by one
-                        parsed[i + 1] = expression_part_temp
-                    else:
-                        parsed[i] = expression_part_temp
+            msg = "ExpressionDescriptor.expression"
+            raise MissingFieldError(msg)
 
-            elif expression_parts_temp_length == 7:
-                parsed = expression_parts_temp
-            else:
-                raise FormatException(
-                    f"Error: Expression has too many parts ({expression_parts_temp_length}).  Expression must not have more than 7 parts.",
-                )
+        expression_parts_temp = self._expression.split()
+        expression_parts_temp_length = len(expression_parts_temp)
+        if expression_parts_temp_length < 5:
+            msg = f"Error: Expression only has {expression_parts_temp_length} parts.  At least 5 part are required."
+            raise FormatError(msg)
+        if expression_parts_temp_length == 5:
+            # 5 part cron so shift array past seconds element
+            for i, expression_part_temp in enumerate(expression_parts_temp):
+                parsed[i + 1] = expression_part_temp
+        elif expression_parts_temp_length == 6:
+            # We will detect if this 6 part expression has a year specified and if so we will shift the parts and treat the
+            # first part as a minute part rather than a second part.
+            # Ways we detect:
+            # 1. Last part is a literal year (i.e. 2020)
+            # 2. 3rd or 5th part is specified as "?" (DOM or DOW)
+            year_regex = re.compile(r"\d{4}$")
+            is_year_with_no_seconds_part = bool(year_regex.search(expression_parts_temp[5])) or "?" in [expression_parts_temp[4], expression_parts_temp[2]]
+            for i, expression_part_temp in enumerate(expression_parts_temp):
+                if is_year_with_no_seconds_part:
+                    # Shift parts over by one
+                    parsed[i + 1] = expression_part_temp
+                else:
+                    parsed[i] = expression_part_temp
+
+        elif expression_parts_temp_length == 7:
+            parsed = expression_parts_temp
+        else:
+            msg = f"Error: Expression has too many parts ({expression_parts_temp_length}).  Expression must not have more than 7 parts."
+            raise FormatError(msg)
         self.normalize_expression(parsed)
 
         return parsed

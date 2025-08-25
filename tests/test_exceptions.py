@@ -22,22 +22,22 @@
 
 import pytest
 
-from cron_descriptor import DescriptionTypeEnum, ExpressionDescriptor, FormatException, MissingFieldException, Options
+from cron_descriptor import DescriptionTypeEnum, ExpressionDescriptor, FormatError, MissingFieldError, Options
 
 """
 Tests that Exceptions are/not properly raised
 """
 
 def test_empty_cron_expression_exception(options: Options) -> None:
-    with pytest.raises(MissingFieldException):
+    with pytest.raises(MissingFieldError):
         ExpressionDescriptor("", options)
 
 def test_invalid_cron_expression_exception(options: Options) -> None:
-    with pytest.raises(FormatException):
+    with pytest.raises(FormatError):
         ExpressionDescriptor("INVALID", options)
 
 def test_invalid_syntax_exception(options: Options) -> None:
     ceh = ExpressionDescriptor("* $ * * *", options)
-    with pytest.raises(FormatException):
+    with pytest.raises(FormatError):
         ceh.get_description(DescriptionTypeEnum.FULL)
 

@@ -21,18 +21,22 @@
 # SOFTWARE.
 import datetime
 import xml.etree.ElementTree as ET
+from logging import getLogger
 from pathlib import Path
 
 import polib
 
+log = getLogger(__name__)
 
 class Resx2Po:
-    def __init__(self, en_resx: Path, translation_resx: Path, code: str, output_po: Path):
+    def __init__(self, en_resx: Path, translation_resx: Path, code: str, output_po: Path) -> None:
         if not en_resx.is_file():
-            raise Exception(f"EN Resx {en_resx.absolute()} not found")
+            msg = f"EN Resx {en_resx.absolute()} not found"
+            raise FileNotFoundError(msg)
 
         if not translation_resx.is_file():
-            raise Exception(f"Translation {code} {translation_resx.absolute()} Resx bound not found")
+            msg = f"Translation {code} {translation_resx.absolute()} Resx bound not found"
+            raise FileNotFoundError(msg)
 
         self.en_resx = self.resx2dict(en_resx)
         self.translation_resx = self.resx2dict(translation_resx)
@@ -77,35 +81,13 @@ class Resx2Po:
                 )
                 po.append(entry)
             else:
-                print(f"WARNING: {message_en_id} not found in {self.code} resx")
+                log.warning("%s not found in %s resx", message_en_id, self.code)
 
         po.save(str(self.output_po.absolute()))
 
 
 code_list = {
     "da": "da_DK",
-
-    # 'de': 'de_DE',
-    # 'es': 'es_ES',
-    # 'es-MX': 'es_MX',
-    # 'fa': 'fa_IR',
-    # 'fi': 'fi_FI',
-    # 'fr': 'fr_FR',
-    # 'it': 'it_IT',
-    # 'ja': 'ja_IP',
-    # 'ko': 'ko_KR',
-    # 'nb': 'nb_NO',
-    # 'nl': 'nl_NL',
-    # 'pl': 'pl_PL',
-    # 'pt': 'pt_PT',
-    # 'ro': 'ro_RO',
-    # 'ru': 'ru_RU',
-    # 'sl': 'sl_SI',
-    # 'sv': 'sv_SE',
-    # 'tr': 'tr_TR',
-    # 'uk': 'uk_UA',
-    # 'zh-Hans': 'zh_Hans_CN',
-    # 'zh-Hant': 'zh_Hant',
 }
 
 output_dir = Path("../locale")

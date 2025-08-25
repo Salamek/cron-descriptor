@@ -21,9 +21,9 @@
 # SOFTWARE.
 
 import logging
-import os
 import shutil
 import tempfile
+from pathlib import Path
 from unittest.mock import patch
 
 from cron_descriptor import ExpressionDescriptor, Options
@@ -39,14 +39,17 @@ def test_locale_de_custom_location() -> None:
     logger = logging.getLogger("cron_descriptor.GetText")
     with patch.object(logger, "debug") as mock_logger:
         # Copy existing .mo file to temp directory:
-        temp_dir = tempfile.gettempdir()
-        temp_path = os.path.join(temp_dir, "de_DE.mo")
-        shutil.copyfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../cron_descriptor/locale/", "de_DE.mo"), temp_path)
+        temp_dir = Path(tempfile.gettempdir())
+        temp_path = temp_dir.joinpath( "de_DE.mo")
+
+        source_path_file = Path(__file__).resolve().parent.joinpath("../cron_descriptor/locale/de_DE.mo")
+
+        shutil.copyfile(source_path_file.absolute(), temp_path)
 
         options = Options()
-        options.locale_location = temp_dir
+        options.locale_location = str(temp_dir.absolute())
         options.locale_code = "de_DE"
         options.use_24hour_time_format = True
 
         assert ExpressionDescriptor("* * * * *", options).get_description() == "Jede Minute"
-        mock_logger.assert_called_once_with("{temp_path} Loaded".format(**{"temp_path":temp_path}))
+        mock_logger.assert_called_once_with("%s Loaded", temp_path)

@@ -22,13 +22,13 @@
 
 import gettext
 import logging
-import os
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
 
 class FallBackNull(gettext.NullTranslations):
-    def gettext(self, message: str)  -> str:
+    def gettext(self, _message: str)  -> str:
         # If we get here, that means that original translator failed, we will return empty string
         return ""
 
@@ -37,14 +37,14 @@ class GetText:
     """Handles language translations
     """
 
-    def __init__(self, locale_code: str, locale_location: str | None=None):
+    def __init__(self, locale_code: str, locale_location: str | None = None) -> None:
         """Initialize GetText
         :param locale_code selected locale
         """
         try:
             self.trans = self.load_locale(locale_code, locale_location)
         except OSError:
-            logger.debug(f"Failed to find locale {locale_code}")
+            logger.debug("Failed to find locale %s", locale_code)
             logger.debug("Attempting to load en_US as fallback")
             self.trans = self.load_locale("en_US")
 
@@ -53,13 +53,11 @@ class GetText:
         self.trans.add_fallback(FallBackNull())
 
     def load_locale(self, locale_code: str, locale_location: str | None=None) -> gettext.GNUTranslations:
-        if locale_location is None:
-            filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), "locale", f"{locale_code}.mo")
-        else:
-            filename = os.path.join(locale_location, f"{locale_code}.mo")
-        with open(filename, "rb") as f:
+        dir_path = Path(locale_location) if locale_location else Path(__file__).resolve().parent.joinpath("locale")
+        filename = dir_path.joinpath(f"{locale_code}.mo")
+        with filename.open("rb") as f:
             trans = gettext.GNUTranslations(f)
-        logger.debug(f"{filename} Loaded")
+        logger.debug("%s Loaded", filename)
         return trans
 
 

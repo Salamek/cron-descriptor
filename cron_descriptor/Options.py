@@ -45,6 +45,7 @@ class Options:
 
         code, _encoding = locale.getlocale()
         if not code:
-            raise ValueError("Failed to retrieve locale code")
+            msg = "Failed to retrieve locale code"
+            raise ValueError(msg)
         self.locale_code = code
         self.use_24hour_time_format = code in ["ru_RU", "uk_UA", "de_DE", "it_IT", "tr_TR", "cs_CZ", "ta_IN"]

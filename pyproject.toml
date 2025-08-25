@@ -10,7 +10,9 @@ requires-python = ">= 3.11"
 description = "A Python library that converts cron expressions into human readable strings."
 
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Environment :: Console",
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
@@ -19,6 +21,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development",
 ]
 
 dependencies = [
@@ -60,15 +63,8 @@ line-length = 200
 target-version = "py312"
 
 [tool.ruff.lint]
-select = [
-  "A", "ASYNC", "B", "BLE", "C4", "C90", "DTZ", "E", "EXE", "F",
-  "FA", "FBT", "FLY", "ICN", "INT", "ISC", "N", "PGH", "PIE", "PL",
-  "PT", "PYI", "RET", "RSE", "RUF", "S", "SIM", "SLF", "T10", "TCH",
-  "TD", "TID", "W", "YTT",
-  # "ANN", "ARG", "COM", "D", "DJ", "EM", "ERA", "G", "I", "INP",
-  # "NPY", "PD", "PTH", "Q", "T20", "TRY", "UP",
-]
-ignore = ["N999"]  #  Invalid module name GetText instead of get_text
+select = ["ALL"]
+ignore = ["N999", "D"]  #  Invalid module name GetText instead of get_text, comments
 
 [tool.ruff.lint.mccabe]
 max-complexity = 20
@@ -81,14 +77,11 @@ max-returns = 10
 
 
 [tool.ruff.lint.per-file-ignores]
-"cron_descriptor/Exception.py" = ["N818", "PIE790"]
-"cron_descriptor/ExpressionDescriptor.py" = ["B904", "BLE001", "DTZ011", "PLC1901", "RET505"]
-"cron_descriptor/ExpressionParser.py" = ["RET506"]
-"setup.py" = ["SIM115"]
-"tests/*" = ["PLR0402", "S101"]
-"tests/test_locale.py" = ["PIE804"]
-"tests/test_import.py" = ["PLC0415"]
-"tools/resx2po.py" = ["N817", "S314"]
+"cron_descriptor/__main__.py" = ["T201"]  # print in code
+"tests/*" = ["S101"]  # Use of assert detected
+"tests/test_import.py" = ["PLC0415"]  # Top level import
+"examples/crontabReader.py" = ["T201", "INP001"]  # print in code, not a package
+"tools/resx2po.py" = ["S314", "INP001"] # xml parse untrusted and not a package
 
 
 [tool.mypy]

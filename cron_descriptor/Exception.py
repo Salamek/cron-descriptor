@@ -21,30 +21,25 @@
 # SOFTWARE.
 
 
-class MissingFieldException(Exception):
+class MissingFieldError(Exception):
     """Exception for cases when something is missing
     """
 
-    def __init__(self, message: str):
+    def __init__(self, message: str) -> None:
         """Initialize MissingFieldException
 
         Args:
             message: Message of exception
 
         """
-        super(MissingFieldException, self).__init__(
-            f"Field '{message}' not found.")
+        super().__init__(f"Field '{message}' not found.")
 
 
-class FormatException(Exception):
+class FormatError(Exception):
     """Exception for cases when something has wrong format
     """
 
-    pass
 
-
-class WrongArgumentException(Exception):
+class WrongArgumentError(Exception):
     """Exception for cases when wrong argument is passed
     """
-
-    pass

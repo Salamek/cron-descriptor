@@ -20,10 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from pathlib import Path
+
 import setuptools
 
 if __name__ == "__main__":
-    with open("README.md", encoding="utf-8") as in_file:
+    readme_path = Path("README.md")
+    with readme_path.open("r", encoding="utf-8") as in_file:
         long_description = in_file.read()
 
     setuptools.setup(
@@ -50,9 +53,8 @@ if __name__ == "__main__":
             "License :: OSI Approved :: MIT License",
             "Operating System :: OS Independent",
             "Programming Language :: Python",
-            "Programming Language :: Python :: 3.8",
-            "Programming Language :: Python :: 3.9",
-            "Programming Language :: Python :: 3.10",
+            "Programming Language :: Python :: Implementation :: CPython",
+            "Programming Language :: Python :: Implementation :: PyPy",
             "Programming Language :: Python :: 3.11",
             "Programming Language :: Python :: 3.12",
             "Programming Language :: Python :: 3.13",
@@ -65,6 +67,8 @@ if __name__ == "__main__":
         },
         tests_require=[
             "ruff",
+            "mypy",
+            "pytest",
         ],
         test_suite="tests",
     )
