@@ -26,15 +26,37 @@ from .CasingTypeEnum import CasingTypeEnum
 
 
 class Options:
+    """
+    Options for parsing and describing a Cron Expression
+    """
+
     locale_code: str
     casing_type: CasingTypeEnum
     verbose: bool
     day_of_week_start_index_zero: bool
     use_24hour_time_format: bool
     locale_location: str | None
-    """
-    Options for parsing and describing a Cron Expression
-    """
+
+    _twelve_hour_locales = (
+        "en_US",  # United States
+        "en_CA",  # Canada (English)
+        "fr_CA",  # Canada (French)
+        "en_AU",  # Australia
+        "en_NZ",  # New Zealand
+        "en_IE",  # Ireland
+        "en_PH",  # Philippines
+        "es_MX",  # Mexico
+        "en_PK",  # Pakistan
+        "en_IN",  # India
+        "ar_SA",  # Saudi Arabia
+        "bn_BD",  # Bangladesh
+        "es_HN",  # Honduras
+        "es_SV",  # El Salvador
+        "es_NI",  # Nicaragua
+        "ar_JO",  # Jordan
+        "ar_EG",  # Egypt
+        "es_CO",  # Colombia
+    )
 
     def __init__(self) -> None:
         self.casing_type = CasingTypeEnum.Sentence
@@ -48,4 +70,4 @@ class Options:
             msg = "Failed to retrieve locale code"
             raise ValueError(msg)
         self.locale_code = code
-        self.use_24hour_time_format = code in ["ru_RU", "uk_UA", "de_DE", "it_IT", "tr_TR", "cs_CZ", "ta_IN"]
+        self.use_24hour_time_format = code not in self._twelve_hour_locales
