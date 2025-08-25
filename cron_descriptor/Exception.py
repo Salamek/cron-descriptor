@@ -21,8 +21,8 @@
 # SOFTWARE.
 
 
-class MissingFieldError(Exception):
-    """Exception for cases when something is missing
+class MissingFieldException(Exception):
+    """Deprecated, use MissingFieldError
     """
 
     def __init__(self, message: str) -> None:
@@ -35,11 +35,25 @@ class MissingFieldError(Exception):
         super().__init__(f"Field '{message}' not found.")
 
 
-class FormatError(Exception):
+class FormatException(Exception):
+    """Deprecated use FormatError
+    """
+
+
+class WrongArgumentException(Exception):
+    """Deprecated, use WrongArgumentError
+    """
+
+
+class MissingFieldError(MissingFieldException):
+    """Exception for cases when something is missing
+    """
+
+class FormatError(FormatException):
     """Exception for cases when something has wrong format
     """
 
 
-class WrongArgumentError(Exception):
+class WrongArgumentError(WrongArgumentException):
     """Exception for cases when wrong argument is passed
     """

@@ -22,18 +22,21 @@
 
 from .CasingTypeEnum import CasingTypeEnum
 from .DescriptionTypeEnum import DescriptionTypeEnum
-from .Exception import FormatError, MissingFieldError, WrongArgumentError
+from .Exception import FormatError, FormatException, MissingFieldError, MissingFieldException, WrongArgumentError, WrongArgumentException
 from .ExpressionDescriptor import ExpressionDescriptor, get_description
 from .Options import Options
 
 __version__ = "2.0.3"
 __all__ = [
-           "CasingTypeEnum",
-           "DescriptionTypeEnum",
-           "ExpressionDescriptor",
+    "CasingTypeEnum",
+    "DescriptionTypeEnum",
+    "ExpressionDescriptor",
     "FormatError",
+    "FormatException",
     "MissingFieldError",
-           "Options",
+    "MissingFieldException",
+    "Options",
     "WrongArgumentError",
-           "get_description",
+    "WrongArgumentException",
+    "get_description",
 ]

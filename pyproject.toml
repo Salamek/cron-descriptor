@@ -84,6 +84,7 @@ max-returns = 10
 "tools/resx2po.py" = ["S314", "INP001"] # xml parse untrusted and not a package
 "tools/compilepos.py" = ["INP001"] # xml parse untrusted and not a package
 "cron_descriptor/ExpressionValidator.py" = ["PLR0915", "PLR0912"] # too many statements/branches
+"cron_descriptor/Exception.py" = ["N818"] # Deprecated incorrect exception names
 
 
 [tool.mypy]
