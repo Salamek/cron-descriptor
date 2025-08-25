@@ -20,34 +20,26 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import tests.TestCase as TestCase
+import pytest
+from cron_descriptor import Options
 from cron_descriptor import DescriptionTypeEnum, ExpressionDescriptor, MissingFieldException, FormatException
 
 
-class TestExceptions(TestCase.TestCase):
 
-    """
-    Tests that Exceptions are/not properly raised
-    """
+"""
+Tests that Exceptions are/not properly raised
+"""
 
-    def test_none_cron_expression_exception(self):
-        with self.assertRaises(MissingFieldException):
-            ceh = ExpressionDescriptor(None, self.options)
-            ceh.get_description(DescriptionTypeEnum.FULL)
+def test_empty_cron_expression_exception(options: Options) -> None:
+    with pytest.raises(MissingFieldException):
+        ExpressionDescriptor('', options)
 
-    def test_empty_cron_expression_exception(self):
+def test_invalid_cron_expression_exception(options: Options) -> None:
+    with pytest.raises(FormatException):
+        ExpressionDescriptor('INVALID', options)
 
-        with self.assertRaises(MissingFieldException):
-            ceh = ExpressionDescriptor('', self.options)
-            ceh.get_description(DescriptionTypeEnum.FULL)
-
-    def test_invalid_cron_expression_exception(self):
-        with self.assertRaises(FormatException):
-            ceh = ExpressionDescriptor('INVALID', self.options)
-            ceh.get_description(DescriptionTypeEnum.FULL)
-
-    def test_invalid_syntax_exception(self):
-        ceh = ExpressionDescriptor("* $ * * *", self.options)
-        with self.assertRaises(FormatException):
-            ceh.get_description(DescriptionTypeEnum.FULL)
+def test_invalid_syntax_exception(options: Options) -> None:
+    ceh = ExpressionDescriptor("* $ * * *", options)
+    with pytest.raises(FormatException):
+        ceh.get_description(DescriptionTypeEnum.FULL)
 

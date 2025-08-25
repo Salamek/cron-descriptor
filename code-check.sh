@@ -1,2 +1,6 @@
 #!/bin/bash
-ruff .
+set -e
+
+ruff check .
+mypy .
+pytest .

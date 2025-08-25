@@ -28,5 +28,13 @@ from .Exception import MissingFieldException, FormatException, WrongArgumentExce
 
 
 __version__ = '1.4.5'
-__all__ = ['Options', 'ExpressionDescriptor', 'get_description', 'DescriptionTypeEnum',
-           'CasingTypeEnum', 'MissingFieldException', 'FormatException', 'WrongArgumentException']
+__all__ = [
+           'CasingTypeEnum',
+           'DescriptionTypeEnum',
+           'ExpressionDescriptor',
+           'FormatException',
+           'MissingFieldException',
+           'Options',
+           'WrongArgumentException',
+           'get_description',
+]

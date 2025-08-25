@@ -21,15 +21,17 @@
 # SOFTWARE.
 
 import re
+from typing import ClassVar, Dict, List
 
+from .Options import Options
 from .Exception import MissingFieldException, FormatException
 
 
-class ExpressionParser(object):
+class ExpressionParser:
     _expression = ''
-    _options = None
+    _options: Options
 
-    _cron_days = {
+    _cron_days: ClassVar[Dict[int, str]] = {
         0: 'SUN',
         1: 'MON',
         2: 'TUE',
@@ -39,7 +41,7 @@ class ExpressionParser(object):
         6: 'SAT'
     }
 
-    _cron_months = {
+    _cron_months: ClassVar[Dict[int, str]] = {
         1: 'JAN',
         2: 'FEB',
         3: 'MAR',
@@ -54,7 +56,7 @@ class ExpressionParser(object):
         12: 'DEC'
     }
 
-    def __init__(self, expression, options):
+    def __init__(self, expression: str, options: Options):
         """Initializes a new instance of the ExpressionParser class
         Args:
             expression: The cron expression string
@@ -64,7 +66,7 @@ class ExpressionParser(object):
         self._expression = expression
         self._options = options
 
-    def parse(self):
+    def parse(self) -> List[str]:
         """Parses the cron expression string
         Returns:
             A 7 part string array, one part for each component of the cron expression (seconds, minutes, etc.)
@@ -75,7 +77,7 @@ class ExpressionParser(object):
         # Initialize all elements of parsed array to empty strings
         parsed = ['', '', '', '', '', '', '']
 
-        if self._expression is None or len(self._expression) == 0:
+        if not self._expression:
             raise MissingFieldException("ExpressionDescriptor.expression")
         else:
             expression_parts_temp = self._expression.split()
@@ -117,7 +119,7 @@ class ExpressionParser(object):
 
         return parsed
 
-    def normalize_expression(self, expression_parts):
+    def normalize_expression(self, expression_parts: List[str]) -> None:
         """Converts cron expression components into consistent, predictable formats.
         Args:
             expression_parts: A 7 part string array, one part for each component of the cron expression
@@ -151,7 +153,7 @@ class ExpressionParser(object):
             expression_parts[6] = expression_parts[6].replace("1/", "*/")  # Years
 
         # Adjust DOW based on dayOfWeekStartIndexZero option
-        def digit_replace(match):
+        def digit_replace(match: re.Match[str]) -> str:
             match_value = match.group()
             dow_digits = re.sub(r'\D', "", match_value)
             dow_digits_adjusted = dow_digits

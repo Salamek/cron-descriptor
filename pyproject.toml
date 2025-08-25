@@ -1,74 +1,109 @@
-[tool.ruff]
-select = [
-  "A",      # flake8-builtins
-  "ASYNC",  # flake8-async
-  "B",      # flake8-bugbear
-  "BLE",    # flake8-blind-except
-  "C4",     # flake8-comprehensions
-  "C90",    # McCabe cyclomatic complexity
-  "DTZ",    # flake8-datetimez
-  "E",      # pycodestyle
-  "EXE",    # flake8-executable
-  "F",      # Pyflakes
-  "FA",     # flake8-future-annotations
-  "FBT",    # flake8-boolean-trap
-  "FLY",    # flynt
-  "ICN",    # flake8-import-conventions
-  "INT",    # flake8-gettext
-  "ISC",    # flake8-implicit-str-concat
-  "N",      # pep8-naming
-  "PGH",    # pygrep-hooks
-  "PIE",    # flake8-pie
-  "PL",     # Pylint
-  "PT",     # flake8-pytest-style
-  "PYI",    # flake8-pyi
-  "RET",    # flake8-return
-  "RSE",    # flake8-raise
-  "RUF",    # Ruff-specific rules
-  "S",      # flake8-bandit
-  "SIM",    # flake8-simplify
-  "SLF",    # flake8-self
-  "T10",    # flake8-debugger
-  "TCH",    # flake8-type-checking
-  "TD",     # flake8-todos
-  "TID",    # flake8-tidy-imports
-  "W",      # pycodestyle
-  "YTT",    # flake8-2020
-  # "ANN",  # flake8-annotations
-  # "ARG",  # flake8-unused-arguments
-  # "COM",  # flake8-commas
-  # "D",    # pydocstyle
-  # "DJ",   # flake8-django
-  # "EM",   # flake8-errmsg
-  # "ERA",  # eradicate
-  # "G",    # flake8-logging-format
-  # "I",    # isort
-  # "INP",  # flake8-no-pep420
-  # "NPY",  # NumPy-specific rules
-  # "PD",   # pandas-vet
-  # "PTH",  # flake8-use-pathlib
-  # "Q",    # flake8-quotes
-  # "T20",  # flake8-print
-  # "TRY",  # tryceratops
-  # "UP",   # pyupgrade
-]
-ignore = ["N999", "PT009"]
-line-length = 159
-target-version = "py37"
+[build-system]
+requires = ["setuptools"]
+build-backend = 'setuptools.build_meta'
 
-[tool.ruff.mccabe]
+[project]
+name = "cron_descriptor"
+license = "MIT"
+dynamic = ["version"]
+requires-python = ">= 3.11"
+description = "A Python library that converts cron expressions into human readable strings."
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+dependencies = [
+
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "mypy",
+    "polib"
+]
+test = ["pytest"]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[[project.authors]]
+name = "Adam Schubert"
+email = "adam.schubert@sg1-game.net"
+
+
+[project.urls]
+Homepage = "https://github.com/Salamek/cron-descriptor"
+
+[tool.setuptools.dynamic]
+version = {attr = "cron_descriptor.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["tests*", "examples*"]
+
+[tool.setuptools.package-data]
+"cron_descriptor" = ["locale/*.mo"]
+
+[tool.ruff]
+line-length = 200
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+  "A", "ASYNC", "B", "BLE", "C4", "C90", "DTZ", "E", "EXE", "F",
+  "FA", "FBT", "FLY", "ICN", "INT", "ISC", "N", "PGH", "PIE", "PL",
+  "PT", "PYI", "RET", "RSE", "RUF", "S", "SIM", "SLF", "T10", "TCH",
+  "TD", "TID", "W", "YTT",
+  # "ANN", "ARG", "COM", "D", "DJ", "EM", "ERA", "G", "I", "INP",
+  # "NPY", "PD", "PTH", "Q", "T20", "TRY", "UP",
+]
+ignore = ["N999"]  #  Invalid module name GetText instead of get_text
+
+[tool.ruff.lint.mccabe]
 max-complexity = 20
 
-[tool.ruff.pylint]
+[tool.ruff.lint.pylint]
 allow-magic-value-types = ["int", "str"]
 max-args = 8
 max-branches = 16
+max-returns = 10
 
-[tool.ruff.per-file-ignores]
+
+[tool.ruff.lint.per-file-ignores]
 "cron_descriptor/Exception.py" = ["N818", "PIE790"]
 "cron_descriptor/ExpressionDescriptor.py" = ["B904", "BLE001", "DTZ011", "PLC1901", "RET505"]
 "cron_descriptor/ExpressionParser.py" = ["RET506"]
 "setup.py" = ["SIM115"]
 "tests/*" = ["PLR0402", "S101"]
-"tests/TestLocale.py" = ["PIE804"]
+"tests/test_locale.py" = ["PIE804"]
+"tests/test_import.py" = ["PLC0415"]
 "tools/resx2po.py" = ["N817", "S314"]
+
+
+[tool.mypy]
+files = ["cron_descriptor", "tests"]
+ignore_missing_imports = true
+strict = true
+
+
+[tool.pytest.ini_options]
+# Tell pytest where to look for tests
+testpaths = [
+    "tests",
+]
+
+# Pattern to match test files
+python_files = [
+    "test_*.py",
+]

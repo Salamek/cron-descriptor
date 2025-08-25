@@ -20,31 +20,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import locale
-from typing import Optional
-from .CasingTypeEnum import CasingTypeEnum
+from cron_descriptor import DescriptionTypeEnum, ExpressionDescriptor
+from cron_descriptor import Options
 
 
-class Options:
-    locale_code: str
-    casing_type: CasingTypeEnum
-    verbose: bool
-    day_of_week_start_index_zero: bool
-    use_24hour_time_format: bool
-    locale_location: Optional[str]
-    """
-    Options for parsing and describing a Cron Expression
-    """
+"""
+Testing that API of ExpressionDescriptor is working as specified in DOCs
+"""
 
-    def __init__(self) -> None:
-        self.casing_type = CasingTypeEnum.Sentence
-        self.verbose = False
-        self.day_of_week_start_index_zero = True
-        self.use_24hour_time_format = False
-        self.locale_location = None
+def test_full(options: Options) -> None:
+    options.use_24hour_time_format = True
+    ceh = ExpressionDescriptor("* * * * *", options)
+    assert ceh.get_description(DescriptionTypeEnum.FULL) == "Every minute"
 
-        code, _encoding = locale.getlocale()
-        if not code:
-            raise ValueError('Failed to retrieve locale code')
-        self.locale_code = code
-        self.use_24hour_time_format = code in ["ru_RU", "uk_UA", "de_DE", "it_IT", "tr_TR", "cs_CZ", "ta_IN"]
+def test_default(options: Options) -> None:
+    assert ExpressionDescriptor("* * * * *", options).get_description() == "Every minute"
+
+def test_to_str(options: Options) -> None:
+    assert str(ExpressionDescriptor("* * * * *", options)) == "Every minute"
+
+def test_to_repr(options: Options) -> None:
+    assert isinstance(ExpressionDescriptor("* * * * *", options), ExpressionDescriptor)
+
+def test_to_kargs(options: Options) -> None:
+    assert str(ExpressionDescriptor("17 17 * * *", options, use_24hour_time_format=True)) == "At 17:17"

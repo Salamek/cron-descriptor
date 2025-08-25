@@ -20,31 +20,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import locale
-from typing import Optional
-from .CasingTypeEnum import CasingTypeEnum
+from cron_descriptor import Options
+from cron_descriptor import CasingTypeEnum, DescriptionTypeEnum, ExpressionDescriptor
 
 
-class Options:
-    locale_code: str
-    casing_type: CasingTypeEnum
-    verbose: bool
-    day_of_week_start_index_zero: bool
-    use_24hour_time_format: bool
-    locale_location: Optional[str]
-    """
-    Options for parsing and describing a Cron Expression
-    """
 
-    def __init__(self) -> None:
-        self.casing_type = CasingTypeEnum.Sentence
-        self.verbose = False
-        self.day_of_week_start_index_zero = True
-        self.use_24hour_time_format = False
-        self.locale_location = None
 
-        code, _encoding = locale.getlocale()
-        if not code:
-            raise ValueError('Failed to retrieve locale code')
-        self.locale_code = code
-        self.use_24hour_time_format = code in ["ru_RU", "uk_UA", "de_DE", "it_IT", "tr_TR", "cs_CZ", "ta_IN"]
+"""
+Tests casing transformation
+"""
+
+def test_sentence_casing(options: Options) -> None:
+    options.casing_type = CasingTypeEnum.Sentence
+    ceh = ExpressionDescriptor("* * * * *", options)
+    assert ceh.get_description(DescriptionTypeEnum.FULL) == "Every minute"
+
+def test_title_casing(options: Options) -> None:
+    options.casing_type = CasingTypeEnum.Title
+    ceh = ExpressionDescriptor("* * * * *", options)
+    assert ceh.get_description(DescriptionTypeEnum.FULL) == "Every Minute"
+
+def test_lower_casing(options: Options) -> None:
+    options.casing_type = CasingTypeEnum.LowerCase
+    ceh = ExpressionDescriptor("* * * * *", options)
+    assert ceh.get_description(DescriptionTypeEnum.FULL) == "every minute"

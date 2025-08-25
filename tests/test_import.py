@@ -20,22 +20,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import unittest
-from cron_descriptor import Options
-
-__author__ = "Adam Schubert <adam.schubert@sg1-game.net>"
-__date__ = "$2016-01-17 14:51:02$"
+from cron_descriptor.Options import Options
 
 
-class TestCase(unittest.TestCase):
+def test_inline_import(options: Options) -> None:
+    from cron_descriptor import Options, DescriptionTypeEnum, ExpressionDescriptor
+    new_options = Options()
+    new_options.use_24hour_time_format = True
+    new_options.locale_code = options.locale_code
+    ceh = ExpressionDescriptor("* * * * *", new_options)
+    assert ceh.get_description(DescriptionTypeEnum.FULL) == "Every minute"
 
-    """
-    Test case for all tests
-    """
+def test_full_import(options: Options) -> None:
 
-    def setUp(self):
-        """Set up en_US locale
-        """
-        # all tests are written in en_US
-        self.options = Options()
-        self.options.locale_code = 'en_US'
+    from cron_descriptor.DescriptionTypeEnum import DescriptionTypeEnum
+    from cron_descriptor.ExpressionDescriptor import ExpressionDescriptor
+
+    new_options = Options()
+    new_options.use_24hour_time_format = True
+    new_options.locale_code = options.locale_code
+    ceh = ExpressionDescriptor("* * * * *", new_options)
+    assert ceh.get_description(DescriptionTypeEnum.FULL) == "Every minute"

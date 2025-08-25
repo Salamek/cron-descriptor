@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import datetime
-
+from typing import Dict
 import xml.etree.ElementTree as ET
 from pathlib import Path
 import polib
@@ -41,16 +41,18 @@ class Resx2Po:
 
         self.generate()
 
-    def resx2dict(self, resx):
+    def resx2dict(self, resx: Path) -> Dict[str, str]:
         tree = ET.parse(resx)
         root = tree.getroot()
         translation_table = {}
         for first in root.findall('./data'):
-            translation_table[first.attrib['name']] = first.find('./value').text
+            found_value = first.find('./value')
+            if found_value and found_value.text:
+                translation_table[first.attrib['name']] = found_value.text
 
         return translation_table
 
-    def generate(self):
+    def generate(self) -> None:
         po = polib.POFile()
         now = datetime.datetime.now(datetime.timezone.utc)
         po.metadata = {

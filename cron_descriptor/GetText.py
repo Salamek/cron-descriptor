@@ -22,6 +22,7 @@
 
 import gettext
 import os
+from typing import Optional
 import logging
 
 
@@ -29,17 +30,17 @@ logger = logging.getLogger(__name__)
 
 
 class FallBackNull(gettext.NullTranslations):
-    def gettext(self, message):
+    def gettext(self, message: str)  -> str:
         # If we get here, that means that original translator failed, we will return empty string
         return ""
 
 
-class GetText(object):
+class GetText:
     """
     Handles language translations
     """
 
-    def __init__(self, locale_code, locale_location=None):
+    def __init__(self, locale_code: str, locale_location: Optional[str]=None):
         """
         Initialize GetText
         :param locale_code selected locale
@@ -55,7 +56,7 @@ class GetText(object):
         # support for _("") or _("")
         self.trans.add_fallback(FallBackNull())
 
-    def load_locale(self, locale_code, locale_location=None):
+    def load_locale(self, locale_code: str, locale_location: Optional[str]=None) -> gettext.GNUTranslations:
         if locale_location is None:
             filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'locale', '{}.mo'.format(locale_code))
         else:

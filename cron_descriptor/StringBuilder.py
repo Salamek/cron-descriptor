@@ -20,17 +20,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from typing import List
 
-class StringBuilder(object):
-
+class StringBuilder:
+    string: List[str]
     """
     Builds string parts together acting like Java/.NET StringBuilder
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.string = []
 
-    def append(self, string):
+    def append(self, string: str) -> None:
         """Appends non empty string
 
         Args:
@@ -41,8 +42,8 @@ class StringBuilder(object):
         if string:
             self.string.append(string)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return ''.join(self.string)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.string)

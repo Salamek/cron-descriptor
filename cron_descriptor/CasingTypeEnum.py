@@ -23,9 +23,10 @@
 """
 Enum to define the casing types for the Cron Expression description
 """
+import enum
 
-
-class CasingTypeEnum(object):
+@enum.unique
+class CasingTypeEnum(enum.IntEnum):
     Title = 1
     Sentence = 2
     LowerCase = 3
