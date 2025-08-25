@@ -20,55 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from pathlib import Path
+from setuptools import setup
 
-import setuptools
-
-if __name__ == "__main__":
-    readme_path = Path("README.md")
-    with readme_path.open("r", encoding="utf-8") as in_file:
-        long_description = in_file.read()
-
-    setuptools.setup(
-        name="cron_descriptor",
-        version="1.4.5",
-        description="A Python library that converts cron expressions "
-                    "into human readable strings.",
-        author="Adam Schubert",
-        author_email="adam.schubert@sg1-game.net",
-        url="https://github.com/Salamek/cron-descriptor",
-        long_description=long_description,
-        long_description_content_type="text/markdown",
-        packages=setuptools.find_packages(exclude=["tests*" ]),
-        package_data={
-            "cron_descriptor": [
-                "locale/*.mo",
-            ],
-        },
-        classifiers=[
-            "Development Status :: 5 - Production/Stable",
-            "Environment :: Web Environment",
-            "Environment :: Console",
-            "Intended Audience :: Developers",
-            "License :: OSI Approved :: MIT License",
-            "Operating System :: OS Independent",
-            "Programming Language :: Python",
-            "Programming Language :: Python :: Implementation :: CPython",
-            "Programming Language :: Python :: Implementation :: PyPy",
-            "Programming Language :: Python :: 3.11",
-            "Programming Language :: Python :: 3.12",
-            "Programming Language :: Python :: 3.13",
-            "Topic :: Software Development",
-        ],
-        extras_require={
-            "dev": [
-                "polib",
-            ],
-        },
-        tests_require=[
-            "ruff",
-            "mypy",
-            "pytest",
-        ],
-        test_suite="tests",
-    )
+# Metadata will be read from pyproject.toml
+setup()
