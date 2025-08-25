@@ -8,11 +8,9 @@ CHANGELOG:
 
 
 REGEXPS:
-    'python': __version__\s*=\s*\'(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)\'
-    'setup.py': version\s*=\s*\"(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)\"
+    'python': __version__\s*=\s*(\'|\")(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)(\'|\")
     'PKGBUILD': pkgver\s*=\s*(?P<version>.*)
 
 VERSION_FILES:
     'cron_descriptor/__init__.py': 'python'
-    'setup.py': 'setup.py'
     'archlinux/PKGBUILD': 'PKGBUILD'

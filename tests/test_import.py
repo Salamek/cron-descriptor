@@ -25,9 +25,10 @@ from cron_descriptor.Options import Options
 
 def test_inline_import(options: Options) -> None:
     from cron_descriptor import DescriptionTypeEnum, ExpressionDescriptor, Options
-    new_options = Options()
-    new_options.use_24hour_time_format = True
-    new_options.locale_code = options.locale_code
+    new_options = Options(
+        locale_code=options.locale_code,
+        use_24hour_time_format=True,
+    )
     ceh = ExpressionDescriptor("* * * * *", new_options)
     assert ceh.get_description(DescriptionTypeEnum.FULL) == "Every minute"
 
@@ -36,8 +37,9 @@ def test_full_import(options: Options) -> None:
     from cron_descriptor.DescriptionTypeEnum import DescriptionTypeEnum
     from cron_descriptor.ExpressionDescriptor import ExpressionDescriptor
 
-    new_options = Options()
-    new_options.use_24hour_time_format = True
-    new_options.locale_code = options.locale_code
+    new_options = Options(
+        locale_code=options.locale_code,
+        use_24hour_time_format=True,
+    )
     ceh = ExpressionDescriptor("* * * * *", new_options)
     assert ceh.get_description(DescriptionTypeEnum.FULL) == "Every minute"

@@ -30,9 +30,7 @@ from cron_descriptor import ExpressionDescriptor, Options
 
 
 def test_locale_de() -> None:
-    options = Options()
-    options.locale_code = "de_DE"
-    options.use_24hour_time_format = True
+    options = Options(locale_code="de_DE")
     assert ExpressionDescriptor("* * * * *", options).get_description() == "Jede Minute"
 
 def test_locale_de_custom_location() -> None:
@@ -46,10 +44,10 @@ def test_locale_de_custom_location() -> None:
 
         shutil.copyfile(source_path_file.absolute(), temp_path)
 
-        options = Options()
-        options.locale_location = str(temp_dir.absolute())
-        options.locale_code = "de_DE"
-        options.use_24hour_time_format = True
+        options = Options(
+            locale_code="de_DE",
+            locale_location=str(temp_dir.absolute()),
+        )
 
         assert ExpressionDescriptor("* * * * *", options).get_description() == "Jede Minute"
         mock_logger.assert_called_once_with("%s Loaded", temp_path)
