@@ -57,15 +57,13 @@ class CrontabReader:
             cronfile: Path to cronfile
         Returns:
             None
-
         """
         options = Options()
         options.day_of_week_start_index_zero = False
         options.use_24hour_time_format = True
         with cronfile.open("r", encoding="utf-8") as f:
             for line in f.readlines():
-                parsed_line = self.parse_cron_line(line)
-                if parsed_line:
+                if parsed_line := self.parse_cron_line(line):
                     print(
                         f"{parsed_line} -> {ExpressionDescriptor(parsed_line, options)}"
                     )
@@ -76,14 +74,10 @@ class CrontabReader:
         Args:
             line: crontab line
         Returns:
-            Time part of cron line
-
+            Time part of cron line or None
         """
-        stripped = line.strip()
-
-        if stripped and stripped.startswith("#") is False:
-            rexres = self.rex.search(stripped)
-            if rexres:
+        if (stripped := line.strip()) and not stripped.startswith("#"):
+            if rexres := self.rex.search(stripped):
                 return " ".join(rexres.group(1).split())
 
         return None
