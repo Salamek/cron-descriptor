@@ -13,7 +13,7 @@ A Python library that converts cron expressions into human readable strings. Por
  * Supports all cron expression special characters including * / , - ? L W, #
  * Supports 5, 6 (w/ seconds or year), or 7 (w/ seconds and year) part cron expressions
  * Provides casing options (Sentence, Title, Lower, etc.)
- * Localization with support for 17 languages
+ * Localization with support for ~31 languages
  * Supports Python 3.9 - 3.13
 
 ## Installation
@@ -61,26 +61,54 @@ print(descriptor.get_description(DescriptionTypeEnum.FULL))
 
 ## Languages Available
 
-|Language| Locale Code | Contributor |
-|--------|-------------|-------------|
-|English |en|[Brady Holt](https://github.com/bradyholt)|
-|Brazilian |pt_PT|[Renato Lima](https://github.com/natenho)|
-|Chinese Simplified | zh_CN |[Star Peng](https://github.com/starpeng)|
-|Spanish |es_ES|[Ivan Santos](https://github.com/ivansg)|
-|Norwegian |nb_NO|[Siarhei Khalipski](https://github.com/KhalipskiSiarhei)|
-|Turkish |tr_TR|[Mustafa SADEDİL](https://github.com/sadedil)|
-|Dutch |nl_NL|[TotalMace](https://github.com/TotalMace)|
-|Russian |ru_RU|[LbISS](https://github.com/LbISS)|
-|French |fr_FR|[Arnaud TAMAILLON](https://github.com/Greybird)|
-|German |de_DE|[Michael Schuler](https://github.com/mschuler)|
-|Ukrainian |uk_UA|[Taras](https://github.com/tbudurovych)|
-|Italian |it_IT|[rinaldihno](https://github.com/rinaldihno)|
-|Czech |cs_CZ|[Adam Schubert](https://github.com/salamek)|
-|Swedish |sv_SE|[Åke Engelbrektson](https://github.com/eson57)|
-|Tamil |ta_IN|[Sankar Hari](https://github.com/sankarhari)|
-|Persian|fa_IR|[M. Yas. Davoodeh](https://github.com/Davoodeh)|
-|Korean|ko_KR|[KyuJoo Han](https://github.com/hanqyu)|
-|Japanese |ja_JP|[Tho Nguyen](https://github.com/tho-asterist)|
+| Language            | Locale Code | Contributor                                             |
+|---------------------|-------------|---------------------------------------------------------|
+| English             | en          | [Brady Holt](https://github.com/bradyholt)              |
+| Chinese Simplified  | zh_CN       | [Star Peng](https://github.com/starpeng)                |
+| Chinese Traditional | zh_TW       | [Ricky Chiang](https://github.com/metavige)             |
+| Czech               | cs_CZ       | [Adam Schubert](https://github.com/salamek)             |
+| Danish              | da_DK       | [Rasmus Melchior Jacobsen](https://github.com/rmja)     |
+| Dutch               | nl_NL       | [TotalMace](https://github.com/TotalMace)               |
+| Finnish             | fi_FI       | [Mikael Rosenberg](https://github.com/MR77FI)           |
+| French              | fr_FR       | [Arnaud TAMAILLON](https://github.com/Greybird)         |
+| German              | de_DE       | [Michael Schuler](https://github.com/mschuler)          |
+| Hebrew              | he_IL       | [Ariel Deil](https://github.com/arieldeil)              |
+| Hungarian           | hu_HU       | [Varga Miklós](https://github.com/Micky2149)            |
+| Italian             | it_IT       | [rinaldihno](https://github.com/rinaldihno)             |
+| Japanese            | ja_JP       | [Tho Nguyen](https://github.com/tho-asterist)           |
+| Korean              | ko_KR       | [KyuJoo Han](https://github.com/hanqyu)                 |
+| Norwegian           | nb_NO       | [Siarhei Khalipski](https://github.com/KhalipskiSiarhei)|
+| Persian             | fa_IR       | [A. Bahrami](https://github.com/alirezakoo)             |
+| Polish              | pl_PL       | [foka](https://github.com/foka)                         |
+| Portuguese          | pt_PT       | [Renato Lima](https://github.com/natenho)               |
+| Portuguese (Brazil) | pt_BR       | [Renato Lima](https://github.com/natenho)               |
+| Romanian            | ro_RO       | [Illegitimis](https://github.com/illegitimis)           |
+| Russian             | ru_RU       | [LbISS](https://github.com/LbISS)                       |
+| Slovenian           | sl_SI       | [Jani Bevk](https://github.com/jenzy)                   |
+| Spanish             | es_ES       | [Ivan Santos](https://github.com/ivansg)                |
+| Spanish (Mexico)    | es_MX       | [Ion Mincu](https://github.com/ionmincu)                |
+| Swedish             | sv_SE       | [Åke Engelbrektson](https://github.com/eson57)          |
+| Vietnamese          | vi_VN       | [Nguyen Duc Son](https://github.com/ali33)              |
+| Turkish             | tr_TR       | [Mustafa SADEDİL](https://github.com/sadedil)           |
+| Tamil               | ta_IN       | [Sankar Hari](https://github.com/sankarhari)            |
+| Ukrainian           | uk_UA       | [Taras](https://github.com/tbudurovych)                 |
+| Greek               | el_GR       | [hardra1n](https://github.com/Hardra1n)                 |
+| Kazakh              | kk_KZ       | [hardra1n](https://github.com/Hardra1n)                 |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- SOON
 ## Demo
