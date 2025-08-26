@@ -20,21 +20,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "cron-descriptor",
+# ]
+# ///
+
 import re
 from pathlib import Path
 
 try:
     from cron_descriptor import ExpressionDescriptor, Options
 except ImportError:
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    print('\033[1mFailed to import cron_descriptor, maybe ? "pip install cron-descriptor ?"\033[0m')
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    print(
+        "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    )
+    print(
+        '\033[1mFailed to import cron_descriptor, maybe ? "pip install cron-descriptor ?"\033[0m'
+    )
+    print(
+        "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    )
     raise
 
 
 class CrontabReader:
-    """Simple example reading /etc/contab
-    """
+    """Simple example reading /etc/contab"""
 
     rex = re.compile(r"^(\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}).+$")
 
@@ -54,7 +66,9 @@ class CrontabReader:
             for line in f.readlines():
                 parsed_line = self.parse_cron_line(line)
                 if parsed_line:
-                    print(f"{parsed_line} -> {ExpressionDescriptor(parsed_line, options)}")
+                    print(
+                        f"{parsed_line} -> {ExpressionDescriptor(parsed_line, options)}"
+                    )
 
     def parse_cron_line(self, line: str) -> str | None:
         """Parses crontab line and returns only starting time string
@@ -75,4 +89,5 @@ class CrontabReader:
         return None
 
 
-CrontabReader(Path("/etc/crontab"))
+if __name__ == "__main__":
+    CrontabReader(Path("/etc/crontab"))
