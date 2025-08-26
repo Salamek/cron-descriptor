@@ -20,6 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "cron-descriptor",
+# ]
+# ///
+
 import re
 from pathlib import Path
 
@@ -33,8 +40,7 @@ except ImportError:
 
 
 class CrontabReader:
-    """Simple example reading /etc/contab
-    """
+    """Simple example reading /etc/contab"""
 
     rex = re.compile(r"^(\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}).+$")
 
@@ -45,15 +51,13 @@ class CrontabReader:
             cronfile: Path to cronfile
         Returns:
             None
-
         """
         options = Options()
         options.day_of_week_start_index_zero = False
         options.use_24hour_time_format = True
         with cronfile.open("r", encoding="utf-8") as f:
             for line in f.readlines():
-                parsed_line = self.parse_cron_line(line)
-                if parsed_line:
+                if parsed_line := self.parse_cron_line(line):
                     print(f"{parsed_line} -> {ExpressionDescriptor(parsed_line, options)}")
 
     def parse_cron_line(self, line: str) -> str | None:
@@ -62,12 +66,9 @@ class CrontabReader:
         Args:
             line: crontab line
         Returns:
-            Time part of cron line
-
+            Time part of cron line or None
         """
-        stripped = line.strip()
-
-        if stripped and stripped.startswith("#") is False:
+        if (stripped := line.strip()) and not stripped.startswith("#"):
             rexres = self.rex.search(stripped)
             if rexres:
                 return " ".join(rexres.group(1).split())
@@ -75,4 +76,5 @@ class CrontabReader:
         return None
 
 
-CrontabReader(Path("/etc/crontab"))
+if __name__ == "__main__":
+    CrontabReader(Path("/etc/crontab"))
