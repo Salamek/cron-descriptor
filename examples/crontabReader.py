@@ -27,7 +27,6 @@ from __future__ import annotations
 #     "cron-descriptor",
 # ]
 # ///
-
 import re
 from pathlib import Path
 
