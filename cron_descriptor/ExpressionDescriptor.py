@@ -19,12 +19,14 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+from __future__ import annotations
 
 import calendar
 import datetime
 import re
-from collections.abc import Callable
-from typing import TypedDict, Unpack
+from typing import Callable, TypedDict
+
+from typing_extensions import Unpack
 
 from .CasingTypeEnum import CasingTypeEnum
 from .DescriptionTypeEnum import DescriptionTypeEnum
@@ -349,7 +351,7 @@ class ExpressionDescriptor:
         return self.get_segment_description(
             self._expression_parts[4],
             "",
-            lambda s: datetime.date(datetime.datetime.now(tz=datetime.UTC).date().year, int(s), 1).strftime("%B"),
+            lambda s: datetime.date(datetime.datetime.now(tz=datetime.timezone.utc).date().year, int(s), 1).strftime("%B"),
             lambda s: self.translate(", every {0} months").format(s),
             lambda _: self.translate(", month {0} through month {1}") or self.translate(", {0} through {1}"),
             lambda _: self.translate(", only in {0}"),

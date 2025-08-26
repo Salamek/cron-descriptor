@@ -58,7 +58,7 @@ class Resx2Po:
 
     def generate(self) -> None:
         po = polib.POFile()
-        now = datetime.datetime.now(datetime.UTC)
+        now = datetime.datetime.now(datetime.timezone.utc)
         po.metadata = {
             "Project-Id-Version": "1.0",
             "Report-Msgid-Bugs-To": "adam.schubert@sg1-game.net",
