@@ -48,7 +48,7 @@ descriptor = ExpressionDescriptor(
 
 # GetDescription uses DescriptionTypeEnum.FULL by default:
 print(descriptor.get_description())
-print("{}".format(descriptor))
+print(f"{descriptor = }")
 
 # Or passing Options class as second argument:
 
