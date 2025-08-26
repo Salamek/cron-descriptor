@@ -33,15 +33,9 @@ from pathlib import Path
 try:
     from cron_descriptor import ExpressionDescriptor, Options
 except ImportError:
-    print(
-        "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    )
-    print(
-        '\033[1mFailed to import cron_descriptor, maybe ? "pip install cron-descriptor ?"\033[0m'
-    )
-    print(
-        "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    )
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    print('\033[1mFailed to import cron_descriptor, maybe ? "pip install cron-descriptor ?"\033[0m')
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     raise
 
 
@@ -64,9 +58,7 @@ class CrontabReader:
         with cronfile.open("r", encoding="utf-8") as f:
             for line in f.readlines():
                 if parsed_line := self.parse_cron_line(line):
-                    print(
-                        f"{parsed_line} -> {ExpressionDescriptor(parsed_line, options)}"
-                    )
+                    print(f"{parsed_line} -> {ExpressionDescriptor(parsed_line, options)}")
 
     def parse_cron_line(self, line: str) -> str | None:
         """Parses crontab line and returns only starting time string
@@ -77,7 +69,8 @@ class CrontabReader:
             Time part of cron line or None
         """
         if (stripped := line.strip()) and not stripped.startswith("#"):
-            if rexres := self.rex.search(stripped):
+            rexres = self.rex.search(stripped)
+            if rexres:
                 return " ".join(rexres.group(1).split())
 
         return None
