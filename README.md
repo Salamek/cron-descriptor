@@ -161,11 +161,11 @@ All suggestions and PR's are welcomed
 Just clone this repository and register pre-commit hook by running:
 
 ```bash
-ln -s ../../pre-commit.sh .git/hooks/pre-commit
+ln -s ../../code-check.sh .git/hooks/pre-commit
 ```
 
 Then install dev requirements:
 
 ```bash
-pip install ruff
+pip install .[dev,test]
 ```
