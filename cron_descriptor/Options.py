@@ -22,6 +22,7 @@
 from __future__ import annotations
 
 import locale
+import warnings
 
 from .CasingTypeEnum import CasingTypeEnum
 
@@ -77,8 +78,12 @@ class Options:
             # Autodetect
             code, _encoding = locale.getlocale()
             if not code:
-                msg = "Failed to retrieve locale code"
-                raise ValueError(msg)
+                warnings.warn(
+                    "No system locale set. Falling back to 'en_US'. "
+                    "Set LANG/LC_ALL or pass locale_code to override.",
+                    stacklevel=2,
+                )
+                code = "en_US"
             self.locale_code = code
         else:
             self.locale_code = locale_code
