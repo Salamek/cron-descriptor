@@ -23,6 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Software Development",
 ]
 
@@ -45,7 +46,6 @@ content-type = "text/markdown"
 [[project.authors]]
 name = "Adam Schubert"
 email = "adam.schubert@sg1-game.net"
-
 
 [project.urls]
 Homepage = "https://github.com/Salamek/cron-descriptor"
@@ -77,7 +77,6 @@ max-args = 8
 max-branches = 16
 max-returns = 10
 
-
 [tool.ruff.lint.per-file-ignores]
 "cron_descriptor/__main__.py" = ["T201"]  # print in code
 "tests/*" = ["S101"]  # Use of assert detected
@@ -88,14 +87,11 @@ max-returns = 10
 "cron_descriptor/ExpressionValidator.py" = ["PLR0915", "PLR0912"] # too many statements/branches
 "cron_descriptor/Exception.py" = ["N818"] # Deprecated incorrect exception names
 
-
 [tool.mypy]
 files = ["cron_descriptor", "tests"]
 python_version = 3.9
 ignore_missing_imports = true
 strict = true
-
-
 
 [tool.pytest.ini_options]
 # Tell pytest where to look for tests
