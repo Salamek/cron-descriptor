@@ -110,6 +110,9 @@ def test_day_of_week_range_lowercase(options: Options) -> None:
 def test_day_of_week_once_in_month(options: Options) -> None:
     assert get_description("* * * * MON#3", options) == "Every minute, on the third Monday of the month"
 
+def test_day_of_week_once_in_month_fourth(options: Options) -> None:
+    assert get_description("36 12 * * 2#4", options) == "At 12:36 PM, on the fourth Tuesday of the month"
+
 def test_last_day_of_the_week_of_the_month(options: Options) -> None:
     assert get_description("* * * * 4L", options) == "Every minute, on the last Thursday of the month"
 
