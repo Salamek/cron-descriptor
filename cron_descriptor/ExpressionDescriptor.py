@@ -326,6 +326,10 @@ class ExpressionDescriptor:
                 formatted = "{}{}{}".format(self.translate(", on the "), day_of_week_of_month_description, self.translate(" {0} of the month"))
             elif "L" in s:
                 formatted = self.translate(", on the last {0} of the month")
+            elif self._expression_parts[3] != "*":
+                # When day-of-month is also restricted, cron fires on either match (OR), so prefer
+                # "or on"; locales lacking that translation keep their existing "only on" wording.
+                formatted = self.translate(", or on {0}") or self.translate(", only on {0}")
             else:
                 formatted = self.translate(", only on {0}")
 

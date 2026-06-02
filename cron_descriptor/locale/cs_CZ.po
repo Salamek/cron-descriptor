@@ -136,6 +136,10 @@ msgstr ", v poslední {0} měsíce"
 msgid ", only on {0}"
 msgstr ", pouze v {0}"
 
+#, python-brace-format
+msgid ", or on {0}"
+msgstr ", nebo v {0}"
+
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303
 #: ExpressionDescriptor.py:435
 msgid ", every day"

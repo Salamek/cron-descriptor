@@ -137,6 +137,10 @@ msgstr ", le dernier {0} du mois"
 msgid ", only on {0}"
 msgstr ", uniquement le {0}"
 
+#, python-brace-format
+msgid ", or on {0}"
+msgstr ", ou le {0}"
+
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303
 #: ExpressionDescriptor.py:435
 msgid ", every day"

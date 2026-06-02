@@ -135,6 +135,10 @@ msgstr "、月の最後の {0} に"
 msgid ", only on {0}"
 msgstr "、{0} にのみ"
 
+#, python-brace-format
+msgid ", or on {0}"
+msgstr ", または{0}"
+
 #: ExpressionDescriptor.py:316 ExpressionDescriptor.py:366
 #: ExpressionDescriptor.py:368 ExpressionDescriptor.py:554
 msgid ", every day"

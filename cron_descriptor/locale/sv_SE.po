@@ -126,6 +126,10 @@ msgstr ", på den sista {0} i månaden"
 msgid ", only on {0}"
 msgstr ", bara på {0}"
 
+#, python-brace-format
+msgid ", or on {0}"
+msgstr ", eller på {0}"
+
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303
 #: ExpressionDescriptor.py:435
 msgid ", every day"

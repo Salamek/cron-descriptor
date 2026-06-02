@@ -137,6 +137,10 @@ msgstr ", 매월 마지막 {0} "
 msgid ", only on {0}"
 msgstr ", {0}에"
 
+#, python-brace-format
+msgid ", or on {0}"
+msgstr ", 또는 {0}"
+
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303
 #: ExpressionDescriptor.py:435
 msgid ", every day"
