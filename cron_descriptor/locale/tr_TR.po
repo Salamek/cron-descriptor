@@ -137,6 +137,10 @@ msgstr ", ayın son {0} günü"
 msgid ", only on {0}"
 msgstr ", sadece {0} günü"
 
+#, python-brace-format
+msgid ", or on {0}"
+msgstr ", veya {0} günü"
+
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:303
 #: ExpressionDescriptor.py:435
 msgid ", every day"

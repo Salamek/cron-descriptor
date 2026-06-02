@@ -110,6 +110,24 @@ def test_day_of_week_range_lowercase(options: Options) -> None:
 def test_day_of_week_once_in_month(options: Options) -> None:
     assert get_description("* * * * MON#3", options) == "Every minute, on the third Monday of the month"
 
+def test_day_of_week_once_in_month_fourth(options: Options) -> None:
+    assert get_description("36 12 * * 2#4", options) == "At 12:36 PM, on the fourth Tuesday of the month"
+
+def test_day_of_month_and_day_of_week_uses_or(options: Options) -> None:
+    assert get_description("* * 2 * 1", options) == "Every minute, on day 2 of the month, or on Monday"
+
+def test_day_of_month_step_and_day_of_week_uses_or(options: Options) -> None:
+    assert get_description("* * */2 * 1", options) == "Every minute, every 2 days, or on Monday"
+
+def test_every_x_weeks_single_day(options: Options) -> None:
+    assert get_description("0 0 12 ? * FRI/2", options) == "At 12:00 PM, every 2 weeks, only on Friday"
+
+def test_every_x_weeks_day_range(options: Options) -> None:
+    assert get_description("0 0 12 ? * WED-FRI/3", options) == "At 12:00 PM, every 3 weeks, Wednesday through Friday"
+
+def test_every_x_weeks_day_list(options: Options) -> None:
+    assert get_description("0 0 12 ? * TUE,FRI/4", options) == "At 12:00 PM, every 4 weeks, only on Tuesday and Friday"
+
 def test_last_day_of_the_week_of_the_month(options: Options) -> None:
     assert get_description("* * * * 4L", options) == "Every minute, on the last Thursday of the month"
 
@@ -283,7 +301,10 @@ def test_multi_part_day_of_the_week(options: Options) -> None:
 
 
 def test_day_of_week_with_day_of_month(options: Options) -> None:
-    assert get_description("0 0 0 1,2,3 * WED,FRI", options) == "At 12:00 AM, on day 1, 2, and 3 of the month, only on Wednesday and Friday"
+    assert get_description(
+        "0 0 0 1,2,3 * WED,FRI",
+        options,
+    ) == "At 12:00 AM, on day 1, 2, and 3 of the month, or on Wednesday and Friday"
 
 
 def test_seconds_interval_with_step_value(options: Options) -> None:

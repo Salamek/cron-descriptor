@@ -130,6 +130,10 @@ msgstr ", kuukauden viimeinen {0}"
 msgid ", only on {0}"
 msgstr ", vain {0}"
 
+#, python-brace-format
+msgid ", or on {0}"
+msgstr ", tai {0}"
+
 #. ComaEveryX0Months
 msgid ", every {0} months"
 msgstr ", joka {0}. kuukausi"

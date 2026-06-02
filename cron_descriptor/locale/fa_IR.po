@@ -136,6 +136,10 @@ msgstr "، در آخرین {0} ماه"
 msgid ", only on {0}"
 msgstr "، فقط در {0}"
 
+#, python-brace-format
+msgid ", or on {0}"
+msgstr ", یا در {0}"
+
 #: ExpressionDescriptor.py:316 ExpressionDescriptor.py:366
 #: ExpressionDescriptor.py:368 ExpressionDescriptor.py:554
 msgid ", every day"

@@ -130,6 +130,10 @@ msgstr ", 每月的最後一個 {0} "
 msgid ", only on {0}"
 msgstr ", 僅在 {0}"
 
+#, python-brace-format
+msgid ", or on {0}"
+msgstr ", 或{0}"
+
 #. ComaEveryX0Months
 msgid ", every {0} months"
 msgstr ", 每 {0} 月"

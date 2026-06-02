@@ -326,10 +326,52 @@ class ExpressionDescriptor:
                 formatted = "{}{}{}".format(self.translate(", on the "), day_of_week_of_month_description, self.translate(" {0} of the month"))
             elif "L" in s:
                 formatted = self.translate(", on the last {0} of the month")
+            elif self._expression_parts[3] != "*":
+                # When day-of-month is also restricted, cron fires on either match (OR), so prefer
+                # "or on"; locales lacking that translation keep their existing "only on" wording.
+                formatted = self.translate(", or on {0}") or self.translate(", only on {0}")
             else:
                 formatted = self.translate(", only on {0}")
 
             return formatted
+
+        # A DOW step on specific days describes a weekly cadence ("every 2 weeks, only on Friday")
+        # rather than a within-week one ("every 2 days of the week, Monday through Friday"): a day
+        # list always, or a range whose step is >= its size (so at most one day per range fires).
+        dow_expression = self._expression_parts[5]
+        if "/" in dow_expression:
+            base, step = dow_expression.split("/", 1)
+            day_description = None
+            if "," in base:
+                day_description = self.get_segment_description(
+                    base,
+                    "",
+                    get_day_name,
+                    lambda s: self.translate(", every {0} days of the week").format(s),
+                    lambda _: self.translate(", {0} through {1}"),
+                    lambda _: self.translate(", only on {0}"),
+                    lambda _: self.translate(", {0} through {1}"),
+                )
+            elif "-" in base:
+                range_start, range_end = base.split("-")
+                if int(step) >= int(range_end) - int(range_start) + 1:
+                    if int(range_end) == 6:
+                        # A single day with a step normalises to <day>-6 (e.g. FRI/2 -> 5-6/2), so an
+                        # end of 6 means a single day, not a real range; show the start day alone
+                        # rather than "<day> through Saturday".
+                        day_description = self.translate(", only on {0}").format(get_day_name(range_start))
+                    else:
+                        day_description = self.generate_between_segment_description(
+                            base,
+                            lambda _: self.translate(", {0} through {1}"),
+                            get_day_name,
+                        )
+
+            if day_description is not None:
+                interval_description = (
+                    self.translate(", every {0} weeks") or self.translate(", every {0} days of the week")
+                ).format(step)
+                return interval_description + day_description
 
         return self.get_segment_description(
             self._expression_parts[5],

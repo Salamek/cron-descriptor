@@ -132,6 +132,10 @@ msgstr ", el último {0} del mes"
 msgid ", only on {0}"
 msgstr ", solo el {0}"
 
+#, python-brace-format
+msgid ", or on {0}"
+msgstr ", o el {0}"
+
 #. ComaEveryX0Months
 msgid ", every {0} months"
 msgstr ", cada {0} meses"
