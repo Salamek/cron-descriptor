@@ -119,6 +119,15 @@ def test_day_of_month_and_day_of_week_uses_or(options: Options) -> None:
 def test_day_of_month_step_and_day_of_week_uses_or(options: Options) -> None:
     assert get_description("* * */2 * 1", options) == "Every minute, every 2 days, or on Monday"
 
+def test_every_x_weeks_single_day(options: Options) -> None:
+    assert get_description("0 0 12 ? * FRI/2", options) == "At 12:00 PM, every 2 weeks, only on Friday"
+
+def test_every_x_weeks_day_range(options: Options) -> None:
+    assert get_description("0 0 12 ? * WED-FRI/3", options) == "At 12:00 PM, every 3 weeks, Wednesday through Friday"
+
+def test_every_x_weeks_day_list(options: Options) -> None:
+    assert get_description("0 0 12 ? * TUE,FRI/4", options) == "At 12:00 PM, every 4 weeks, only on Tuesday and Friday"
+
 def test_last_day_of_the_week_of_the_month(options: Options) -> None:
     assert get_description("* * * * 4L", options) == "Every minute, on the last Thursday of the month"
 

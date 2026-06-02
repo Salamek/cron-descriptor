@@ -152,6 +152,10 @@ msgstr ", every day"
 msgid ", every {0} days of the week"
 msgstr ", every {0} days of the week"
 
+#, python-brace-format
+msgid ", every {0} weeks"
+msgstr ", every {0} weeks"
+
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:274
 #: ExpressionDescriptor.py:318
 #, python-brace-format
