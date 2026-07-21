@@ -89,8 +89,9 @@ print(descriptor.get_description(DescriptionTypeEnum.FULL))
 | Spanish (Mexico)    | es_MX       | [Ion Mincu](https://github.com/ionmincu)                |
 | Swedish             | sv_SE       | [Åke Engelbrektson](https://github.com/eson57)          |
 | Vietnamese          | vi_VN       | [Nguyen Duc Son](https://github.com/ali33)              |
-| Turkish             | tr_TR       | [Mustafa SADEDİL](https://github.com/sadedil)           |
 | Tamil               | ta_IN       | [Sankar Hari](https://github.com/sankarhari)            |
+| Thai                | th_TH       | [Michael Lyons](https://github.com/michaelblyons)       |
+| Turkish             | tr_TR       | [Mustafa SADEDİL](https://github.com/sadedil)           |
 | Ukrainian           | uk_UA       | [Taras](https://github.com/tbudurovych)                 |
 | Greek               | el_GR       | [hardra1n](https://github.com/Hardra1n)                 |
 | Kazakh              | kk_KZ       | [hardra1n](https://github.com/Hardra1n)                 |
