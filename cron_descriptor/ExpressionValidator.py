@@ -389,12 +389,8 @@ class ExpressionValidator:
                 for month in expr_ls:
                     self.check_range(expr=month, mi=mi, mx=mx, prefix=prefix)
 
-            elif re.match(r"^((\d{1,2}|\D{3})|(\D{3}-\D{3})|(\d{1,2}-\d{1,2}))((,\d{1,2})+"
-                          r"|(,\D{3})*|(,\d{1,2}-\d{1,2})*|(,\D{3}-\D{3})*)*$", expr):
-                """
-                    1st Capture group : digit{1~2}|nondigit{3}|nondigit{3}-nondigit{3}|digit{3}-digit{3}
-                    2nd Capture group : same with 1st capture group but repeated.
-                """
+            elif re.fullmatch(r"(?:\d{1,2}(?:-\d{1,2})?|[A-Za-z]{3}(?:-[A-Za-z]{3})?)"
+                              r"(?:,(?:\d{1,2}(?:-\d{1,2})?|[A-Za-z]{3}(?:-[A-Za-z]{3})?))*", expr):
                 limit = 12
                 expr_ls = expr.split(",")
                 if len(expr_ls) > limit:
@@ -486,8 +482,8 @@ class ExpressionValidator:
                 raise FormatError(msg) from e
             self.compare_range(st=st_day, ed=ed_day, mi=mi, mx=mx, prefix=prefix, type_="dow")
 
-        elif re.match(r"^((\d{1}|\D{3})|(\D{3}-\D{3})|(\d{1}-\d{1}))"
-                      r"((,\d{1})+|(,\D{3})*|(,\d{1}-\d{1})*|(,\D{3}-\D{3})*)*$", expr):
+        elif re.fullmatch(r"(?:\d(?:-\d)?|[A-Za-z]{3}(?:-[A-Za-z]{3})?)"
+                          r"(?:,(?:\d(?:-\d)?|[A-Za-z]{3}(?:-[A-Za-z]{3})?))*", expr):
             limit = 7
             expr_ls = expr.split(",")
             if len(expr_ls) > limit:

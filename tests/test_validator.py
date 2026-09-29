@@ -1,4 +1,9 @@
+import subprocess
+import sys
 
+import pytest
+
+from cron_descriptor import FormatError
 from cron_descriptor.ExpressionValidator import ExpressionValidator
 
 """
@@ -78,3 +83,61 @@ def test_validator_expression() -> None:
     for expression in valid:
         ExpressionValidator().validate(expression)
 
+
+@pytest.mark.parametrize(("field", "token"), [(3, "1"), (3, "JAN"), (4, "1"), (4, "MON")])  # type: ignore[untyped-decorator]
+def test_malformed_lists_finish_validation(field: int, token: str) -> None:
+    code = """
+import sys
+from cron_descriptor import FormatError
+from cron_descriptor.ExpressionValidator import ExpressionValidator
+
+fields = ["*", "*", "*", "*", "*"]
+fields[int(sys.argv[1])] = ",".join([sys.argv[2]] * 1000) + "X"
+try:
+    ExpressionValidator().validate(" ".join(fields))
+except FormatError:
+    pass
+else:
+    raise AssertionError("Malformed list was accepted")
+"""
+    subprocess.run(  # noqa: S603
+        [sys.executable, "-c", code, str(field), token],
+        check=True,
+        capture_output=True,
+        timeout=5,
+    )
+
+
+@pytest.mark.parametrize(  # type: ignore[untyped-decorator]
+    "expression",
+    [
+        "* * * JAN,2,MAR-MAY,6-12 *",
+        "* * * 1-2,mar,4,may-jun *",
+        "* * * * SUN,1,TUE-THU,5-6",
+        "* * * * 0-1,tue,3,thu-sat",
+        "* * * " + ",".join(["JAN"] * 12) + " *",
+        "* * * * " + ",".join(["MON"] * 7),
+    ],
+)
+def test_valid_month_and_weekday_lists(expression: str) -> None:
+    ExpressionValidator().validate(expression)
+
+
+@pytest.mark.parametrize(  # type: ignore[untyped-decorator]
+    "expression",
+    [
+        "* * * JAN,,FEB *",
+        "* * * JAN, *",
+        "* * * ,JAN *",
+        "* * * JAN,2-3X *",
+        "* * * * MON,,TUE",
+        "* * * * MON,",
+        "* * * * ,MON",
+        "* * * * MON,2-3X",
+        "* * * " + ",".join(["JAN"] * 13) + " *",
+        "* * * * " + ",".join(["MON"] * 8),
+    ],
+)
+def test_invalid_month_and_weekday_lists(expression: str) -> None:
+    with pytest.raises(FormatError):
+        ExpressionValidator().validate(expression)
