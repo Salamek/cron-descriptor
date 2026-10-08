@@ -354,7 +354,10 @@ class ExpressionDescriptor:
                 )
             elif "-" in base:
                 range_start, range_end = base.split("-")
-                if int(step) >= int(range_end) - int(range_start) + 1:
+                # The parser stores a Sunday of 7 as 0, so a range ending in 0 (e.g. 1-7)
+                # really ends at 7 and must not count as an empty range.
+                range_size = (int(range_end) or 7) - int(range_start) + 1
+                if int(step) >= range_size:
                     if int(range_end) == 6:
                         # A single day with a step normalises to <day>-6 (e.g. FRI/2 -> 5-6/2), so an
                         # end of 6 means a single day, not a real range; show the start day alone

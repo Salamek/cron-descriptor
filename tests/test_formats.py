@@ -128,6 +128,11 @@ def test_every_x_weeks_day_range(options: Options) -> None:
 def test_every_x_weeks_day_list(options: Options) -> None:
     assert get_description("0 0 12 ? * TUE,FRI/4", options) == "At 12:00 PM, every 4 weeks, only on Tuesday and Friday"
 
+def test_every_x_days_of_the_week_range_ending_on_sunday(options: Options) -> None:
+    # 7 is Sunday; the range still spans several days, so this is not a weekly cadence
+    assert get_description("0 0 12 ? * 1-7/2", options) == "At 12:00 PM, every 2 days of the week, Monday through Sunday"
+    assert get_description("0 0 12 ? * FRI-SUN/2", options) == "At 12:00 PM, every 2 days of the week, Friday through Sunday"
+
 def test_last_day_of_the_week_of_the_month(options: Options) -> None:
     assert get_description("* * * * 4L", options) == "Every minute, on the last Thursday of the month"
 
