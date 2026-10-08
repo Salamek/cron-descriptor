@@ -339,7 +339,9 @@ class ExpressionDescriptor:
         # rather than a within-week one ("every 2 days of the week, Monday through Friday"): a day
         # list always, or a range whose step is >= its size (so at most one day per range fires).
         dow_expression = self._expression_parts[5]
-        if "/" in dow_expression:
+        # A step followed by more list items (e.g. 1-3/2,5) only applies to its own item,
+        # so it's described as a list below
+        if "/" in dow_expression and dow_expression.split("/", 1)[1].isdigit():
             base, step = dow_expression.split("/", 1)
             day_description = None
             if "," in base:
@@ -608,6 +610,9 @@ class ExpressionDescriptor:
         """
         sub_segments = segment.split("/")
         step_description = get_interval_description_format(sub_segments[1]).format(sub_segments[1])
+        # Some fields' interval formats start with ", " (", every 2 days"), which would
+        # leave a dangling separator once the list is wrapped in the field's format
+        step_description = step_description.removeprefix(", ")
         if "-" in sub_segments[0]:
             between_desc = self.generate_between_segment_description(
                 sub_segments[0], get_range_format, get_single_item_description,

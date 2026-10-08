@@ -390,3 +390,19 @@ def test_multiple_commas_with_step(options: Options) -> None:
     assert get_description("0 0,12,18-23/2 * * *", options) == (
         "At 12:00 AM, 12:00 PM, and every 2 hours, 06:00 PM through 11:59 PM"
     )
+
+
+def test_comma_with_step_in_days_of_month(options: Options) -> None:
+    assert get_description("0 0 10,1-5/2 * *", options) == "At 12:00 AM, on day 10 and every 2 days, 1 through 5 of the month"
+
+
+def test_comma_with_step_in_months(options: Options) -> None:
+    assert get_description("0 0 1 1-5/2,10 *", options) == (
+        "At 12:00 AM, on day 1 of the month, only in every 2 months, January through May and October"
+    )
+
+
+def test_comma_with_step_in_days_of_week(options: Options) -> None:
+    assert get_description("0 0 * * 1-3/2,5", options) == (
+        "At 12:00 AM, only on every 2 days of the week, Monday through Wednesday and Friday"
+    )
