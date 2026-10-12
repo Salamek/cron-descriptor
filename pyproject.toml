@@ -50,6 +50,9 @@ email = "adam.schubert@sg1-game.net"
 [project.urls]
 Homepage = "https://github.com/Salamek/cron-descriptor"
 
+[project.scripts]
+cron-descriptor = "cron_descriptor.__main__:main"
+
 [tool.setuptools.dynamic]
 version = {attr = "cron_descriptor.__version__"}
 
