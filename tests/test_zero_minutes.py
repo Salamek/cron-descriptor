@@ -12,10 +12,6 @@ from cron_descriptor import CasingTypeEnum, DescriptionTypeEnum, ExpressionDescr
         ("0 0 0-13 * * * 2026", "At 0 minutes past the hour, between 12:00 AM and 01:59 PM, only in 2026"),
         ("0 0-23 * * *", "At 0 minutes past the hour, between 12:00 AM and 11:59 PM"),
         ("0 13-23 * * *", "At 0 minutes past the hour, between 01:00 PM and 11:59 PM"),
-        ("0 0-13/2 * * *", "At 0 minutes past the hour, every 2 hours, between 12:00 AM and 01:59 PM"),
-        ("0 0,6-13 * * *", "At 0 minutes past the hour, at 12:00 AM and 06:00 AM through 01:59 PM"),
-        ("0 0-3,6-13 * * *", "At 0 minutes past the hour, at 12:00 AM through 03:59 AM and 06:00 AM through 01:59 PM"),
-        ("0 0,6-13/2 * * *", "At 0 minutes past the hour, at 12:00 AM and every 2 hours, 06:00 AM through 01:59 PM"),
     ],
 )
 def test_zero_minutes_with_hour_ranges(expression: str, expected: str, options: Options) -> None:
@@ -27,6 +23,10 @@ def test_zero_minutes_with_hour_ranges(expression: str, expected: str, options: 
     [
         ("0 * * * *", "Every hour"),
         ("0 */2 * * *", "Every 2 hours"),
+        ("0 0-13/2 * * *", "Every 2 hours, between 12:00 AM and 01:59 PM"),
+        ("0 0,6-13 * * *", "At 12:00 AM and 06:00 AM through 01:59 PM"),
+        ("0 0-3,6-13 * * *", "At 12:00 AM through 03:59 AM and 06:00 AM through 01:59 PM"),
+        ("0 0,6-13/2 * * *", "At 12:00 AM and every 2 hours, 06:00 AM through 01:59 PM"),
         ("0 6 * * *", "At 06:00 AM"),
         ("0 6,14 * * *", "At 06:00 AM and 02:00 PM"),
         ("30 0-13 * * *", "At 30 minutes past the hour, between 12:00 AM and 01:59 PM"),
