@@ -246,7 +246,7 @@ class ExpressionDescriptor:
         seconds_expression = self._expression_parts[0]
 
         def get_description_format(s: str) -> str:
-            if s == "0" and seconds_expression == "":
+            if s == "0" and seconds_expression == "" and "-" not in self._expression_parts[2]:
                 return ""
 
             try:
