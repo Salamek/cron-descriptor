@@ -247,9 +247,11 @@ class ExpressionDescriptor:
 
         """
         seconds_expression = self._expression_parts[0]
+        hour_expression = self._expression_parts[2]
+        is_hour_range = "-" in hour_expression and not any(char in hour_expression for char in ("/", ","))
 
         def get_description_format(s: str) -> str:
-            if s == "0" and seconds_expression == "":
+            if s == "0" and seconds_expression == "" and not is_hour_range:
                 return ""
 
             try:
