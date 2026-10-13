@@ -24,7 +24,7 @@ from __future__ import annotations
 import calendar
 import datetime
 import re
-from typing import Callable, TypedDict
+from typing import TYPE_CHECKING, TypedDict
 
 from typing_extensions import Unpack
 
@@ -35,6 +35,9 @@ from .ExpressionParser import ExpressionParser
 from .GetText import GetText
 from .Options import Options
 from .StringBuilder import StringBuilder
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 
 class OptionsKwargs(TypedDict, total=False):
