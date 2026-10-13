@@ -6,7 +6,7 @@ build-backend = 'setuptools.build_meta'
 name = "cron_descriptor"
 license = "MIT"
 dynamic = ["version"]
-requires-python = ">= 3.9"
+requires-python = ">= 3.10"
 description = "A Python library that converts cron expressions into human readable strings."
 
 classifiers = [
@@ -18,7 +18,6 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -65,11 +64,11 @@ exclude = ["tests*", "examples*"]
 
 [tool.ruff]
 line-length = 200
-target-version = "py39"
+target-version = "py310"
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["N999", "D", "CPY001"]  #  Invalid module name GetText instead of get_text, comments
+ignore = ["N999", "D", "CPY001", "ICN001"]  #  Invalid module name GetText instead of get_text, comments
 
 [tool.ruff.lint.mccabe]
 max-complexity = 20
@@ -92,7 +91,7 @@ max-returns = 10
 
 [tool.mypy]
 files = ["cron_descriptor", "tests"]
-python_version = 3.9
+python_version = "3.10"
 ignore_missing_imports = true
 strict = true
 
