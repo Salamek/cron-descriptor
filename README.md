@@ -59,6 +59,31 @@ descriptor = ExpressionDescriptor("*/10 * * * *", options)
 print(descriptor.get_description(DescriptionTypeEnum.FULL))
 ```
 
+### Expressions with six fields
+
+Set `six_field_expression_has_seconds` to select the format:
+
+- `None` (default): Use the existing automatic format detection.
+- `True`: Read the fields as seconds, minutes, hours, day of month, month, and day of week.
+- `False`: Read the fields as minutes, hours, day of month, month, day of week, and year.
+
+This option applies only to expressions with six fields.
+
+```python
+from cron_descriptor import ExpressionDescriptor, Options, get_description
+
+options = Options(locale_code="en_US", six_field_expression_has_seconds=False)
+print(get_description("* * * * * *", options))  # Every minute
+
+# Set the option with an ExpressionDescriptor keyword argument.
+descriptor = ExpressionDescriptor(
+    "* * * * * *",
+    locale_code="en_US",
+    six_field_expression_has_seconds=False,
+)
+print(descriptor.get_description())  # Every minute
+```
+
 ## Languages Available
 
 | Language            | Locale Code | Contributor                                             |

@@ -38,6 +38,7 @@ class Options:
     day_of_week_start_index_zero: bool
     use_24hour_time_format: bool
     locale_location: str | None
+    six_field_expression_has_seconds: bool | None
 
     _twelve_hour_locales = (
         "en_US",  # United States
@@ -68,11 +69,13 @@ class Options:
                  use_24hour_time_format: bool | None = None,
                  locale_code: str | None = None,
                  locale_location: str | None = None,
+                 six_field_expression_has_seconds: bool | None = None,
                  ) -> None:
         self.casing_type = casing_type
         self.verbose = verbose
         self.day_of_week_start_index_zero = day_of_week_start_index_zero
         self.locale_location = locale_location
+        self.six_field_expression_has_seconds = six_field_expression_has_seconds
 
         if not locale_code:
             # Autodetect

@@ -93,13 +93,12 @@ class ExpressionParser:
             for i, expression_part_temp in enumerate(expression_parts_temp):
                 parsed[i + 1] = expression_part_temp
         elif expression_parts_temp_length == 6:
-            # We will detect if this 6 part expression has a year specified and if so we will shift the parts and treat the
-            # first part as a minute part rather than a second part.
-            # Ways we detect:
-            # 1. Last part is a literal year (i.e. 2020)
-            # 2. 3rd or 5th part is specified as "?" (DOM or DOW)
-            year_regex = re.compile(r"\d{4}$")
-            is_year_with_no_seconds_part = bool(year_regex.search(expression_parts_temp[5])) or "?" in [expression_parts_temp[4], expression_parts_temp[2]]
+            if self._options.six_field_expression_has_seconds is None:
+                # Detect the year from the last field or a "?" in the day fields.
+                year_regex = re.compile(r"\d{4}$")
+                is_year_with_no_seconds_part = bool(year_regex.search(expression_parts_temp[5])) or "?" in [expression_parts_temp[4], expression_parts_temp[2]]
+            else:
+                is_year_with_no_seconds_part = not self._options.six_field_expression_has_seconds
             for i, expression_part_temp in enumerate(expression_parts_temp):
                 if is_year_with_no_seconds_part:
                     # Shift parts over by one
