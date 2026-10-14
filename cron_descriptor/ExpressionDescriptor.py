@@ -47,6 +47,7 @@ class OptionsKwargs(TypedDict, total=False):
     verbose: bool
     day_of_week_start_index_zero: bool
     locale_location: str | None
+    six_field_expression_has_seconds: bool | None
 
 class ExpressionDescriptor:
     """Converts a Cron Expression into a human readable string
