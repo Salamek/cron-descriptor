@@ -281,13 +281,21 @@ class ExpressionDescriptor:
 
         """
         expression = self._expression_parts[2]
+
+        def get_description_format(s: str) -> str:
+            # A list made only of ranges (i.e. 0-7,19-23) reads differently in some languages
+            if "," in s and all("-" in part and "/" not in part for part in s.split(",")):
+                return self.translate("at {0} [hourRanges]") or self.translate("at {0}")
+
+            return self.translate("at {0}")
+
         return self.get_segment_description(
             expression,
             self.translate("every hour"),
             lambda s: self.format_time(s, "0"),
             lambda s: self.translate("every {0} hours").format(s),
             lambda _: self.translate("between {0} and {1}"),
-            lambda _: self.translate("at {0}"),
+            get_description_format,
             lambda _: self.translate(", hour {0} through hour {1}") or self.translate(", {0} through {1}"),
         )
 
