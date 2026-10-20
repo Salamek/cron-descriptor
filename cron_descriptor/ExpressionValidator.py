@@ -501,7 +501,7 @@ class ExpressionValidator:
                         self.check_range(expr=parts[1], mi=mi, mx=mx, prefix=prefix)
                         self.compare_range(st=parts[0], ed=parts[1], mi=mi, mx=mx, prefix=prefix)
                 else:
-                    # syncronize by add 1 to cron_days index
+                    # synchronize by add 1 to cron_days index
                     cron_day = cron_days[day.upper()] + 1 if len(day) == 3 else day
                     self.check_range(expr=cron_day, mi=mi, mx=mx, prefix=prefix)
 

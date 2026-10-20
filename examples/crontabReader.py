@@ -40,7 +40,7 @@ except ImportError:
 
 
 class CrontabReader:
-    """Simple example reading /etc/contab"""
+    """Simple example reading /etc/crontab"""
 
     rex = re.compile(r"^(\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}\s+\S{1,3}).+$")
 
@@ -53,7 +53,6 @@ class CrontabReader:
             None
         """
         options = Options()
-        options.day_of_week_start_index_zero = False
         options.use_24hour_time_format = True
         with cronfile.open("r", encoding="utf-8") as f:
             for line in f.readlines():
