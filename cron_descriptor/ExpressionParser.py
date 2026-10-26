@@ -158,6 +158,9 @@ class ExpressionParser:
             if self._options.day_of_week_start_index_zero:
                 if dow_digits == "7":
                     dow_digits_adjusted = "0"
+            elif dow_digits not in ("1", "2", "3", "4", "5", "6", "7"):
+                msg = f"Error: Day of week '{dow_digits}' is out of range.  Expected values are 1-7 when day_of_week_start_index_zero is False."
+                raise FormatError(msg)
             else:
                 dow_digits_adjusted = str(int(dow_digits) - 1)
 
