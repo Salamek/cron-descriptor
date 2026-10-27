@@ -411,3 +411,21 @@ def test_comma_with_step_in_days_of_week(options: Options) -> None:
     assert get_description("0 0 * * 1-3/2,5", options) == (
         "At 12:00 AM, only on every 2 days of the week, Monday through Wednesday and Friday"
     )
+
+
+def test_day_of_week_nth_list_same_day(options: Options) -> None:
+    assert get_description("0 0 9 * * 1#2,1#4", options) == "At 09:00 AM, on the second and fourth Monday of the month"
+    assert get_description("0 45 7 * * 5#1,5#3,5#5", options) == (
+        "At 07:45 AM, on the first, third, and fifth Friday of the month"
+    )
+
+
+def test_day_of_week_nth_list_different_days(options: Options) -> None:
+    assert get_description("0 0 9 * * 1#2,3#4", options) == (
+        "At 09:00 AM, on the second Monday and fourth Wednesday of the month"
+    )
+
+
+def test_day_of_week_nth_list_with_plain_day(options: Options) -> None:
+    # Only lists where every item has an ordinal are described item by item
+    assert "Friday" in get_description("0 0 * * 1#2,5", options)

@@ -384,6 +384,25 @@ class ExpressionDescriptor:
                 ).format(step)
                 return interval_description + day_description
 
+        # A list of nth weekdays (e.g. 1#2,3#4) carries an ordinal on each item
+        if "," in dow_expression and "#" in dow_expression:
+            ordinals = {
+                "1": self.translate("first"),
+                "2": self.translate("second"),
+                "3": self.translate("third"),
+                "4": self.translate("fourth"),
+                "5": self.translate("fifth"),
+            }
+            matches = [re.fullmatch(r"([^,#]+)#(\d+)", s) for s in dow_expression.split(",")]
+            parts = [(m.group(1), ordinals[m.group(2)]) for m in matches if m and m.group(2) in ordinals]
+            if len(parts) == len(matches):
+                if len({day for day, _ in parts}) == 1:
+                    items = self.get_list_description([ordinal for _, ordinal in parts]) + " " + get_day_name(parts[0][0])
+                else:
+                    items = self.get_list_description([f"{ordinal} {get_day_name(day)}" for day, ordinal in parts])
+                month_suffix = self.translate(" {0} of the month").replace(" {0}", "").replace("{0}", "")
+                return self.translate(", on the ") + items + month_suffix
+
         return self.get_segment_description(
             self._expression_parts[5],
             self.translate(", every day"),
@@ -483,6 +502,19 @@ class ExpressionDescriptor:
             lambda _: self.translate(", only in {0}"),
             lambda _: self.translate(", year {0} through year {1}") or self.translate(", {0} through {1}"),
         )
+
+    def get_list_description(self, items: list[str]) -> str:
+        """Joins items as "a and b" or "a, b, and c" """
+        description = ""
+        for i, item in enumerate(items):
+            if i > 0 and len(items) > 2:
+                description += ","
+                if i < len(items) - 1:
+                    description += " "
+            if i > 0 and (i == len(items) - 1 or len(items) == 2):
+                description += self.translate(" and ")
+            description += item
+        return description
 
     def get_segment_description(
         self,
