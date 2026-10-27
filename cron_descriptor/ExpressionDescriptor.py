@@ -70,7 +70,7 @@ class ExpressionDescriptor:
 
         """
         if options is None:
-            options = Options()
+            options = Options(locale_code=kwargs.get("locale_code"))
         self._expression = expression
         self._options = options
         self._expression_parts = []
