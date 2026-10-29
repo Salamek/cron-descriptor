@@ -278,6 +278,11 @@ def test_multi_with_day_of_week_start_index_zero_false(options: Options) -> None
 
     assert get_description("* * * ? * 1,2,3", options) == "Every second, only on Sunday, Monday, and Tuesday"
 
+def test_saturday_with_day_of_week_start_index_zero_false(options: Options) -> None:
+    options.day_of_week_start_index_zero = False
+
+    assert get_description("* * * ? * 7", options) == "Every second, only on Saturday"
+
 def test_every3_month(options: Options) -> None:
     assert get_description("0 5 7 2 1/3 ? *", options) == "At 07:05 AM, on day 2 of the month, every 3 months"
 
