@@ -144,7 +144,7 @@ class ExpressionParser:
         if expression_parts[4].startswith("1/"):
             expression_parts[4] = expression_parts[4].replace("1/", "*/")  # Month
 
-        if expression_parts[5].startswith("1/"):
+        if not self._options.day_of_week_start_index_zero and expression_parts[5].startswith("1/"):
             expression_parts[5] = expression_parts[5].replace("1/", "*/")  # DOW
 
         if expression_parts[6].startswith("1/"):
