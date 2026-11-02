@@ -116,8 +116,14 @@ def test_day_of_week_once_in_month_fourth(options: Options) -> None:
 def test_day_of_month_and_day_of_week_uses_or(options: Options) -> None:
     assert get_description("* * 2 * 1", options) == "Every minute, on day 2 of the month, or on Monday"
 
-def test_day_of_month_step_and_day_of_week_uses_or(options: Options) -> None:
-    assert get_description("* * */2 * 1", options) == "Every minute, every 2 days, or on Monday"
+def test_day_of_month_step_and_day_of_week_uses_only_on(options: Options) -> None:
+    # "*/2" still starts with "*", so this hits cron's asterisk bug (crontab.guru/cron-bug.html):
+    # real cron ANDs it with day-of-week instead of ORing it, unlike a plain list such as "1,15".
+    assert get_description("* * */2 * 1", options) == "Every minute, every 2 days, only on Monday"
+
+def test_day_of_month_list_and_day_of_week_uses_or(options: Options) -> None:
+    assert get_description("30 4 1,15 * FRI", options) == \
+        "At 04:30 AM, on day 1 and 15 of the month, or on Friday"
 
 def test_every_x_weeks_single_day(options: Options) -> None:
     assert get_description("0 0 12 ? * FRI/2", options) == "At 12:00 PM, every 2 weeks, only on Friday"
