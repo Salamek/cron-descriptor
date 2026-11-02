@@ -332,11 +332,16 @@ class ExpressionDescriptor:
                 formatted = "{}{}{}".format(self.translate(", on the "), day_of_week_of_month_description, self.translate(" {0} of the month"))
             elif "L" in s:
                 formatted = self.translate(", on the last {0} of the month")
-            elif self._expression_parts[3] != "*":
-                # When day-of-month is also restricted, cron fires on either match (OR), so prefer
-                # "or on"; locales lacking that translation keep their existing "only on" wording.
+            elif self._expression_parts[3] != "*" and not self._expression_parts[3].startswith("*"):
+                # When day-of-month is also restricted (e.g. "1,15"), cron fires on either
+                # match (OR), so prefer "or on"; locales lacking that translation keep
+                # their existing "only on" wording.
                 formatted = self.translate(", or on {0}") or self.translate(", only on {0}")
             else:
+                # A day-of-month field that still starts with "*" (e.g. "*/2") hits cron's
+                # long-standing "asterisk bug" (see crontab.guru/cron-bug.html): real cron
+                # implementations AND it with day-of-week instead of ORing it, so keep
+                # "only on" to match actual cron behavior, not the POSIX spec.
                 formatted = self.translate(", only on {0}")
 
             return formatted
