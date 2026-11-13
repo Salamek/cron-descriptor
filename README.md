@@ -22,6 +22,15 @@ Using PIP
 pip install cron-descriptor
 ```
 
+To use `locale_code` for month and weekday names, install the optional Babel dependency:
+
+```bash
+pip install 'cron-descriptor[babel]'
+```
+
+When Babel is unavailable or does not recognize the locale, month and weekday names
+use the system locale as before. Other translated text continues to use gettext.
+
 ## Usage example
 
 ### Simple
