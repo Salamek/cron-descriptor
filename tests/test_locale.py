@@ -26,12 +26,27 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
+
 from cron_descriptor import ExpressionDescriptor, Options
 
 
 def test_locale_de() -> None:
     options = Options(locale_code="de_DE")
     assert ExpressionDescriptor("* * * * *", options).get_description() == "Jede Minute"
+
+@pytest.mark.parametrize(  # type: ignore[untyped-decorator]
+    ("expression", "expected"),
+    [
+        ("* 0-7,19-23 * * *", "Ogni minuto, dalle 00:00 alle 07:59 e dalle 19:00 alle 23:59"),
+        ("0 8,12-14 * * *", "Alle 08:00 e dalle 12:00 alle 14:59"),
+        ("*/5 8,12 * * *", "Ogni 5 minuti, alle 08:00 e 12:00"),
+        ("0,30 6-17 * * *", "Al 0 e 30 minuto passata l'ora, tra le 06:00 e le 17:59"),
+    ],
+)
+def test_locale_it_hours(expression: str, expected: str) -> None:
+    options = Options(locale_code="it_IT", use_24hour_time_format=True)
+    assert ExpressionDescriptor(expression, options).get_description() == expected
 
 def test_locale_de_custom_location() -> None:
     logger = logging.getLogger("cron_descriptor.GetText")
