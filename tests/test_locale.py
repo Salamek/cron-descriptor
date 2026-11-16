@@ -40,6 +40,10 @@ def test_locale_de() -> None:
     [
         ("* 0-7,19-23 * * *", "Ogni minuto, dalle 00:00 alle 07:59 e dalle 19:00 alle 23:59"),
         ("0 8,12-14 * * *", "Alle 08:00 e dalle 12:00 alle 14:59"),
+        ("0 12-14,8 * * *", "Dalle 12:00 alle 14:59 e alle 08:00"),
+        ("0 6-7,12,18 * * *", "Dalle 06:00 alle 07:59, alle 12:00, e alle 18:00"),
+        ("0 6,12-14,18 * * *", "Alle 06:00, dalle 12:00 alle 14:59, e alle 18:00"),
+        ("* 12-14,8 * * *", "Ogni minuto, dalle 12:00 alle 14:59 e alle 08:00"),
         ("*/5 8,12 * * *", "Ogni 5 minuti, alle 08:00 e 12:00"),
         ("0,30 6-17 * * *", "Al 0 e 30 minuto passata l'ora, tra le 06:00 e le 17:59"),
     ],

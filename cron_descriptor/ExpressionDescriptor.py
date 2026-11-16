@@ -282,12 +282,11 @@ class ExpressionDescriptor:
         """
         expression = self._expression_parts[2]
 
-        def get_description_format(s: str) -> str:
-            # A list made only of ranges (i.e. 0-7,19-23) reads differently in some languages
-            if "," in s and all("-" in part and "/" not in part for part in s.split(",")):
-                return self.translate("at {0} [hourRanges]") or self.translate("at {0}")
-
-            return self.translate("at {0}")
+        # Some locales give each range its own preposition. In mixed lists,
+        # single hours also need their preposition instead of one for the whole list.
+        list_format = ""
+        if "," in expression and any("-" in part and "/" not in part for part in expression.split(",")):
+            list_format = self.translate("at {0} [hourRanges]")
 
         return self.get_segment_description(
             expression,
@@ -295,8 +294,11 @@ class ExpressionDescriptor:
             lambda s: self.format_time(s, "0"),
             lambda s: self.translate("every {0} hours").format(s),
             lambda _: self.translate("between {0} and {1}"),
-            get_description_format,
+            lambda _: list_format or self.translate("at {0}"),
             lambda _: self.translate(", hour {0} through hour {1}") or self.translate(", {0} through {1}"),
+            get_list_item_description=(
+                (lambda s: self.translate("at {0}").format(self.format_time(s, "0"))) if list_format else None
+            ),
         )
 
     def get_day_of_week_description(self) -> str:
@@ -501,6 +503,7 @@ class ExpressionDescriptor:
         get_between_description_format: Callable[[str], str],
         get_description_format: Callable[[str], str],
         get_range_format: Callable[[str], str],
+        get_list_item_description: Callable[[str], str] | None = None,
     ) -> str:
         """Returns segment description
         Args:
@@ -510,6 +513,7 @@ class ExpressionDescriptor:
             get_interval_description_format: 1/2
             get_between_description_format: 1-2
             get_description_format: format get_single_item_description
+            get_list_item_description: optional formatter for single items in a comma-separated list
             get_range_format: function that formats range expressions depending on cron parts
         Returns:
             segment description
@@ -553,7 +557,7 @@ class ExpressionDescriptor:
 
                     description_content += between_segment_description
                 else:
-                    description_content += get_single_item_description(segment)
+                    description_content += (get_list_item_description or get_single_item_description)(segment)
 
             return get_description_format(expression).format(description_content)
 
