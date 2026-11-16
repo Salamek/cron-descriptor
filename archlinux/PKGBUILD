@@ -8,6 +8,7 @@ url='https://github.com/Salamek/cron-descriptor'
 makedepends=(python-build python-installer python-wheel python-setuptools)
 depends=(
     'python'
+    'python-babel'
 )
 
 prepare() {

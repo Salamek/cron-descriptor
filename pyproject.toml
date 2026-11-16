@@ -27,11 +27,11 @@ classifiers = [
 ]
 
 dependencies = [
+    "babel",
     "typing_extensions"
 ]
 
 [project.optional-dependencies]
-babel = ["babel"]
 dev = [
     "ruff",
     "mypy",

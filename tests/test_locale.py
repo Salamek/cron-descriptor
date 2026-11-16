@@ -59,16 +59,13 @@ def test_locale_keyword_keeps_provided_options_time_format() -> None:
     assert descriptor.get_description() == "Um 06:00"
 
 
-def describe_in_c_locale(expression: str, locale_code: str, *, without_babel: bool = False) -> str:
+def describe_in_c_locale(expression: str, locale_code: str) -> str:
     # A fresh interpreter starts with LC_TIME=C; never change pytest's process locale.
     script = """
 import locale
 import sys
 
 assert locale.setlocale(locale.LC_TIME) == "C"
-if sys.argv[3] == "True":
-    sys.modules["babel"] = None
-
 from cron_descriptor import ExpressionDescriptor
 
 print(ExpressionDescriptor(
@@ -76,7 +73,7 @@ print(ExpressionDescriptor(
 ).get_description())
 """
     result = subprocess.run(  # noqa: S603 - fixed script executed by the current Python interpreter
-        [sys.executable, "-c", script, expression, locale_code, str(without_babel)],
+        [sys.executable, "-c", script, expression, locale_code],
         cwd=Path(__file__).resolve().parents[1],
         env={**os.environ, "LC_ALL": "C", "PYTHONIOENCODING": "utf-8"},
         capture_output=True,
@@ -88,24 +85,15 @@ print(ExpressionDescriptor(
 
 
 def test_calendar_names_use_explicit_locale() -> None:
-    pytest.importorskip("babel")
     expression = "0 0 * 1 1"
-    english = describe_in_c_locale(expression, "en_US")
-    german = describe_in_c_locale(expression, "de_DE")
-    assert german
-    for name in ("Monday", "January"):
-        assert name in english
-        assert name not in german
+    assert describe_in_c_locale(expression, "en_US") == "At 00:00, only on Monday, only in January"
+    assert describe_in_c_locale(expression, "de_DE") == "Um 00:00, nur am Montag, nur im Januar"
+    assert describe_in_c_locale("0 10 * * 1", "es_ES") == "A las 10:00, sólo el lunes"
 
 
-def test_description_generation_without_babel() -> None:
-    assert describe_in_c_locale("0 0 * 1 1", "de_DE", without_babel=True)
-
-
-@pytest.mark.parametrize("locale_code", ["xx_XX", "invalid-locale"])  # type: ignore[untyped-decorator]
+@pytest.mark.parametrize("locale_code", ["xx_XX", "invalid-locale", "de_AT"])  # type: ignore[untyped-decorator]
 def test_description_generation_with_locale_unknown_to_babel(locale_code: str) -> None:
-    pytest.importorskip("babel")
-    assert describe_in_c_locale("0 0 * 1 1", locale_code)
+    assert describe_in_c_locale("0 0 * 1 1", locale_code) == "At 00:00, only on Monday, only in January"
 
 
 def test_locale_de() -> None:
@@ -147,3 +135,18 @@ def test_locale_de_custom_location() -> None:
 
         assert ExpressionDescriptor("* * * * *", options).get_description() == "Jede Minute"
         mock_logger.assert_called_once_with("%s Loaded", temp_path)
+
+
+def test_custom_catalog_with_unknown_calendar_locale(tmp_path: Path) -> None:
+    source = Path(__file__).resolve().parents[1] / "cron_descriptor" / "locale" / "de_DE.mo"
+    (tmp_path / "xx_XX.mo").write_bytes(source.read_bytes())
+    descriptor = ExpressionDescriptor(
+        "0 0 * 1 1", locale_code="xx_XX", locale_location=str(tmp_path), use_24hour_time_format=True,
+    )
+    assert str(descriptor) == "Um 00:00, nur am Monday, nur im January"
+
+
+def test_missing_translation_keeps_optional_key_fallback() -> None:
+    descriptor = ExpressionDescriptor("* * * * *", locale_code="en_US")
+    assert descriptor.translate("at {0} [hourRanges]") == ""
+    assert descriptor.translate("at {0}") == "at {0}"

@@ -21,21 +21,11 @@
 # SOFTWARE.
 from __future__ import annotations
 
-import calendar
-import contextlib
 import datetime
 import locale
 import re
 import warnings
 from typing import TYPE_CHECKING
-
-try:
-    from babel import Locale as BabelLocale
-    from babel import UnknownLocaleError
-except ImportError:
-    _babel_locale_class = None
-else:
-    _babel_locale_class = BabelLocale
 
 from .CasingTypeEnum import CasingTypeEnum
 from .DescriptionTypeEnum import DescriptionTypeEnum
@@ -46,6 +36,8 @@ from .StringBuilder import StringBuilder
 
 if TYPE_CHECKING:
     from collections.abc import Callable
+
+    from babel import Locale as BabelLocale
 
     from .Options import Options
 
@@ -151,11 +143,6 @@ class ExpressionDescriptor:
 
         # Initializes localization
         self.get_text = GetText(locale_code, locale_location)
-        self._babel_locale: BabelLocale | None = None
-        if _babel_locale_class is not None:
-            # Custom gettext locales may not be known to Babel.
-            with contextlib.suppress(UnknownLocaleError, ValueError):
-                self._babel_locale = _babel_locale_class.parse(locale_code)
 
         # Parse expression
         parser = ExpressionParser(
@@ -395,7 +382,7 @@ class ExpressionDescriptor:
                 exp, _ = s.split("#", 2)
             elif "L" in s:
                 exp = exp.replace("L", "")
-            return ExpressionDescriptor.number_to_day(int(exp), self._babel_locale)
+            return self.get_text.day_name(int(exp))
 
         def get_format(s: str) -> str:
             if "#" in s:
@@ -469,15 +456,10 @@ class ExpressionDescriptor:
             The MONTH description
 
         """
-        def get_month_name(s: str) -> str:
-            if self._babel_locale is not None:
-                return str(self._babel_locale.months["format"]["wide"][int(s)])
-            return datetime.date(datetime.datetime.now(tz=datetime.timezone.utc).date().year, int(s), 1).strftime("%B")
-
         return self.get_segment_description(
             self._expression_parts[4],
             "",
-            get_month_name,
+            lambda s: self.get_text.month_name(int(s)),
             lambda s: self.translate(", every {0} months").format(s),
             lambda _: self.translate(", month {0} through month {1}") or self.translate(", {0} through {1}"),
             lambda _: self.translate(", only in {0}"),
@@ -802,22 +784,14 @@ class ExpressionDescriptor:
 
         Args:
             day_number: Number of a day
-            babel_locale: Locale for weekday names; uses the system locale when omitted
+            babel_locale: Locale for weekday names; uses the default locale when omitted
         Returns:
             Day corresponding to day_number
         Raises:
             IndexError: When day_number is not found
 
         """
-        try:
-            # Babel and calendar use Monday=0; cron uses Sunday=0.
-            weekday = (6, 0, 1, 2, 3, 4, 5)[day_number]
-        except IndexError as e:
-            msg = f"Day {day_number} is out of range!"
-            raise IndexError(msg) from e
-        if babel_locale is not None:
-            return str(babel_locale.days["format"]["wide"][weekday])
-        return calendar.day_name[weekday]
+        return GetText.weekday_name(day_number, babel_locale)
 
     def __str__(self) -> str:
         return self.get_description()

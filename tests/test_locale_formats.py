@@ -2,11 +2,9 @@
 
 from __future__ import annotations
 
-import datetime
 import json
 from pathlib import Path
 from typing import TypedDict, cast
-from unittest.mock import patch
 
 import pytest
 
@@ -28,15 +26,9 @@ class KnownGap(TypedDict):
     actual: str
 
 
-class CalendarNames(TypedDict):
-    days: list[str]
-    months: list[str]
-
-
 _FIXTURES = Path(__file__).parent / "fixtures" / "locales"
 _CASES = cast("list[LocaleCase]", json.loads((_FIXTURES / "locale_cases.json").read_text(encoding="utf-8")))
 _CASES += cast("list[LocaleCase]", json.loads((_FIXTURES / "additional_locale_cases.json").read_text(encoding="utf-8")))
-_NAMES = cast("dict[str, CalendarNames]", json.loads((_FIXTURES / "calendar_names.json").read_text(encoding="utf-8")))
 _KNOWN_GAPS = cast("dict[str, KnownGap]", json.loads((_FIXTURES / "known_gaps.json").read_text(encoding="utf-8")))
 
 
@@ -49,14 +41,6 @@ _KNOWN_GAPS = cast("dict[str, KnownGap]", json.loads((_FIXTURES / "known_gaps.js
     ],
 )
 def test_locale_format(case: LocaleCase) -> None:
-    names = _NAMES[case["locale"]]
-
-    class LocalizedDate(datetime.date):
-        def strftime(self, fmt: str) -> str:
-            if fmt == "%B":
-                return names["months"][self.month]
-            return super().strftime(fmt)
-
     settings = case["options"]
     options = Options(
         locale_code=case["locale"],
@@ -64,12 +48,7 @@ def test_locale_format(case: LocaleCase) -> None:
         day_of_week_start_index_zero=settings.get("day_of_week_start_index_zero", True),
         verbose=settings.get("verbose", False),
     )
-    # Supply deterministic date names without requiring OS locale installations.
-    with (
-        patch("calendar.day_name", names["days"]),
-        patch("cron_descriptor.ExpressionDescriptor.datetime.date", LocalizedDate),
-    ):
-        actual = ExpressionDescriptor(case["expression"], options).get_description()
+    actual = ExpressionDescriptor(case["expression"], options).get_description()
     if case.get("normalize_apostrophe", False):
         actual = actual.replace("'", "\u02bc")
     matches = (
