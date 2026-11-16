@@ -330,6 +330,15 @@ def test_month_interval_with_step_value(options: Options) -> None:
 def test_day_of_week_interval_with_step_value(options: Options) -> None:
     assert get_description("0 5 7 ? * 2/3 *", options) == "At 07:05 AM, every 3 days of the week, Tuesday through Saturday"
 
+def test_day_of_week_interval_preserves_monday_start(options: Options) -> None:
+    assert get_description("0 0 * * 1/1", options) == "At 12:00 AM, every 1 days of the week, Monday through Saturday"
+    assert get_description("0 0 * * 1/2", options) == "At 12:00 AM, every 2 days of the week, Monday through Saturday"
+
+def test_day_of_week_interval_one_indexed_sunday_start(options: Options) -> None:
+    options.day_of_week_start_index_zero = False
+    assert get_description("0 0 * * 1/1", options) == "At 12:00 AM"
+    assert get_description("0 0 * * 1/2", options) == "At 12:00 AM, every 2 days of the week"
+
 def test_year_interval_with_step_value(options: Options) -> None:
     assert get_description("0 5 7 ? * ? 2016/4", options) == "At 07:05 AM, every 4 years, 2016 through 9999"
 
