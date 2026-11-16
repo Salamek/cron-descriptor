@@ -853,7 +853,7 @@
     "id": "en_US/TestDayOfMonthAndDayOfWeekBothSpecified/2",
     "locale": "en_US",
     "expression": "* * */2 * 1",
-    "expected": "Every minute, every 2 days, or on Monday",
+    "expected": "Every minute, every 2 days, only on Monday",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
