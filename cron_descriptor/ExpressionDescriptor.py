@@ -41,6 +41,13 @@ if TYPE_CHECKING:
     from .Options import Options
 
 
+class _Unset:
+    """Distinguishes an omitted argument from an explicit None."""
+
+
+_UNSET = _Unset()
+
+
 class ExpressionDescriptor:
     """Converts a Cron Expression into a human readable string
     """
@@ -77,53 +84,40 @@ class ExpressionDescriptor:
         options: Options | None=None,
         *,
         casing_type: CasingTypeEnum | None = None,
-        locale_code: str | None = None,
-        locale_location: str | None = None,
+        locale_code: str | _Unset | None = _UNSET,
+        locale_location: str | _Unset | None = _UNSET,
         verbose: bool | None = None,
         day_of_week_start_index_zero: bool| None = None,
-        use_24hour_time_format: bool | None = None,
-        six_field_expression_has_seconds: bool | None = None,
+        use_24hour_time_format: bool | _Unset | None = _UNSET,
+        six_field_expression_has_seconds: bool | _Unset | None = _UNSET,
     ) -> None:
         """Initializes a new instance of the ExpressionDescriptor
 
         Args:
             expression: The cron expression string
             options: Options to control the output description
-        Raises:
-            WrongArgumentException: if kwarg is unknown
 
         """
         self._expression = expression
         self._expression_parts = []
 
-        if options:
-            if verbose is None:
-                verbose = options.verbose
-            if casing_type is None:
-                casing_type = options.casing_type
-            if day_of_week_start_index_zero is None:
-                day_of_week_start_index_zero = options.day_of_week_start_index_zero
+        # Resolve omitted arguments before passing configuration to other components.
+        # None explicitly requests autodetection (or the default locale location).
+        if isinstance(locale_code, _Unset):
+            locale_code = options.locale_code if options is not None else None
+        if isinstance(locale_location, _Unset):
+            locale_location = options.locale_location if options is not None else None
+        if isinstance(use_24hour_time_format, _Unset):
+            use_24hour_time_format = options.use_24hour_time_format if options is not None else None
+        if isinstance(six_field_expression_has_seconds, _Unset):
+            six_field_expression_has_seconds = options.six_field_expression_has_seconds if options is not None else None
 
-            if locale_location is None:
-                locale_location = options.locale_location
-
-            if locale_code is None:
-                locale_code = options.locale_code
-
-            if use_24hour_time_format is None:
-                use_24hour_time_format = options.use_24hour_time_format
-
-            if six_field_expression_has_seconds is None:
-                six_field_expression_has_seconds = options.six_field_expression_has_seconds
-        else:
-            if day_of_week_start_index_zero is None:
-                day_of_week_start_index_zero = True
-
-            if verbose is None:
-                verbose = False
-
-            if casing_type is None:
-                casing_type = CasingTypeEnum.Sentence
+        if verbose is None:
+            verbose = options.verbose if options is not None else False
+        if casing_type is None:
+            casing_type = options.casing_type if options is not None else CasingTypeEnum.Sentence
+        if day_of_week_start_index_zero is None:
+            day_of_week_start_index_zero = options.day_of_week_start_index_zero if options is not None else True
 
         self._verbose = verbose
         self._casing_type = casing_type
