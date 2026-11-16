@@ -471,8 +471,8 @@ class ExpressionDescriptor:
                     items = self.get_list_description([ordinal for _, ordinal in parts]) + " " + get_day_name(parts[0][0])
                 else:
                     items = self.get_list_description([f"{ordinal} {get_day_name(day)}" for day, ordinal in parts])
-                month_suffix = self.translate(" {0} of the month").replace(" {0}", "").replace("{0}", "")
-                return self.translate(", on the ") + items + month_suffix
+                # The month text can precede the placeholder in some locales.
+                return self.translate(", on the ") + self.translate(" {0} of the month").removeprefix(" ").format(items)
 
         return self.get_segment_description(
             self._expression_parts[5],
