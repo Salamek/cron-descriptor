@@ -919,7 +919,7 @@
     "id": "en_US/TestDayOfWeekInternalWithStepValue/1",
     "locale": "en_US",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "At 07:05 AM, every 3 days of the week, Tuesday through Saturday",
+    "expected": "At 07:05 AM, every 3 days of the week, Tuesday through Sunday",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -930,7 +930,7 @@
     "id": "en_US/TestEvery2WeeksOnFriday/1",
     "locale": "en_US",
     "expression": "0 0 12 ? * FRI/2",
-    "expected": "At 12:00 PM, every 2 weeks, only on Friday",
+    "expected": "At 12:00 PM, every 2 days of the week, Friday through Sunday",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -941,7 +941,7 @@
     "id": "en_US/TestEvery3WeeksWedThroughFri/1",
     "locale": "en_US",
     "expression": "0 0 12 ? * WED-FRI/3",
-    "expected": "At 12:00 PM, every 3 weeks, Wednesday through Friday",
+    "expected": "At 12:00 PM, only on Wednesday",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -952,7 +952,7 @@
     "id": "en_US/TestEvery4WeeksTueAndFri/1",
     "locale": "en_US",
     "expression": "0 0 12 ? * TUE,FRI/4",
-    "expected": "At 12:00 PM, every 4 weeks, only on Tuesday and Friday",
+    "expected": "At 12:00 PM, only on Tuesday and Friday",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -1933,7 +1933,7 @@
     "id": "da_DK/TestDayOfWeekInternalWithStepValue/1",
     "locale": "da_DK",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "Kl 07:05, hver 3. ugedag, tirsdag til og med lørdag",
+    "expected": "Kl 07:05, hver 3. ugedag, tirsdag til og med søndag",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -2616,7 +2616,7 @@
     "id": "de_DE/TestDayOfWeekInternalWithStepValue/1",
     "locale": "de_DE",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "Um 07:05, alle 3 Tage der Woche, Dienstag bis Samstag",
+    "expected": "Um 07:05, alle 3 Tage der Woche, Dienstag bis Sonntag",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -2638,7 +2638,7 @@
     "id": "de_DE/TestWeekInternalWithStepValue/1",
     "locale": "de_DE",
     "expression": "* * * * 5/2",
-    "expected": "Jede Minute, alle 2 Wochen, nur am Freitag",
+    "expected": "Jede Minute, alle 2 Tage der Woche, Freitag bis Sonntag",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -3299,7 +3299,7 @@
     "id": "el_GR/TestDayOfWeekInternalWithStepValue/1",
     "locale": "el_GR",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "Στις 07:05 π.μ, κάθε 3 ημέρες της εβδομάδας, Τρίτη έως Σάββατο",
+    "expected": "Στις 07:05 π.μ, κάθε 3 ημέρες της εβδομάδας, Τρίτη έως Κυριακή",
     "comparison": "contains_casefold",
     "normalize_apostrophe": false,
     "options": {
@@ -3915,7 +3915,7 @@
     "id": "es_ES/TestDayOfWeekInternalWithStepValue/1",
     "locale": "es_ES",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "A las 07:05, cada 3 días de la semana, de martes a sábado",
+    "expected": "A las 07:05, cada 3 días de la semana, de martes a domingo",
     "comparison": "contains_casefold",
     "normalize_apostrophe": false,
     "options": {
@@ -4531,7 +4531,7 @@
     "id": "es_MX/TestDayOfWeekInternalWithStepValue/1",
     "locale": "es_MX",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "A las 07:05 A. M., cada 3 días de la semana, martes hasta sábado",
+    "expected": "A las 07:05 A. M., cada 3 días de la semana, martes hasta domingo",
     "comparison": "contains_casefold",
     "normalize_apostrophe": false,
     "options": {
@@ -5391,7 +5391,7 @@
     "id": "fi_FI/TestDayOfWeekInternalWithStepValue/1",
     "locale": "fi_FI",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "Klo 07:05, joka 3. viikonpäivä, tiistai - lauantai",
+    "expected": "Klo 07:05, joka 3. viikonpäivä, tiistai - sunnuntai",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -6052,7 +6052,7 @@
     "id": "fr_FR/TestDayOfWeekInternalWithStepValue/1",
     "locale": "fr_FR",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "À 07:05, chaque 3 jour de la semaine, de mardi à samedi",
+    "expected": "À 07:05, chaque 3 jour de la semaine, de mardi à dimanche",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -6913,7 +6913,7 @@
     "id": "hu_HU/TestDayOfWeekInternalWithStepValue/1",
     "locale": "hu_HU",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "07:05, a hét 3. napján, kedd-szombat",
+    "expected": "07:05, a hét 3. napján, kedd-vasárnap",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -7750,7 +7750,7 @@
     "id": "it_IT/TestDayOfWeekInternalWithStepValue/1",
     "locale": "it_IT",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "Alle 07:05, ogni 3 giorni della settimana, Martedì al Sabato",
+    "expected": "Alle 07:05, ogni 3 giorni della settimana, Martedì al Domenica",
     "comparison": "contains_casefold",
     "normalize_apostrophe": false,
     "options": {
@@ -8422,7 +8422,7 @@
     "id": "kk_KZ/TestDayOfWeekInternalWithStepValue/1",
     "locale": "kk_KZ",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "Сағат 07:05, әрбір 3 күн апта, сейсенбі-сенбі",
+    "expected": "Сағат 07:05, әрбір 3 күн апта, сейсенбі-жексенбі",
     "comparison": "contains_casefold",
     "normalize_apostrophe": false,
     "options": {
@@ -9050,7 +9050,7 @@
     "id": "ko_KR/TestDayOfWeekInternalWithStepValue/1",
     "locale": "ko_KR",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "시간 07:05, 주 중 3일마다, 화요일~토요일",
+    "expected": "시간 07:05, 주 중 3일마다, 화요일~일요일",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -9666,7 +9666,7 @@
     "id": "nb_NO/TestDayOfWeekInternalWithStepValue/1",
     "locale": "nb_NO",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "På 07:05, hver 3 ukedag, tirsdag til og med lørdag",
+    "expected": "På 07:05, hver 3 ukedag, tirsdag til og med søndag",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -10338,7 +10338,7 @@
     "id": "nl_NL/TestDayOfWeekInternalWithStepValue/1",
     "locale": "nl_NL",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "Om 07:05, elke 3 dagen van de week, dinsdag t/m zaterdag",
+    "expected": "Om 07:05, elke 3 dagen van de week, dinsdag t/m zondag",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -11132,7 +11132,7 @@
     "id": "pl_PL/TestDayOfWeekInternalWithStepValue/1",
     "locale": "pl_PL",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "O 07:05, co 3 dni tygodnia, od wtorek do sobota",
+    "expected": "O 07:05, co 3 dni tygodnia, od wtorek do niedziela",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -12585,7 +12585,7 @@
     "id": "ro_RO/TestDayOfWeekInternalWithStepValue/1",
     "locale": "ro_RO",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "La 07:05, la fiecare a 3-a zi a săptămânii, de marți până sâmbătă",
+    "expected": "La 07:05, la fiecare a 3-a zi a săptămânii, de marți până duminică",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -13257,7 +13257,7 @@
     "id": "ru_RU/TestDayOfWeekInternalWithStepValue/1",
     "locale": "ru_RU",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "В 07:05, каждые 3 дней недели, вторник по суббота",
+    "expected": "В 07:05, каждые 3 дней недели, вторник по воскресенье",
     "comparison": "contains_casefold",
     "normalize_apostrophe": false,
     "options": {
@@ -14106,7 +14106,7 @@
     "id": "sl_SI/TestDayOfWeekInternalWithStepValue/1",
     "locale": "sl_SI",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "Ob 07:05, vsakih 3 dni v tednu, od torek do sobota",
+    "expected": "Ob 07:05, vsakih 3 dni v tednu, od torek do nedelja",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -14744,7 +14744,7 @@
     "id": "sv_SE/TestDayOfWeekInternalWithStepValue/1",
     "locale": "sv_SE",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "Vid 07:05, var 3:e veckodag, tisdag till och med lördag",
+    "expected": "Vid 07:05, var 3:e veckodag, tisdag till och med söndag",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -15394,7 +15394,7 @@
     "id": "tr_TR/TestDayOfWeekInternalWithStepValue/1",
     "locale": "tr_TR",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "Saat 07:05, ayın her 3 günü, Salı ile Cumartesi arasında",
+    "expected": "Saat 07:05, ayın her 3 günü, Salı ile Pazar arasında",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -16110,7 +16110,7 @@
     "id": "uk_UA/TestDayOfWeekInternalWithStepValue/1",
     "locale": "uk_UA",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "О 07:05, кожен 3 день тижня, вівторок по субота",
+    "expected": "О 07:05, кожен 3 день тижня, вівторок по неділя",
     "comparison": "contains_casefold",
     "normalize_apostrophe": false,
     "options": {
@@ -16782,7 +16782,7 @@
     "id": "zh_CN/TestDayOfWeekInternalWithStepValue/1",
     "locale": "zh_CN",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "在 07:05, 每周的每 3 天, 星期二 到 星期六",
+    "expected": "在 07:05, 每周的每 3 天, 星期二 到 星期日",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -17454,7 +17454,7 @@
     "id": "zh_TW/TestDayOfWeekInternalWithStepValue/1",
     "locale": "zh_TW",
     "expression": "0 5 7 ? * 2/3 *",
-    "expected": "在 07:05, 每週的每 3 天, 星期二 到 星期六",
+    "expected": "在 07:05, 每週的每 3 天, 星期二 到 星期日",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {

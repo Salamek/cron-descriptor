@@ -119,17 +119,17 @@ def test_day_of_month_and_day_of_week_uses_or(options: Options) -> None:
 def test_day_of_month_step_and_day_of_week_uses_or(options: Options) -> None:
     assert get_description("* * */2 * 1", options) == "Every minute, every 2 days, or on Monday"
 
-def test_every_x_weeks_single_day(options: Options) -> None:
-    assert get_description("0 0 12 ? * FRI/2", options) == "At 12:00 PM, every 2 weeks, only on Friday"
+def test_weekday_step_includes_sunday(options: Options) -> None:
+    assert get_description("0 0 12 ? * FRI/2", options) == "At 12:00 PM, every 2 days of the week, Friday through Sunday"
 
-def test_every_x_weeks_day_range(options: Options) -> None:
-    assert get_description("0 0 12 ? * WED-FRI/3", options) == "At 12:00 PM, every 3 weeks, Wednesday through Friday"
+def test_weekday_step_selects_range_start(options: Options) -> None:
+    assert get_description("0 0 12 ? * WED-FRI/3", options) == "At 12:00 PM, only on Wednesday"
 
-def test_every_x_weeks_day_list(options: Options) -> None:
-    assert get_description("0 0 12 ? * TUE,FRI/4", options) == "At 12:00 PM, every 4 weeks, only on Tuesday and Friday"
+def test_weekday_step_applies_to_its_list_item(options: Options) -> None:
+    assert get_description("0 0 12 ? * TUE,FRI/4", options) == "At 12:00 PM, only on Tuesday and Friday"
 
 def test_every_x_days_of_the_week_range_ending_on_sunday(options: Options) -> None:
-    # 7 is Sunday; the range still spans several days, so this is not a weekly cadence
+    # 7 is Sunday at the end of an inclusive weekday range.
     assert get_description("0 0 12 ? * 1-7/2", options) == "At 12:00 PM, every 2 days of the week, Monday through Sunday"
     assert get_description("0 0 12 ? * FRI-SUN/2", options) == "At 12:00 PM, every 2 days of the week, Friday through Sunday"
 
@@ -328,11 +328,11 @@ def test_month_interval_with_step_value(options: Options) -> None:
     assert get_description("0 5 7 ? 3/2 ? *", options) == "At 07:05 AM, every 2 months, March through December"
 
 def test_day_of_week_interval_with_step_value(options: Options) -> None:
-    assert get_description("0 5 7 ? * 2/3 *", options) == "At 07:05 AM, every 3 days of the week, Tuesday through Saturday"
+    assert get_description("0 5 7 ? * 2/3 *", options) == "At 07:05 AM, every 3 days of the week, Tuesday through Sunday"
 
 def test_day_of_week_interval_preserves_monday_start(options: Options) -> None:
-    assert get_description("0 0 * * 1/1", options) == "At 12:00 AM, every 1 days of the week, Monday through Saturday"
-    assert get_description("0 0 * * 1/2", options) == "At 12:00 AM, every 2 days of the week, Monday through Saturday"
+    assert get_description("0 0 * * 1/1", options) == "At 12:00 AM, Monday through Sunday"
+    assert get_description("0 0 * * 1/2", options) == "At 12:00 AM, every 2 days of the week, Monday through Sunday"
 
 def test_day_of_week_interval_one_indexed_sunday_start(options: Options) -> None:
     options.day_of_week_start_index_zero = False

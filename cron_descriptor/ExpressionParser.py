@@ -143,11 +143,14 @@ class ExpressionParser:
         if expression_parts[4].startswith("1/"):
             expression_parts[4] = expression_parts[4].replace("1/", "*/")  # Month
 
-        if not self._options.day_of_week_start_index_zero and expression_parts[5].startswith("1/"):
+        if not self._day_of_week_start_index_zero and expression_parts[5].startswith("1/"):
             expression_parts[5] = expression_parts[5].replace("1/", "*/")  # DOW
 
         if expression_parts[6].startswith("1/"):
             expression_parts[6] = expression_parts[6].replace("1/", "*/")  # Years
+
+        # Resolve step bounds before Sunday aliases and one-based digits are adjusted.
+        expression_parts[5] = self._normalize_day_of_week_steps(expression_parts[5])
 
         # Adjust DOW based on dayOfWeekStartIndexZero option
         def digit_replace(match: re.Match[str]) -> str:
@@ -202,18 +205,16 @@ class ExpressionParser:
                 expression_parts[i] = "*"
 
             """
-            Convert Month,DOW,Year step values with a starting value (i.e. not '*') to between expressions.
+            Convert Month,Year step values with a starting value (i.e. not '*') to between expressions.
             This allows us to reuse the between expression handling for step values.
 
             For Example:
             - month part '3/2' will be converted to '3-12/2' (every 2 months between March and December)
-            - DOW part '3/2' will be converted to '3-6/2' (every 2 days between Tuesday and Saturday)
             """
 
             if "/" in expression_parts[i] and not any(exp in expression_parts[i] for exp in ["*", "-", ","]):
                 choices = {
                     4: "12",
-                    5: "6",
                     6: "9999",
                 }
 
@@ -222,3 +223,36 @@ class ExpressionParser:
                 if step_range_through is not None:
                     parts = expression_parts[i].split("/")
                     expression_parts[i] = f"{parts[0]}-{step_range_through}/{parts[1]}"
+
+    def _normalize_day_of_week_steps(self, expression: str) -> str:
+        """Keep weekday steps within their list item and the selected numbering scheme."""
+        offset = 0 if self._day_of_week_start_index_zero else 1
+        day_names = {name: number + offset for number, name in self._cron_days.items()}
+
+        def day_number(value: str) -> int | None:
+            return int(value) if value.isdigit() else day_names.get(value.upper())
+
+        segments = expression.split(",")
+        for i, segment in enumerate(segments):
+            match = re.fullmatch(r"(\d+|[A-Za-z]{3})(?:-(\d+|[A-Za-z]{3}))?/(\d+)", segment)
+            if match is None:
+                continue
+            start = day_number(match[1])
+            end = day_number(match[2]) if match[2] is not None else 7
+            if start is None or end is None:
+                continue
+            # In zero-based mode, a range ending in Sunday can use 0 or 7.
+            if self._day_of_week_start_index_zero:
+                if end == 0 and start > 0:
+                    end = 7
+                # Sunday already occurs at 0 in this full-week range.
+                if start == 0 and end == 7:
+                    end = 6
+            step = int(match[3])
+            if end >= start and step > end - start:
+                segments[i] = str(start)
+            elif step == 1:
+                segments[i] = f"{start}-{end}"
+            else:
+                segments[i] = f"{start}-{end}/{step}"
+        return ",".join(segments)

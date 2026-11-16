@@ -412,48 +412,7 @@ class ExpressionDescriptor:
 
             return formatted
 
-        # A DOW step on specific days describes a weekly cadence ("every 2 weeks, only on Friday")
-        # rather than a within-week one ("every 2 days of the week, Monday through Friday"): a day
-        # list always, or a range whose step is >= its size (so at most one day per range fires).
         dow_expression = self._expression_parts[5]
-        # A step followed by more list items (e.g. 1-3/2,5) only applies to its own item,
-        # so it's described as a list below
-        if "/" in dow_expression and dow_expression.split("/", 1)[1].isdigit():
-            base, step = dow_expression.split("/", 1)
-            day_description = None
-            if "," in base:
-                day_description = self.get_segment_description(
-                    base,
-                    "",
-                    get_day_name,
-                    lambda s: self.translate(", every {0} days of the week").format(s),
-                    lambda _: self.translate(", {0} through {1}"),
-                    lambda _: self.translate(", only on {0}"),
-                    lambda _: self.translate(", {0} through {1}"),
-                )
-            elif "-" in base:
-                range_start, range_end = base.split("-")
-                # The parser stores a Sunday of 7 as 0, so a range ending in 0 (e.g. 1-7)
-                # really ends at 7 and must not count as an empty range.
-                range_size = (int(range_end) or 7) - int(range_start) + 1
-                if int(step) >= range_size:
-                    if int(range_end) == 6:
-                        # A single day with a step normalises to <day>-6 (e.g. FRI/2 -> 5-6/2), so an
-                        # end of 6 means a single day, not a real range; show the start day alone
-                        # rather than "<day> through Saturday".
-                        day_description = self.translate(", only on {0}").format(get_day_name(range_start))
-                    else:
-                        day_description = self.generate_between_segment_description(
-                            base,
-                            lambda _: self.translate(", {0} through {1}"),
-                            get_day_name,
-                        )
-
-            if day_description is not None:
-                interval_description = (
-                    self.translate(", every {0} weeks") or self.translate(", every {0} days of the week")
-                ).format(step)
-                return interval_description + day_description
 
         # A list of nth weekdays (e.g. 1#2,3#4) carries an ordinal on each item
         if "," in dow_expression and "#" in dow_expression:
