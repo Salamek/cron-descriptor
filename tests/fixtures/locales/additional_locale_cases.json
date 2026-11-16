@@ -1,0 +1,24 @@
+[
+  {
+    "id": "ja_JP/NthWeekdayListSameDay/1",
+    "locale": "ja_JP",
+    "expression": "0 0 9 * * 1#2,1#4",
+    "expected": "次において実施 09:00、次に 月のうち 2 番目 と 4 番目 月曜日",
+    "comparison": "equal",
+    "options": {
+      "use_24hour_time_format": true
+    },
+    "normalize_apostrophe": false
+  },
+  {
+    "id": "ja_JP/NthWeekdayListDifferentDays/1",
+    "locale": "ja_JP",
+    "expression": "0 0 9 * * 1#2,3#4",
+    "expected": "次において実施 09:00、次に 月のうち 2 番目 月曜日 と 4 番目 水曜日",
+    "comparison": "equal",
+    "options": {
+      "use_24hour_time_format": true
+    },
+    "normalize_apostrophe": false
+  }
+]

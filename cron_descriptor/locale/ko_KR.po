@@ -11,87 +11,86 @@ msgstr ""
 "PO-Revision-Date: 2020-11-13 02:37+0900\n"
 "Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
 "Language-Team: \n"
+"Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "X-Generator: Poedit 2.4.2\n"
 
 #: ExpressionDescriptor.py:130
 msgid ""
-"An error occured when generating the expression description.  Check the "
-"cron expression syntax."
-msgstr ""
-"크론표현식을 생성하는 도중 에러가 발생했습니다. 크론표현식 문법을 확인하세요."
+"An error occured when generating the expression description.  Check the cron"
+" expression syntax."
+msgstr "표현식 설명을 생성하는 동안 오류가 발생했습니다. cron 표현식 구문을 확인하세요."
 
 #: ExpressionDescriptor.py:151
 msgid "At "
-msgstr ""
+msgstr "시간 "
 
 #: ExpressionDescriptor.py:160
 #, python-brace-format
 msgid "Every minute between {0} and {1}"
-msgstr "{0}부터 {1}까지 매분마다"
+msgstr "매분 {0}~{1}"
 
 #: ExpressionDescriptor.py:165
 msgid "At"
-msgstr ""
+msgstr "시간"
 
 #: ExpressionDescriptor.py:175
 msgid " and"
-msgstr " 그리고"
+msgstr " 및"
 
 #: ExpressionDescriptor.py:201
 msgid "every second"
-msgstr "매초마다"
+msgstr "매초"
 
 #: ExpressionDescriptor.py:201
 #, python-brace-format
 msgid "every {0} seconds"
-msgstr "매 {0}초마다"
+msgstr "매 {0}초"
 
 #: ExpressionDescriptor.py:201
 #, python-brace-format
 msgid "seconds {0} through {1} past the minute"
-msgstr "매분마다 {0}~{1}초 동안"
+msgstr "{0}~{1}초"
 
 #: ExpressionDescriptor.py:201
 #, python-brace-format
 msgid "at {0} seconds past the minute"
-msgstr "매분마다 {0}초에"
+msgstr "{0}초"
 
 #: ExpressionDescriptor.py:209
 msgid "every minute"
-msgstr "매분마다"
+msgstr "매분"
 
 #: ExpressionDescriptor.py:209
 #, python-brace-format
 msgid "every {0} minutes"
-msgstr "매 {0}분마다"
+msgstr "매 {0}분"
 
 #: ExpressionDescriptor.py:209
 #, python-brace-format
 msgid "minutes {0} through {1} past the hour"
-msgstr "매시간 {0}~{1}분 동안"
+msgstr "{0}~{1}분"
 
 #: ExpressionDescriptor.py:209
 #, python-brace-format
 msgid "at {0} minutes past the hour"
-msgstr "매시간 {0}분에"
+msgstr "{0}분"
 
 #: ExpressionDescriptor.py:218
 msgid "every hour"
-msgstr "매시마다"
+msgstr "매시간"
 
 #: ExpressionDescriptor.py:218
 #, python-brace-format
 msgid "every {0} hours"
-msgstr "매 {0}시간마다"
+msgstr "매 {0}시간"
 
 #: ExpressionDescriptor.py:218
 #, python-brace-format
 msgid "between {0} and {1}"
-msgstr "{0}부터 {1}까지"
+msgstr "{0}~{1} 사이"
 
 #: ExpressionDescriptor.py:218
 #, python-brace-format
@@ -100,27 +99,27 @@ msgstr "{0}"
 
 #: ExpressionDescriptor.py:241
 msgid "first"
-msgstr "첫째"
+msgstr "첫 번째"
 
 #: ExpressionDescriptor.py:243
 msgid "second"
-msgstr "둘째"
+msgstr "두 번째"
 
 #: ExpressionDescriptor.py:245
 msgid "third"
-msgstr "셋째"
+msgstr "세 번째"
 
 #: ExpressionDescriptor.py:247
 msgid "fourth"
-msgstr "넷째"
+msgstr "4번째"
 
 #: ExpressionDescriptor.py:249
 msgid "fifth"
-msgstr "다섯째"
+msgstr "5번째"
 
 #: ExpressionDescriptor.py:251
 msgid ", on the "
-msgstr ", "
+msgstr ", 매월 "
 
 #: ExpressionDescriptor.py:252
 #, python-brace-format
@@ -130,12 +129,12 @@ msgstr " {0}"
 #: ExpressionDescriptor.py:254
 #, python-brace-format
 msgid ", on the last {0} of the month"
-msgstr ", 매월 마지막 {0} "
+msgstr ", 월의 마지막 {0}"
 
 #: ExpressionDescriptor.py:256
 #, python-brace-format
 msgid ", only on {0}"
-msgstr ", {0}에"
+msgstr ", {0}에만"
 
 #, python-brace-format
 msgid ", or on {0}"
@@ -149,7 +148,7 @@ msgstr ", 매일"
 #: ExpressionDescriptor.py:260
 #, python-brace-format
 msgid ", every {0} days of the week"
-msgstr ", 매주 {0}일마다"
+msgstr ", 주 중 {0}일마다"
 
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:274
 #: ExpressionDescriptor.py:318
@@ -165,11 +164,11 @@ msgstr ", {0}개월마다"
 #: ExpressionDescriptor.py:275 ExpressionDescriptor.py:319
 #, python-brace-format
 msgid ", only in {0}"
-msgstr ", {0}"
+msgstr ", {0}에만"
 
 #: ExpressionDescriptor.py:288
 msgid ", on the last day of the month"
-msgstr ", 매월 마지막날"
+msgstr ", 월의 마지막 날에"
 
 #: ExpressionDescriptor.py:290
 msgid ", on the last weekday of the month"
@@ -177,17 +176,17 @@ msgstr ", 매월 마지막 평일"
 
 #: ExpressionDescriptor.py:297
 msgid "first weekday"
-msgstr "첫번째 평일"
+msgstr "첫 번째 평일"
 
 #: ExpressionDescriptor.py:297
 #, python-brace-format
 msgid "weekday nearest day {0}"
-msgstr "평일 가장 가까운 {0}번째 날"
+msgstr "{0}일에 가장 가까운 평일"
 
 #: ExpressionDescriptor.py:299
 #, python-brace-format
 msgid ", on the {0} of the month"
-msgstr ", 매월 {0} "
+msgstr ", 매월 {0}"
 
 #: ExpressionDescriptor.py:303
 #, python-brace-format
@@ -197,7 +196,7 @@ msgstr ", {0}일마다"
 #: ExpressionDescriptor.py:304
 #, python-brace-format
 msgid ", between day {0} and {1} of the month"
-msgstr ", {0}부터 {1}일까지"
+msgstr ", 월의 {0}~{1}일 사이"
 
 #: ExpressionDescriptor.py:304
 #, python-brace-format
@@ -211,12 +210,29 @@ msgstr ", {0}년마다"
 
 #: ExpressionDescriptor.py:385
 msgid " and "
-msgstr " 그리고 "
+msgstr " 및 "
 
 #: ExpressionDescriptor.py:433
 msgid ", every minute"
-msgstr ", 매분마다"
+msgstr ", 매분"
 
 #: ExpressionDescriptor.py:434
 msgid ", every hour"
-msgstr ", 매시간마다"
+msgstr ", 매시간"
+
+#, python-brace-format
+msgid ", starting {0}"
+msgstr ", {0}부터"
+
+msgid "AM"
+msgstr "오전"
+
+msgid "PM"
+msgstr "오후"
+
+msgid ", {0} days before the last day of the month"
+msgstr ", 월의 마지막 날 이전 {0}일"
+
+#, python-brace-format
+msgid ", only in year {0}"
+msgstr ", {0}년에만"

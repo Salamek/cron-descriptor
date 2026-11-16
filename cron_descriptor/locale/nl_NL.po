@@ -11,10 +11,10 @@ msgstr ""
 "PO-Revision-Date: 2016-01-19 02:00+0100\n"
 "Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
 "Language-Team: \n"
+"Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl_NL\n"
 
 #: ExpressionDescriptor.py:130
 msgid ""
@@ -220,3 +220,7 @@ msgstr ", elke minuut"
 #: ExpressionDescriptor.py:434
 msgid ", every hour"
 msgstr ", elk uur"
+
+#, python-brace-format
+msgid ", starting {0}"
+msgstr ", beginnend {0}"

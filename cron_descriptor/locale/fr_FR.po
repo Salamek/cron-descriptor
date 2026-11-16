@@ -11,10 +11,10 @@ msgstr ""
 "PO-Revision-Date: 2016-01-19 02:00+0100\n"
 "Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
 "Language-Team: \n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr_FR\n"
 
 #: ExpressionDescriptor.py:130
 msgid ""
@@ -149,7 +149,7 @@ msgstr ", tous les jours"
 #: ExpressionDescriptor.py:260
 #, python-brace-format
 msgid ", every {0} days of the week"
-msgstr ", every {0} days of the week"
+msgstr ", chaque {0} jour de la semaine"
 
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:274
 #: ExpressionDescriptor.py:318
@@ -220,3 +220,7 @@ msgstr ", toutes les minutes"
 #: ExpressionDescriptor.py:434
 msgid ", every hour"
 msgstr ", toutes les heures"
+
+#, python-brace-format
+msgid ", starting {0}"
+msgstr ", départ {0}"

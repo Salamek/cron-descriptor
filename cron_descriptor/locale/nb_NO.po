@@ -11,10 +11,10 @@ msgstr ""
 "PO-Revision-Date: 2016-01-19 02:00+0100\n"
 "Last-Translator: Adam Schubert <adam.schubert@sg1-game.net>\n"
 "Language-Team: \n"
+"Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb_NO\n"
 
 #: ExpressionDescriptor.py:130
 msgid ""
@@ -159,7 +159,7 @@ msgstr ", {0} til og med {1}"
 #: ExpressionDescriptor.py:272
 #, python-brace-format
 msgid ", every {0} months"
-msgstr ", hver {0} måned]"
+msgstr ", hver {0}. måned"
 
 #: ExpressionDescriptor.py:275 ExpressionDescriptor.py:319
 #, python-brace-format
@@ -219,3 +219,7 @@ msgstr ", hvert minutt"
 #: ExpressionDescriptor.py:434
 msgid ", every hour"
 msgstr ", hver time"
+
+#, python-brace-format
+msgid ", starting {0}"
+msgstr ", starter {0}"

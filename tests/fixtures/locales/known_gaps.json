@@ -1,0 +1,22 @@
+{
+  "en_US/TestDayOfWeekNthListSameDay/1": {
+    "reason": "Nth-weekday lists lose their ordinals (PR #117).",
+    "actual": "At 09:00 AM, on the  Monday and Monday of the month"
+  },
+  "en_US/TestDayOfWeekNthListSameDayMultiple/1": {
+    "reason": "Nth-weekday lists lose their ordinals (PR #117).",
+    "actual": "At 07:45 AM, on the  Friday, Friday, and Friday of the month"
+  },
+  "en_US/TestDayOfWeekNthListDifferentDays/1": {
+    "reason": "Nth-weekday lists lose their ordinals (PR #117).",
+    "actual": "At 09:00 AM, on the  Monday and Wednesday of the month"
+  },
+  "ja_JP/NthWeekdayListSameDay/1": {
+    "reason": "Nth-weekday lists lose their ordinals (PR #117).",
+    "actual": "次において実施 09:00、次に 月のうち 月曜日 と 月曜日"
+  },
+  "ja_JP/NthWeekdayListDifferentDays/1": {
+    "reason": "Nth-weekday lists lose their ordinals (PR #117).",
+    "actual": "次において実施 09:00、次に 月のうち 月曜日 と 水曜日"
+  }
+}

@@ -551,7 +551,7 @@ class ExpressionDescriptor:
             format_year,
             lambda s: self.translate(", every {0} years").format(s),
             lambda _: self.translate(", year {0} through year {1}") or self.translate(", {0} through {1}"),
-            lambda _: self.translate(", only in {0}"),
+            lambda _: self.translate(", only in year {0}") or self.translate(", only in {0}"),
             lambda _: self.translate(", year {0} through year {1}") or self.translate(", {0} through {1}"),
         )
 
@@ -756,6 +756,11 @@ class ExpressionDescriptor:
             description = description.replace(self.translate(", every minute"), "")
             description = description.replace(self.translate(", every hour"), "")
             description = description.replace(self.translate(", every day"), "")
+            # Time segments use a literal separator, which may differ from the
+            # punctuation in the catalog's complete hourly clause.
+            hourly = self.translate("every hour")
+            if hourly:
+                description = re.sub(re.escape(", " + hourly) + r"(?=$|[,\u060c\u3001\uff0c])", "", description)
             description = re.sub(r", ?$", "", description)
         return description
 
