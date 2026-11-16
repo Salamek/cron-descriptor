@@ -23,31 +23,23 @@ from __future__ import annotations
 
 import calendar
 import datetime
+import locale
 import re
-from typing import TYPE_CHECKING, TypedDict
-
-from typing_extensions import Unpack
+import warnings
+from typing import TYPE_CHECKING
 
 from .CasingTypeEnum import CasingTypeEnum
 from .DescriptionTypeEnum import DescriptionTypeEnum
-from .Exception import FormatError, WrongArgumentError
+from .Exception import FormatError
 from .ExpressionParser import ExpressionParser
 from .GetText import GetText
-from .Options import Options
 from .StringBuilder import StringBuilder
 
 if TYPE_CHECKING:
     from collections.abc import Callable
 
+    from .Options import Options
 
-class OptionsKwargs(TypedDict, total=False):
-    use_24hour_time_format: bool
-    locale_code: str
-    casing_type: CasingTypeEnum
-    verbose: bool
-    day_of_week_start_index_zero: bool
-    locale_location: str | None
-    six_field_expression_has_seconds: bool | None
 
 class ExpressionDescriptor:
     """Converts a Cron Expression into a human readable string
@@ -55,11 +47,43 @@ class ExpressionDescriptor:
 
     _special_characters = ("/", "-", ",", "*")
 
+    _twelve_hour_locales = (
+         "en_US",  # United States
+         "en_CA",  # Canada (English)
+         "fr_CA",  # Canada (French)
+         "en_AU",  # Australia
+         "en_NZ",  # New Zealand
+         "en_IE",  # Ireland
+         "en_PH",  # Philippines
+         "es_MX",  # Mexico
+         "en_PK",  # Pakistan
+         "en_IN",  # India
+         "ar_SA",  # Saudi Arabia
+         "bn_BD",  # Bangladesh
+         "es_HN",  # Honduras
+         "es_SV",  # El Salvador
+         "es_NI",  # Nicaragua
+         "ar_JO",  # Jordan
+         "ar_EG",  # Egypt
+         "es_CO",  # Colombia
+     )
+
     _expression = ""
-    _options: Options
     _expression_parts: list[str]
 
-    def __init__(self, expression: str, options: Options | None=None, **kwargs: Unpack[OptionsKwargs]) -> None:
+    def __init__(
+        self,
+        expression: str,
+        options: Options | None=None,
+        *,
+        casing_type: CasingTypeEnum | None = None,
+        locale_code: str | None = None,
+        locale_location: str | None = None,
+        verbose: bool | None = None,
+        day_of_week_start_index_zero: bool| None = None,
+        use_24hour_time_format: bool | None = None,
+        six_field_expression_has_seconds: bool | None = None,
+    ) -> None:
         """Initializes a new instance of the ExpressionDescriptor
 
         Args:
@@ -69,25 +93,68 @@ class ExpressionDescriptor:
             WrongArgumentException: if kwarg is unknown
 
         """
-        if options is None:
-            options = Options()
         self._expression = expression
-        self._options = options
         self._expression_parts = []
 
-        # if kwargs in _options, overwrite it, if not raise exception
-        for kwarg, value in kwargs.items():
-            if hasattr(self._options, kwarg):
-                setattr(self._options, kwarg, value)
-            else:
-                msg = f"Unknown {kwarg} configuration argument"
-                raise WrongArgumentError(msg)
+        if options:
+            if verbose is None:
+                verbose = options.verbose
+            if casing_type is None:
+                casing_type = options.casing_type
+            if day_of_week_start_index_zero is None:
+                day_of_week_start_index_zero = options.day_of_week_start_index_zero
+
+            if locale_location is None:
+                locale_location = options.locale_location
+
+            if locale_code is None:
+                locale_code = options.locale_code
+
+            if use_24hour_time_format is None:
+                use_24hour_time_format = options.use_24hour_time_format
+
+            if six_field_expression_has_seconds is None:
+                six_field_expression_has_seconds = options.six_field_expression_has_seconds
+        else:
+            if day_of_week_start_index_zero is None:
+                day_of_week_start_index_zero = True
+
+            if verbose is None:
+                verbose = False
+
+            if casing_type is None:
+                casing_type = CasingTypeEnum.Sentence
+
+        self._verbose = verbose
+        self._casing_type = casing_type
+
+        if not locale_code:
+            # Autodetect
+            code, _encoding = locale.getlocale()
+            if not code:
+                warnings.warn(
+                    "No system locale set. Falling back to 'en_US'. "
+                    "Set LANG/LC_ALL or pass locale_code to override.",
+                    stacklevel=2,
+                )
+                code = "en_US"
+            locale_code = code
+
+        if use_24hour_time_format is None:
+            # Autodetect
+            self._use_24hour_time_format = locale_code not in self._twelve_hour_locales
+        else:
+            self._use_24hour_time_format = use_24hour_time_format
 
         # Initializes localization
-        self.get_text = GetText(options.locale_code, options.locale_location)
+        self.get_text = GetText(locale_code , locale_location)
 
         # Parse expression
-        parser = ExpressionParser(self._expression, self._options)
+        parser = ExpressionParser(
+            self._expression,
+            six_field_expression_has_seconds=six_field_expression_has_seconds,
+            day_of_week_start_index_zero=day_of_week_start_index_zero,
+        )
         self._expression_parts = parser.parse()
 
     def translate(self, message: str) -> str:
@@ -136,8 +203,8 @@ class ExpressionDescriptor:
 
             description = f"{time_segment}{day_of_month_desc}{day_of_week_desc}{month_desc}{year_desc}"
 
-            description = self.transform_verbosity(description, use_verbose_format=self._options.verbose)
-            description = ExpressionDescriptor.transform_case(description, self._options.casing_type)
+            description = self.transform_verbosity(description, use_verbose_format=self._verbose)
+            description = ExpressionDescriptor.transform_case(description, self._casing_type)
         except Exception as e:
             description = self.translate(
                 "An error occurred when generating the expression description.  Check the cron expression syntax.",
@@ -663,7 +730,7 @@ class ExpressionDescriptor:
         hour = int(hour_expression)
 
         period = ""
-        if self._options.use_24hour_time_format is False:
+        if self._use_24hour_time_format is False:
             period = self.translate("PM") if (hour >= 12) else self.translate("AM")
             if period:
                 # add preceding space

@@ -24,12 +24,10 @@ import re
 from typing import ClassVar
 
 from .Exception import FormatError, MissingFieldError
-from .Options import Options
 
 
 class ExpressionParser:
     _expression = ""
-    _options: Options
 
     _cron_days: ClassVar[dict[int, str]] = {
         0: "SUN",
@@ -56,7 +54,7 @@ class ExpressionParser:
         12: "DEC",
     }
 
-    def __init__(self, expression: str, options: Options) -> None:
+    def __init__(self, expression: str, *, six_field_expression_has_seconds: bool | None, day_of_week_start_index_zero: bool) -> None:
         """Initializes a new instance of the ExpressionParser class
         Args:
             expression: The cron expression string
@@ -64,7 +62,8 @@ class ExpressionParser:
 
         """
         self._expression = expression
-        self._options = options
+        self._six_field_expression_has_seconds = six_field_expression_has_seconds
+        self._day_of_week_start_index_zero = day_of_week_start_index_zero
 
     def parse(self) -> list[str]:
         """Parses the cron expression string
@@ -93,12 +92,12 @@ class ExpressionParser:
             for i, expression_part_temp in enumerate(expression_parts_temp):
                 parsed[i + 1] = expression_part_temp
         elif expression_parts_temp_length == 6:
-            if self._options.six_field_expression_has_seconds is None:
+            if self._six_field_expression_has_seconds is None:
                 # Detect the year from the last field or a "?" in the day fields.
                 year_regex = re.compile(r"\d{4}$")
                 is_year_with_no_seconds_part = bool(year_regex.search(expression_parts_temp[5])) or "?" in [expression_parts_temp[4], expression_parts_temp[2]]
             else:
-                is_year_with_no_seconds_part = not self._options.six_field_expression_has_seconds
+                is_year_with_no_seconds_part = not self._six_field_expression_has_seconds
             for i, expression_part_temp in enumerate(expression_parts_temp):
                 if is_year_with_no_seconds_part:
                     # Shift parts over by one
@@ -155,7 +154,7 @@ class ExpressionParser:
             match_value = match.group()
             dow_digits = re.sub(r"\D", "", match_value)
             dow_digits_adjusted = dow_digits
-            if self._options.day_of_week_start_index_zero:
+            if self._day_of_week_start_index_zero:
                 if dow_digits == "7":
                     dow_digits_adjusted = "0"
             else:
