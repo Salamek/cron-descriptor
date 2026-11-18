@@ -442,8 +442,9 @@ def test_day_of_week_nth_list_different_days(options: Options) -> None:
 
 
 def test_day_of_week_nth_list_with_plain_day(options: Options) -> None:
-    # Only lists where every item has an ordinal are described item by item
-    assert "Friday" in get_description("0 0 * * 1#2,5", options)
+    assert get_description("0 0 * * 1#2,5", options) == (
+        "At 12:00 AM, only on Friday and on the second Monday of the month"
+    )
 
 
 def test_day_of_week_list_mixing_plain_and_nth_days(options: Options) -> None:

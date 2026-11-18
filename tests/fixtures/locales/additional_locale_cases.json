@@ -31,5 +31,38 @@
       "use_24hour_time_format": true
     },
     "normalize_apostrophe": false
+  },
+  {
+    "id": "en_US/MixedWeekdays/3#2,5L",
+    "locale": "en_US",
+    "expression": "* * * * 3#2,5L",
+    "expected": "Every minute, on the second Wednesday of the month and on the last Friday of the month",
+    "comparison": "equal",
+    "options": {
+      "use_24hour_time_format": true
+    },
+    "normalize_apostrophe": false
+  },
+  {
+    "id": "ja_JP/MixedWeekdays/1,3#2",
+    "locale": "ja_JP",
+    "expression": "* * * * 1,3#2",
+    "expected": "毎分、月曜日 にのみ と 次に 月のうち 2 番目 水曜日",
+    "comparison": "equal",
+    "options": {
+      "use_24hour_time_format": true
+    },
+    "normalize_apostrophe": false
+  },
+  {
+    "id": "en_US/MixedWeekdays/1,3#02",
+    "locale": "en_US",
+    "expression": "* * * * 1,3#02",
+    "expected": "Every minute, only on Monday and on the second Wednesday of the month",
+    "comparison": "equal",
+    "options": {
+      "use_24hour_time_format": true
+    },
+    "normalize_apostrophe": false
   }
 ]
