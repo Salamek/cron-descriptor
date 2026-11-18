@@ -124,7 +124,8 @@ class ExpressionParser:
 
         """
         # convert ? to * only for DOM and DOW
-        expression_parts[3] = expression_parts[3].replace("?", "*")
+        # (DOM is upper-cased too: l/w mean L/W, as the validator allows)
+        expression_parts[3] = expression_parts[3].replace("?", "*").upper()
         expression_parts[5] = expression_parts[5].replace("?", "*")
 
         # convert 0/, 1/ to */

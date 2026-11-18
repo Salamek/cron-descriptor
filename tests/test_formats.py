@@ -161,6 +161,14 @@ def test_last_weekday_of_the_month(options: Options) -> None:
 def test_last_weekday_of_the_month2(options: Options) -> None:
     assert get_description("* * WL * *", options) == "Every minute, on the last weekday of the month"
 
+def test_day_of_month_specials_lowercase(options: Options) -> None:
+    assert get_description("* * l * *", options) == "Every minute, on the last day of the month"
+    assert get_description("0 0 0 l-5 * ?", options) == "At 12:00 AM, 5 days before the last day of the month"
+    assert get_description("* * lw * *", options) == "Every minute, on the last weekday of the month"
+    assert get_description("* * wl * *", options) == "Every minute, on the last weekday of the month"
+    assert get_description("* * 13w * *", options) == "Every minute, on the weekday nearest day 13 of the month"
+    assert get_description("* * w1 * *", options) == "Every minute, on the first weekday of the month"
+
 def test_first_weekday_of_the_month(options: Options) -> None:
     assert get_description("* * 1W * *", options) == "Every minute, on the first weekday of the month"
 

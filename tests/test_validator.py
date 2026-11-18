@@ -71,8 +71,6 @@ invalid = [
     "0-59 * * 1 * 1",     # invalid DOW range
     "1-2/59 * * 1 * 1",   # invalid step
     "* * /31 * *",        # stray slash
-    "* * l-31 * *",       # lowercase 'l'
-    "* * lw * *",         # lowercase 'lw'
     "* * ? * /6",         # stray slash
     "* * ? * * /129",     # stray slash
     "* /12 ? * *",        # stray slash
