@@ -430,11 +430,12 @@ class ExpressionValidator:
         sss-sss
         n|sss,n|sss,n|sss,n-n,sss-sss (maximum 7 elements)
         nL
+        L (last day of the week, Saturday)
         n#n
         """
         mi, mx = (0, 7)
 
-        if expr in ("*", "?"):
+        if expr in ("*", "?", "L", "l"):
             pass
 
         elif re.match(r"\d{1}$", expr):
