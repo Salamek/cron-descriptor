@@ -439,6 +439,28 @@ class ExpressionDescriptor:
                 # The month text can precede the placeholder in some locales.
                 return self.translate(", on the ") + self.translate(" {0} of the month").removeprefix(" ").format(items)
 
+        # A list mixing plain days with nth or last weekdays (e.g. 1,3#2 or 5L,1):
+        # the "#"/"L" wording belongs to its own item only, so describe the plain
+        # days first and append each special item after them.
+        if "," in dow_expression and ("#" in dow_expression or "L" in dow_expression):
+            segments = dow_expression.split(",")
+            special = [s for s in segments if re.fullmatch(r"\d+(#[1-5]|L)", s)]
+            plain = [s for s in segments if "#" not in s and "L" not in s]
+            if special and plain and len(special) + len(plain) == len(segments):
+                description = self.get_segment_description(
+                    ",".join(plain),
+                    self.translate(", every day"),
+                    get_day_name,
+                    lambda s: self.translate(", every {0} days of the week").format(s),
+                    lambda _: self.translate(", {0} through {1}"),
+                    get_format,
+                    lambda _: self.translate(", {0} through {1}"),
+                )
+                for s in special:
+                    # Drop the leading list separator, which differs by locale (", ", "、", "، ").
+                    description += self.translate(" and ") + get_format(s).format(get_day_name(s)).lstrip(" ,、،")
+                return description
+
         return self.get_segment_description(
             self._expression_parts[5],
             self.translate(", every day"),
