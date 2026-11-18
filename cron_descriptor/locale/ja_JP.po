@@ -18,7 +18,7 @@ msgstr ""
 
 #: ExpressionDescriptor.py:145
 msgid ""
-"An error occured when generating the expression description.  Check the cron "
+"An error occurred when generating the expression description.  Check the cron "
 "expression syntax."
 msgstr "式の記述を生成する際にエラーが発生しました。Cron 式の構文を確認してください。"
 

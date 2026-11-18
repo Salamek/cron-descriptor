@@ -22,7 +22,7 @@ msgstr "κάθε ώρα"
 
 #. AnErrorOccurredWhenGeneratingTheExpressionD
 msgid ""
-"An error occured when generating the expression description.  Check the cron"
+"An error occurred when generating the expression description.  Check the cron"
 " expression syntax."
 msgstr ""
 "Ένα σφάλμα συνέβη κατά τη δημιουργία της περιγραφής έκφρασης. Ελέγξτε τη "

@@ -19,10 +19,10 @@ msgstr ""
 
 #: ExpressionDescriptor.py:130
 msgid ""
-"An error occured when generating the expression description.  Check the cron "
+"An error occurred when generating the expression description.  Check the cron "
 "expression syntax."
 msgstr ""
-"An error occured when generating the expression description.  Check the cron "
+"An error occurred when generating the expression description.  Check the cron "
 "expression syntax."
 
 #: ExpressionDescriptor.py:151

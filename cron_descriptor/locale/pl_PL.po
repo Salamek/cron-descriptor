@@ -22,7 +22,7 @@ msgstr "co godzinę"
 
 #. AnErrorOccurredWhenGeneratingTheExpressionD
 msgid ""
-"An error occured when generating the expression description.  Check the cron"
+"An error occurred when generating the expression description.  Check the cron"
 " expression syntax."
 msgstr ""
 "Wystąpił błąd podczas generowania opisu wyrażenia cron. Sprawdź składnię "

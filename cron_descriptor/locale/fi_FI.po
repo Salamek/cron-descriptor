@@ -22,7 +22,7 @@ msgstr "joka tunti"
 
 #. AnErrorOccurredWhenGeneratingTheExpressionD
 msgid ""
-"An error occured when generating the expression description.  Check the cron"
+"An error occurred when generating the expression description.  Check the cron"
 " expression syntax."
 msgstr "Virhe kuvauksen generoinnissa. Tarkista cron-syntaksi."
 
