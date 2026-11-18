@@ -463,6 +463,12 @@ def test_day_of_week_list_mixing_plain_and_nth_days(options: Options) -> None:
     assert get_description("* * * * 3#2,1-2", options) == (
         "Every minute, Monday through Tuesday and on the second Wednesday of the month"
     )
+    assert get_description("* * * * 1,2,3#2", options) == (
+        "Every minute, only on Monday and Tuesday, and on the second Wednesday of the month"
+    )
+    assert get_description("0 9 15 * 1,3#2", options) == (
+        "At 09:00 AM, on day 15 of the month, or on Monday and on the second Wednesday of the month"
+    )
 
 
 def test_day_of_week_list_mixing_plain_and_last_days(options: Options) -> None:
@@ -470,5 +476,8 @@ def test_day_of_week_list_mixing_plain_and_last_days(options: Options) -> None:
         "Every minute, only on Monday and on the last Friday of the month"
     )
     assert get_description("* * * * 1,3#2,5L", options) == (
-        "Every minute, only on Monday and on the second Wednesday of the month and on the last Friday of the month"
+        "Every minute, only on Monday, on the second Wednesday of the month, and on the last Friday of the month"
+    )
+    assert get_description("* * * * 1,2,3#2,5L", options) == (
+        "Every minute, only on Monday and Tuesday, on the second Wednesday of the month, and on the last Friday of the month"
     )

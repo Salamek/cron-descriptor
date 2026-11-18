@@ -447,15 +447,15 @@ class ExpressionDescriptor:
                     get_format,
                     lambda _: self.translate(", {0} through {1}"),
                 )
+                groups = [description] if description else []
                 for s in special:
                     _, separator, ordinal = s.partition("#")
                     day = get_day_name(s)
                     item = format_nth_days(f"{get_ordinal(int(ordinal))} {day}") if separator else get_format(s).format(day)
-                    if description:
-                        description += self.translate(" and ") + item.lstrip(" ,、،")
-                    else:
-                        description = item
-                return description
+                    groups.append(item.lstrip(" ,、،") if groups else item)
+                if len(groups) == 2 and len(plain) > 1:
+                    groups[0] += ","
+                return self.get_list_description(groups)
 
         return self.get_segment_description(
             self._expression_parts[5],
