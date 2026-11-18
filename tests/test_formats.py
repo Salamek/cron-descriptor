@@ -444,3 +444,22 @@ def test_day_of_week_nth_list_different_days(options: Options) -> None:
 def test_day_of_week_nth_list_with_plain_day(options: Options) -> None:
     # Only lists where every item has an ordinal are described item by item
     assert "Friday" in get_description("0 0 * * 1#2,5", options)
+
+
+def test_day_of_week_list_mixing_plain_and_nth_days(options: Options) -> None:
+    # The ordinal belongs to its own item, not to the whole list
+    assert get_description("* * * * 1,3#2", options) == (
+        "Every minute, only on Monday and on the second Wednesday of the month"
+    )
+    assert get_description("* * * * 3#2,1-2", options) == (
+        "Every minute, Monday through Tuesday and on the second Wednesday of the month"
+    )
+
+
+def test_day_of_week_list_mixing_plain_and_last_days(options: Options) -> None:
+    assert get_description("* * * * 5L,1", options) == (
+        "Every minute, only on Monday and on the last Friday of the month"
+    )
+    assert get_description("* * * * 1,3#2,5L", options) == (
+        "Every minute, only on Monday and on the second Wednesday of the month and on the last Friday of the month"
+    )
