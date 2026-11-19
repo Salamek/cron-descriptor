@@ -53,7 +53,7 @@ msgstr "cada {0} segundos"
 #: ExpressionDescriptor.py:201
 #, python-brace-format
 msgid "seconds {0} through {1} past the minute"
-msgstr "En los segundos {0} al {1} de cada minuto"
+msgstr "en los segundos {0} al {1} de cada minuto"
 
 #: ExpressionDescriptor.py:201
 #, python-brace-format
@@ -98,9 +98,13 @@ msgstr "entre las {0} y las {1}"
 msgid "at {0}"
 msgstr "a las {0}"
 
+#, python-brace-format
+msgid "at {0} [hourRanges]"
+msgstr "{0}"
+
 #: ExpressionDescriptor.py:241
 msgid "first"
-msgstr "primero"
+msgstr "primer"
 
 #: ExpressionDescriptor.py:243
 msgid "second"
@@ -150,6 +154,10 @@ msgstr ", cada día"
 #, python-brace-format
 msgid ", every {0} days of the week"
 msgstr ", cada {0} días de la semana"
+
+#, python-brace-format
+msgid ", every {0} weeks"
+msgstr ", cada {0} semanas"
 
 #: ExpressionDescriptor.py:260 ExpressionDescriptor.py:274
 #: ExpressionDescriptor.py:318
@@ -221,7 +229,47 @@ msgstr ", cada minuto"
 msgid ", every hour"
 msgstr ", cada hora"
 
+#: ExpressionDescriptor.py:564
+msgid "AM"
+msgstr "a. m."
+
+#: ExpressionDescriptor.py:564
+msgid "PM"
+msgstr "p. m."
+
 #: ExpressionDescriptor.py:489
 #, python-brace-format
 msgid ", starting {0}"
 msgstr ", empezando {0}"
+
+#: ExpressionDescriptor.py:390
+msgid ", {0} days before the last day of the month"
+msgstr ", {0} días antes del último día del mes"
+
+#: ExpressionDescriptor.py:231
+msgid "at {0} seconds past the minute [grThen20]"
+msgstr "a los {0} segundos del minuto"
+
+#: ExpressionDescriptor.py:242
+msgid ", second {0} through second {1}"
+msgstr ", {0} a {1}"
+
+#: ExpressionDescriptor.py:262
+msgid "at {0} minutes past the hour [grThen20]"
+msgstr "a los {0} minutos de la hora"
+
+#: ExpressionDescriptor.py:273
+msgid ", minute {0} through minute {1}"
+msgstr ", {0} a {1}"
+
+#: ExpressionDescriptor.py:291
+msgid ", hour {0} through hour {1}"
+msgstr ", de las {0} a las {1}"
+
+#: ExpressionDescriptor.py:363 ExpressionDescriptor.py:365
+msgid ", month {0} through month {1}"
+msgstr ", de {0} a {1}"
+
+#: ExpressionDescriptor.py:432 ExpressionDescriptor.py:434
+msgid ", year {0} through year {1}"
+msgstr ", de {0} a {1}"
