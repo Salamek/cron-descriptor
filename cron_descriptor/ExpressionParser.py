@@ -257,15 +257,11 @@ class ExpressionParser:
         """Adjusts a single day-of-week digit based on the dayOfWeekStartIndexZero option."""
         match_value = match.group()
         dow_digits = re.sub(r"\D", "", match_value)
-        dow_digits_adjusted = dow_digits
+        day_number = int(dow_digits)
         minimum = 0 if self._day_of_week_start_index_zero else 1
-        if not minimum <= int(dow_digits) <= 7:
+        if not minimum <= day_number <= 7:
             msg = f"Error: Day of week '{dow_digits}' is out of range.  Expected values are {minimum}-7."
             raise FormatError(msg)
-        if self._day_of_week_start_index_zero:
-            if dow_digits == "7":
-                dow_digits_adjusted = "0"
-        else:
-            dow_digits_adjusted = str(int(dow_digits) - 1)
+        day_number_adjusted = day_number % 7 if self._day_of_week_start_index_zero else day_number - 1
 
-        return match_value.replace(dow_digits, dow_digits_adjusted)
+        return match_value.replace(dow_digits, str(day_number_adjusted))
