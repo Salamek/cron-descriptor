@@ -173,8 +173,7 @@ class ExpressionParser:
             expression_parts[3] = "*"
 
         # convert SUN-SAT format to 0-6 format
-        for day_number in self._cron_days:
-            expression_parts[5] = expression_parts[5].upper().replace(self._cron_days[day_number], str(day_number))
+        expression_parts[5] = self._normalize_day_of_week_names(expression_parts[5])
 
         # convert JAN-DEC format to 1-12 format
         for month_number in self._cron_months:
@@ -224,6 +223,14 @@ class ExpressionParser:
                 if step_range_through is not None:
                     parts = expression_parts[i].split("/")
                     expression_parts[i] = f"{parts[0]}-{step_range_through}/{parts[1]}"
+
+    def _normalize_day_of_week_names(self, expression: str) -> str:
+        """Convert SUN-SAT names to 0-6, and a bare L to 6."""
+        expression = expression.upper()
+        for day_number, day_name in self._cron_days.items():
+            expression = expression.replace(day_name, str(day_number))
+        # A bare L is the last day of the week, Saturday (as in Quartz), also as a list item
+        return ",".join("6" if item == "L" else item for item in expression.split(","))
 
     def _normalize_day_of_week_steps(self, expression: str) -> str:
         """Keep weekday steps within their list item and the selected numbering scheme."""

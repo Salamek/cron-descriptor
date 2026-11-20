@@ -430,11 +430,12 @@ class ExpressionValidator:
         sss-sss
         n|sss,n|sss,n|sss,n-n,sss-sss (maximum 7 elements)
         nL
+        L (last day of the week, Saturday)
         n#n
         """
         mi, mx = (0, 7)
 
-        if expr in ("*", "?"):
+        if expr in ("*", "?", "L", "l"):
             pass
 
         elif re.match(r"\d{1}$", expr):
@@ -482,15 +483,16 @@ class ExpressionValidator:
                 raise FormatError(msg) from e
             self.compare_range(st=st_day, ed=ed_day, mi=mi, mx=mx, prefix=prefix, type_="dow")
 
-        elif re.fullmatch(r"(?:\d(?:-\d)?|[A-Za-z]{3}(?:-[A-Za-z]{3})?)"
-                          r"(?:,(?:\d(?:-\d)?|[A-Za-z]{3}(?:-[A-Za-z]{3})?))*", expr):
+        elif re.fullmatch(r"(?:\d(?:-\d)?|[A-Za-z]{3}(?:-[A-Za-z]{3})?|[lL])"
+                          r"(?:,(?:\d(?:-\d)?|[A-Za-z]{3}(?:-[A-Za-z]{3})?|[lL]))*", expr):
             limit = 7
             expr_ls = expr.split(",")
             if len(expr_ls) > limit:
                 msg = f"({prefix}) Exceeded maximum number({limit}) of specified value. '{len(expr_ls)}' is provided"
                 raise FormatError(msg)
             cron_days = {v: k for (k, v) in self._cron_days.items()}
-            for day in expr_ls:
+            for raw_day in expr_ls:
+                day = "6" if raw_day.upper() == "L" else raw_day
                 if "-" in day:
                     parts = day.split("-")
                     if len(parts[0]) == 3:

@@ -142,6 +142,19 @@ def test_every_x_days_of_the_week_range_ending_on_sunday(options: Options) -> No
 def test_last_day_of_the_week_of_the_month(options: Options) -> None:
     assert get_description("* * * * 4L", options) == "Every minute, on the last Thursday of the month"
 
+def test_last_day_of_the_week_alone(options: Options) -> None:
+    # A bare L in day-of-week is the last day of the week (Saturday), like Quartz
+    assert get_description("0 0 0 ? * L", options) == "At 12:00 AM, only on Saturday"
+    assert get_description("* * * * l", options) == "Every minute, only on Saturday"
+    assert get_description("* * * * 1,L", options) == "Every minute, only on Monday and Saturday"
+    assert get_description("0 0 0 ? 1 L", options) == "At 12:00 AM, only on Saturday, only in January"
+
+def test_last_day_of_the_week_alone_with_sunday_start_one(options: Options) -> None:
+    options.day_of_week_start_index_zero = False
+    assert get_description("* * * ? * L", options) == "Every second, only on Saturday"
+    assert get_description("* * * * l", options) == "Every minute, only on Saturday"
+    assert get_description("* * * * 2,L", options) == "Every minute, only on Monday and Saturday"
+
 def test_last_day_of_the_month(options: Options) -> None:
     assert get_description(
         "*/5 * L JAN *",
