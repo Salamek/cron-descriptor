@@ -41,3 +41,13 @@ def test_invalid_syntax_exception(options: Options) -> None:
     with pytest.raises(FormatError):
         ceh.get_description(DescriptionTypeEnum.FULL)
 
+
+def test_invalid_syntax_exception_message(options: Options) -> None:
+    ceh = ExpressionDescriptor("* $ * * *", options)
+    with pytest.raises(FormatError, match=r"^An error occurred when generating the expression description"):
+        ceh.get_description(DescriptionTypeEnum.FULL)
+
+def test_invalid_syntax_exception_message_translated() -> None:
+    ceh = ExpressionDescriptor("* $ * * *", Options(locale_code="cs_CZ"))
+    with pytest.raises(FormatError, match=r"^Nastala chyba při generování popisu výrazu"):
+        ceh.get_description(DescriptionTypeEnum.FULL)

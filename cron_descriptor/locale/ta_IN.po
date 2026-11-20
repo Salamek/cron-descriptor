@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 
 #: ExpressionDescriptor.py:130
-msgid "An error occured when generating the expression description.  Check the cron expression syntax."
+msgid "An error occurred when generating the expression description.  Check the cron expression syntax."
 msgstr "வெளிப்பாடு விளக்கத்தை உருவாக்கும் போது பிழை ஏற்பட்டது. க்ரான் வெளிப்பாட்டை சரிபார்க்கவும்.வெளிப்பாடு தொடரியல்."
 
 #: ExpressionDescriptor.py:151

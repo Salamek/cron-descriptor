@@ -22,7 +22,7 @@ msgstr "每小時"
 
 #. AnErrorOccurredWhenGeneratingTheExpressionD
 msgid ""
-"An error occured when generating the expression description.  Check the cron"
+"An error occurred when generating the expression description.  Check the cron"
 " expression syntax."
 msgstr "產生正規表達式描述時發生了錯誤，請檢查 cron 表達式語法。"
 
