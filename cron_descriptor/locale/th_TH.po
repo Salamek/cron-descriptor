@@ -18,7 +18,6 @@ msgstr ""
 "X-Generator: Poedit 3.6\n"
 
 #: ExpressionDescriptor.py:130
-#, fuzzy
 msgid ""
 "An error occurred when generating the expression description.  Check the cron "
 "expression syntax."

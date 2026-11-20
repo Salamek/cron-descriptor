@@ -47,7 +47,14 @@ def test_invalid_syntax_exception_message(options: Options) -> None:
     with pytest.raises(FormatError, match=r"^An error occurred when generating the expression description"):
         ceh.get_description(DescriptionTypeEnum.FULL)
 
-def test_invalid_syntax_exception_message_translated() -> None:
-    ceh = ExpressionDescriptor("* $ * * *", Options(locale_code="cs_CZ"))
-    with pytest.raises(FormatError, match=r"^Nastala chyba při generování popisu výrazu"):
+@pytest.mark.parametrize(  # type: ignore[untyped-decorator]
+    ("locale_code", "message"),
+    [
+        ("cs_CZ", "Nastala chyba při generování popisu výrazu"),
+        ("th_TH", "เกิดข้อผิดพลาดเมื่อสร้างคําอธิบายนิพจน์ ตรวจสอบไวยากรณ์นิพจน์ cron"),
+    ],
+)
+def test_invalid_syntax_exception_message_translated(locale_code: str, message: str) -> None:
+    ceh = ExpressionDescriptor("* $ * * *", Options(locale_code=locale_code))
+    with pytest.raises(FormatError, match=f"^{message}"):
         ceh.get_description(DescriptionTypeEnum.FULL)
