@@ -51,6 +51,7 @@ def test_invalid_syntax_exception_message(options: Options) -> None:
     ("locale_code", "message"),
     [
         ("cs_CZ", "Nastala chyba při generování popisu výrazu"),
+        ("es_ES", "Ocurrió un error mientras se generaba la descripción de la expresión"),
         ("th_TH", "เกิดข้อผิดพลาดเมื่อสร้างคําอธิบายนิพจน์ ตรวจสอบไวยากรณ์นิพจน์ cron"),
     ],
 )
