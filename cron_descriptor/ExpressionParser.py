@@ -154,19 +154,7 @@ class ExpressionParser:
         expression_parts[5] = self._normalize_day_of_week_steps(expression_parts[5])
 
         # Adjust DOW based on dayOfWeekStartIndexZero option
-        def digit_replace(match: re.Match[str]) -> str:
-            match_value = match.group()
-            dow_digits = re.sub(r"\D", "", match_value)
-            dow_digits_adjusted = dow_digits
-            if self._day_of_week_start_index_zero:
-                if dow_digits == "7":
-                    dow_digits_adjusted = "0"
-            else:
-                dow_digits_adjusted = str(int(dow_digits) - 1)
-
-            return match_value.replace(dow_digits, dow_digits_adjusted)
-
-        expression_parts[5] = re.sub(r"(^\d)|([^#/\s]\d)", digit_replace, expression_parts[5])
+        expression_parts[5] = re.sub(r"(^\d)|([^#/\s]\d)", self._adjust_day_of_week_digit, expression_parts[5])
 
         # Convert DOM '?' to '*'
         if expression_parts[3] == "?":
@@ -264,3 +252,19 @@ class ExpressionParser:
             else:
                 segments[i] = f"{start}-{end}/{step}"
         return ",".join(segments)
+
+    def _adjust_day_of_week_digit(self, match: re.Match[str]) -> str:
+        """Adjusts a single day-of-week digit based on the dayOfWeekStartIndexZero option."""
+        match_value = match.group()
+        dow_digits = re.sub(r"\D", "", match_value)
+        dow_digits_adjusted = dow_digits
+        if self._day_of_week_start_index_zero:
+            if dow_digits == "7":
+                dow_digits_adjusted = "0"
+        elif dow_digits not in ("1", "2", "3", "4", "5", "6", "7"):
+            msg = f"Error: Day of week '{dow_digits}' is out of range.  Expected values are 1-7 when day_of_week_start_index_zero is False."
+            raise FormatError(msg)
+        else:
+            dow_digits_adjusted = str(int(dow_digits) - 1)
+
+        return match_value.replace(dow_digits, dow_digits_adjusted)

@@ -59,3 +59,13 @@ def test_invalid_syntax_exception_message_translated(locale_code: str, message: 
     ceh = ExpressionDescriptor("* $ * * *", Options(locale_code=locale_code))
     with pytest.raises(FormatError, match=f"^{message}"):
         ceh.get_description(DescriptionTypeEnum.FULL)
+
+def test_day_of_week_zero_with_start_index_zero_false_exception(options: Options) -> None:
+    options.day_of_week_start_index_zero = False
+    with pytest.raises(FormatError):
+        ExpressionDescriptor("* * * * 0", options).get_description(DescriptionTypeEnum.FULL)
+
+def test_day_of_week_out_of_range_with_start_index_zero_false_exception(options: Options) -> None:
+    options.day_of_week_start_index_zero = False
+    with pytest.raises(FormatError):
+        ExpressionDescriptor("* * * * 8", options).get_description(DescriptionTypeEnum.FULL)
