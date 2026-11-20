@@ -154,7 +154,7 @@ class ExpressionParser:
         expression_parts[5] = self._normalize_day_of_week_steps(expression_parts[5])
 
         # Adjust DOW based on dayOfWeekStartIndexZero option
-        expression_parts[5] = re.sub(r"(^\d)|([^#/\s]\d)", self._adjust_day_of_week_digit, expression_parts[5])
+        expression_parts[5] = re.sub(r"(^\d+)|([^#/\s\d]\d+)", self._adjust_day_of_week_digit, expression_parts[5])
 
         # Convert DOM '?' to '*'
         if expression_parts[3] == "?":
@@ -258,12 +258,13 @@ class ExpressionParser:
         match_value = match.group()
         dow_digits = re.sub(r"\D", "", match_value)
         dow_digits_adjusted = dow_digits
+        minimum = 0 if self._day_of_week_start_index_zero else 1
+        if not minimum <= int(dow_digits) <= 7:
+            msg = f"Error: Day of week '{dow_digits}' is out of range.  Expected values are {minimum}-7."
+            raise FormatError(msg)
         if self._day_of_week_start_index_zero:
             if dow_digits == "7":
                 dow_digits_adjusted = "0"
-        elif dow_digits not in ("1", "2", "3", "4", "5", "6", "7"):
-            msg = f"Error: Day of week '{dow_digits}' is out of range.  Expected values are 1-7 when day_of_week_start_index_zero is False."
-            raise FormatError(msg)
         else:
             dow_digits_adjusted = str(int(dow_digits) - 1)
 

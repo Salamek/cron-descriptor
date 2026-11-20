@@ -89,6 +89,25 @@ descriptor = ExpressionDescriptor(
 print(descriptor.get_description())  # Every minute
 ```
 
+### Handling malformed expressions
+
+Catch `FormatError` when parsing or describing an expression fails. Input conversion
+errors retain the original exception in `__cause__`, including when requesting a
+partial description through `get_description(DescriptionTypeEnum.DAYOFWEEK)`.
+Empty expressions raise `MissingFieldError`.
+
+```python
+from cron_descriptor import FormatError, MissingFieldError, get_description
+
+try:
+    description = get_description("* $ * * *")
+except (FormatError, MissingFieldError) as error:
+    print(f"Cannot describe expression: {error}")
+```
+
+Descriptions do not guarantee that an expression is valid for your scheduler.
+Use the separate `ExpressionValidator` class when validation is needed.
+
 ## Languages Available
 
 | Language            | Locale Code | Contributor                                             |

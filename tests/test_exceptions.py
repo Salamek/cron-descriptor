@@ -69,3 +69,30 @@ def test_day_of_week_out_of_range_with_start_index_zero_false_exception(options:
     options.day_of_week_start_index_zero = False
     with pytest.raises(FormatError):
         ExpressionDescriptor("* * * * 8", options).get_description(DescriptionTypeEnum.FULL)
+
+
+@pytest.mark.parametrize("one_based", [False, True])  # type: ignore[untyped-decorator]
+@pytest.mark.parametrize("weekday", ["8", "10", "1,10", "1-10", "10L", "10#2", "10/2"])  # type: ignore[untyped-decorator]
+def test_out_of_range_weekday_tokens(weekday: str, *, one_based: bool) -> None:
+    with pytest.raises(FormatError, match=r"Day of week '(8|10)' is out of range"):
+        ExpressionDescriptor(f"0 0 * * {weekday}", locale_code="en_US", day_of_week_start_index_zero=not one_based)
+
+
+@pytest.mark.parametrize(  # type: ignore[untyped-decorator]
+    ("expression", "description_type", "cause"),
+    [
+        ("* $ * * *", DescriptionTypeEnum.HOURS, ValueError),
+        ("* $ * * *", DescriptionTypeEnum.TIMEOFDAY, ValueError),
+        ("* $ * * *", DescriptionTypeEnum.FULL, ValueError),
+        ("0 0 * 0 *", DescriptionTypeEnum.MONTH, KeyError),
+        ("0 0 * 0 *", DescriptionTypeEnum.FULL, KeyError),
+        ("0 0 * * BAD", DescriptionTypeEnum.DAYOFWEEK, ValueError),
+    ],
+)
+@pytest.mark.parametrize("locale_code", ["en_US", "cs_CZ"])  # type: ignore[untyped-decorator]
+def test_description_conversion_errors(expression: str, description_type: DescriptionTypeEnum, cause: type[Exception], locale_code: str) -> None:
+    descriptor = ExpressionDescriptor(expression, locale_code=locale_code)
+    message = "An error occurred" if locale_code == "en_US" else "Nastala chyba"
+    with pytest.raises(FormatError, match=f"^{message}") as error:
+        descriptor.get_description(description_type)
+    assert isinstance(error.value.__cause__, cause)
