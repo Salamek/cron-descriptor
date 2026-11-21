@@ -139,6 +139,17 @@ def test_every_x_days_of_the_week_range_ending_on_sunday(options: Options) -> No
     assert get_description("0 0 12 ? * 1-7/2", options) == "At 12:00 PM, every 2 days of the week, Monday through Sunday"
     assert get_description("0 0 12 ? * FRI-SUN/2", options) == "At 12:00 PM, every 2 days of the week, Friday through Sunday"
 
+def test_sunday_as_0_and_7_in_a_list(options: Options) -> None:
+    # 0 and 7 are both Sunday, so the list names it once.
+    assert get_description("0 0 * * 0,7", options) == "At 12:00 AM, only on Sunday"
+    assert get_description("0 0 * * SUN,7", options) == "At 12:00 AM, only on Sunday"
+    assert get_description("0 0 * * 0,1,7", options) == "At 12:00 AM, only on Sunday and Monday"
+
+def test_sunday_to_sunday_range_is_the_whole_week(options: Options) -> None:
+    # 0-7 covers every day; it is not a one-day range from Sunday to Sunday.
+    assert get_description("0 0 * * 0-7", options) == "At 12:00 AM, Sunday through Saturday"
+    assert get_description("0 0 * * SUN-7", options) == "At 12:00 AM, Sunday through Saturday"
+
 def test_last_day_of_the_week_of_the_month(options: Options) -> None:
     assert get_description("* * * * 4L", options) == "Every minute, on the last Thursday of the month"
 
