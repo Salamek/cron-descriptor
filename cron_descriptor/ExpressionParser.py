@@ -152,6 +152,7 @@ class ExpressionParser:
 
         # Resolve step bounds before Sunday aliases and one-based digits are adjusted.
         expression_parts[5] = self._normalize_day_of_week_steps(expression_parts[5])
+        expression_parts[5] = self._normalize_day_of_week_full_week_range(expression_parts[5])
 
         # Adjust DOW based on dayOfWeekStartIndexZero option
         expression_parts[5] = re.sub(r"(^\d+)|([^#/\s\d]\d+)", self._adjust_day_of_week_digit, expression_parts[5])
@@ -162,6 +163,9 @@ class ExpressionParser:
 
         # convert SUN-SAT format to 0-6 format
         expression_parts[5] = self._normalize_day_of_week_names(expression_parts[5])
+
+        # 0 and 7 are both Sunday, so "0,7" ends up as "0,0" here; name each day once.
+        expression_parts[5] = ",".join(dict.fromkeys(expression_parts[5].split(",")))
 
         # convert JAN-DEC format to 1-12 format
         for month_number in self._cron_months:
@@ -251,6 +255,17 @@ class ExpressionParser:
                 segments[i] = f"{start}-{end}"
             else:
                 segments[i] = f"{start}-{end}/{step}"
+        return ",".join(segments)
+
+    def _normalize_day_of_week_full_week_range(self, expression: str) -> str:
+        """Read a zero-based Sunday-to-Sunday range (0-7) as 0-6, so 7 does not wrap it to 0-0."""
+        if not self._day_of_week_start_index_zero:
+            return expression
+        segments = expression.split(",")
+        for i, segment in enumerate(segments):
+            start, _, end = segment.partition("-")
+            if start.upper() in ("0", "SUN") and end == "7":
+                segments[i] = "0-6"
         return ",".join(segments)
 
     def _adjust_day_of_week_digit(self, match: re.Match[str]) -> str:
