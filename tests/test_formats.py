@@ -149,6 +149,9 @@ def test_sunday_to_sunday_range_is_the_whole_week(options: Options) -> None:
     # 0-7 covers every day; it is not a one-day range from Sunday to Sunday.
     assert get_description("0 0 * * 0-7", options) == "At 12:00 AM, Sunday through Saturday"
     assert get_description("0 0 * * SUN-7", options) == "At 12:00 AM, Sunday through Saturday"
+    assert get_description("0 0 * * 00-7", options) == "At 12:00 AM, Sunday through Saturday"
+    assert get_description("0 0 * * 0-07", options) == "At 12:00 AM, Sunday through Saturday"
+    assert get_description("0 0 * * sun-07", options) == "At 12:00 AM, Sunday through Saturday"
 
 def test_last_day_of_the_week_of_the_month(options: Options) -> None:
     assert get_description("* * * * 4L", options) == "Every minute, on the last Thursday of the month"

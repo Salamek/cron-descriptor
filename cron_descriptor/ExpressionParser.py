@@ -263,8 +263,7 @@ class ExpressionParser:
             return expression
         segments = expression.split(",")
         for i, segment in enumerate(segments):
-            start, _, end = segment.partition("-")
-            if start.upper() in ("0", "SUN") and end == "7":
+            if re.fullmatch(r"(?:0+|SUN)-0*7", segment, flags=re.IGNORECASE):
                 segments[i] = "0-6"
         return ",".join(segments)
 
