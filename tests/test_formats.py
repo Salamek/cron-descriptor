@@ -403,33 +403,33 @@ def test_seconds_expression_combined_with_hours_list_and_single_minute(options: 
 def test_minute_range_with_interval(options: Options) -> None:
     assert get_description("0-20/3 9 * * *", options) == "Every 3 minutes, minutes 0 through 20 past the hour, between 09:00 AM and 09:59 AM"
 
-def minutes_zero_1(options: Options) -> None:
+def test_minutes_zero_1(options: Options) -> None:
     assert get_description("* 0 */4 * * *", options) == "Every second, at 0 minutes past the hour, every 4 hours"
 
 
-def minutes_zero_2(options: Options) -> None:
+def test_minutes_zero_2(options: Options) -> None:
     assert get_description("*/10 0 * * * *", options) == "Every 10 seconds, at 0 minutes past the hour"
 
-def minutes_zero_3(options: Options) -> None:
+def test_minutes_zero_3(options: Options) -> None:
     assert get_description("* 0 0 * * *", options) == "Every second, at 0 minutes past the hour, between 12:00 AM and 12:59 AM"
 
 
-def minutes_zero_4(options: Options) -> None:
+def test_minutes_zero_4(options: Options) -> None:
     assert get_description("* 0 * * *", options) == "Every minute, between 12:00 AM and 12:59 AM"
 
 
-def minutes_zero_5(options: Options) -> None:
+def test_minutes_zero_5(options: Options) -> None:
     assert get_description("* 0 * * * *",options) == "Every second, at 0 minutes past the hour"
 
 
-def sunday_7(options: Options) -> None:
+def test_sunday_7(options: Options) -> None:
     assert get_description("0 0 9 ? * 7", options) == "At 09:00 AM, only on Sunday"
 
 
-def every_year(options: Options) -> None:
+def test_every_10_minutes_monday_through_friday(options: Options) -> None:
     assert get_description("0/10 * ? * MON-FRI *", options) == "Every 10 minutes, Monday through Friday"
 
-def tuesday_9(options: Options) -> None:
+def test_tuesday_9(options: Options) -> None:
     assert get_description("0 9 * * 2", options) == "At 09:00 AM, only on Tuesday"
 
 
