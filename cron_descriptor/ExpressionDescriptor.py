@@ -247,7 +247,7 @@ class ExpressionDescriptor:
             description.append(self.translate("Every minute between {0} and {1}").format(
                 self.format_time(hour_expression, minute_parts[0]), self.format_time(hour_expression, minute_parts[1])))
         elif seconds_expression == "" and "," in hour_expression and "-" not in hour_expression and \
-                any(exp in minute_expression for exp in self._special_characters) is False:
+                "/" not in hour_expression and any(exp in minute_expression for exp in self._special_characters) is False:
             # hours list with single minute (o.e. 30 6,14,16)
             hour_parts = hour_expression.split(",")
             description.append(self.translate("At"))
@@ -725,7 +725,7 @@ class ExpressionDescriptor:
             step_description += ", " + between_desc
         elif sub_segments[0] != "*":
             range_item = get_single_item_description(sub_segments[0])
-            step_description += ", " + self.translate("starting {0}").format(range_item)
+            step_description += self.translate(", starting {0}").format(range_item)
         return step_description
 
     def format_time(

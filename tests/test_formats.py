@@ -468,6 +468,31 @@ def test_comma_with_step_in_days_of_week(options: Options) -> None:
     )
 
 
+def test_comma_with_start_step_in_minutes(options: Options) -> None:
+    assert get_description("5,10/15 9 * * *", options) == (
+        "At 5 and every 15 minutes, starting 10 minutes past the hour, between 09:00 AM and 09:59 AM"
+    )
+
+
+def test_comma_with_start_step_in_hours(options: Options) -> None:
+    assert get_description("0 0,12/6 * * *", options) == "At 12:00 AM and every 6 hours, starting 12:00 PM"
+    assert get_description("30 9,17/4 * * *", options) == (
+        "At 30 minutes past the hour, at 09:00 AM and every 4 hours, starting 05:00 PM"
+    )
+
+
+def test_comma_with_start_step_in_days_of_month(options: Options) -> None:
+    assert get_description("0 0 10,2/3 * *", options) == (
+        "At 12:00 AM, on day 10 and every 3 days, starting 2 of the month"
+    )
+
+
+def test_comma_with_start_step_in_months(options: Options) -> None:
+    assert get_description("0 0 1 2/3,12 *", options) == (
+        "At 12:00 AM, on day 1 of the month, only in every 3 months, starting February and December"
+    )
+
+
 def test_day_of_week_nth_list_same_day(options: Options) -> None:
     assert get_description("0 0 9 * * 1#2,1#4", options) == "At 09:00 AM, on the second and fourth Monday of the month"
     assert get_description("0 45 7 * * 5#1,5#3,5#5", options) == (
