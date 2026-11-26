@@ -615,7 +615,10 @@ class ExpressionDescriptor:
             segments = expression.split(",")
 
             description_content = ""
+            last_item_start = 0
             for i, segment in enumerate(segments):
+                last_item_start = len(description_content)
+
                 if i > 0 and len(segments) > 2:
                     description_content += ","
 
@@ -642,7 +645,12 @@ class ExpressionDescriptor:
                 else:
                     description_content += (get_list_item_description or get_single_item_description)(segment)
 
-            return get_description_format(expression).format(description_content)
+            # A last item like */10 already names its unit ("every 10 minutes"), so the field format
+            # ("at {0} minutes past the hour") wraps only the items before it
+            wrapped_length = last_item_start if segments[-1].startswith("*/") else len(description_content)
+            return get_description_format(expression).format(
+                description_content[:wrapped_length],
+            ) + description_content[wrapped_length:]
 
         if "/" in expression:
             segments = expression.split("/")
