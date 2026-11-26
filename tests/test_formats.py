@@ -493,6 +493,13 @@ def test_comma_with_start_step_in_months(options: Options) -> None:
     )
 
 
+def test_comma_with_trailing_every_step(options: Options) -> None:
+    assert get_description("5,*/10 * * * *", options) == "At 5 minutes past the hour and every 10 minutes"
+    assert get_description("5,15,*/10 * * * *", options) == "At 5, 15 minutes past the hour, and every 10 minutes"
+    assert get_description("5,*/10 * * * * *", options) == "At 5 seconds past the minute and every 10 seconds"
+    assert get_description("0 0 10,*/3 * *", options) == "At 12:00 AM, on day 10 of the month and every 3 days"
+
+
 def test_day_of_week_nth_list_same_day(options: Options) -> None:
     assert get_description("0 0 9 * * 1#2,1#4", options) == "At 09:00 AM, on the second and fourth Monday of the month"
     assert get_description("0 45 7 * * 5#1,5#3,5#5", options) == (
