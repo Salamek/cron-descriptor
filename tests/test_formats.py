@@ -538,3 +538,16 @@ def test_day_of_week_list_mixing_plain_and_last_days(options: Options) -> None:
     assert get_description("* * * * 1,2,3#2,5L", options) == (
         "Every minute, only on Monday and Tuesday, on the second Wednesday of the month, and on the last Friday of the month"
     )
+
+
+def test_list_starting_with_zero_or_one_step(options: Options) -> None:
+    # Only the leading 0/ or 1/ becomes */, not the same text inside a later item
+    assert get_description("0/20,10/20 * * * *", options) == (
+        "At every 20 minutes and every 20 minutes, starting 10 minutes past the hour"
+    )
+    assert get_description("0 0 1/7,11/7 * *", options) == (
+        "At 12:00 AM, on day every 7 days and every 7 days, starting 11 of the month"
+    )
+    assert get_description("0 0 1 1/6,11/6 *", options) == (
+        "At 12:00 AM, on day 1 of the month, only in every 6 months and every 6 months, starting November"
+    )
