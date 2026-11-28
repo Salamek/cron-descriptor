@@ -51,6 +51,11 @@ def test_locale_format(case: LocaleCase) -> None:
     actual = ExpressionDescriptor(case["expression"], options).get_description()
     if case.get("normalize_apostrophe", False):
         actual = actual.replace("'", "\u02bc")
+    if case["locale"] == "zh_TW":
+        # Babel can supply either numeral style for Traditional Chinese months.
+        month_names = ("一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二")
+        for month, name in reversed(list(enumerate(month_names, start=1))):
+            actual = actual.replace(f"{name}月", f"{month}月")
     matches = (
         case["expected"].casefold() in actual.casefold()
         if case["comparison"] == "contains_casefold" else actual == case["expected"]

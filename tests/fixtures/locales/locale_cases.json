@@ -16958,7 +16958,7 @@
     "id": "zh_TW/TestOneMonthOnly/1",
     "locale": "zh_TW",
     "expression": "* * * 3 *",
-    "expected": "每分鐘, 僅在 三月",
+    "expected": "每分鐘, 僅在 3月",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -16969,7 +16969,7 @@
     "id": "zh_TW/TestTwoMonthsOnly/1",
     "locale": "zh_TW",
     "expression": "* * * 3,6 *",
-    "expected": "每分鐘, 僅在 三月 和 六月",
+    "expected": "每分鐘, 僅在 3月 和 6月",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -17024,7 +17024,7 @@
     "id": "zh_TW/TestMonthName/1",
     "locale": "zh_TW",
     "expression": "23 12 * JAN *",
-    "expected": "在 12:23, 僅在 一月",
+    "expected": "在 12:23, 僅在 1月",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -17035,7 +17035,7 @@
     "id": "zh_TW/TestDayOfMonthWithQuestionMark/1",
     "locale": "zh_TW",
     "expression": "23 12 ? JAN *",
-    "expected": "在 12:23, 僅在 一月",
+    "expected": "在 12:23, 僅在 1月",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -17046,7 +17046,7 @@
     "id": "zh_TW/TestMonthNameRange2/1",
     "locale": "zh_TW",
     "expression": "23 12 * JAN-FEB *",
-    "expected": "在 12:23, 一月 到 二月",
+    "expected": "在 12:23, 1月 到 2月",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -17057,7 +17057,7 @@
     "id": "zh_TW/TestMonthNameRange3/1",
     "locale": "zh_TW",
     "expression": "23 12 * JAN-MAR *",
-    "expected": "在 12:23, 一月 到 三月",
+    "expected": "在 12:23, 1月 到 3月",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -17112,7 +17112,7 @@
     "id": "zh_TW/TestLastDayOfTheMonth/1",
     "locale": "zh_TW",
     "expression": "*/5 * L JAN *",
-    "expected": "每 5 分鐘, 每月的最後一天, 僅在 一月",
+    "expected": "每 5 分鐘, 每月的最後一天, 僅在 1月",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -17255,7 +17255,7 @@
     "id": "zh_TW/TestBetweenWithInterval/1",
     "locale": "zh_TW",
     "expression": "2-59/3 1,9,22 11-26 1-6 ?",
-    "expected": "每 3 分鐘, 在每小時的 2 到 59 分鐘, 在 01:00, 09:00, 和 22:00, 在每月的 11 和 26 號之間, 一月 到 六月",
+    "expected": "每 3 分鐘, 在每小時的 2 到 59 分鐘, 在 01:00, 09:00, 和 22:00, 在每月的 11 和 26 號之間, 1月 到 6月",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -17321,7 +17321,7 @@
     "id": "zh_TW/TestYearRange2/1",
     "locale": "zh_TW",
     "expression": "23 12 * JAN-FEB * 2013-2014",
-    "expected": "在 12:23, 一月 到 二月, 2013 到 2014",
+    "expected": "在 12:23, 1月 到 2月, 2013 到 2014",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -17332,7 +17332,7 @@
     "id": "zh_TW/TestYearRange3/1",
     "locale": "zh_TW",
     "expression": "23 12 * JAN-MAR * 2013-2015",
-    "expected": "在 12:23, 一月 到 三月, 2013 到 2015",
+    "expected": "在 12:23, 1月 到 3月, 2013 到 2015",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
@@ -17443,7 +17443,7 @@
     "id": "zh_TW/TestMonthInternalWithStepValue/1",
     "locale": "zh_TW",
     "expression": "0 5 7 ? 3/2 ? *",
-    "expected": "在 07:05, 每 2 月, 三月 到 十二月",
+    "expected": "在 07:05, 每 2 月, 3月 到 12月",
     "comparison": "equal",
     "normalize_apostrophe": false,
     "options": {
