@@ -130,25 +130,25 @@ class ExpressionParser:
 
         # convert 0/, 1/ to */
         if expression_parts[0].startswith("0/"):
-            expression_parts[0] = expression_parts[0].replace("0/", "*/")  # seconds
+            expression_parts[0] = expression_parts[0].replace("0/", "*/", 1)  # seconds
 
         if expression_parts[1].startswith("0/"):
-            expression_parts[1] = expression_parts[1].replace("0/", "*/")  # minutes
+            expression_parts[1] = expression_parts[1].replace("0/", "*/", 1)  # minutes
 
         if expression_parts[2].startswith("0/"):
-            expression_parts[2] = expression_parts[2].replace("0/", "*/")  # hours
+            expression_parts[2] = expression_parts[2].replace("0/", "*/", 1)  # hours
 
         if expression_parts[3].startswith("1/"):
-            expression_parts[3] = expression_parts[3].replace("1/", "*/")  # DOM
+            expression_parts[3] = expression_parts[3].replace("1/", "*/", 1)  # DOM
 
         if expression_parts[4].startswith("1/"):
-            expression_parts[4] = expression_parts[4].replace("1/", "*/")  # Month
+            expression_parts[4] = expression_parts[4].replace("1/", "*/", 1)  # Month
 
         if not self._day_of_week_start_index_zero and expression_parts[5].startswith("1/"):
-            expression_parts[5] = expression_parts[5].replace("1/", "*/")  # DOW
+            expression_parts[5] = expression_parts[5].replace("1/", "*/", 1)  # DOW
 
         if expression_parts[6].startswith("1/"):
-            expression_parts[6] = expression_parts[6].replace("1/", "*/")  # Years
+            expression_parts[6] = expression_parts[6].replace("1/", "*/", 1)  # Years
 
         # Resolve step bounds before Sunday aliases and one-based digits are adjusted.
         expression_parts[5] = self._normalize_day_of_week_steps(expression_parts[5])
